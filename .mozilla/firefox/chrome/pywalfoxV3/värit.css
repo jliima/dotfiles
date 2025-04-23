@@ -1,0 +1,97 @@
+  /*
+  --pywalfox-background: var(--lwt-accent-color);            == color0
+  --pywalfox-text-focus: var(--toolbar-color);               == color15
+  --pywalfox-text: var(--arrowpanel-color);                  == color7
+  --pywalfox-background-light: var(--arrowpanel-background); == color16  (? == brighter color0)
+  var(--lwt-text-color);                                     == color7
+  --toolbarbutton-icon-fill-attention                        == color2
+  --download-progress-fill-color: var(--toolbarbutton-icon-fill-attention); == color2
+
+  {
+  "special": {
+    "background": "#090300",
+    "foreground": "#a5a2a2",
+    "cursor": "#a5a2a2"
+  },
+  "colors": {
+    "color0": "#090300",
+    "color8": "#5c5855",
+    "color1": "#db2d20",
+    "color9": "#db2d20",
+    "color2": "#01a252",
+    "color10": "#01a252",
+    "color3": "#fded02",
+    "color11": "#fded02",
+    "color4": "#01a0e4",
+    "color12": "#01a0e4",
+    "color5": "#a16a94",
+    "color13": "#a16a94",
+    "color6": "#b5e4f4",
+    "color14": "#b5e4f4",
+    "color7": "#a5a2a2",
+    "color15": "#f7f7f7"
+  }
+}
+
+
+
+Background
+Main background color =
+
+Background light
+Secondary background color
+
+Background extra
+Additional contrasting background color
+
+Text
+Main text color
+
+Text focus
+Text used in the current tab, etc.
+
+Accent primary
+Main accent color, used for icons
+
+Accent secondary
+Mainly used for hovers and highlights
+
+
+  --lwt-accent-color: rgb(9, 3, 0);
+  --lwt-text-color: rgba(253, 237, 2);
+  --arrowpanel-background: rgb(219, 45, 32);
+  --arrowpanel-color: rgb(253, 237, 2);
+  --arrowpanel-border-color: rgb(219, 45, 32);
+  --toolbar-field-background-color: rgb(1, 162, 82);
+  --toolbar-bgcolor: rgb(219, 45, 32);
+  --toolbar-color: rgb(1, 160, 228);
+  --toolbar-field-color: rgb(253, 237, 2);
+  --toolbar-field-border-color: rgb(219, 45, 32);
+  --toolbar-field-focus-background-color: rgba(1, 162, 82, 1);
+  --toolbar-field-focus-color: rgb(1, 160, 228);
+  --toolbarbutton-icon-fill: rgb(161, 106, 148);
+  --newtab-background-color: rgb(9, 3, 0);
+  --newtab-text-primary-color: rgb(253, 237, 2);
+  --tab-selected-bgcolor: rgb(1, 162, 82);
+  --tab-selected-textcolor: rgb(1, 160, 228);
+  --lwt-tab-line-color: rgb(1, 162, 82);
+  --tabs-navbar-separator-color: rgb(9, 3, 0);
+  --chrome-content-separator-color: rgb(219, 45, 32);
+  --urlbarView-highlight-background: rgb(161, 106, 148);
+  --sidebar-background-color: rgb(219, 45, 32);
+  --sidebar-text-color: rgb(253, 237, 2);
+  --sidebar-border-color: rgb(219, 45, 32);
+  --tabpanel-background-color: rgb(9, 3, 0);
+  --avatar-image-url: url("https://firefoxusercontent.com/012080801cf516fc41b98b1c4a4b0810");
+  --toolbar-field-focus-border-color: rgb(219, 45, 32);
+  --lwt-toolbar-field-highlight: rgba(161, 106, 148, 1);
+  --lwt-toolbar-field-highlight-text: rgb(9, 3, 0);
+  --toolbarbutton-icon-fill-attention: rgb(181, 228, 244);
+  --tab-loading-fill: rgb(9, 3, 0);
+  --lwt-background-tab-separator-color: rgb(219, 45, 32);
+  --toolbarseparator-color: rgb(219, 45, 32);
+  --toolbarbutton-hover-background: rgb(1, 162, 82);
+  --toolbarbutton-active-background: rgb(1, 162, 82);
+  --urlbarView-highlight-color: rgb(9, 3, 0);
+
+  */

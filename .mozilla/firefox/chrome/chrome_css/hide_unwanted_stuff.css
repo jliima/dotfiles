@@ -1,0 +1,50 @@
+/******* Hiding unwanted stuff *******/
+
+
+#tracking-protection-icon-container,
+#identity-box,
+#TabsToolbar.titlebar-spacer[type="post-tabs"],
+.titlebar-spacer[type="pre-tabs"],
+.titlebar-spacer[type="post-tabs"],
+.titlebar-placeholder[type="pre-tabs"],
+.titlebar-placeholder[type="post-tabs"],
+.urlbar-icon,
+.tabbrowser-tab::before, 
+.tabbrowser-tab::after,
+.urlbar-page-action.urlbar-icon, 
+.urlbar-history-dropmarker,
+.tab-close-button,
+.panel-arrow,
+#alltabs-button,
+#sidebar-box #sidebar-header, /* removes shit from sidebar */
+/*#PlacesToolbarItems > .bookmark-item[label]:not([container]) > .toolbarbutton-text,*/
+
+/* Context menu stuff */
+#context-navigation,
+#context-sep-navigation,
+#context-pocket,
+#context-sep-sendpagetodevice,
+#context-sendpagetodevice,
+#context-sendlinktodevice,
+#context-savelinktopocket,
+#context-openlinkprivate,
+#screenshots_mozilla_org_create-screenshot,
+
+/* Hamburger menu stuff */
+#appMenu-new-window-button,
+#appMenu-private-window-button,
+#appMenuRestoreLastSession,
+#appMenu-open-file-button,
+#appMenu-save-file-button,
+#appMenu-find-button,
+#appMenu-fxa-container,
+#appMenu-zoom-controls,
+#appMenu-fxa-label,
+#appMenu-edit-controls,
+#appMenu-print-button,
+#appMenu-more-button,
+#appMenu-help-button,
+#appMenu-quit-button,
+#appMenu-logins-button {
+  display: none !important;
+}

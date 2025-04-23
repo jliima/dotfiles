@@ -1,0 +1,23 @@
+{{
+  "manifest_version": 3,
+  "version": "1.0",
+  "name": "pywal-theme",
+  "theme": {{
+    "colors": {{
+      "frame": [{background.rgb}],
+      "frame_inactive": [{background.rgb}],
+      "toolbar": [{background.rgb}],
+      "ntp_text": [{foreground.rgb}],
+      "ntp_link": [{color2.rgb}],
+      "ntp_section": [{color8.rgb}],
+      "button_background.rgb": [{foreground.rgb}],
+      "toolbar_button_icon": [{foreground.rgb}],
+      "toolbar_text": [{foreground.rgb}],
+      "omnibox_background.rgb": [{background.rgb}],
+      "omnibox_text": [{foreground.rgb}]
+    }},
+    "properties": {{
+      "ntp_background.rgb_alignment": "bottom"
+    }}
+  }}
+}}

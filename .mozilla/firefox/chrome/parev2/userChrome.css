@@ -1,0 +1,93 @@
+@import "colors/pare-colors.css";
+
+:root {
+  --context-menu-font-color: var(--fg-color);
+  --context-menu-bg-color: var(--black1-color);
+
+  --frame-bg: var(--black1-color);
+
+  --tab-bar-bg: var(--bg-color);
+  --tab-not-selected-bg: var(--tab-bar-bg);
+  --tab-hover-bg: var(--blue-color);
+  --tab-selected-bg: var(--frame-bg);
+  
+
+
+  --tab-selected-font-color: var(--fg-color);
+  --search-with-text-color: var(--green-color);
+
+  --urlbar-unfocussed-border-color: var(--blue-color);
+  --urlbar-focus-border-color: var(--red1-color);
+  --urlbar-font-color: var(--fg-color);
+  --urlbar-dropmenu-bg-color: var(--black1-color);
+  --urlbar-dropmenu-selection-color: var(--red1-color);
+  --urlbar-dropmenu-font-color: var(--fg-color);
+  --url-section-bg-color: var(--black1-color);
+  --url-section-font-color: var(--fg-color);
+
+  --nav-bar-bg-color: var(--black1-color);
+
+  --selected-text-color: var(--blue-color);
+  --disabled-text-color: var(--black2-color);
+
+  --bookmark-font-color: var(--fg-color);
+
+  --status-panel-font-color: var(--green-color);
+
+  --text-hover-color: var(--blue-color);
+  --tab-corner-rounding: 0px;
+  --animation-speed: 0.25s;
+
+}
+
+#main-window,
+#nav-bar
+{
+  background: var(--frame-bg) !important;
+}
+
+/* Bookmark bar */
+#PersonalToolbar {
+  background: var(--frame-bg) !important;
+}
+
+/* Tab bar background */
+toolbar {
+  background: var(--tab-bar-bg) !important;
+}
+
+/* Selected tab */
+tab.tabbrowser-tab[selected="true"] stack.tab-stack vbox.tab-background {
+  background: var(--tab-selected-bg) !important;
+}
+
+/* Not selected tab */
+tab.tabbrowser-tab stack.tab-stack vbox.tab-background {
+  background: var(--tab-not-selected-bg) !important;
+}
+
+/*hover tab*/
+tab.tabbrowser-tab:hover stack.tab-stack vbox.tab-background {
+  background: var(--tab-hover-bg) !important;
+}
+
+/*tab selection*/
+tab.tabbrowser-tab[pending="true"] {
+  background: blue !important;
+}
+
+#urlbar {
+  border: 1px !important;
+  border-color: var(--urlbar-unfocussed-border-color) !important;
+}
+
+/*urlbar*/
+#urlbar-background {
+  background: var(--frame-bg) !important;
+  
+}
+
+/*suggestions dropdown*/
+#urlbar:is([open]) hbox#urlbar-background {
+  background: var(--frame-bg) !important;
+}

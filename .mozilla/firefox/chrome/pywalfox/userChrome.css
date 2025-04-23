@@ -1,0 +1,412 @@
+@import '../chrome_css/iconized_main_menu.css';
+@import '../chrome_css/iconized_menubar_items.css';
+@import '../chrome_css/iconized_places_context_menu.css';
+@import '../chrome_css/iconized_tabs_context_menu.css';
+@import '../chrome_css/iconized_textbox_context_menu.css';
+@import '../chrome_css/less_static_throbber.css';
+/*@import '../chrome_css/minimal_text_fields.css';*/
+/*@import '../chrome_css/autohide_bookmarks_toolbar.css';*/
+@import '../chrome_css/hide_unwanted_stuff.css';
+@import '../chrome_css/compact_extension_panel.css';
+@import '../chrome_css/font_change.css';
+@import 'colors.css';
+
+:root {
+  --color16: color-mix(in hsl, var(--color0), white 11.5%); /*--color16: color-mix(in hsl, var(--color4), var(--color0) 75%);*/
+  --arrowpanel-background: var(--color16);
+  --arrowpanel-color: var(--foreground);
+
+  --pywalfox-font-size: 13px;
+  --pywalfox-font-size-sm: calc(var(--pywalfox-font-size) * 0.9);
+  --pywalfox-background: var(--color1);/*var(--lwt-accent-color);*/
+  --pywalfox-background-light: var(--arrowpanel-background);
+  --pywalfox-text: var(--arrowpanel-color);
+  --pywalfox-text-focus: var(--toolbar-color);
+  --pywalfox-unselected-tab-opacity: 0.8;
+  --pywalfox-darker-background: rgba(0, 0, 0, 0.4);
+  --pywalfox-padding: 4px 8px;
+
+  --tab-corner-rounding: 0px;
+  --animation-speed: 0.25s;
+  --text-hover-color: var(--color1);
+  --urlbar-icon-border-radius: 10px !important;
+
+}
+
+
+/* vaihtaa sivu palkin viivan oikeelle tulevan viivan väriä */
+#sidebar-box ~ #sidebar-splitter {
+  border-width: 0px !important;
+  background-color: var(--color16) !important;
+  width: 1px !important;
+}
+
+
+
+
+
+/* Page loading bg */
+#browser vbox#appcontent tabbrowser, #content, #tabbrowser-tabpanels, 
+browser[type=content-primary],browser[type=content] > html {
+    background: var(--lwt-accent-color) !important;
+}
+
+
+.subviewbutton.panel-subview-footer {
+  border-top: 1px var(--context-menu-font-color) !important;
+}
+
+tooltip {
+  -moz-appearance: none !important;
+  color: var(--context-menu-font-color) !important;
+  padding: 6.5px !important;
+}
+
+
+/******* Hamburger- and arrowmenu *******/
+
+/* Hidden menu items */
+#widget-overflow-mainView > .panel-subview-body > toolbarseparator,
+.PanelUI-subView menuseparator, 
+.PanelUI-subView toolbarseparator,
+.cui-widget-panelview menuseparator, 
+.cui-widget-panel toolbarseparator {
+  -moz-appearance: none !important;
+  min-height: 0;
+  border-top: 0px solid var(--panel-separator-color) !important;
+  border-bottom: none;
+  margin: 0px 0!important;
+  padding: 0;
+}
+
+
+
+/* "Customise Toolbar" and username 
+.panel-subview-footer,[class^="PanelUI-"] {
+  color: var(--context-menu-font-color) !important;
+}*/
+
+
+
+/******* Statuspanel  *******/
+
+
+#statuspanel #statuspanel-label {
+  border: 0px solid !important;
+  border-radius: 1px !important;
+  padding: 5px 5px 5px 5px !important;
+}
+
+
+
+/******* Right click menu *******/
+
+menuitem, menu {
+  -moz-appearance: none !important;
+  padding: 2px 0px 2px 0px !important;
+}
+
+menupopup {
+	-moz-appearance: none !important;
+	min-width: 150px !important;
+  border-style: none !important;
+}
+
+menupopup, panel {
+  --panel-border-radius: 8px !important; /*  0 for boxy look */
+}
+
+menuseparator {
+	-moz-appearance: none !important;
+	border: none !important;
+	padding: .5px 0px .5px 0px !important;
+	margin: 2px 2px 2px 8px !important;
+}
+
+
+
+menugroup {
+  outline-style: none;
+	padding: 0px !important;
+}
+
+/******* TABBAR *******/
+
+
+
+/*
+.tab-background:is([selected], [multiselected]) {
+  filter: brightness(200%) !important;
+}
+
+.tab-background:is([selected], [multiselected]) {
+  background-color: var(--background-extra) !important;
+}
+*/
+.tab-background {
+  border-radius: 8px !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+
+
+#tabbrowser-tabs {
+  margin-top: 3px !important;
+  margin-left: 3px !important;
+  
+}
+
+
+
+
+/******* URLBAR *******/
+#urlbar {
+  min-height: 32px !important;
+  margin: 0px !important;
+  border: none !important;
+  box-shadow: none !important;
+  
+}
+
+#urlbar-background,#urlbar {
+  border-radius: 10px !important;
+}
+
+
+/* broke in 133.0 release */
+/*#urlbar[breakout][breakout-extend] {
+  top: 0px !important;
+  left: 0px !important;
+  width: 100% !important;
+}*/
+
+input#urlbar-input {
+  text-align: left !important;
+  margin-left: 10px !important;
+  margin-top: 3px !important;
+  margin-bottom: 3px !important;
+  margin-right: 3px !important;
+}
+
+
+
+
+/******* URLBAR DROPDOWN MENU *******/
+
+.urlbarView {
+  margin-inline: 0px !important;
+  border: none !important;
+  width: 100% !important;
+  box-shadow: none !important;
+  clip-path: inset(0px -20px -30px -20px) !important;
+  animation: none !important;
+  margin-block-start: 0px !important;
+  outline: none;
+  
+}
+
+.urlbarView-results {
+  padding-block: 0px !important;
+}
+
+.urlbarView .urlbarView-row {
+  border-radius: 10px !important;
+  padding-block: 0px !important;
+}
+
+
+
+
+/******* Nav-bar icons *******/
+
+#nav-bar .toolbarbutton-icon {
+  width: 20px !important;
+  padding-left: 1px !important;
+  padding-right: 1px !important;
+}
+
+#PanelUI-button {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  border-left: none !important;
+}
+
+#PanelUI-menu-button, .toolbarbutton-badge-stack {
+  padding-left: 0px !important;
+  padding-right: 1px !important;
+}
+
+
+
+/******* Bookmark settings *******/
+
+#PlacesToolbarItems .bookmark-item {
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+
+
+
+/******* Left-side menus *******/
+
+#bookmarks-view,
+#historyTree,
+#history-panel,
+#sidebar-header,
+#search-box {
+  -moz-appearance: none !important;
+  color: var(--context-menu-font-color) !important;
+  border: 0px !important;
+  border-right: 0px !important;
+}
+
+/* hover color */
+/*
+treechildren::-moz-tree-row(hover) {
+  background-color: burlywood !important;
+}
+*/
+
+/* selected color */
+/*
+treechildren::-moz-tree-row(selected){
+  background-color: pink !important;
+  border: none !important;
+}
+
+
+
+
+menuitem[checked="true"][type="radio"] > .menu-iconic-left {
+	padding: 1px !important;
+	border: var(--green-color) !important;
+	height: 17px !important;
+	border-radius: 100%;
+	background: var(--green-color) !important;
+	transform: scale(.5); 
+}
+*/
+
+
+
+
+
+
+#sidebar-box #sidebar {
+  height: 100vh;
+}
+
+
+/* Kaikkien oikean hiiren valikoiden taustaväri punaiseksi 
+menupopup {
+  background-color: yellow !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+menupopup * {
+  background-color: green !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+menu * {
+  background-color: green !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+menupopup,
+.bookmark-item[container="true"] menupopup {
+  background-color: red !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+*/
+
+
+.toolbarbutton[id="f0811709-d562-4380-9704-dcec7896b444"] .toolbarbutton-icon {
+  list-style-image: url("icons/arrow-right.svg") !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+#_f0811709-d562-4380-9704-dcec7896b444_-browser-action .toolbarbutton-1 .toolbarbutton-badge-stack {        
+  background-image: url("icons/arrow-right.svg") !important;
+  background-repeat: no-repeat !important;
+  background-size: 18px !important;
+  background-position: center !important;
+}
+#_f0811709-d562-4380-9704-dcec7896b444_-browser-action  image{ opacity: 0 !important; }
+
+
+
+
+/******* Custom bookmark icons *******/
+
+/* ALL */
+/*
+.tab-icon-image,
+#PlacesToolbarItems > .bookmark-item[label]:not([container]) image {
+  filter: grayscale(0.4) !important;
+}
+.bookmark-item[container] .bookmark-item[label] > .toolbarbutton-text {
+  display: inline !important;
+}
+
+#PlacesToolbarItems > .bookmark-item[label]:not([container]) {
+  margin-right: 0px !important;
+  width: 24px !important;
+}
+
+
+.bookmark-item[label]:not([container]) image {
+  margin-left: -1px !important;
+  margin-right: -1px !important;
+}
+*/
+
+
+.tab-icon-image,
+#PlacesToolbarItems > .bookmark-item[label]:not([container]) image {
+  filter: grayscale(0.4) !important;
+}
+.bookmark-item[container] .bookmark-item[label] > .toolbarbutton-text {
+  display: inline !important;
+}
+
+#PlacesToolbarItems > .bookmark-item[label^="*"] > .toolbarbutton-text {
+  display: none !important;
+}
+
+#PlacesToolbarItems > .bookmark-item[label^="*"] {
+  margin-right: 0px !important;
+  width: 24px !important;
+}
+
+.bookmark-item[label^="*"] image {
+  margin-left: -1px !important;
+  margin-right: -1px !important;
+}
+
+.bookmark-item[label="*Sisu"] image {
+  width:0 !important;
+  height:0 !important;
+  padding:0 0 16px 16px !important;
+  background: url("https://sis-tuni.funidata.fi/student/funidata_favicon_64.png") !important;
+  background-size: 16px 16px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+
+}
+
+.bookmark-item[label="*Teleste Intra"] image {
+  width:0 !important;
+  height:0 !important;
+  padding:0 0 16px 16px !important;
+  background: url("https://www.teleste.com/wp-content/uploads/2021/11/cropped-favicon-130x130.png") !important;
+  background-size: 16px 16px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}

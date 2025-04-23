@@ -1,0 +1,402 @@
+.theme-dark {{
+  --color16: color-mix(in hsl, {color0}, white 3%);
+
+  --background-primary: {background} !important;
+  --background-secondary: {background} !important;
+  --titlebar-background-focused: {background} !important;
+  --background-modifier-form-field: {background} !important;
+  --background-modifier-border-focus: {color4}33 !important;
+  --divider-color: {color5} !important;
+  --background-modifier-cover: {background} !important;
+  --prompt-border-color: {color5} !important;
+  --layer-1: {color5} !important;
+  --background-modifier-border: {color5} !important;
+  --interactive-normal: var(--layer-1) !important;
+  --text-faint: {color5} !important;
+  --background-modifier-border-hover: {color4}33 !important;
+  --indentation-guide-color: {color5} !important;
+  --indentation-guide-color-active: {color4}77 !important;
+
+  /* markdown headings colours */
+  --text-title-h1: {foreground};
+  --text-title-h2: {foreground};
+  --text-title-h3: {foreground};
+  --text-title-h4: {foreground};
+  --text-title-h5: {foreground};
+  --text-title-h6: {foreground};
+
+  /*colour palette*/
+  --red: {color1};
+  --orange: {color3};
+  --green: {color2};
+  --aqua: {color4};
+  --purple: {color13};
+  --blue: {color4};
+  --yellow: {color3};
+
+  /*hyperlinks colour*/
+  --text-accent: {color4};
+  /*hyperlinks colour on hover ( with cursor )*/
+  --text-accent-hover: {color1};
+  /*your normal simple text colour*/
+  --text-normal: {foreground};;
+  /*setting and file explorer folder text*/
+  --text-muted: {foreground};;
+  /*settings headers and '>' character for file explorer*/
+  --text-faint: {color8};
+  --text-error: {color1};
+  --text-error-hover: {color1};
+  /*your highlighter colour*/
+  --text-highlight-bg: {color2};
+  /*background colour when highlighting text with mouse*/
+  --text-selection: {color5};
+  --text-on-accent: {foreground};;
+}}
+
+.theme-dark .nav-folder-title-content::before {{
+  color: {color1}77 !important;
+}}
+
+body {{
+--tab-stacked-pane-width: 100%;
+}}
+
+.nav-folder-title-content {{
+  font-weight: bold !important;
+  color: {color4};
+}}
+
+.nav-file-title-content {{
+  font-size: 10pt;
+  font-weight: 500;
+}}
+
+/* Search */
+.search-result .search-result-file-title {{
+  cursor: pointer;
+}}
+
+.search-result .collapse-icon {{
+  cursor: {color7};
+}}
+
+.search-result:not(.is-collapsed) .search-result-file-title {{
+  color: {color4};
+}}
+
+/* File tab separators */
+.workspace .mod-root .workspace-tab-header-inner::after {{
+  right: unset;
+  left: -0.5px;
+}}
+
+.workspace .mod-root .workspace-tab-header:last-child .workspace-tab-header-inner::before {{
+  position: absolute;
+  right: -0.5px;
+  width: 1px;
+  background-color: var(--tab-divider-color);
+  content: '';
+  height: 20px;
+}}
+
+.workspace .mod-root  .workspace-tab-header.is-active .workspace-tab-header-inner::after,
+.workspace .mod-root  .workspace-tab-header.is-active .workspace-tab-header-inner::before,
+.workspace .mod-root  .workspace-tab-header:first-child .workspace-tab-header-inner::after,
+.workspace .mod-root  .workspace-tab-header.is-active + .workspace-tab-header .workspace-tab-header-inner::after {{
+  opacity: 0;
+}}
+
+/* Editor and output */
+.markdown-rendered blockquote {{
+  /*change the padding / distance of text in quote blocks*/
+  padding: var(--embed-padding);
+}}
+
+/*latex related*/
+mjx-container {{
+  text-align: left !important;
+}}
+
+/*latex code block*/
+.math-block {{
+  /*control the font size of math block ---> not inline*/
+  font-size: 17px;
+  /*center the math block*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+}}
+
+.markdown-preview-section > div h1,
+.markdown-preview-section > div h2,
+.markdown-preview-section > div h3,
+.markdown-preview-section > div h4,
+.markdown-preview-section > div h5,
+.markdown-preview-section > div h6 {{
+  /*"distance" between headings*/
+  margin-top: 40px;
+}}
+
+.mod-header + div h1,
+.mod-header + div h2,
+.mod-header + div h3,
+.mod-header + div h4,
+.mod-header + div h5,
+.mod-header + div h6 {{
+  margin-top: 30px;
+}}
+
+.cm-sizer > .inline-title {{
+  margin-bottom: 20px;
+}}
+
+/* Miscellaneous */
+.theme-dark .dropdown:hover {{
+  background-color: var(--background-modifier-form-field);
+}}
+
+/*controls the colour "help" on hover ( with cursor )*/
+.tooltip {{
+  color: var(--background-primary);
+}}
+
+/*control the padding for folders in file explorer*/
+.nav-file, .nav-folder {{
+  padding: 0px 0px; /* was 2, 2 */
+
+}}
+
+/*colour of background and text when dragging files / folder*/
+body:not(.is-grabbing) .nav-file-title.is-being-dragged,
+body:not(.is-grabbing) .nav-folder-title.is-being-dragged,
+.nav-file-title.is-being-dragged,
+.nav-folder-title.is-being-dragged {{
+  /*background-color: var(--background-primary-alt);*/
+  background-color: {color2};
+  /*color: var(--nav-item-color);*/
+  color: var(--background-primary);
+}}
+
+.view-header-title {{
+  text-decoration: underline;
+  text-decoration-color: var(--text-muted);
+  text-underline-offset: 1.5px;
+}}
+
+/*status bar found below*/
+.status-bar {{
+  /*border-color: var(--panel-border-color);*/
+  border-color: var(--panel-border-color);
+  /*border width size*/
+  border-width: 1px;
+  /*size of padding for status bar*/
+  padding: 4px 30px;
+}}
+
+.theme-dark button.mod-warning {{
+  --background-modifier-error: {color1}33;
+  --background-modifier-error-hover: {color1}33;
+}}
+
+
+
+
+
+.token.comment, .token.prolog, .token.doctype, .token.cdata,
+.HyperMD-codeblock .cm-comment {{
+  color: {color8} !important;
+}}
+
+.token.punctuation,
+.HyperMD-codeblock .cm-hmd-codeblock, .HyperMD-codeblock .cm-bracket {{
+  color: {color8} !important;
+}}
+
+.token.selector, .token.tag,
+.HyperMD-codeblock .cm-tag, .HyperMD-codeblock .cm-property, .HyperMD-codeblock .cm-meta, .HyperMD-codeblock .cm-qualifier, .HyperMD-codeblock .cm-header, .HyperMD-codeblock .cm-quote, .HyperMD-codeblock .cm-hr, .HyperMD-codeblock .cm-link {{
+  color: {color8} !important;
+}}
+
+.token.property, .token.boolean, .token.number, .token.constant, .token.symbol, .token.attr-name, .token.deleted,
+.HyperMD-codeblock .cm-number, .HyperMD-codeblock .cm-atom, .HyperMD-codeblock .cm-attribute {{
+  color: var(--orange) !important;
+}}
+
+.token.string, .token.char, .token.attr-value, .token.builtin, .token.inserted,
+.HyperMD-codeblock .cm-string, .HyperMD-codeblock .cm-builtin {{
+  color: var(--green) !important;
+}}
+
+.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string,
+.HyperMD-codeblock .cm-string-2, .HyperMD-codeblock .cm-operator {{
+  color: var(--aqua) !important;
+}}
+
+.token.atrule, .token.keyword,
+.HyperMD-codeblock .cm-keyword {{
+  color: var(--purple) !important;
+}}
+
+.token.function, .token.macro.property,
+.HyperMD-codeblock .cm-def, .HyperMD-codeblock .cm-variable {{
+  color: var(--blue) !important;
+}}
+
+.token.class-name,
+.HyperMD-codeblock .cm-variable-2, .HyperMD-codeblock .cm-variable-3 {{
+  color: var(--yellow) !important;
+}}
+
+.token.regex, .token.important, .token.variable {{
+  color: var(--purple) !important;
+}}
+
+.token.important, .token.bold {{
+  font-weight: bold !important;
+}}
+
+.token.italic {{
+  font-style: italic !important;
+}}
+
+.token.entity {{
+  cursor: help !important;
+}}
+
+
+
+
+/* markdown heading colours */
+.cm-header-1,
+.markdown-preview-view h1 {{
+  color: var(--text-title-h1);
+}}
+
+.cm-header-2,
+.markdown-preview-view h2 {{
+  color: var(--text-title-h2);
+}}
+
+.cm-header-3,
+.markdown-preview-view h3 {{
+  color: var(--text-title-h3);
+}}
+
+.cm-header-4,
+.markdown-preview-view h4 {{
+  color: var(--text-title-h4);
+}}
+
+.cm-header-5,
+.markdown-preview-view h5 {{
+  color: var(--text-title-h5);
+}}
+
+.cm-header-6,
+.markdown-preview-view h6 {{
+  color: var(--text-title-h6);
+}}
+
+/*change the color of bold*/
+/*remove `strong, ` to only work in source view*/
+strong, .cm-s-obsidian span.cm-formatting-strong, .cm-s-obsidian span.cm-strong {{
+  /* color: {color4}; */
+  color: {color2};
+}}
+
+/*change the color of italicised text*/
+/*remove `em, ` to only work in source view*/
+em, .cm-s-obsidian span.cm-formatting-em, .cm-s-obsidian span.cm-em {{
+  color: {color1};
+}}
+
+
+/***********************
+  EDIT MODE (CodeMirror)
+***********************/
+.cm-s-obsidian {{
+  /* Base colors */
+  --code-background: var(--color16); /* Code block background */
+
+  /* Syntax highlighting */
+  .cm-comment {{ color: {color8} !important; }}              /* Comments */
+  .cm-keyword {{ color: {color2} !important; }}              /* Keywords */
+  .cm-string {{ color: {color13} !important; }}              /* Strings */
+  .cm-builtin {{ color: {color2} !important; }}          /* Builtins */
+  .cm-def {{ color: {color4} !important; }}                        /* Functions */
+  .cm-tag {{ color: {color1} !important; }}                  /* HTML tags */
+  .cm-attribute {{ color: {color3} !important; }}            /* Attr names */
+  .cm-number {{ color: {color1} !important; }}               /* Numbers */
+  .cm-property {{ color: {color6} !important; }}             /* Properties */
+  .cm-qualifier {{ color: {color1} !important; }}            /* Constants */
+  .cm-operator {{ color: {foreground} !important; }}         /* Operators */
+}}
+
+/***********************
+  READ MODE (Preview)
+***********************/
+.markdown-preview-view {{
+  /* Syntax highlighting */
+  .token.comment {{ color: {color8} !important; }}           /* Comments */
+  .token.keyword {{ color: {color2} !important; }}           /* Keywords */
+  .token.string {{ color: {color13} !important; }}           /* Strings */
+  .token.function {{ color: {color2} !important; }}                /* Functions */
+  .token.class-name {{ color: {foreground} !important; }}    /* Classes */
+  .token.number {{ color: {color1} !important; }}            /* Numbers */
+  .token.operator {{ color: {foreground} !important; }}      /* Operators */
+  .token.tag {{ color: {color1} !important; }}               /* HTML tags */
+  .token.attr-name {{ color: {color4} !important; }}         /* Attr names */
+  .token.attr-value {{ color: {foreground} !important; }}        /* Attr values */
+  .token.constant {{ color: {color1} !important; }}          /* Constants */
+  .token.selector {{ color: {color13} !important; }}         /* CSS selectors */
+  .token.important {{ color: {color3} !important; }}         /* !important */
+  .token.builtin {{ color: {color2} !important; }}
+}}
+
+
+
+/* Inline code */
+:not(pre)>code[class*='language-'] {{
+  /*controls the padding for code in preview mode*/
+  padding: .1em !important;
+  border-radius: .3em !important;
+  white-space: normal !important;
+}}
+
+/*code related text formatting*/
+code[class*='language-'], pre[class*='language-'] {{
+  font-weight: 600;
+  text-align: left !important;
+  white-space: pre !important;
+  word-spacing: normal !important;
+  word-break: normal !important;
+  word-wrap: normal !important;
+  line-height: 1.5 !important;
+  tab-size: 4 !important;
+  hyphens: none !important;
+  
+}}
+
+/*Code blocks*/
+pre[class*='language-'] {{
+  font-weight: 600;
+  /*controls the padding for code blocks ( horizontally ) in preview mode*/
+  padding: 1em !important;
+  /*controls the margin for code blocks in preview mode*/
+  margin: .5em 0 !important;
+  /*shows scrollbar if the code "overflows"*/
+  overflow: auto !important;
+}}
+
+/* Shared code block styling */
+pre[class*="language-"],
+.markdown-preview-view pre,
+.cm-s-obsidian .HyperMD-codeblock {{
+  background: var(--color16) !important;
+  color: {foreground} !important;
+  font-family: 'SF Mono' !important;
+  font-weight: 600 !important;
+}}

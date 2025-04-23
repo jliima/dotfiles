@@ -1,0 +1,257 @@
+
+
+
+:root {
+  --pywalfox-background: var(--newtab-background-color);
+
+  --global-font: "SF Pro Display" !important;
+  font-family: var(--global-font) !important;
+
+
+  /*
+  --theme-body-background: var(--pywalfox-background) !important;
+  --theme-body-emphasized-background: blue !important;
+  --theme-body-alternate-emphasized-background: pink !important;
+  --theme-sidebar-background: var(--pywalfox-background) !important;
+  --theme-accordion-header-background: green !important;
+    */
+
+  /*
+  --color16: color-mix(in hsl, var(--color0), white 11.5%);
+  
+  --color-blue-05: var(--foreground) !important;
+  
+  --color-blue-30: #73a7f3;
+  --color-blue-50: #0060df;
+  --color-blue-60: #0250bb;
+  --color-blue-70: #054096;
+  --color-blue-80: #003070;
+  --color-cyan-20: color-mix(in hsl, var(--color4), white 10%) !important;
+  --color-cyan-30: color-mix(in hsl, var(--color4), white 5%) !important;
+  --color-cyan-50: var(--color4) !important;
+  --color-gray-05: #fbfbfe;
+  --color-gray-50: #bfbfc9;
+  --color-gray-60: #8f8f9d;
+  --color-gray-70: #5b5b66;
+  --color-gray-80: var(--color16) !important;
+  --color-gray-90: var(--color0) !important;
+  --color-gray-100: #15141a;
+  --color-green-05: #d8eedc;
+  --color-green-30: #4dbc87;
+  --color-green-50: #017a40;
+  --color-green-80: #004725;
+  --color-red-05: #ffe8e8;
+  --color-red-10: #ffbdc5;
+  --color-red-20: #ff9aa2;
+  --color-red-30: #f37f98;
+  --color-red-50: var(--color1) !important;
+  --color-red-60: var(--color1) !important;
+  --color-red-70: var(--color1) !important;
+  --color-red-80: var(--color1) !important;
+  --color-white: var(--color7) !important;
+  --color-yellow-05: #ffebcd;
+  --color-yellow-30: #e49c49;
+  --color-yellow-50: #cd411e;
+  --color-yellow-80: #5a3100;
+  --in-content-button-background: var(--color16) !important;
+  --in-content-button-background-hover: color-mix(in srgb, var(--color16) 14%, transparent);
+  --in-content-button-background-active: color-mix(in srgb, var(--color16) 21%, transparent);
+  --in-content-primary-button-background: var(--color4) !important;
+  
+  */
+}
+
+/*
+
+@-moz-document domain(plus.tuni.fi) {
+  body {
+    background-color: red !important;
+  }
+
+  
+}
+
+
+@-moz-document url(about:preferences) {
+  body {
+    background: var(--pywalfox-background-light) !important;
+    background-color: var(--pywalfox-background-light) !important;
+  }
+
+
+}
+*/
+
+@-moz-document url(about:preferences), url(about:blank), url(about:newtab), url(about:home), url(about:privatebrowsing), url(about:config) {
+
+
+  body {
+    font-family: var(--global-font) !important;
+
+    --pywalfox-font-size: 1rem;
+    --pywalfox-font-size-sm: 0.8rem;
+    /*
+    --pywalfox-accent: var(--lwt-sidebar-highlight-background-color);
+    --pywalfox-background: var(--newtab-background-color);
+    --pywalfox-background-light: var(--lwt-sidebar-background-color);
+    
+
+    --pywalfox-accent: var(--color4) !important;
+    --pywalfox-background: var(--pywalfox-background) !important;
+    --pywalfox-background-light: var(--color0) !important;
+
+    --newtab-snippets-background-color: var(--pywalfox-background-light) !important;
+    --newtab-contextmenu-button-color: var(--pywalfox-background) !important;
+    --newtab-contextmenu-background-color: var(--pywalfox-background-light) !important;
+
+    --newtab-topsites-background-color: var(--pywalfox-background-light) !important;
+    --newtab-textbox-background-color: var(--pywalfox-background-light) !important;
+    --customize-menu-background: var(--pywalfox-background-light) !important;
+    --customize-menu-secondary-action-background: var(--pywalfox-background) !important;
+    --customize-menu-secondary-action-background-hover: var(--pywalfox-background) !important;
+    --newtab-primary-action-background: var(--pywalfox-accent) !important;
+    --newtab-primary-action-background-off: var(--pywalfox-background) !important;
+    --customize-menu-line-color: var(--pywalfox-accent) !important;
+    --newtab-background-button-color: var(--pywalfox-background-light) !important;
+    --newtab-background-button-hover-color: var(--pywalfox-background-light) !important;
+    --newtab-background-color-secondary: var(--pywalfox-background-light) !important;
+    --newtab-text-primary-color: var(--foreground) !important;*/
+
+    --pywalfox-font-size: 1rem;
+    --pywalfox-font-size-sm: 0.8rem;
+    --pywalfox-accent: var(--lwt-sidebar-highlight-background-color);
+    --pywalfox-background: var(--newtab-background-color);
+    --pywalfox-background-light: var(--lwt-sidebar-background-color);
+
+    --newtab-snippets-background-color: var(--pywalfox-background-light) !important;
+    --newtab-contextmenu-button-color: var(--pywalfox-background) !important;
+    --newtab-contextmenu-background-color: var(--pywalfox-background-light) !important;
+
+    /* Firefox 89 */
+    --newtab-topsites-background-color: var(--pywalfox-background-light) !important;
+    --newtab-textbox-background-color: var(--pywalfox-background-light) !important;
+    --customize-menu-background: var(--pywalfox-background-light) !important;
+    --customize-menu-secondary-action-background: var(--pywalfox-background) !important;
+    --customize-menu-secondary-action-background-hover: var(--pywalfox-background) !important;
+    --newtab-primary-action-background: var(--pywalfox-accent) !important;
+    --newtab-primary-action-background-off: var(--pywalfox-background) !important;
+    --customize-menu-line-color: var(--pywalfox-accent) !important;
+    --newtab-background-button-color: var(--pywalfox-background-light) !important;
+    --newtab-background-button-hover-color: var(--pywalfox-background-light) !important;
+  }
+
+  
+  @-moz-document url(about:preferences),url("about:home"),url("about:blank"),url("about:newtab"),url("about:privatebrowsing"), media-document(image) {
+    
+    body {background: var(--pywalfox-background) !important}
+    
+  }
+  html#preferences-root body#preferences-body stack#preferences-stack hbox vbox.main-content vbox.pane-container hbox.sticky-container {
+    background-color: var(--pywalfox-background) !important;
+  }
+    
+  
+  @-moz-document media-document(image) {
+    
+    html {
+      background-image: none !important;
+      scrollbar-color: var(--color4) !important;
+    }
+  }
+
+  /* Add bold text to most text */
+  .top-site-outer .title span, .top-site-outer .default-icon[data-fallback]::before,
+  .top-site-outer .search-topsite[data-fallback]::before, .context-menu > ul > li > a,
+  .top-site-outer .default-icon, .top-site-outer .search-topsite {
+    font-weight: bold !important;
+    font-size: var(--pywalfox-font-size-sm);
+  }
+
+  /* Bold text to activity card page labels */
+  .ds-highlights .section .section-list .card-outer .card-host-name {
+    font-weight: bold;
+  }
+
+  /* Remove box shadow border from top sites cards */
+  .top-site-outer .tile {
+    box-shadow: none !important;
+  }
+
+  /* Highlights card image placeholder */
+  [lwt-newtab-brighttext] .card-outer .card-preview-image-outer {
+    background-color: var(--pywalfox-accent) !important;
+  }
+
+  /* Top sites card hover border */
+  [lwt-newtab-brighttext] .ds-top-sites .top-sites .top-site-outer .top-site-inner > a:-moz-any(:hover) .tile {
+    box-shadow: 0 0 0 3px var(--pywalfox-background-light) !important;
+  }
+
+  /* Clock icon in new tab highlight cards */
+  [lwt-newtab-brighttext] .card > .card-details > .card-context {
+    clip-path: none !important;
+    background-color: var(--pywalfox-background-light) !important;
+  }
+
+  /* "Highlights" domain name */
+  .card-outer .card-host-name {
+    color: var(--pywalfox-accent) !important;
+  }
+
+  /* "Highlights" context icon */
+  .card-outer .card-context-icon {
+    fill: var(--pywalfox-accent) !important;
+  }
+
+  /* "Top sites" and "Highlights" titles */
+  .ds-header, .ds-layout .section-title span {
+    color: var(--newtab-text-primary-color) !important;
+  }
+
+  /* "Top sites" and "Highlights" icons */
+  .ds-header .icon, .ds-layout .section-title span .icon {
+    fill: var(--newtab-text-primary-color) !important;
+  }
+
+  /* Change card and search input background color based for dark mode */
+  [lwt-newtab-brighttext] .trailheadCard,
+  [lwt-newtab-brighttext] .search-wrapper input,
+  [lwt-newtab-brighttext] .top-site-outer .top-site-icon,
+  [lwt-newtab-brighttext] .ds-highlights .section .section-list .card-outer {
+    background-color: var(--pywalfox-background-light) !important;
+  }
+
+  /* Card border when hovering in dark mode */
+  [lwt-newtab-brighttext] .card-outer:-moz-any(:hover, :focus, .active):not(.placeholder) {
+    box-shadow: 0 0 0 5px var(--pywalfox-background-light) !important;
+  }
+
+  /* Card border when hovering in light mode */
+  .card-outer:-moz-any(:hover, :focus, .active):not(.placeholder) {
+    box-shadow: 0 0 0 5px white !important;
+  }
+
+  /* Change and search input background color for light mode 
+  .trailheadCard,
+  .search-wrapper input,
+  .top-site-outer .top-site-icon,
+  .ds-highlights .section .section-list .card-outer {
+    background-color: white !important;
+  }*/
+
+  /* Hides the active background of a section when opening a context menu */
+  .collapsible-section.active {
+    background: none !important;
+  }
+
+  .personalize-button:hover,
+  .customize-menu .close-button:hover {
+    filter: brightness(80%);
+  }
+
+  [lwt-newtab-brighttext] .personalize-button:hover,
+  [lwt-newtab-brighttext] .customize-menu .close-button:hover {
+    filter: brightness(120%);
+  }
+}
+/********************* END PYWALFOX CUSTOM CSS *********************/

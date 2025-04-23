@@ -1,0 +1,510 @@
+@import '../chrome_css/iconized_main_menu.css';
+@import '../chrome_css/iconized_menubar_items.css';
+@import '../chrome_css/iconized_places_context_menu.css';
+@import '../chrome_css/iconized_tabs_context_menu.css';
+@import '../chrome_css/iconized_textbox_context_menu.css';
+@import '../chrome_css/less_static_throbber.css';
+@import '../chrome_css/hide_unwanted_stuff.css';
+@import '../chrome_css/compact_extension_panel.css';
+@import '../chrome_css/font_change.css';
+/*@import 'colors.css';*/
+
+
+/*@import '../chrome_css/vertical_bookmarks_toolbar.css';*/
+
+:root {
+    /*
+  --pywalfox-background: var(--lwt-accent-color);            == color0
+  --pywalfox-text-focus: var(--toolbar-color);               == color15
+  --pywalfox-text: var(--arrowpanel-color);                  == color7
+  --pywalfox-background-light: var(--arrowpanel-background); == color16  (? == brighter color0)
+  var(--lwt-text-color);                                     == color7
+  --toolbarbutton-icon-fill-attention                        == color2
+  --download-progress-fill-color: var(--toolbarbutton-icon-fill-attention); == color2
+
+  */
+
+
+  --tab-corner-rounding: 0px;
+  --animation-speed: 0.25s;
+  --urlbar-icon-border-radius: 10px !important;
+
+  --border-radius: 8px;
+
+  --toolbar-bgcolor: var(--background) !important;
+  --color-accent-primary: var(--color4) !important;
+  --color-accent-primary-hover: red !important;
+  --color-accent-primary-active: var(--color16) !important;
+  --focus-outline-color: var(--color4) !important;
+  --focus-outline-width: 1px !important;
+  --global-font: "SF Pro Display" !important;
+  font-family: var(--global-font) !important;
+}
+
+* {
+  --global-font: "SF Pro Display" !important;
+  font-family: var(--global-font) !important;
+}
+
+
+/*
+.tab-background {
+  color: var(--foreground) !important;
+}
+
+#nav-bar {
+  background: var(--background) !important;
+}
+
+
+.urlbarView-action {
+  color: var(--color4) !important;
+}
+
+#browser vbox#appcontent tabbrowser, #content, #tabbrowser-tabpanels, 
+browser[type=content-primary],browser[type=content] > html {
+  background: var(--background) !important;
+}
+
+tooltip {
+  -moz-appearance: none !important;
+  color: var(--foreground) !important;
+  padding: 6.5px !important;
+}
+
+.tab-background {
+  border-radius: var(--border-radius) !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  background-color: var(--background) !important;
+}
+
+.tab-background {
+  &:is([selected], [multiselected]) {
+    background-color: var(--color16) !important;
+  }
+}
+
+#urlbar {
+  min-height: 32px !important;
+  margin: 0px !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: var(--background) !important;
+  
+}
+
+#urlbar-background, #urlbar {
+  border-radius: var(--border-radius) !important;
+  background: var(--background) !important;
+}
+
+input#urlbar-input {
+  text-align: left !important;
+  margin-left: 10px !important;
+  margin-top: 3px !important;
+  margin-bottom: 3px !important;
+  margin-right: 3px !important;
+  background: var(--background) !important;
+}
+
+.urlbarView {
+  margin-inline: 0px !important;
+  border: none !important;
+  width: 100% !important;
+  box-shadow: none !important;
+  clip-path: inset(0px -20px -30px -20px) !important;
+  animation: none !important;
+  margin-block-start: 0px !important;
+  outline: none;
+  background: var(--background) !important;
+  
+}
+
+#bookmarks-view,
+#historyTree,
+#history-panel,
+#search-box {
+  -moz-appearance: none !important;
+  color: var(--foreground) !important;
+  background-color: var(--background) !important;
+  border: 0px !important;
+  border-right: 0px !important;
+}
+
+#sidebar {
+  padding: 0px !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  background-color: var(--background) !important;
+  color: var(--foreground);
+  
+}
+
+#sidebar-box ~ #sidebar-splitter {
+  background-color: var(--color5) !important;
+  width: 1px !important;
+}
+
+.sidebar-panel {
+  background-color: var(--background) !important;
+}
+
+#sidebar-main {
+  background-color: var(--background) !important;
+}
+
+#statuspanel #statuspanel-label {
+  border: 0px solid !important;
+  border-top: var(--border-radius) !important;
+  padding: 5px 5px 5px 5px !important;
+  background: var(--color16) !important;
+}
+*/
+
+
+/* Remove border around UI */
+#tabbrowser-tabbox {
+  outline: none !important;
+  box-shadow: none !important;
+  border-radius: 0px !important;
+}
+
+
+
+
+
+/* Tabs background */
+#navigator-toolbox {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.subviewbutton.panel-subview-footer {
+  border-top: 1px var(--foreground) !important;
+}
+
+tooltip {
+  -moz-appearance: none !important;
+  padding: 6.5px !important;
+}
+
+
+/******* Hamburger- and arrowmenu *******/
+
+/* Hidden menu items */
+#widget-overflow-mainView > .panel-subview-body > toolbarseparator,
+.PanelUI-subView menuseparator, 
+.PanelUI-subView toolbarseparator,
+.cui-widget-panelview menuseparator, 
+.cui-widget-panel toolbarseparator {
+  -moz-appearance: none !important;
+  min-height: 0;
+  border-top: 0px solid var(--panel-separator-color) !important;
+  border-bottom: none;
+  margin: 0px 0!important;
+  padding: 0;
+}
+
+
+
+
+/******* Statuspanel  *******/
+/* aka. the bottom left corner that shows link that is hovered */
+#statuspanel #statuspanel-label {
+  border: 0px solid !important;
+  border-top: var(--border-radius) !important;
+  padding: 5px 5px 5px 5px !important;
+}
+
+
+
+/******* Right click menu  LEGIT BETTER WITHOUT! *******/
+/*
+menuitem, menu {
+  -moz-appearance: none !important;
+  padding: 2px 0px 2px 0px !important;
+}
+
+menupopup {
+	-moz-appearance: none !important;
+	min-width: 150px !important;
+  border-style: none !important;
+}
+
+menupopup, panel {
+  --panel-border-radius: var(--border-radius) !important;
+  
+}
+
+menuseparator {
+	-moz-appearance: none !important;
+	border: none !important;
+	padding: .5px 0px .5px 0px !important;
+	margin: 2px 2px 2px 8px !important;
+}
+
+
+
+menugroup {
+  outline-style: none;
+	padding: 0px !important;
+}
+*/
+
+/******* TABBAR *******/
+
+/*
+.tab-background:is([selected], [multiselected]) {
+  filter: brightness(200%) !important;
+}
+
+.tab-background:is([selected], [multiselected]) {
+  background-color: var(--background-extra) !important;
+}
+*/
+
+
+.tab-background {
+  border-radius: var(--border-radius) !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+
+#tabbrowser-tabs {
+  margin-top: 3px !important;
+  margin-left: 3px !important;
+  
+}
+
+
+
+
+
+
+
+/******* URLBAR *******/
+#urlbar {
+  min-height: 32px !important;
+  margin: 0px !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+#urlbar-background, #urlbar {
+  border-radius: var(--border-radius) !important;
+}
+
+
+/* broke in 133.0 release */
+/*#urlbar[breakout][breakout-extend] {
+  top: 0px !important;
+  left: 0px !important;
+  width: 100% !important;
+}*/
+
+input#urlbar-input {
+  text-align: left !important;
+  margin-left: 10px !important;
+  margin-top: 3px !important;
+  margin-bottom: 3px !important;
+  margin-right: 3px !important;
+}
+
+
+
+
+/******* URLBAR DROPDOWN MENU *******/
+
+.urlbarView {
+  margin-inline: 0px !important;
+  border: none !important;
+  width: 100% !important;
+  box-shadow: none !important;
+  clip-path: inset(0px -20px -30px -20px) !important;
+  animation: none !important;
+  margin-block-start: 0px !important;
+  outline: none;
+}
+
+.urlbarView-results {
+  padding-block: 0px !important;
+}
+
+.urlbarView .urlbarView-row {
+  border-radius: 10px !important;
+  padding-block: 0px !important;
+}
+
+
+
+
+/******* Nav-bar icons *******/
+
+#nav-bar .toolbarbutton-icon {
+  width: 20px !important;
+  padding-left: 1px !important;
+  padding-right: 1px !important;
+}
+
+#PanelUI-button {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  border-left: none !important;
+}
+
+#PanelUI-menu-button, .toolbarbutton-badge-stack {
+  padding-left: 0px !important;
+  padding-right: 1px !important;
+}
+
+
+
+/******* Bookmark settings *******/
+
+#PlacesToolbarItems .bookmark-item {
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+
+
+
+/******* Left-side menus *******/
+
+#bookmarks-view,
+#historyTree,
+#history-panel,
+#search-box {
+  -moz-appearance: none !important;
+  border: 0px !important;
+  border-right: 0px !important;
+}
+
+sidebar-history {
+  font-family: var(--global-font) !important;
+  font-weight: 500 !important;
+}
+
+#sidebar {
+  padding: 0px !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+#sidebar-box #sidebar {
+  font-family: var(--global-font) !important;
+  font-weight: 500 !important;
+  height: 100vh;
+}
+
+/*
+html#main-window body hbox#browser vbox#sidebar-box.chromeclass-extrachrome {
+  padding: 0px !important;
+}
+*/
+
+
+/* vaihtaa sivu palkin viivan oikeelle tulevan viivan väriä */
+#sidebar-box ~ #sidebar-splitter {
+  width: 1px !important;
+}
+
+
+#sidebar-panel-close {
+  display: none !important;
+}
+
+
+.toolbarbutton[id="f0811709-d562-4380-9704-dcec7896b444"] .toolbarbutton-icon {
+  list-style-image: url("icons/arrow-right.svg") !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+#_f0811709-d562-4380-9704-dcec7896b444_-browser-action .toolbarbutton-1 .toolbarbutton-badge-stack {        
+  background-image: url("icons/arrow-right.svg") !important;
+  background-repeat: no-repeat !important;
+  background-size: 18px !important;
+  background-position: center !important;
+}
+#_f0811709-d562-4380-9704-dcec7896b444_-browser-action  image{ opacity: 0 !important; }
+
+
+
+
+/******* Custom bookmark icons *******/
+
+/* ALL */
+/*
+.tab-icon-image,
+#PlacesToolbarItems > .bookmark-item[label]:not([container]) image {
+  filter: grayscale(0.4) !important;
+}
+.bookmark-item[container] .bookmark-item[label] > .toolbarbutton-text {
+  display: inline !important;
+}
+
+#PlacesToolbarItems > .bookmark-item[label]:not([container]) {
+  margin-right: 0px !important;
+  width: 24px !important;
+}
+
+
+.bookmark-item[label]:not([container]) image {
+  margin-left: -1px !important;
+  margin-right: -1px !important;
+}
+*/
+
+
+.tab-icon-image,
+#PlacesToolbarItems > .bookmark-item[label]:not([container]) image {
+  filter: grayscale(0.4) !important;
+}
+.bookmark-item[container] .bookmark-item[label] > .toolbarbutton-text {
+  display: inline !important;
+}
+
+#PlacesToolbarItems > .bookmark-item[label^="*"] > .toolbarbutton-text {
+  display: none !important;
+}
+
+#PlacesToolbarItems > .bookmark-item[label^="*"] {
+  margin-right: 0px !important;
+  width: 24px !important;
+}
+
+.bookmark-item[label^="*"] image {
+  margin-left: -1px !important;
+  margin-right: -1px !important;
+}
+
+.bookmark-item[label="*Sisu"] image {
+  width:0 !important;
+  height:0 !important;
+  padding:0 0 16px 16px !important;
+  background: url("https://sis-tuni.funidata.fi/student/funidata_favicon_64.png") !important;
+  background-size: 16px 16px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+
+}
+
+.bookmark-item[label="*Teleste Intra"] image {
+  width:0 !important;
+  height:0 !important;
+  padding:0 0 16px 16px !important;
+  background: url("https://www.teleste.com/wp-content/uploads/2021/11/cropped-favicon-130x130.png") !important;
+  background-size: 16px 16px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
