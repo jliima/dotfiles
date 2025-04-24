@@ -13,4 +13,4 @@ TARGET_FILE="$TARGET_DIR/color.ini"
 mkdir -p "$TARGET_DIR"
 cp "$SOURCE_FILE" "$TARGET_FILE"
 
-#spicetify apply
+spicetify apply
