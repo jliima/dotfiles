@@ -1,0 +1,35 @@
+
+add_newline = false
+
+# Wrap both the duration _and_ its two newlines in one conditional (...)
+# so that if $cmd_duration is empty, that entire chunk (including \n\n) vanishes.
+#format = "($cmd_duration\n\n)$directory\n$character"
+format = "$all"
+#right_format = '[$time]($style)'
+
+#format = """($cmd_duration \n)$directory
+#$character"""
+
+[character]
+success_symbol = "[❯](bold green)" # The "success_symbol" segment is being set to "➜" with the color "bold green"
+error_symbol = "[❯](bold green)" # ✘
+
+[directory]
+style = "blue"
+
+
+#[time]
+#disabled        = false               # turn the module on :contentReference[oaicite:0]{index=0}
+#format          = '[$time]($style) '  # wrap it in brackets, use module style
+#time_format     = '%T'                # 24‑hour HH:MM:SS (chrono strftime) :contentReference[oaicite:1]{index=1}
+#use_12hr        = false               # toggle to true for AM/PM
+#utc_time_offset = 'local'             # use your local timezone
+#style           = 'bold black'       # your preferred styling
+
+
+[cmd_duration]
+disabled          = false
+min_time          = 20000
+show_milliseconds = true
+style             = "bold black"
+format            = "[took]($style) [$duration]($style)"
