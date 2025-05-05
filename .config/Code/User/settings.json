@@ -1,0 +1,138 @@
+{
+  "[python]": {
+    "editor.defaultFormatter": "eeyore.yapf",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+    "editor.formatOnType": false
+  },
+  "autoscroll.autoEnableForLogs": true,
+  "breadcrumbs.enabled": false,
+  "cmake.options.statusBarVisibility": "visible",
+  "custom-ui-style.font.sansSerif": "SF Pro Display",
+  "color-highlight.markRuler": false,
+  /*
+	"custom-ui-style.webview.monospaceSelector": [
+		".codeblock",
+		".prism [class*='language-']"
+	],*/
+  // Custom stylesheet, support native nest selectors
+  "custom-ui-style.stylesheet": {
+    ".monaco-editor *:not(.view-lines):not(.view-lines *):not(.mtk):not(.mtk *):not(.margin-view-overlays *):not(.monaco-hover *):not(.monaco-hover):not(.sticky-widget *):not(.sticky-widget):not(.suggest-widget *):not(.suggest-widget):not(.contentWidgets *), .titlebar-container *": {
+      "font-size": "11pt",
+      "font-weight": "500"
+    },
+    ".monaco-workbench .part.sidebar>.title>.title-label *": {
+      "font-family": "SF Pro Display",
+      "font-size": "10pt",
+      "font-weight": "500"
+    },
+    ".sidebar *, .quick-input-widget *, .action-label": {
+      "font-family": "SF Pro Display",
+      "font-size": "11pt",
+      "font-weight": "500"
+    },
+    ".statusbar, .monaco-menu *, .monaco-action-menu-item-label *": {
+      "font-family": "SF Pro Display",
+      "font-size": "11pt",
+      "font-weight": "500"
+    },
+    ".window-appicon": {
+      "display": "none"
+    },
+    "*:not(.monaco-editor *)": {
+      "font-family": "SF Pro Display",
+      "font-size": "11pt",
+      "font-weight": "500"
+    },
+    "kbd, .titlebar, .activityBar, .panel, .tabs, .settings-body, .extension-editor": {
+      "font-family": "SF Pro Display",
+      "font-size": "11pt",
+      "font-weight": "500"
+    }
+  },
+  "editor.bracketPairColorization.enabled": false,
+  "editor.detectIndentation": false,
+  // following 5 properties remove gutter elements, comment/uncomment as per your liking
+  "editor.folding": true,
+  "editor.fontFamily": "SF Mono",
+  "editor.fontLigatures": false,
+  "editor.fontSize": 15, //14 on 4k 
+  "editor.fontWeight": "600",
+  "editor.glyphMargin": false,
+  "editor.hover.above": false,
+  "editor.hover.delay": 200,
+  "editor.hover.hidingDelay": 0,
+  "editor.insertSpaces": true,
+  "editor.lineHeight": 1.25,
+  "editor.minimap.autohide": true,
+  "editor.minimap.showSlider": "always",
+  "editor.mouseWheelScrollSensitivity": 3.0,
+  "editor.roundedSelection": true,
+  "editor.rulers": [
+    120
+  ],
+  "editor.scrollbar.horizontalScrollbarSize": 1,
+  "editor.scrollbar.ignoreHorizontalScrollbarInContentHeight": true,
+  "editor.scrollbar.vertical": "hidden",
+  "editor.selectionClipboard": false,
+  "editor.smoothScrolling": true,
+  "editor.tabSize": 2,
+  "editor.guides.bracketPairs": true,
+  "editor.guides.indentation": false,
+  "editor.guides.bracketPairsHorizontal": false,
+  "editor.wordWrap": "on",
+  "editor.wordWrapColumn": 120,
+  "editor.wrappingIndent": "indent",
+  "explorer.confirmDelete": false,
+  "files.autoSave": "afterDelay",
+  "launch": {
+    "compounds": [],
+    "configurations": []
+  },
+  "markdown.preview.fontSize": 16,
+  "markdown.preview.lineHeight": 1.4,
+  "notebook.lineNumbers": "on",
+  "notebook.output.wordWrap": true,
+  "security.workspace.trust.banner": "always",
+  "security.workspace.trust.startupPrompt": "always",
+  "security.workspace.trust.untrustedFiles": "open",
+  "telemetry.telemetryLevel": "off",
+  "terminal.integrated.fontFamily": "SF Mono",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.fontWeight": "600",
+  "terminal.integrated.lineHeight": 1.1,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "update.mode": "none",
+  "window.titleBarStyle": "custom",
+  "window.zoomLevel": 0,
+  "workbench.colorCustomizations": {
+    "debugConsole.infoForeground": "#61AFEF",
+    "sideBar.border": "#3f4754",
+    "tab.activeBorder": "#61AFEF"
+  },
+  "workbench.colorTheme": "Wal",
+  "workbench.editor.tabSizingFixedMaxWidth": 200,
+  "workbench.hover.delay": 200,
+  "workbench.layoutControl.enabled": false,
+  "workbench.navigationControl.enabled": false,
+  "workbench.preferredDarkColorTheme": "Wal",
+  "workbench.preferredHighContrastColorTheme": "Wal",
+  "workbench.preferredHighContrastLightColorTheme": "Wal",
+  "workbench.preferredLightColorTheme": "Wal",
+  "workbench.sash.hoverDelay": 200,
+  "workbench.settings.applyToAllProfiles": [],
+  "workbench.tree.renderIndentGuides": "onHover",
+  "yapf.args": [
+    "--style",
+    "{based_on_style: google, indent_width: 2, column_limit: 120}"
+  ],
+  "workbench.editorAssociations": {
+    "*.pdf": "default"
+  },
+  "workbench.startupEditor": "none",
+  "window.commandCenter": false,
+  "chat.commandCenter.enabled": false,
+  "window.menuBarVisibility": "compact"
+
+
+}
