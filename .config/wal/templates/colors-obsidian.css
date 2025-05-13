@@ -1,3 +1,7 @@
+/*
+ * To inspect css source, press ctrl+shift+i
+ *
+ */
 .theme-dark {{
   --color16: color-mix(in hsl, {color0}, white 3%);
 
@@ -160,13 +164,18 @@ mjx-container {{
 
 /*controls the colour "help" on hover ( with cursor )*/
 .tooltip {{
-  color: var(--background-primary);
+  color: {foreground};
+  background-color: {color5};
 }}
 
 /*control the padding for folders in file explorer*/
 .nav-file, .nav-folder {{
   padding: 0px 0px; /* was 2, 2 */
 
+}}
+
+.nav-file-tag {{
+  background-color: {color2}bb;
 }}
 
 /*colour of background and text when dragging files / folder*/
