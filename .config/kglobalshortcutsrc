@@ -1,7 +1,7 @@
 [ActivityManager]
-_k_friendly_name=System Settings
+_k_friendly_name=Activity Manager
 switch-to-activity-01d330cb-9bbe-491b-9b9d-bbb8af2d59cb=none,none,Switch to activity "Default"
-switch-to-activity-46aedfd0-880a-4613-ace7-df6585ebbbda=,none,Switch to activity "Work"
+switch-to-activity-46aedfd0-880a-4613-ace7-df6585ebbbda=none,none,Switch to activity "Work"
 switch-to-activity-876d77a5-74b6-42ac-ac24-652ff59335cd=none,none,Switch to activity "Default"
 
 [KDE Keyboard Layout Switcher]
@@ -273,8 +273,14 @@ _launch=Meta+C
 _launch=Meta+F
 new-private-window=Meta+Shift+F
 
-[services][jellyfin-desktop-mode.sh.desktop]
+[services][jellyfin-couch-mode-exit.sh.desktop]
+_launch=Home Page
+
+[services][jellyfin-couch-mode-initiate.sh.desktop]
 _launch=Tools
+
+[services][jetbrains-idea-ed171af8-af00-44b8-9b0c-54d54c8cef16.desktop]
+_launch=Meta+A
 
 [services][konsole.desktop]
 _launch=Meta+'
@@ -304,9 +310,6 @@ _launch=Meta+Ctrl+Alt+Shift+Space\tMeta+.\tMeta+:
 ActiveWindowScreenShot=Meta+Print\tCtrl+#
 RecordRegion=Meta+Shift+R
 RectangularRegionScreenShot=Ctrl+$
-
-[services][stop-jellyfin-desktop-mode.sh.desktop]
-_launch=Home Page
 
 [services][systemsettings.desktop]
 _launch=Meta+S

@@ -1,4 +1,3 @@
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 umask 002
@@ -40,6 +39,7 @@ plugins=(
   catimg
   #fzf-tab
 )
+
 ZSH_AUTOSUGGEST_STRATEGY="match_prev_cmd" #"completion"
 source $ZSH/oh-my-zsh.sh
 
@@ -53,33 +53,22 @@ fi
 ZSH_HIGHLIGHT_STYLES[path]=none
 ZSH_HIGHLIGHT_STYLES[path_prefix]=none
 
-#eval "$(dircolors ~/.dircolors)"
 autoload -Uz compinit && compinit
-#zstyle '*:completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
-#zstyle ':completion:*:directories'  list-colors '=*=32'
-#PS1="$fg[green]%}-> $fg[blue]%}%~$fg[white]%}\$ "
-PROMPT='%{$fg[green]%}-> %{$fg[blue]%}%~%{$fg[white]%}$ %{$fg[white]%}'
-#setopt no_list_ambiguous
 
-#current_activity=$(qdbus org.kde.ActivityManager /ActivityManager/Activities ActivityName `qdbus org.kde.ActivityManager /ActivityManager/Activities CurrentActivity`)
+CURRENT_ACTIVITY="$(~/scripts/get-current-activity-name.sh)"
 
-if [ "$current_activity" = "Work" ]; then
-  HISTDIR=~/zsh-work/history
-  HISTFILE=~/zsh-work/history/zsh_history
-  if [ -f ~/zsh-work/scripts/generate_script_aliases.sh ]; then
-    . ~/zsh-work/scripts/generate_script_aliases.sh
-  fi
-  source /home/hieroja/zsh-work/aliases-work
-
+if [ "$CURRENT_ACTIVITY" = "Work" ]; then
+  HISTDIR=~/.zsh_history_archive_work
+  HISTFILE=~/.zsh_history_work
+  sort -f ~/.zsh_aliases_work -o ~/.zsh_aliases_work
+  source ~/.zsh_aliases_work
 else
-  HISTDIR=~/zsh-personal/history
-  HISTFILE=~/zsh-personal/history/zsh_history
-  if [ -f ~/zsh-personal/scripts/generate_script_aliases.sh ]; then
-    . ~/zsh-personal/scripts/generate_script_aliases.sh
-  fi
-  source /home/hieroja/zsh-personal/aliases-personal
-
+  HISTDIR=~/.zsh_history_archive
+  HISTFILE=~/.zsh_history
 fi
+
+sort -f ~/.zsh_aliases -o ~/.zsh_aliases
+source ~/.zsh_aliases
 
 archive_history() {
   if [ $(wc -l < "$HISTFILE") -ge 5000 ]; then
@@ -92,14 +81,6 @@ precmd() {
   archive_history
 }
 
-alias kubuntu_version="
-echo 'lsb_release -a : \n' &&
-lsb_release -a &&
-echo '\nuname -m && cat /etc/*release : \n' &&
-uname -m && cat /etc/*release
-echo '\nuname -srmv : \n' &&
-uname -srmv
-"
 #export FZF_DEFAULT_OPTS="--color 16"
 export FZF_DEFAULT_OPTS="
   --color 16
@@ -113,6 +94,7 @@ export FZF_DEFAULT_OPTS="
   --bind=tab:down,shift-tab:up
 "
 
+alias upp="sudo apt update && sudo apt upgrade -y"
 alias kate="kate -n"
 alias colors=". ~/dotfiles/pywal/scripts/colors.sh"
 alias pare="./dotfiles/pywal/scripts/run-pywal.sh --theme 'parecolors'"
