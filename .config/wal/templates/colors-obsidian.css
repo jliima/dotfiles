@@ -4,6 +4,8 @@
  */
 .theme-dark {{
   --color16: color-mix(in hsl, {color0}, white 3%);
+  --color5-darker: color-mix(in hsl, {color5}, {background} 15%);
+  --color4-darker: color-mix(in hsl, {color4}, {background} 15%);
 
   --background-primary: {background} !important;
   --background-secondary: {background} !important;
@@ -43,9 +45,9 @@
   /*hyperlinks colour on hover ( with cursor )*/
   --text-accent-hover: {color1};
   /*your normal simple text colour*/
-  --text-normal: {foreground};;
+  --text-normal: {foreground};
   /*setting and file explorer folder text*/
-  --text-muted: {foreground};;
+  --text-muted: {foreground};
   /*settings headers and '>' character for file explorer*/
   --text-faint: {color8};
   --text-error: {color1};
@@ -53,8 +55,8 @@
   /*your highlighter colour*/
   --text-highlight-bg: {color2};
   /*background colour when highlighting text with mouse*/
-  --text-selection: {color5};
-  --text-on-accent: {foreground};;
+  --text-selection: var(--color4-darker);
+  --text-on-accent: {foreground};
 }}
 
 .theme-dark .nav-folder-title-content::before {{
@@ -62,7 +64,7 @@
 }}
 
 body {{
---tab-stacked-pane-width: 100%;
+  --tab-stacked-pane-width: 100%;
 }}
 
 .nav-folder-title-content {{
@@ -365,7 +367,9 @@ em, .cm-s-obsidian span.cm-formatting-em, .cm-s-obsidian span.cm-em {{
   .token.builtin {{ color: {color2} !important; }}
 }}
 
-
+.cm-inline-code {{
+  --code-background: var(--color5-darker);
+}}
 
 /* Inline code */
 :not(pre)>code[class*='language-'] {{
