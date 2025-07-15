@@ -96,9 +96,9 @@ export FZF_DEFAULT_OPTS="
 
 alias upp="sudo apt update && sudo apt upgrade -y"
 alias kate="kate -n"
-alias colors=". ~/dotfiles/pywal/scripts/colors.sh"
-alias pare="./dotfiles/pywal/scripts/run-pywal.sh --theme 'parecolors'"
-alias pywal-debug="./dotfiles/pywal/scripts/pywal-debug.sh"
+alias colors=". ~/dotfiles/scripts/pywal/colors.sh"
+alias pare="./dotfiles/scripts/pywal/run-pywal.sh --theme 'parecolors'"
+alias pywal-debug="./dotfiles/scripts/pywal/pywal-debug.sh"
 
 alias find="echo 'Files: Ctrl+T\nText:  grep <text>'" #"fzf"
 alias ls="eza --icons -F -H --group-directories-first --git -1"
