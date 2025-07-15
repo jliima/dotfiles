@@ -1,5 +1,6 @@
 .directory
 .stfolder
+.stignore
 scripts/work_scripts
 scripts/mount
 scripts/backup
