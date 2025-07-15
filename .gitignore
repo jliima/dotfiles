@@ -1,1 +1,7 @@
 .directory
+.stfolder
+scripts/work_scripts
+scripts/mount
+scripts/backup
+scripts/binds
+scripts/install
