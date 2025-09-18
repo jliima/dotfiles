@@ -538,6 +538,16 @@ html#main-window body hbox#browser vbox#sidebar-box.chromeclass-extrachrome {
   background-repeat: no-repeat !important;
 }
 
+.bookmark-item[label*="Github"] image {
+  width:0 !important;
+  height:0 !important;
+  padding:0 0 16px 16px !important;
+  background: url("file:///home/hieroja/dotfiles/.mozilla/firefox/chrome/pywalfoxV3/favicons/github-favicon-100.webp") !important;
+  background-size: 16px 16px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
 :root {
   /* ensure the icon area keeps the correct size */
   --custom-tab-favicon-size: 16px;
