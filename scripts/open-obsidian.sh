@@ -8,9 +8,9 @@ echo "Activity: $CURRENT_ACTIVITY"
 
 # Determine vault folder based on activity
 if [ "$CURRENT_ACTIVITY" = "Work" ]; then
-    vault_dir="$HOME/Obsidian/work_vault"
+    vault_dir="$HOME/Obsidian/work-vault"
 else
-    vault_dir="$HOME/Obsidian/default_vault"
+    vault_dir="$HOME/Obsidian/default-vault"
 fi
 
 echo "Vault dir: $vault_dir"

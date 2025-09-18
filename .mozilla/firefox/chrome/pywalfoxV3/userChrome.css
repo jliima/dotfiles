@@ -496,7 +496,26 @@ html#main-window body hbox#browser vbox#sidebar-box.chromeclass-extrachrome {
   background-size: 16px 16px !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
+}
 
+.bookmark-item[label*="Moodle"] image {
+  width:0 !important;
+  height:0 !important;
+  padding:0 0 16px 16px !important;
+  background: url("file:///home/hieroja/dotfiles/.mozilla/firefox/chrome/pywalfoxV3/favicons/moodle-favicon-32.webp") !important;
+  background-size: 16px 16px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+.bookmark-item[label*="GitLab"] image {
+  width:0 !important;
+  height:0 !important;
+  padding:0 0 16px 16px !important;
+  background: url("file:///home/hieroja/dotfiles/.mozilla/firefox/chrome/pywalfoxV3/favicons/gitlab-favicon-32.png") !important;
+  background-size: 16px 16px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
 }
 
 .bookmark-item[label="*Teleste Intra"] image {
@@ -507,4 +526,55 @@ html#main-window body hbox#browser vbox#sidebar-box.chromeclass-extrachrome {
   background-size: 16px 16px !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
+}
+
+.bookmark-item[label="*Toas booking"] image {
+  width:0 !important;
+  height:0 !important;
+  padding:0 0 16px 16px !important;
+  background: url("file:///home/hieroja/dotfiles/.mozilla/firefox/chrome/pywalfoxV3/favicons/toas-booking-favicon-48.ico") !important;
+  background-size: 16px 16px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+:root {
+  /* ensure the icon area keeps the correct size */
+  --custom-tab-favicon-size: 16px;
+}
+
+/* Target tabs whose fetched favicon URL includes the domain */
+.tabbrowser-tab[image*="moodle.tuni.fi"],
+/* Fallback: if the tab label contains "Moodle" (useful for pages without image attr) */
+.tabbrowser-tab[label*="Moodle"],
+/* Fallback: tooltiptext sometimes contains the full URL */
+.tabbrowser-tab[tooltiptext*="moodle.tuni.fi"] {
+  /* make sure the favicon area has the correct size */
+  --tab-min-width: var(--custom-tab-favicon-size);
+}
+
+/* hide the original <img> the page provided (if present) */
+.tabbrowser-tab[image*="moodle.tuni.fi"] .tab-icon-image > img,
+.tabbrowser-tab[label*="Moodle"] .tab-icon-image > img,
+.tabbrowser-tab[tooltiptext*="moodle.tuni.fi"] .tab-icon-image > img {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* apply your local file as the favicon */
+.tabbrowser-tab[image*="moodle.tuni.fi"] .tab-icon-image,
+.tabbrowser-tab[label*="Moodle"] .tab-icon-image,
+.tabbrowser-tab[tooltiptext*="moodle.tuni.fi"] .tab-icon-image,
+.tabbrowser-tab[image*="moodle.tuni.fi"] .favicon-stack,
+.tabbrowser-tab[label*="Moodle"] .favicon-stack,
+.tabbrowser-tab[tooltiptext*="moodle.tuni.fi"] .favicon-stack {
+  background: url("file:///home/hieroja/dotfiles/.mozilla/firefox/chrome/pywalfoxV3/favicons/moodle-favicon-32.webp") center/16px 16px no-repeat !important;
+  width: var(--custom-tab-favicon-size) !important;
+  height: var(--custom-tab-favicon-size) !important;
+  min-width: var(--custom-tab-favicon-size) !important;
+  display: block !important;
+  mask-image: none !important;
+  -moz-mask-image: none !important;
+  opacity: 1 !important;
 }

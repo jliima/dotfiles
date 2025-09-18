@@ -64,7 +64,7 @@
   "editor.hover.hidingDelay": 0,
   "editor.insertSpaces": true,
   "editor.lineHeight": 1.25,
-  "editor.minimap.autohide": true,
+  "editor.minimap.autohide": "mouseover",
   "editor.minimap.showSlider": "always",
   "editor.mouseWheelScrollSensitivity": 3.0,
   "editor.roundedSelection": true,
@@ -132,7 +132,8 @@
   "workbench.startupEditor": "none",
   "window.commandCenter": false,
   "chat.commandCenter.enabled": false,
-  "window.menuBarVisibility": "compact"
+  "window.menuBarVisibility": "compact",
+  "git.confirmSync": false
 
 
 }
