@@ -1,6 +1,6 @@
 /*
+ * Theme source ~/.config/wal/templates/colors-obsidian.css
  * To inspect css source, press ctrl+shift+i
- *
  */
 .theme-dark {{
   --color16: color-mix(in hsl, {color0}, white 3%);
@@ -67,14 +67,75 @@ body {{
   --tab-stacked-pane-width: 100%;
 }}
 
-.nav-folder-title-content {{
-  font-weight: bold !important;
-  color: {color4};
+.nav-folder-title-content:first-child {{
+  /*background: linear-gradient(to bottom right, #34bd4b, #867ea3);*/
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900;
+  font-size: 1.25rem;
+  text-shadow: 2px 2px 8px rgba(86, 100, 167, 0.5);
+}}
+
+.nav-folder-title-content:first-child::before {{
+  display: none;
+}}
+
+/* files */
+.nav-file-title-content:before {{
+  content: "";
+  background-image: url("https://www.w3.org/2000/svg");
+  display: inline-block;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin-right: 0.4rem;
+
+  background-color: {foreground};
+  -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill=""><path d="M0 0h24v24H0V0z" fill="none"/><path d="M8 16h8v2H8zm0-4h8v2H8zm6-10H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>');
 }}
 
 .nav-file-title-content {{
-  font-size: 10pt;
+  color: {foreground};
   font-weight: 500;
+  font-size: 10pt;
+  margin-left: -1.1rem;
+  margin-top: -0.5rem;
+  margin-bottom: -0.5rem;
+}}
+
+/* > icons */
+.nav-folder-collapse-indicator svg {{
+  display: none;
+}}
+
+/* folders */
+
+.nav-folder-title-content {{
+  color: {color4};
+  font-weight: 600;
+  margin-left: -1.1rem;
+  margin-top: -0.5rem;
+  margin-bottom: -0.5rem;
+}}
+
+.is-collapsed .nav-folder-title-content {{
+  color: {foreground};
+  font-weight: 600;
+}}
+
+.nav-folder-title-content::before {{
+  content: "";
+  position: relative;
+  background-image: url("https://www.w3.org/2000/svg");
+  display: inline-block;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin-right: 0.4rem;
+  background-color: {color4};
+  -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2.165 19.551c.186.28.499.449.835.449h15c.4 0 .762-.238.919-.606l3-7A.998.998 0 0 0 21 11h-1V8c0-1.103-.897-2-2-2h-6.655L8.789 4H4c-1.103 0-2 .897-2 2v13h.007a1 1 0 0 0 .158.551zM18 8v3H6c-.4 0-.762.238-.919.606L4 14.129V8h14z"></path></svg>');
+}}
+
+.is-collapsed .nav-folder-title-content::before {{
+  -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 5h-8.586L9.707 3.293A.997.997 0 0 0 9 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V7c0-1.103-.897-2-2-2zM4 19V7h16l.002 12H4z"></path></svg>');
 }}
 
 /* Search */
@@ -170,27 +231,6 @@ mjx-container {{
   background-color: {color5};
 }}
 
-/*control the padding for folders in file explorer*/
-.nav-file, .nav-folder {{
-  padding: 0px 0px; /* was 2, 2 */
-
-}}
-
-.nav-file-tag {{
-  background-color: {color2}bb;
-}}
-
-/*colour of background and text when dragging files / folder*/
-body:not(.is-grabbing) .nav-file-title.is-being-dragged,
-body:not(.is-grabbing) .nav-folder-title.is-being-dragged,
-.nav-file-title.is-being-dragged,
-.nav-folder-title.is-being-dragged {{
-  /*background-color: var(--background-primary-alt);*/
-  background-color: {color2};
-  /*color: var(--nav-item-color);*/
-  color: var(--background-primary);
-}}
-
 .view-header-title {{
   text-decoration: underline;
   text-decoration-color: var(--text-muted);
@@ -211,9 +251,6 @@ body:not(.is-grabbing) .nav-folder-title.is-being-dragged,
   --background-modifier-error: {color1}33;
   --background-modifier-error-hover: {color1}33;
 }}
-
-
-
 
 
 .token.comment, .token.prolog, .token.doctype, .token.cdata,
@@ -278,8 +315,6 @@ body:not(.is-grabbing) .nav-folder-title.is-being-dragged,
 }}
 
 
-
-
 /* markdown heading colours */
 .cm-header-1,
 .markdown-preview-view h1 {{
@@ -311,19 +346,20 @@ body:not(.is-grabbing) .nav-folder-title.is-being-dragged,
   color: var(--text-title-h6);
 }}
 
-/*change the color of bold*/
-/*remove `strong, ` to only work in source view*/
-strong, .cm-s-obsidian span.cm-formatting-strong, .cm-s-obsidian span.cm-strong {{
-  /* color: {color4}; */
+/*
+ * Color for bold, remove "strong", to only apply for source view.
+ */
+/*strong, .cm-s-obsidian span.cm-formatting-strong, .cm-s-obsidian span.cm-strong {{
   color: {color2};
-}}
+}}*/
 
-/*change the color of italicised text*/
-/*remove `em, ` to only work in source view*/
-em, .cm-s-obsidian span.cm-formatting-em, .cm-s-obsidian span.cm-em {{
+/* Change the color of italicised text.
+ * Remove `em, ` to only work in source view
+*/
+/*em, .cm-s-obsidian span.cm-formatting-em, .cm-s-obsidian span.cm-em {{
   color: {color1};
 }}
-
+*/
 
 /***********************
   EDIT MODE (CodeMirror)
@@ -333,17 +369,17 @@ em, .cm-s-obsidian span.cm-formatting-em, .cm-s-obsidian span.cm-em {{
   --code-background: var(--color16); /* Code block background */
 
   /* Syntax highlighting */
-  .cm-comment {{ color: {color8} !important; }}              /* Comments */
-  .cm-keyword {{ color: {color2} !important; }}              /* Keywords */
-  .cm-string {{ color: {color13} !important; }}              /* Strings */
-  .cm-builtin {{ color: {color2} !important; }}          /* Builtins */
-  .cm-def {{ color: {color4} !important; }}                        /* Functions */
-  .cm-tag {{ color: {color1} !important; }}                  /* HTML tags */
-  .cm-attribute {{ color: {color3} !important; }}            /* Attr names */
-  .cm-number {{ color: {color1} !important; }}               /* Numbers */
-  .cm-property {{ color: {color6} !important; }}             /* Properties */
-  .cm-qualifier {{ color: {color1} !important; }}            /* Constants */
-  .cm-operator {{ color: {foreground} !important; }}         /* Operators */
+  .cm-comment {{ color: {color8} !important; }}      /* Comments */
+  .cm-keyword {{ color: {color2} !important; }}      /* Keywords */
+  .cm-string {{ color: {color13} !important; }}      /* Strings */
+  .cm-builtin {{ color: {color2} !important; }}      /* Builtins */
+  .cm-def {{ color: {color4} !important; }}          /* Functions */
+  .cm-tag {{ color: {color1} !important; }}          /* HTML tags */
+  .cm-attribute {{ color: {color3} !important; }}    /* Attr names */
+  .cm-number {{ color: {color1} !important; }}       /* Numbers */
+  .cm-property {{ color: {color6} !important; }}     /* Properties */
+  .cm-qualifier {{ color: {color1} !important; }}    /* Constants */
+  .cm-operator {{ color: {foreground} !important; }} /* Operators */
 }}
 
 /***********************
@@ -351,20 +387,25 @@ em, .cm-s-obsidian span.cm-formatting-em, .cm-s-obsidian span.cm-em {{
 ***********************/
 .markdown-preview-view {{
   /* Syntax highlighting */
-  .token.comment {{ color: {color8} !important; }}           /* Comments */
-  .token.keyword {{ color: {color2} !important; }}           /* Keywords */
-  .token.string {{ color: {color13} !important; }}           /* Strings */
-  .token.function {{ color: {color2} !important; }}                /* Functions */
-  .token.class-name {{ color: {foreground} !important; }}    /* Classes */
-  .token.number {{ color: {color1} !important; }}            /* Numbers */
-  .token.operator {{ color: {foreground} !important; }}      /* Operators */
-  .token.tag {{ color: {color1} !important; }}               /* HTML tags */
-  .token.attr-name {{ color: {color4} !important; }}         /* Attr names */
-  .token.attr-value {{ color: {foreground} !important; }}        /* Attr values */
-  .token.constant {{ color: {color1} !important; }}          /* Constants */
-  .token.selector {{ color: {color13} !important; }}         /* CSS selectors */
-  .token.important {{ color: {color3} !important; }}         /* !important */
+  .token.comment {{ color: {color8} !important; }}        /* Comments */
+  .token.keyword {{ color: {color2} !important; }}        /* Keywords */
+  .token.string {{ color: {color13} !important; }}        /* Strings */
+  .token.function {{ color: {color2} !important; }}       /* Functions */
+  .token.class-name {{ color: {foreground} !important; }} /* Classes */
+  .token.number {{ color: {color1} !important; }}         /* Numbers */
+  .token.operator {{ color: {foreground} !important; }}   /* Operators */
+  .token.tag {{ color: {color1} !important; }}            /* HTML tags */
+  .token.attr-name {{ color: {color4} !important; }}      /* Attr names */
+  .token.attr-value {{ color: {foreground} !important; }} /* Attr values */
+  .token.constant {{ color: {color1} !important; }}       /* Constants */
+  .token.selector {{ color: {color13} !important; }}      /* CSS selectors */
+  .token.important {{ color: {color3} !important; }}      /* !important */
   .token.builtin {{ color: {color2} !important; }}
+}}
+
+.markdown-preview-view :not(pre) > code {{
+  --code-background: var(--color5-darker);
+  color: {foreground} !important;
 }}
 
 .cm-inline-code {{
@@ -379,7 +420,7 @@ em, .cm-s-obsidian span.cm-formatting-em, .cm-s-obsidian span.cm-em {{
   white-space: normal !important;
 }}
 
-/*code related text formatting*/
+/* Code related text formatting */
 code[class*='language-'], pre[class*='language-'] {{
   font-weight: 600;
   text-align: left !important;
