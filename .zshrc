@@ -113,9 +113,25 @@ precmd() { precmd() { echo } }
 source <(fzf --zsh)
 eval "$(zoxide init zsh)"
 
-#export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Only for interactive shells
+if [[ $- == *i* ]]; then
+  export NVM_DIR="$HOME/.nvm"
+
+  # Loader: source nvm and bash_completion, then undefine stubs so calls go directly to real commands
+  _load_nvm() {
+    # Prevent repeated loading
+    unset -f node npm npx nvm
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+  }
+
+  # Stub wrappers: load on first use, then forward the arguments
+  nvm() { _load_nvm; nvm "$@"; }
+  node() { _load_nvm; command node "$@"; }
+  npm() { _load_nvm; command npm "$@"; }
+  npx() { _load_nvm; command npx "$@"; }
+fi
 
 
 eval "$(starship init zsh)"
