@@ -6,3 +6,4 @@ scripts/mount
 scripts/backup
 scripts/binds
 scripts/install
+*.kate-swp
