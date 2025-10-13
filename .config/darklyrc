@@ -1,0 +1,7 @@
+[Common]
+OutlineCloseButton=false
+ShadowStrength=153
+
+[Style]
+RoundedRubberBandFrame=false
+TabBGColor=11,222,150
