@@ -10,97 +10,7 @@
   "cmake.options.statusBarVisibility": "visible",
   "custom-ui-style.font.sansSerif": "SF Pro Display",
   "color-highlight.markRuler": false,
-  "editor.tokenColorCustomizations": {
-    "textMateRules": [
-      {
-        "scope": [
-          "keyword.control",
-          "keyword.control.import",
-          "keyword.control.export",
-          "keyword.control.flow",
-          "keyword.declaration",
-          "storage.type",
-          "storage.modifier",
-          "storage.type",
-          "storage.modifier",
-          "keyword.other.module",
-          "meta.import",
-          "meta.import.js",
-          "meta.import.ts"
-        ],
-        "settings": { "foreground": "#0BDE86" }
-      },
-      {
-        "scope": [
-          "entity.name.type",
-          "entity.name.type.class",
-          "support.type",
-          "meta.class"
-        ],
-        "settings": { "foreground": "#61AFEF" }
-      },
-      {
-        "scope": [
-          "entity.name.function",
-          "support.function",
-          "meta.function-call",
-          "meta.method-call",
-          "variable.function"
-        ],
-        "settings": { "foreground": "#61AFEF" }
-      },
-      {
-        "scope": [
-          "meta.decorator",
-          "storage.type.annotation",
-          "meta.annotation"
-        ],
-        "settings": { "foreground": "#61AFEF" }
-      },
-      {
-        "scope": ["string", "string.quoted", "string.template"],
-        "settings": { "foreground": "#C91B8E" }
-      },
-      {
-        "scope": [
-          "constant.numeric",
-          "constant.numeric.integer",
-          "constant.numeric.float",
-          "constant.numeric.hex"
-        ],
-        "settings": { "foreground": "#CD222F" }
-      },
-      {
-        "scope": ["variable.other.constant", "constant.language"],
-        "settings": { "foreground": "#CD222F" }
-      },
-      {
-        "scope": [
-          "variable",
-          "variable.other",
-          "identifier",
-          "keyword.operator"
-        ],
-        "settings": { "foreground": "#CFDCEB" }
-      },
-      {
-        "scope": [
-          "punctuation",
-          "punctuation.definition",
-          "punctuation.separator",
-          "punctuation.separator.key-value",
-          "punctuation.accessor",
-          "punctuation.definition.property",
-          "punctuation.dot",
-          "punctuation.separator.period",
-          "meta.brace",
-          "meta.brackets",
-          "meta.delimiter"
-        ],
-        "settings": { "foreground": "#CFDCEB" }
-      }
-    ]
-  },
+  "editor.scrollBeyondLastLine": false,
 
   /*
 	"custom-ui-style.webview.monospaceSelector": [
@@ -146,9 +56,8 @@
   "editor.detectIndentation": false,
   // following 5 properties remove gutter elements, comment/uncomment as per your liking
   "editor.folding": true,
-  "editor.fontFamily": "SF Mono",
-  "editor.fontLigatures": false,
-  "editor.fontSize": 15, //14 on 4k
+  "editor.fontFamily": "Liga SFMono Nerd Font",
+  "editor.fontLigatures": false, //14 on 4k
   "editor.fontWeight": "600",
   "editor.glyphMargin": false,
   "editor.hover.above": false,
@@ -174,6 +83,7 @@
   "editor.wordWrapColumn": 120,
   "editor.wrappingIndent": "indent",
   "explorer.confirmDelete": false,
+  "editor.suggest.showWords": false,
   "files.autoSave": "afterDelay",
   "launch": {
     "compounds": [],
@@ -187,19 +97,13 @@
   "security.workspace.trust.startupPrompt": "always",
   "security.workspace.trust.untrustedFiles": "open",
   "telemetry.telemetryLevel": "off",
-  "terminal.integrated.fontFamily": "SF Mono",
+  "terminal.integrated.fontFamily": "Liga SFMono Nerd Font",
   "terminal.integrated.fontSize": 14,
   "terminal.integrated.fontWeight": "600",
   "terminal.integrated.lineHeight": 1.1,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "update.mode": "none",
   "window.titleBarStyle": "custom",
-  "window.zoomLevel": 0,
-  "workbench.colorCustomizations": {
-    "debugConsole.infoForeground": "#61AFEF",
-    "sideBar.border": "#3f4754",
-    "tab.activeBorder": "#61AFEF"
-  },
   "workbench.editor.tabSizingFixedMaxWidth": 200,
   "workbench.hover.delay": 200,
   "workbench.layoutControl.enabled": false,
@@ -228,5 +132,29 @@
   "workbench.colorTheme": "Wal",
   "workbench.tree.indent": 16,
   "editor.cursorSmoothCaretAnimation": "on",
-  "diffEditor.ignoreTrimWhitespace": false
+  "diffEditor.ignoreTrimWhitespace": false,
+  "window.zoomLevel": 1,
+  "editor.allowVariableFonts": false,
+  "editor.codeLensFontFamily": "SF Pro Display",
+  "editor.codeLensFontSize": 1,
+  "terminal.integrated.fontLigatures.enabled": true,
+  "gitlens.views.branches.showRemoteBranches": true,
+  "gitlens.ai.model": "vscode",
+  "gitlens.ai.vscode.model": "copilot:gpt-4.1",
+  "gitlens.hovers.enabled": false,
+  "gitlens.hovers.avatars": false,
+  "workbench.iconTheme": "material-icon-theme",
+  "gitlens.views.branches.avatars": false,
+  "todohighlight.keywords": ["TODO", "TBD", "FIXME"],
+  "todohighlight.defaultStyle": {
+    "backgroundColor": "#10171e",
+    "color": "#cd222f",
+    "overviewRulerColor": "#ee8109"
+  },
+  "gitlens.views.branches.files.layout": "list",
+  "gitlens.views.branches.branches.layout": "list",
+  "gitlens.views.branches.showStashes": true,
+  "workbench.editor.limit.perEditorGroup": true,
+  "workbench.editor.limit.value": 8,
+  "workbench.editor.limit.enabled": true
 }

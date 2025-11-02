@@ -9,6 +9,9 @@ export PATH="$HOME/.nvm/versions/node/v22.14.0/bin:$PATH"
 if [ "$CURRENT_ACTIVITY" = "Work" ]; then
   #firefox --P "Work" "$@"
   /usr/bin/firefox --P "Work" "$@"
+elif [ "$CURRENT_ACTIVITY" = "School" ]; then
+  #firefox --P "Work" "$@"
+  /usr/bin/firefox --P "School" "$@"
 else
   /usr/bin/firefox "$@"
   #firefox "$@"

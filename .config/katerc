@@ -107,6 +107,7 @@ Line Height Multiplier=1
 Show Indentation Lines=true
 Show Whole Bracket Expression=true
 Text Font=Liga SFMono Nerd Font,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+Text Font Features=
 Word Wrap Marker=false
 
 [KTextEditor View]
@@ -171,6 +172,12 @@ Word Completion=true
 Word Completion Minimal Word Length=2
 Word Completion Remove Tail=true
 
+[Kate Print Settings][Margins]
+bottom=0
+left=0
+right=0
+top=0
+
 [Konsole]
 AutoSyncronize=true
 AutoSyncronizeMode=0
@@ -181,13 +188,46 @@ RunPrefix=
 SetEditor=false
 
 [MainWindow]
-2 screens: Height=902
-2 screens: Width=805
+2 screens: Height=1224
+2 screens: Width=1031
 2560x1440 screen: Height=902
 2560x1440 screen: Width=805
+3 screens: Height=1100
+3 screens: Width=1088
 
 [Notification Messages]
 HideMenuBarWarning=false
+
+[Printing][HeaderFooter]
+FooterBackground=211,211,211
+FooterBackgroundEnabled=false
+FooterEnabled=true
+FooterForeground=0,0,0
+FooterFormatCenter=
+FooterFormatLeft=
+FooterFormatRight=%U
+HeaderBackground=211,211,211
+HeaderBackgroundEnabled=false
+HeaderEnabled=true
+HeaderFooterFont=Liga SFMono Nerd Font,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+HeaderForeground=0,0,0
+HeaderFormatCenter=%f
+HeaderFormatLeft=%y
+HeaderFormatRight=%p
+
+[Printing][Layout]
+BackgroundColorEnabled=false
+BoxColor=invalid
+BoxEnabled=false
+BoxMargin=6
+BoxWidth=1
+ColorScheme=Printing
+Font=Liga SFMono Nerd Font,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+
+[Printing][Text]
+DontPrintFoldedCode=true
+Legend=false
+LineNumbers=false
 
 [UiSettings]
 ColorScheme=
