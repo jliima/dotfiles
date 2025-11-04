@@ -55,7 +55,7 @@ ZSH_HIGHLIGHT_STYLES[path_prefix]=none
 
 autoload -Uz compinit && compinit
 
-CURRENT_ACTIVITY="$(~/scripts/get-current-activity-name.sh)"
+CURRENT_ACTIVITY=$(plasma-activities-cli6 --current-activity | awk '{print $3}')
 
 if [ "$CURRENT_ACTIVITY" = "Work" ]; then
   HISTDIR=~/.zsh_history_archive_work

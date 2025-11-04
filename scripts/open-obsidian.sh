@@ -1,10 +1,6 @@
 #!/bin/sh
 
-CURRENT_ACTIVITY_SCRIPT="$HOME/scripts/get-current-activity-name.sh"
-
-# Get current activity
-CURRENT_ACTIVITY=$("$CURRENT_ACTIVITY_SCRIPT")
-echo "Activity: $CURRENT_ACTIVITY"
+CURRENT_ACTIVITY=$(plasma-activities-cli6 --current-activity | awk '{print $3}')
 
 # Determine vault folder based on activity
 if [ "$CURRENT_ACTIVITY" = "Work" ]; then

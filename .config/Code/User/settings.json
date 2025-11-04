@@ -156,5 +156,8 @@
   "gitlens.views.branches.showStashes": true,
   "workbench.editor.limit.perEditorGroup": true,
   "workbench.editor.limit.value": 8,
-  "workbench.editor.limit.enabled": true
+  "workbench.editor.limit.enabled": true,
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "debug.console.fontFamily": "Liga SFMono Nerd Font",
+  "terminal.integrated.stickyScroll.enabled": false
 }

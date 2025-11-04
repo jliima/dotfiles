@@ -1,18 +1,14 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-CURRENT_ACTIVITY=$(dbus-send --print-reply --dest=org.kde.ActivityManager /ActivityManager/Activities org.kde.ActivityManager.Activities.ActivityName string:"$(dbus-send --print-reply --dest=org.kde.ActivityManager /ActivityManager/Activities org.kde.ActivityManager.Activities.CurrentActivity | grep -oP '(?<=string ")[^"]+(?=")')" | grep -oP '(?<=string ")[^"]+(?=")')
+CURRENT_ACTIVITY=$(plasma-activities-cli6 --current-activity | awk '{print $3}')
 
 # Needed for custom Dark Reader plugin to work
-export PATH="$HOME/.nvm/versions/node/v22.14.0/bin:$PATH"
-
+export PATH="$HOME/.nvm/versions/node/v22.20.0/bin:$PATH"
 
 if [ "$CURRENT_ACTIVITY" = "Work" ]; then
-  #firefox --P "Work" "$@"
   /usr/bin/firefox --P "Work" "$@"
 elif [ "$CURRENT_ACTIVITY" = "School" ]; then
-  #firefox --P "Work" "$@"
   /usr/bin/firefox --P "School" "$@"
 else
   /usr/bin/firefox "$@"
-  #firefox "$@"
 fi
