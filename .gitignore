@@ -1,9 +1,10 @@
 .directory
 .stfolder
 .stignore
-scripts/work_scripts
+scripts/work-scripts
 scripts/mount
 scripts/backup
 scripts/binds
 scripts/install
+scripts/wireguard
 *.kate-swp

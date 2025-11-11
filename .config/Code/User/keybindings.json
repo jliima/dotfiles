@@ -70,10 +70,6 @@
     "command": "-workbench.action.openSettings"
   },
   {
-    "key": "f5",
-    "command": "python.execInTerminal-icon"
-  },
-  {
     "key": "shift+meta+t",
     "command": "workbench.action.terminal.openNativeConsole",
     "when": "!terminalFocus"

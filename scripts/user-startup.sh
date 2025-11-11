@@ -29,6 +29,4 @@ fi
 #  telegram-desktop -startintray &
 #fi
 
-"$SCRIPT_DIR/kde/set-wallpaper-for-activity.py" 'Default' "${WALLPAPER_DIR}/Misc/icy-mountains-and-boat.png" >/dev/null 2>&1
-"$SCRIPT_DIR/kde/set-wallpaper-for-activity.py" 'Work' "${WALLPAPER_DIR}/Misc/firm-logo-4k.png" >/dev/null 2>&1
-"$SCRIPT_DIR/kde/set-wallpaper-for-activity.py" 'School' "${WALLPAPER_DIR}/Green/1462041571377.jpg" >/dev/null 2>&1
+"$SCRIPT_DIR/set-wallpaper.sh" >/dev/null 2>&1

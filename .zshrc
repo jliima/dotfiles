@@ -43,10 +43,7 @@ plugins=(
 ZSH_AUTOSUGGEST_STRATEGY="match_prev_cmd" #"completion"
 source $ZSH/oh-my-zsh.sh
 
-if [ -z "$SSH_AUTH_SOCK" ]; then
-    eval "$(ssh-agent -s)"
-    ssh-add ~/.ssh/id_ed25519
-fi
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 #disable underline
 (( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
