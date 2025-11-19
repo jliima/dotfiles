@@ -9,4 +9,4 @@ WALLPAPER_DIR="~/Pictures/Wallpapers"
 
 "$SCRIPT_DIR/kde/set-wallpaper-for-activity.py" 'Default' "${WALLPAPER_DIR}/Misc/icy-mountains-and-boat.png"
 "$SCRIPT_DIR/kde/set-wallpaper-for-activity.py" 'Work' "${WALLPAPER_DIR}/Misc/firm-logo-4k.png"
-"$SCRIPT_DIR/kde/set-wallpaper-for-activity.py" 'School' "${WALLPAPER_DIR}/Green/1462041571377.jpg"
+"$SCRIPT_DIR/kde/set-wallpaper-for-activity.py" 'School' "${WALLPAPER_DIR}/Green/wallhaven-3lyzyv.jpg"
