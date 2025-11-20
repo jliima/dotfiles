@@ -3,10 +3,6 @@ HexLengths=3,6,9,12
 NamedColors=false
 PreviewAfterColor=true
 
-[FileDialogSize]
-2 screens: Height=902
-2 screens: Width=805
-
 [General]
 Allow Tab Scrolling=true
 Auto Hide Tabs=true
@@ -51,10 +47,6 @@ Sync section size with tab positions=false
 Tab Double Click New Document=true
 Tab Middle Click Close Document=true
 Tabbar Tab Limit=0
-
-[KPropertiesDialog]
-DisplayPort-0 DisplayPort-1 Height 2560x1440=446
-DisplayPort-0 DisplayPort-1 Width 2560x1440=431
 
 [KTextEditor Document]
 Allow End of Line Detection=false
@@ -189,14 +181,6 @@ KonsoleEscKeyExceptions=vi,vim,nvim
 RemoveExtension=false
 RunPrefix=
 SetEditor=false
-
-[MainWindow]
-2 screens: Height=902
-2 screens: Width=1259
-2560x1440 screen: Height=902
-2560x1440 screen: Width=805
-3 screens: Height=1052
-3 screens: Width=1239
 
 [Notification Messages]
 HideMenuBarWarning=false
