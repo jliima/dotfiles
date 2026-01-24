@@ -1,10 +1,11 @@
 .directory
 .stfolder
 .stignore
-scripts/work-scripts
-scripts/mount
-scripts/backup
-scripts/binds
-scripts/install
-scripts/wireguard
 *.kate-swp
+.config/Code/*
+!.config/Code/User/settings.json
+
+scripts
+!scripts/pywal
+!scripts/kde
+!scripts/applications
