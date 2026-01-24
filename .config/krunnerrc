@@ -28,7 +28,7 @@ org.kde.activities2Enabled=false
 windowsEnabled=false
 
 [Plugins][Favorites]
-plugins=krunner_services,baloosearch,krunner_jetbrainsrunner,krunner_systemsettings
+plugins=krunner_services,krunner_systemsettings,baloosearch,krunner_jetbrainsrunner
 
 [Runners][krunner_jetbrainsrunner]
 DisplayInCategories=false
@@ -36,4 +36,5 @@ FormatString=%PROJECT
 LaunchByAppName=true
 LaunchByProjectName=true
 NotifyUpdates=true
+checkedUpdateDate=Sun Jan 18 2026
 filterSearchResults=0

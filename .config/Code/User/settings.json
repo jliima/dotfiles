@@ -3,7 +3,7 @@
     "editor.defaultFormatter": "eeyore.yapf",
     "editor.formatOnSave": true,
     "editor.formatOnSaveMode": "file",
-    "editor.formatOnType": false
+    "editor.formatOnType": false,
   },
   "autoscroll.autoEnableForLogs": true,
   "breadcrumbs.enabled": false,
@@ -21,36 +21,36 @@
   "custom-ui-style.stylesheet": {
     ".monaco-editor *:not(.view-lines):not(.view-lines *):not(.mtk):not(.mtk *):not(.margin-view-overlays *):not(.monaco-hover *):not(.monaco-hover):not(.sticky-widget *):not(.sticky-widget):not(.suggest-widget *):not(.suggest-widget):not(.contentWidgets *), .titlebar-container *": {
       "font-size": "11pt",
-      "font-weight": "500"
+      "font-weight": "500",
     },
     ".monaco-workbench .part.sidebar>.title>.title-label *": {
       "font-family": "SF Pro Display",
       "font-size": "10pt",
-      "font-weight": "500"
+      "font-weight": "500",
     },
     ".sidebar *, .quick-input-widget *, .action-label": {
       "font-family": "SF Pro Display",
       "font-size": "11pt",
-      "font-weight": "500"
+      "font-weight": "500",
     },
     ".statusbar, .monaco-menu *, .monaco-action-menu-item-label *": {
       "font-family": "SF Pro Display",
       "font-size": "11pt",
-      "font-weight": "500"
+      "font-weight": "500",
     },
     ".window-appicon": {
-      "display": "none"
+      "display": "none",
     },
     "*:not(.monaco-editor *)": {
       "font-family": "SF Pro Display",
       "font-size": "11pt",
-      "font-weight": "500"
+      "font-weight": "500",
     },
     "kbd, .titlebar, .activityBar, .panel, .tabs, .settings-body, .extension-editor": {
       "font-family": "SF Pro Display",
       "font-size": "11pt",
-      "font-weight": "500"
-    }
+      "font-weight": "500",
+    },
   },
   "editor.bracketPairColorization.enabled": false,
   "editor.detectIndentation": false,
@@ -87,7 +87,7 @@
   "files.autoSave": "afterDelay",
   "launch": {
     "compounds": [],
-    "configurations": []
+    "configurations": [],
   },
   "markdown.preview.fontSize": 16,
   "markdown.preview.lineHeight": 1.4,
@@ -113,14 +113,14 @@
   "workbench.preferredHighContrastLightColorTheme": "Wal",
   "workbench.preferredLightColorTheme": "Wal",
   "workbench.sash.hoverDelay": 200,
-  "workbench.settings.applyToAllProfiles": [],
+  "workbench.settings.applyToAllProfiles": ["workbench.externalBrowser"],
   "workbench.tree.renderIndentGuides": "onHover",
   "yapf.args": [
     "--style",
-    "{based_on_style: google, indent_width: 2, column_limit: 120}"
+    "{based_on_style: google, indent_width: 2, column_limit: 120}",
   ],
   "workbench.editorAssociations": {
-    "*.pdf": "default"
+    "*.pdf": "default",
   },
   "workbench.startupEditor": "none",
   "window.commandCenter": false,
@@ -149,7 +149,7 @@
   "todohighlight.defaultStyle": {
     "backgroundColor": "#10171e",
     "color": "#cd222f",
-    "overviewRulerColor": "#ee8109"
+    "overviewRulerColor": "#ee8109",
   },
   "gitlens.views.branches.files.layout": "list",
   "gitlens.views.branches.branches.layout": "list",
@@ -159,5 +159,13 @@
   "workbench.editor.limit.enabled": true,
   "github.copilot.nextEditSuggestions.enabled": true,
   "debug.console.fontFamily": "Liga SFMono Nerd Font",
-  "terminal.integrated.stickyScroll.enabled": false
+  "terminal.integrated.stickyScroll.enabled": false,
+  "git.openRepositoryInParentFolders": "never",
+  "livePreview.customExternalBrowser": "Chrome",
+  "liveServer.settings.AdvanceCustomBrowserCmdLine": "chromium",
+  "liveServer.settings.CustomBrowser": "chrome",
+  "workbench.externalBrowser": "chromium",
+  "dart.flutterSdkPath": "/home/hieroja/flutter/flutter",
+  "makefile.configureOnOpen": true,
+  "remote.autoForwardPortsSource": "hybrid",
 }

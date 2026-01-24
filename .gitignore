@@ -4,6 +4,7 @@
 *.kate-swp
 .config/Code/*
 !.config/Code/User/settings.json
+!.config/Code/User/keybindings.json
 
 scripts
 !scripts/pywal

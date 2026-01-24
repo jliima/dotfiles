@@ -269,10 +269,12 @@ _launch=Meta+Ctrl+Left
 _launch=Meta+Ctrl+Right
 
 [services][chromium_chromium.desktop]
+Incognito=Meta+Shift+C
 _launch=Meta+C
 
 [services][firefox.desktop]
 _launch=Meta+F
+new-private-window=Meta+Shift+F
 
 [services][jellyfin-couch-mode-exit.sh.desktop]
 _launch=Home Page
@@ -330,6 +332,9 @@ _launch=Meta+S
 30E462BD67CBA3690A75A2B21C77916E-autofill_login=none,none,Autofill the last used login for the current website
 30E462BD67CBA3690A75A2B21C77916E-generate_password=none,none,Generate and copy a new random password to the clipboard
 30E462BD67CBA3690A75A2B21C77916E-lock_vault=none,none,Lock the vault
+A1981FBE6AA1A7D9FBC5B8D01235501B-openManage=none,none,Manage
+A1981FBE6AA1A7D9FBC5B8D01235501B-reload=none,none,Reload
+A1981FBE6AA1A7D9FBC5B8D01235501B-styleDisableAll=none,none,Turn all styles off
 E8A1799373767D00906A1067DA62B24F-addSite=none,none,Toggle current site
 E8A1799373767D00906A1067DA62B24F-switchEngine=none,none,Theme generation mode
 E8A1799373767D00906A1067DA62B24F-toggle=none,none,Toggle extension
