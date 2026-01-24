@@ -117,7 +117,7 @@ if [[ $- == *i* ]]; then
   # Loader: source nvm and bash_completion, then undefine stubs so calls go directly to real commands
   _load_nvm() {
     # Prevent repeated loading
-    unset -f node npm npx nvm
+    unset -f node npm pnpm npx nvm
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
     [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
@@ -127,6 +127,7 @@ if [[ $- == *i* ]]; then
   nvm() { _load_nvm; nvm "$@"; }
   node() { _load_nvm; command node "$@"; }
   npm() { _load_nvm; command npm "$@"; }
+  pnpm() { _load_nvm; command pnpm "$@"; }
   npx() { _load_nvm; command npx "$@"; }
 fi
 
