@@ -104,6 +104,7 @@ alias cd="z"
 alias cat="bat"
 alias grep="rg"
 alias dolphin="dolphin . >/dev/null & disown > /dev/null"
+alias neofetch="fastfetch"
 
 precmd() { precmd() { echo } }
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
