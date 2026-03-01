@@ -1,0 +1,6 @@
+--no-playlist
+--embed-thumbnail
+--add-metadata
+--js-runtimes node
+--remote-components ejs:github
+-o ~/Downloads/%(title)s.%(ext)s

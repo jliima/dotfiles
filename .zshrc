@@ -23,7 +23,7 @@ export PYTHONPATH=~:$PYTHONPATH
 #export LESSOPEN="| grep -P 'alias|$' --color=always %s"
 export LESSOPEN="|pygmentize -g %s"
 export LESS='-R'
-bindkey -s '\e[15~' '!!\n\n'
+#bindkey -s '\e[15~' '!!\n\n'
 
 
 ZSH_THEME="robbyrussell"
@@ -96,13 +96,14 @@ alias kate="kate -n"
 alias colors=". ~/dotfiles/scripts/pywal/colors.sh"
 alias pare="./dotfiles/scripts/pywal/run-pywal.sh --theme 'parecolors'"
 alias pywal-debug="./dotfiles/scripts/pywal/pywal-debug.sh"
+alias tg='python3 /home/hieroja/scripts/telegram-video-converter.py'
 
-alias find="echo 'Files: Ctrl+T\nText:  grep <text>'" #"fzf"
 alias ls="eza --icons -F -H --group-directories-first --git -1"
-alias tree="eza --icons --tree -F -H"
 alias cd="z"
 alias cat="bat"
 alias grep="rg"
+alias find="echo 'Files: Ctrl+T\nText:  grep <text>'" #"fzf"
+alias tree="eza --icons --tree -F -H"
 alias dolphin="dolphin . >/dev/null & disown > /dev/null"
 alias neofetch="fastfetch"
 
@@ -132,5 +133,23 @@ if [[ $- == *i* ]]; then
   npx() { _load_nvm; command npx "$@"; }
 fi
 
+yt-dlp() {
+  # If node is still a shell function (lazy stub), load nvm
+  if [[ "$(whence -w node)" == *"function"* ]]; then
+    _load_nvm
+  fi
+
+  command yt-dlp "$@"
+}
+
+tg-dlp() {
+  yt-dlp \
+    --no-playlist \
+    -f "bv*[ext=mp4][vcodec^=avc1][height<=1080]+ba[ext=m4a]/b[ext=mp4][height<=1080]" \
+    --merge-output-format mp4 \
+    --embed-thumbnail \
+    --add-metadata \
+    "$@"
+}
 
 eval "$(starship init zsh)"
