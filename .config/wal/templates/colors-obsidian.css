@@ -57,6 +57,7 @@
   /*background colour when highlighting text with mouse*/
   --text-selection: var(--color4-darker);
   --text-on-accent: {foreground};
+  --metadata-background: var(--color16);
 }}
 
 .theme-dark .nav-folder-title-content::before {{
@@ -449,4 +450,35 @@ pre[class*="language-"],
   color: {foreground} !important;
   font-family: 'SF Mono' !important;
   font-weight: 600 !important;
+}}
+
+.metadata-container {{
+  margin-block-end: 0px !important;
+  padding: 6px 10px 6px 6px !important;
+  border-radius: 8px !important;
+  margin-left: 5px !important;
+}}
+
+.metadata-container.is-collapsed {{
+  background-color: transparent !important;
+}}
+
+.metadata-container .collapse-indicator {{
+  margin-left: -5px !important;
+}}
+
+.metadata-container + * {{
+  padding-top: 1em;
+}}
+
+.metadata-container.is-collapsed + * {{
+  padding-top: 0px !important;
+}}
+
+.metadata-container.is-collapsed {{
+  padding-bottom: 0px !important;
+}}
+
+.cm-sizer > .inline-title {{
+  margin-bottom: 0.25em;
 }}
