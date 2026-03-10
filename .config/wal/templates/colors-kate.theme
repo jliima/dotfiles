@@ -2,20 +2,20 @@
     "custom-styles": {{
         "Diff": {{
             "Added line": {{
-                "selected-text-color": "{color2}",
-                "text-color": "{color2}"
+                "selected-text-color": "{green90}",
+                "text-color": "{green90}"
             }},
             "Changed line (new)": {{
-                "selected-text-color": "{color2}",
-                "text-color": "{color2}"
+                "selected-text-color": "{green90}",
+                "text-color": "{green90}"
             }},
             "Changed line (old)": {{
-                "selected-text-color": "{color1}",
-                "text-color": "{color1}"
+                "selected-text-color": "{red70}",
+                "text-color": "{red70}"
             }},
             "Removed line": {{
-                "selected-text-color": "{color1}",
-                "text-color": "{color1}"
+                "selected-text-color": "{red70}",
+                "text-color": "{red70}"
             }}
         }},
         "Doxygen": {{
@@ -35,14 +35,14 @@
                 "italic": false
             }},
             "Todo": {{
-                "selected-text-color": "{color1}",
-                "text-color": "{color1}"
+                "selected-text-color": "{red70}",
+                "text-color": "{red70}"
             }}
         }},
         "Go": {{
             "Predeclared Identifier": {{
-                "selected-text-color": "{color3}",
-                "text-color": "{color3}"
+                "selected-text-color": "{yellow90}",
+                "text-color": "{yellow90}"
             }}
         }},
         "HTML": {{
@@ -56,35 +56,35 @@
                 "text-color": "{foreground}"
             }},
             "Section": {{
-                "selected-text-color": "{color4}",
-                "text-color": "{color4}"
+                "selected-text-color": "{blue90}",
+                "text-color": "{blue90}"
             }}
         }},
         "JavaScript": {{
             "Built-in Objects": {{
-                "selected-text-color": "{color3}",
-                "text-color": "{color3}"
+                "selected-text-color": "{yellow90}",
+                "text-color": "{yellow90}"
             }},
             "Function Declaration": {{
-                "selected-text-color": "{color4}",
-                "text-color": "{color4}"
+                "selected-text-color": "{blue90}",
+                "text-color": "{blue90}"
             }},
             "Function Name": {{
-                "selected-text-color": "{color4}",
-                "text-color": "{color4}"
+                "selected-text-color": "{blue90}",
+                "text-color": "{blue90}"
             }},
             "Module": {{
-                "selected-text-color": "{color13}",
-                "text-color": "{color13}"
+                "selected-text-color": "{magenta90}",
+                "text-color": "{magenta90}"
             }},
             "Object Member": {{
-                "selected-text-color": "{color1}",
-                "text-color": "{color1}"
+                "selected-text-color": "{red70}",
+                "text-color": "{red70}"
             }},
             "Object Method (Built-in)": {{
                 "italic": false,
-                "selected-text-color": "{color4}",
-                "text-color": "{color4}"
+                "selected-text-color": "{blue90}",
+                "text-color": "{blue90}"
             }},
             "Object Property (Built-in)": {{
                 "italic": false
@@ -108,164 +108,164 @@
         }},
         "Markdown": {{
             "Code": {{
-                "selected-text-color": "{color3}",
-                "text-color": "{color3}"
+                "selected-text-color": "{yellow90}",
+                "text-color": "{yellow90}"
             }},
             "Emphasis Text": {{
-                "selected-text-color": "{color13}",
-                "text-color": "{color13}"
+                "selected-text-color": "{magenta90}",
+                "text-color": "{magenta90}"
             }},
             "Fenced Code": {{
-                "selected-text-color": "{color3}",
-                "text-color": "{color3}"
+                "selected-text-color": "{yellow90}",
+                "text-color": "{yellow90}"
             }},
             "Header H1": {{
-                "selected-text-color": "{color1}",
-                "text-color": "{color1}"
+                "selected-text-color": "{red70}",
+                "text-color": "{red70}"
             }},
             "Header H2": {{
-                "selected-text-color": "{color1}",
-                "text-color": "{color1}"
+                "selected-text-color": "{red70}",
+                "text-color": "{red70}"
             }},
             "Header H3": {{
-                "selected-text-color": "{color1}",
-                "text-color": "{color1}"
+                "selected-text-color": "{red70}",
+                "text-color": "{red70}"
             }},
             "Header H4": {{
-                "selected-text-color": "{color1}",
-                "text-color": "{color1}"
+                "selected-text-color": "{red70}",
+                "text-color": "{red70}"
             }},
             "Header H5": {{
-                "selected-text-color": "{color1}",
-                "text-color": "{color1}"
+                "selected-text-color": "{red70}",
+                "text-color": "{red70}"
             }},
             "Header H6": {{
-                "selected-text-color": "{color1}",
-                "text-color": "{color1}"
+                "selected-text-color": "{red70}",
+                "text-color": "{red70}"
             }},
             "Link": {{
-                "selected-text-color": "{color13}",
-                "text-color": "{color13}"
+                "selected-text-color": "{magenta90}",
+                "text-color": "{magenta90}"
             }},
             "Reference-Link Name": {{
-                "selected-text-color": "{color4}",
-                "text-color": "{color4}"
+                "selected-text-color": "{blue90}",
+                "text-color": "{blue90}"
             }},
             "Reference-Link Target": {{
-                "selected-text-color": "{color4}",
-                "text-color": "{color4}"
+                "selected-text-color": "{blue90}",
+                "text-color": "{blue90}"
             }},
             "Reference-Link Target: Link": {{
-                "selected-text-color": "{color13}",
-                "text-color": "{color13}"
+                "selected-text-color": "{magenta90}",
+                "text-color": "{magenta90}"
             }},
             "Reference-Link: Email": {{
-                "selected-text-color": "{color13}",
-                "text-color": "{color13}"
+                "selected-text-color": "{magenta90}",
+                "text-color": "{magenta90}"
             }},
             "Reference-Link: Link": {{
-                "selected-text-color": "{color13}",
-                "text-color": "{color13}"
+                "selected-text-color": "{magenta90}",
+                "text-color": "{magenta90}"
             }},
             "Strong Text": {{
-                "selected-text-color": "{color3}",
-                "text-color": "{color3}"
+                "selected-text-color": "{yellow90}",
+                "text-color": "{yellow90}"
             }}
         }},
         "Python": {{
             "Builtin Function": {{
-                "selected-text-color": "{color4}",
-                "text-color": "{color4}"
+                "selected-text-color": "{blue90}",
+                "text-color": "{blue90}"
             }},
             "String Substitution": {{
-                "selected-text-color": "{color3}",
-                "text-color": "{color3}"
+                "selected-text-color": "{yellow90}",
+                "text-color": "{yellow90}"
             }}
         }},
         "Rust": {{
             "Lifetime": {{
-                "selected-text-color": "{color3}",
-                "text-color": "{color3}"
+                "selected-text-color": "{yellow90}",
+                "text-color": "{yellow90}"
             }},
             "Macro": {{
-                "selected-text-color": "{color4}",
-                "text-color": "{color4}"
+                "selected-text-color": "{blue90}",
+                "text-color": "{blue90}"
             }},
             "Self": {{
-                "selected-text-color": "{color1}",
-                "text-color": "{color1}"
+                "selected-text-color": "{red70}",
+                "text-color": "{red70}"
             }},
             "Trait": {{
-                "selected-text-color": "{color3}",
-                "text-color": "{color3}"
+                "selected-text-color": "{yellow90}",
+                "text-color": "{yellow90}"
             }},
             "Type": {{
-                "selected-text-color": "{color4}",
-                "text-color": "{color4}"
+                "selected-text-color": "{blue90}",
+                "text-color": "{blue90}"
             }}
         }},
         "TypeScript": {{
             "Built-in Objects": {{
-                "selected-text-color": "{color3}",
-                "text-color": "{color3}"
+                "selected-text-color": "{yellow90}",
+                "text-color": "{yellow90}"
             }},
             "Module": {{
-                "selected-text-color": "{color13}",
-                "text-color": "{color13}"
+                "selected-text-color": "{magenta90}",
+                "text-color": "{magenta90}"
             }},
             "Object Member": {{
-                "selected-text-color": "{color1}",
-                "text-color": "{color1}"
+                "selected-text-color": "{red70}",
+                "text-color": "{red70}"
             }},
             "Object Method (Built-in)": {{
-                "selected-text-color": "{color4}",
-                "text-color": "{color4}"
+                "selected-text-color": "{blue90}",
+                "text-color": "{blue90}"
             }},
             "Types": {{
-                "selected-text-color": "{color4}",
-                "text-color": "{color4}"
+                "selected-text-color": "{blue90}",
+                "text-color": "{blue90}"
             }}
         }},
         "XML": {{
             "Attribute": {{
-                "selected-text-color": "{color3}",
-                "text-color": "{color3}"
+                "selected-text-color": "{yellow90}",
+                "text-color": "{yellow90}"
             }},
             "Element": {{
-                "selected-text-color": "{color2}",
-                "text-color": "{color2}"
+                "selected-text-color": "{green90}",
+                "text-color": "{green90}"
             }}
         }}
     }},
     "editor-colors": {{
         "BackgroundColor": "{background}",
-        "BracketMatching": "{color8}",
-        "CodeFolding": "{color8}",
+        "BracketMatching": "{grey90}",
+        "CodeFolding": "{grey90}",
         "CurrentLine": "#0a99bbff",
-        "CurrentLineNumber": "{color15}",
+        "CurrentLineNumber": "{white90}",
         "IconBorder": "{background}",
         "IndentationLine": "#3a3f44",
-        "LineNumbers": "{color8}",
+        "LineNumbers": "{grey90}",
         "MarkBookmark": "#0404bf",
-        "MarkBreakpointActive": "{color9}",
+        "MarkBreakpointActive": "{red90}",
         "MarkBreakpointDisabled": "#820683",
         "MarkBreakpointReached": "#6d6e07",
-        "MarkError": "{color1}",
+        "MarkError": "{red70}",
         "MarkExecution": "#4d4e50",
-        "MarkWarning": "{color3}",
-        "ModifiedLines": "{color3}",
-        "ReplaceHighlight": "{color2}",
-        "SavedLines": "{color2}",
-        "SearchHighlight": "{color2}",
-        "Separator": "{color8}",
-        "SpellChecking": "{color1}",
+        "MarkWarning": "{yellow90}",
+        "ModifiedLines": "{yellow90}",
+        "ReplaceHighlight": "{magenta70}",
+        "SavedLines": "{green90}",
+        "SearchHighlight": "{magenta70}",
+        "Separator": "{grey90}",
+        "SpellChecking": "{red70}",
         "TabMarker": "#21252b",
         "TemplateBackground": "#31363b",
         "TemplateFocusedPlaceholder": "#123723",
         "TemplatePlaceholder": "#123723",
-        "TemplateReadOnlyPlaceholder": "{color1}",
-        "TextSelection": "{color5}",
-        "WordWrapMarker": "{color8}"
+        "TemplateReadOnlyPlaceholder": "{red70}",
+        "TextSelection": "{grey70}",
+        "WordWrapMarker": "{grey90}"
     }},
     "metadata": {{
         "name": "pywal-colors",
@@ -274,85 +274,85 @@
     "text-styles": {{
         "Alert": {{
             "background-color": "{background}",
-            "selected-text-color": "{color1}",
-            "text-color": "{color1}"
+            "selected-text-color": "{red70}",
+            "text-color": "{red70}"
         }},
         "Annotation": {{
-            "selected-text-color": "{color3}",
-            "text-color": "{color3}"
+            "selected-text-color": "{yellow90}",
+            "text-color": "{yellow90}"
         }},
         "Attribute": {{
-            "selected-text-color": "{color2}",
-            "text-color": "{color2}"
+            "selected-text-color": "{green90}",
+            "text-color": "{green90}"
         }},
         "BaseN": {{
-            "selected-text-color": "{color1}",
-            "text-color": "{color1}"
+            "selected-text-color": "{red70}",
+            "text-color": "{red70}"
         }},
         "BuiltIn": {{
-            "selected-text-color": "{color2}",
-            "text-color": "{color2}"
+            "selected-text-color": "{green90}",
+            "text-color": "{green90}"
         }},
         "Char": {{
-            "selected-text-color": "{color2}",
-            "text-color": "{color2}"
+            "selected-text-color": "{green90}",
+            "text-color": "{green90}"
         }},
         "Comment": {{
-            "selected-text-color": "{color8}",
-            "text-color": "{color8}"
+            "selected-text-color": "{grey90}",
+            "text-color": "{grey90}"
         }},
         "CommentVar": {{
-            "selected-text-color": "{color1}",
-            "text-color": "{color1}"
+            "selected-text-color": "{red70}",
+            "text-color": "{red70}"
         }},
         "Constant": {{
-            "selected-text-color": "{color1}",
-            "text-color": "{color1}"
+            "selected-text-color": "{red70}",
+            "text-color": "{red70}"
         }},
         "ControlFlow": {{
-            "selected-text-color": "{color2}",
-            "text-color": "{color2}"
+            "selected-text-color": "{green90}",
+            "text-color": "{green90}"
         }},
         "DataType": {{
-            "selected-text-color": "{color2}",
-            "text-color": "{color2}"
+            "selected-text-color": "{green90}",
+            "text-color": "{green90}"
         }},
         "DecVal": {{
-            "selected-text-color": "{color1}",
-            "text-color": "{color1}"
+            "selected-text-color": "{red70}",
+            "text-color": "{red70}"
         }},
         "Documentation": {{
-            "selected-text-color": "{color1}",
+            "selected-text-color": "{red70}",
             "text-color": "#a43340"
         }},
         "Error": {{
-            "selected-text-color": "{color9}",
-            "text-color": "{color9}",
+            "selected-text-color": "{red90}",
+            "text-color": "{red90}",
             "underline": true
         }},
         "Extension": {{
-            "selected-text-color": "{color4}",
-            "text-color": "{color4}"
+            "selected-text-color": "{blue90}",
+            "text-color": "{blue90}"
         }},
         "Float": {{
-            "selected-text-color": "{color1}",
-            "text-color": "{color1}"
+            "selected-text-color": "{red70}",
+            "text-color": "{red70}"
         }},
         "Function": {{
-            "selected-text-color": "{color4}",
-            "text-color": "{color4}"
+            "selected-text-color": "{blue90}",
+            "text-color": "{blue90}"
         }},
         "Import": {{
-            "selected-text-color": "{color3}",
-            "text-color": "{color3}"
+            "selected-text-color": "{yellow90}",
+            "text-color": "{yellow90}"
         }},
         "Information": {{
-            "selected-text-color": "{color3}",
-            "text-color": "{color3}"
+            "selected-text-color": "{yellow90}",
+            "text-color": "{yellow90}"
         }},
         "Keyword": {{
-            "selected-text-color": "{color2}",
-            "text-color": "{color2}"
+            "selected-text-color": "{green90}",
+            "text-color": "{green90}"
         }},
         "Normal": {{
             "selected-text-color": "{foreground}",
@@ -363,41 +363,41 @@
             "text-color": "{foreground}"
         }},
         "Others": {{
-            "selected-text-color": "{color2}",
-            "text-color": "{color2}"
+            "selected-text-color": "{green90}",
+            "text-color": "{green90}"
         }},
         "Preprocessor": {{
-            "selected-text-color": "{color2}",
-            "text-color": "{color2}"
+            "selected-text-color": "{green90}",
+            "text-color": "{green90}"
         }},
         "RegionMarker": {{
             "background-color": "{background}",
-            "selected-text-color": "{color4}",
-            "text-color": "{color4}"
+            "selected-text-color": "{blue90}",
+            "text-color": "{blue90}"
         }},
         "SpecialChar": {{
-            "selected-text-color": "{color4}",
-            "text-color": "{color4}"
+            "selected-text-color": "{blue90}",
+            "text-color": "{blue90}"
         }},
         "SpecialString": {{
-            "selected-text-color": "{color13}",
-            "text-color": "{color13}"
+            "selected-text-color": "{magenta90}",
+            "text-color": "{magenta90}"
         }},
         "String": {{
-            "selected-text-color": "{color13}",
-            "text-color": "{color13}"
+            "selected-text-color": "{magenta90}",
+            "text-color": "{magenta90}"
         }},
         "Variable": {{
             "selected-text-color": "{foreground}",
             "text-color": "{foreground}"
         }},
         "VerbatimString": {{
-            "selected-text-color": "{color13}",
-            "text-color": "{color13}"
+            "selected-text-color": "{magenta90}",
+            "text-color": "{magenta90}"
         }},
         "Warning": {{
-            "selected-text-color": "{color1}",
-            "text-color": "{color1}"
+            "selected-text-color": "{red70}",
+            "text-color": "{red70}"
         }}
     }}
 }}

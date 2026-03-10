@@ -14,23 +14,23 @@
 	--wal-foreground: {foreground.rgb};
 	--wal-cursor: {cursor.rgb};
 
-	--wal-color-0-black: {color0.rgb};
-	--wal-color-1-red: {color1.rgb};
-	--wal-color-2-green: {color2.rgb};
-	--wal-color-3-yellow: {color3.rgb};
-	--wal-color-4-blue: {color4.rgb};
-	--wal-color-5-purple: {color5.rgb};
-	--wal-color-6-cyan: {color6.rgb};
-	--wal-color-7-white: {color7.rgb};
+	--wal-color-0-black: {black90.rgb};
+	--wal-color-1-red: {red70.rgb};
+	--wal-color-2-green: {green90.rgb};
+	--wal-color-3-yellow: {yellow90.rgb};
+	--wal-color-4-blue: {blue70.rgb};
+	--wal-color-5-purple: {grey70.rgb};
+	--wal-color-6-cyan: {cyan90.rgb};
+	--wal-color-7-white: {white70.rgb};
 
-	--wal-color-8-bright-black: {color8.rgb};
-	--wal-color-9-bright-red: {color9.rgb};
-	--wal-color-10-bright-green: {color10.rgb};
-	--wal-color-11-bright-yellow: {color11.rgb};
-	--wal-color-12-bright-blue: {color12.rgb};
-	--wal-color-13-bright-purple: {color13.rgb};
-	--wal-color-14-bright-cyan: {color14.rgb};
-	--wal-color-15-bright-white: {color15.rgb};
+	--wal-color-8-bright-black: {grey90.rgb};
+	--wal-color-9-bright-red: {red90.rgb};
+	--wal-color-10-bright-green: {green90.rgb};
+	--wal-color-11-bright-yellow: {yellow90.rgb};
+	--wal-color-12-bright-blue: {blue90.rgb};
+	--wal-color-13-bright-purple: {magenta90.rgb};
+	--wal-color-14-bright-cyan: {cyan90.rgb};
+	--wal-color-15-bright-white: {white90.rgb};
 
 	/*
 	https://css-tricks.com/css-variables-calc-rgb-enforcing-high-contrast-colors/
