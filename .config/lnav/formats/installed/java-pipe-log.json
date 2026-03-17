@@ -1,0 +1,90 @@
+{
+  "$schema": "https://lnav.org/schemas/format-v1.schema.json",
+  "java_pipe_log": {
+    "title": "Java Pipe Log",
+    "description": "Java logback pattern: timestamp | thread | level | logger | message",
+    "url": "local",
+    "regex": {
+      "std": {
+        "pattern": "^(?<timestamp>(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3}) \\| (?<thread>.{1,30}) \\| (?<level>TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| (?<logger_prefix>(?:[^|.]+\\.)*)(?<logger>[^|.]+) \\| (?<body>.*)$"
+      }
+    },
+    "timestamp-format": [
+      "%Y-%m-%d %H:%M:%S.%L",
+      "%Y-%m-%d %H:%M:%S,%L",
+      "%Y-%m-%d %H:%M:%S:%L",
+      "%H:%M:%S.%L",
+      "%H:%M:%S,%L",
+      "%H:%M:%S:%L"
+    ],
+    "level-field": "level",
+    "body-field": "body",
+    "value": {
+      "thread": {
+        "kind": "string"
+      },
+      "logger_prefix": {
+        "kind": "string"
+      },
+      "logger": {
+        "kind": "string"
+      }
+    },
+    "level": {
+      "trace": "TRACE",
+      "debug": "DEBUG",
+      "info": "INFO",
+      "warning": "WARN",
+      "error": "ERROR",
+      "fatal": "FATAL"
+    },
+    "highlights": {
+      "ts_field": {
+        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3}(?= \\| )",
+        "color": "#959ea8"
+      },
+      "thread_field": {
+        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| \\K.{1,30}(?= \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| )",
+        "color": "#959ea8"
+      },
+      "logger_field": {
+        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| .{1,30} \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| \\K[^|]+(?= \\| )",
+        "color": "#959ea8"
+      },
+      "pipe_1": {
+        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\K\\|(?= .{1,30} \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| [^|]+ \\| )",
+        "color": "#959ea8"
+      },
+      "pipe_2": {
+        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| .{1,30} \\K\\|(?= (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| [^|]+ \\| )",
+        "color": "#959ea8"
+      },
+      "pipe_3": {
+        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| .{1,30} \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\K\\|(?= [^|]+ \\| )",
+        "color": "#959ea8"
+      },
+      "level_trace": {
+        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| .{1,30} \\| \\KTRACE(?= \\| )",
+        "color": "#ee8109"
+      },
+      "level_debug": {
+        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| .{1,30} \\| \\KDEBUG(?= \\| )",
+        "color": "#0ba3a4"
+      },
+      "level_info": {
+        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| .{1,30} \\| \\KINFO(?= \\| )",
+        "color": "#0bde96"
+      },
+      "level_warn_error_fatal": {
+        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| .{1,30} \\| \\K(?:WARN|ERROR|FATAL)(?= \\| )",
+        "color": "#f3170d"
+      }
+    },
+    "sample": [
+      {
+        "line": "2026-03-17 13:53:45.014 | org.springframework.integratio | DEBUG | com.teleste.obs.extif.tcms.communication.base.utils.connection.ConnectionStateLogic | updateLifeSignalOn wasDead=false count=17 shouldEnable=false",
+        "level": "debug"
+      }
+    ]
+  }
+}

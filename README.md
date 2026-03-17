@@ -41,3 +41,34 @@ Designed for Kubuntu 24.10.
 - [zoxide](https://github.com/ajeetdsouza/zoxide)
 - [eza](https://github.com/eza-community/eza)
 - [tldr](https://github.com/tldr-pages/tldr)
+
+## Apply dotfiles
+
+Clone:
+
+```bash
+git clone git@github.com:jliima/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+```
+
+Apply with stow (example package):
+
+```bash
+stow -t "$HOME" <package-name>
+```
+
+Re-apply after updates:
+
+```bash
+cd ~/dotfiles
+git pull
+stow -R -t "$HOME" <package-name>
+```
+
+Remove links for a package:
+
+```bash
+stow -D -t "$HOME" <package-name>
+```
+
+Tip: run from `~/dotfiles` and apply only the package(s) you want.

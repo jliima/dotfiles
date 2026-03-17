@@ -81,10 +81,10 @@ Color={blue50.rgb}
 Color={blue90.rgb}
 
 [Color5]
-Color={grey70.rgb}
+Color={magenta70.rgb}
 
 [Color5Faint]
-Color={grey70.rgb}
+Color={magenta70.rgb}
 
 [Color5Intense]
 Color={magenta90.rgb}

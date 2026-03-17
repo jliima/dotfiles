@@ -1,0 +1,208 @@
+{{
+  "$schema": "https://lnav.org/schemas/config-v1.schema.json",
+  "ui": {{
+    "default-colors": true,
+    "views": {{
+      "log": {{
+        "time-column": "enabled",
+        "word-wrap": "normal"
+      }}
+    }},
+    "keymap-defs": {{
+      "default": {{
+        "f5": {{
+          "command": ":hide-fields timestamp thread logger_prefix"
+        }},
+        "f6": {{
+          "command": ":hide-fields timestamp"
+        }},
+        "f7": {{
+          "command": ":hide-fields thread"
+        }},
+        "f8": {{
+          "command": ":hide-fields logger logger_prefix"
+        }},
+        "f9": {{
+          "command": ":show-fields timestamp thread logger logger_prefix"
+        }}
+      }}
+    }},
+    "theme": "pywal-lnav",
+    "theme-defs": {{
+      "pywal-lnav": {{
+        "vars": {{
+          "bg": "{background}",
+          "fg": "{foreground}",
+          "black": "{black90}",
+          "red": "{red90}",
+          "green": "{green90}",
+          "yellow": "{yellow90}",
+          "blue": "{blue90}",
+          "magenta": "{magenta90}",
+          "cyan": "{cyan90}",
+          "white": "{white90}"
+        }},
+        "styles": {{
+          "identifier": {{
+            "color": "$blue"
+          }},
+          "text": {{
+            "color": "$fg",
+            "background-color": "$bg"
+          }},
+          "selected-text": {{
+            "background-color": "{black50}"
+          }},
+          "alt-text": {{
+            "background-color": "{black30}"
+          }},
+          "ok": {{
+            "color": "$green",
+            "bold": true
+          }},
+          "warning": {{
+            "color": "$yellow",
+            "bold": true
+          }},
+          "error": {{
+            "color": "$red",
+            "bold": true
+          }},
+          "hidden": {{
+            "color": "{yellow70}",
+            "bold": true
+          }},
+          "cursor-line": {{
+            "background-color": "{black30}"
+          }},
+          "popup": {{
+            "color": "$fg",
+            "background-color": "{black30}"
+          }},
+          "focused": {{
+            "color": "$fg",
+            "background-color": "{black50}"
+          }},
+          "table-border": {{
+            "color": "{white50}"
+          }},
+          "breadcrumb": {{
+            "color": "{white70}",
+            "bold": true
+          }},
+          "quote-border": {{
+            "color": "{white50}",
+            "background-color": "{black30}"
+          }},
+          "quoted-text": {{
+            "background-color": "{black30}"
+          }},
+          "hyperlink": {{
+            "color": "$cyan",
+            "underline": true
+          }},
+          "h1": {{
+            "underline": true
+          }},
+          "h2": {{
+            "underline": true
+          }}
+        }},
+        "syntax-styles": {{
+          "keyword": {{
+            "color": "$yellow"
+          }},
+          "string": {{
+            "color": "$green"
+          }},
+          "comment": {{
+            "color": "{white50}"
+          }},
+          "variable": {{
+            "color": "$blue"
+          }},
+          "symbol": {{
+            "color": "$magenta"
+          }},
+          "re-special": {{
+            "color": "$cyan"
+          }},
+          "re-repeat": {{
+            "color": "$yellow"
+          }},
+          "diff-delete": {{
+            "color": "$red"
+          }},
+          "diff-add": {{
+            "color": "$green"
+          }},
+          "diff-section": {{
+            "color": "$magenta"
+          }},
+          "file": {{
+            "color": "$blue"
+          }}
+        }},
+        "status-styles": {{
+          "title": {{
+            "color": "$fg",
+            "background-color": "{black50}",
+            "bold": true
+          }},
+          "subtitle": {{
+            "color": "$fg",
+            "background-color": "{black30}",
+            "bold": true
+          }},
+          "text": {{
+            "color": "$fg",
+            "background-color": "$bg"
+          }},
+          "warn": {{
+            "color": "$yellow",
+            "background-color": "$bg"
+          }},
+          "alert": {{
+            "color": "$red",
+            "background-color": "$bg"
+          }},
+          "active": {{
+            "color": "$green",
+            "background-color": "$bg"
+          }},
+          "info": {{
+            "color": "{white70}",
+            "background-color": "$bg"
+          }},
+          "inactive": {{
+            "color": "{white50}",
+            "background-color": "$bg"
+          }}
+        }},
+        "log-level-styles": {{
+          "trace": {{
+            "color": "$fg"
+          }},
+          "debug": {{
+            "color": "$fg"
+          }},
+          "info": {{
+            "color": "$fg"
+          }},
+          "warning": {{
+            "color": "$fg"
+          }},
+          "error": {{
+            "color": "$fg"
+          }},
+          "critical": {{
+            "color": "$fg"
+          }},
+          "fatal": {{
+            "color": "$fg"
+          }}
+        }}
+      }}
+    }}
+  }}
+}}
