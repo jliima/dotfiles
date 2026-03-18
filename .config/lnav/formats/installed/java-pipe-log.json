@@ -6,7 +6,7 @@
     "url": "local",
     "regex": {
       "std": {
-        "pattern": "^(?<timestamp>(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3}) \\| (?<thread>.{1,30}) \\| (?<level>TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| (?<logger_prefix>(?:[^|.]+\\.)*)(?<logger>[^|.]+) \\| (?<body>.*)$"
+        "pattern": "^(?<timestamp>(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3})(?<sep_ts_thread> \\| )(?<thread>.{1,30})(?<sep_thread_level> \\| )(?<level>TRACE|DEBUG|INFO|WARN|ERROR|FATAL)(?<sep_level_logger> \\| )(?<logger_prefix>(?:[^|.]+\\.)*)(?<logger>[^|.]+)(?<sep_logger_body> \\| )(?<body>.*)$"
       }
     },
     "timestamp-format": [
@@ -20,15 +20,13 @@
     "level-field": "level",
     "body-field": "body",
     "value": {
-      "thread": {
-        "kind": "string"
-      },
-      "logger_prefix": {
-        "kind": "string"
-      },
-      "logger": {
-        "kind": "string"
-      }
+      "thread": { "kind": "string" },
+      "sep_ts_thread": { "kind": "string" },
+      "sep_thread_level": { "kind": "string" },
+      "sep_level_logger": { "kind": "string" },
+      "sep_logger_body": { "kind": "string" },
+      "logger_prefix": { "kind": "string" },
+      "logger": { "kind": "string" }
     },
     "level": {
       "trace": "TRACE",
@@ -49,18 +47,6 @@
       },
       "logger_field": {
         "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| .{1,30} \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| \\K[^|]+(?= \\| )",
-        "color": "#959ea8"
-      },
-      "pipe_1": {
-        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\K\\|(?= .{1,30} \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| [^|]+ \\| )",
-        "color": "#959ea8"
-      },
-      "pipe_2": {
-        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| .{1,30} \\K\\|(?= (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| [^|]+ \\| )",
-        "color": "#959ea8"
-      },
-      "pipe_3": {
-        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| .{1,30} \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\K\\|(?= [^|]+ \\| )",
         "color": "#959ea8"
       },
       "level_trace": {
