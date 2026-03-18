@@ -1,66 +1,111 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-input_file="$HOME/.cache/wal/colors.sh"
+set -euo pipefail
 
-background=$(grep 'background=' "$input_file" | cut -d'=' -f2 | tr -d '"')
-foreground=$(grep 'foreground=' "$input_file" | cut -d'=' -f2 | tr -d '"')
-cursor=$(grep 'cursor=' "$input_file" | cut -d'=' -f2 | tr -d '"')
-color0=$(grep 'color0=' "$input_file" | cut -d'=' -f2 | tr -d '"')
-color1=$(grep 'color1=' "$input_file" | cut -d'=' -f2 | tr -d '"')
-color2=$(grep 'color2=' "$input_file" | cut -d'=' -f2 | tr -d '"')
-color3=$(grep 'color3=' "$input_file" | cut -d'=' -f2 | tr -d '"')
-color4=$(grep 'color4=' "$input_file" | cut -d'=' -f2 | tr -d '"')
-color5=$(grep 'color5=' "$input_file" | cut -d'=' -f2 | tr -d '"')
-color6=$(grep 'color6=' "$input_file" | cut -d'=' -f2 | tr -d '"')
-color7=$(grep 'color7=' "$input_file" | cut -d'=' -f2 | tr -d '"')
-color8=$(grep 'color8=' "$input_file" | cut -d'=' -f2 | tr -d '"')
-color9=$(grep 'color9=' "$input_file" | cut -d'=' -f2 | tr -d '"')
-color10=$(grep 'color10=' "$input_file" | cut -d'=' -f2 | tr -d '"')
-color11=$(grep 'color11=' "$input_file" | cut -d'=' -f2 | tr -d '"')
-color12=$(grep 'color12=' "$input_file" | cut -d'=' -f2 | tr -d '"')
-color13=$(grep 'color13=' "$input_file" | cut -d'=' -f2 | tr -d '"')
-color14=$(grep 'color14=' "$input_file" | cut -d'=' -f2 | tr -d '"')
-color15=$(grep 'color15=' "$input_file" | cut -d'=' -f2 | tr -d '"')
+input_file="${HOME}/.cache/wal/colors.sh"
 
-# Poistetaan ylimääräiset lainausmerkit
-background=${background//\'/}
-foreground=${foreground//\'/}
-cursor=${cursor//\'/}
-color0=${color0//\'/}
-color1=${color1//\'/}
-color2=${color2//\'/}
-color3=${color3//\'/}
-color4=${color4//\'/}
-color5=${color5//\'/}
-color6=${color6//\'/}
-color7=${color7//\'/}
-color8=${color8//\'/}
-color9=${color9//\'/}
-color10=${color10//\'/}
-color11=${color11//\'/}
-color12=${color12//\'/}
-color13=${color13//\'/}
-color14=${color14//\'/}
-color15=${color15//\'/}
+if [[ ! -e "$input_file" ]]; then
+  printf 'Error: file not found: %s\n' "$input_file" >&2
+  exit 1
+fi
 
-printf "\n"
-printf "{background} %s\n" "$background"
-printf "{foreground} %s\n" "$foreground"
-printf "{cursor}     %s\n" "$cursor"
-printf "\n"
-printf "{color0}     \033[38;5;%dm\033[48;5;%dm%s\033[0m\n" 15 0 "$color0"
-printf "{color1}     \033[38;5;%dm\033[48;5;%dm%s\033[0m\n" 15 1 "$color1"
-printf "{color2}     \033[38;5;%dm\033[48;5;%dm%s\033[0m\n" 15 2 "$color2"
-printf "{color3}     \033[38;5;%dm\033[48;5;%dm%s\033[0m\n" 15 3 "$color3"
-printf "{color4}     \033[38;5;%dm\033[48;5;%dm%s\033[0m\n" 15 4 "$color4"
-printf "{color5}     \033[38;5;%dm\033[48;5;%dm%s\033[0m\n" 15 5 "$color5"
-printf "{color6}     \033[38;5;%dm\033[48;5;%dm%s\033[0m\n" 15 6 "$color6"
-printf "{color7}     \033[38;5;%dm\033[48;5;%dm%s\033[0m\n" 0 7 "$color7"
-printf "{color8}     \033[38;5;%dm\033[48;5;%dm%s\033[0m\n" 15 8 "$color8"
-printf "{color9}     \033[38;5;%dm\033[48;5;%dm%s\033[0m\n" 15 9 "$color9"
-printf "{color10}    \033[38;5;%dm\033[48;5;%dm%s\033[0m\n" 15 10 "$color10"
-printf "{color11}    \033[38;5;%dm\033[48;5;%dm%s\033[0m\n" 15 11 "$color11"
-printf "{color12}    \033[38;5;%dm\033[48;5;%dm%s\033[0m\n" 15 12 "$color12"
-printf "{color13}    \033[38;5;%dm\033[48;5;%dm%s\033[0m\n" 15 13 "$color13"
-printf "{color14}    \033[38;5;%dm\033[48;5;%dm%s\033[0m\n" 15 14 "$color14"
-printf "{color15}    \033[38;5;%dm\033[48;5;%dm%s\033[0m\n" 0 15 "$color15"
+if [[ ! -r "$input_file" ]]; then
+  printf 'Error: file is not readable: %s\n' "$input_file" >&2
+  exit 1
+fi
+
+normalize_hex() {
+  local raw="${1#\#}"
+
+  case "${#raw}" in
+    3)
+      printf '%s%s%s%s%s%s' \
+        "${raw:0:1}" "${raw:0:1}" \
+        "${raw:1:1}" "${raw:1:1}" \
+        "${raw:2:1}" "${raw:2:1}"
+      ;;
+    6)
+      printf '%s' "$raw"
+      ;;
+    8)
+      printf '%s' "${raw:0:6}"
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
+color_to_rgb() {
+  local normalized
+  normalized="$(normalize_hex "$1")" || return 1
+  printf '%d %d %d' \
+    "$((16#${normalized:0:2}))" \
+    "$((16#${normalized:2:2}))" \
+    "$((16#${normalized:4:2}))"
+}
+
+pick_text_rgb() {
+  local r="$1" g="$2" b="$3"
+  local luminance=$(( (r * 299 + g * 587 + b * 114) / 1000 ))
+
+  if (( luminance >= 140 )); then
+    printf '0 0 0'
+  else
+    printf '255 255 255'
+  fi
+}
+
+declare -A color_values=()
+declare -a color_names=()
+
+while IFS= read -r line; do
+  [[ "$line" =~ ^[[:space:]]*([A-Za-z_][A-Za-z0-9_]*)=[[:space:]]*[\"\']?(#[0-9A-Fa-f]{3,8})[\"\']?[[:space:]]*$ ]] || continue
+
+  name="${BASH_REMATCH[1]}"
+  value="${BASH_REMATCH[2]}"
+
+  if [[ -v color_values["$name"] ]]; then
+    color_values["$name"]="$value"
+    continue
+  fi
+
+  color_values["$name"]="$value"
+  color_names+=("$name")
+done < "$input_file"
+
+if (( ${#color_names[@]} == 0 )); then
+  printf 'Error: no color variables found in %s\n' "$input_file" >&2
+  exit 1
+fi
+
+max_label_length=0
+for name in "${color_names[@]}"; do
+  label="{${name}}"
+  if (( ${#label} > max_label_length )); then
+    max_label_length=${#label}
+  fi
+done
+
+printf '\n'
+printf 'Colors from %s\n\n' "$input_file"
+
+for name in "${color_names[@]}"; do
+  label="{${name}}"
+  value="${color_values[$name]}"
+
+  if rgb="$(color_to_rgb "$value")"; then
+    read -r red green blue <<< "$rgb"
+    read -r fg_red fg_green fg_blue <<< "$(pick_text_rgb "$red" "$green" "$blue")"
+
+    printf "%-*s \033[48;2;%d;%d;%dm\033[38;2;%d;%d;%dm  %s  \033[0m\n" \
+      "$max_label_length" "$label" \
+      "$red" "$green" "$blue" \
+      "$fg_red" "$fg_green" "$fg_blue" \
+      "$value"
+  else
+    printf "%-*s %s\n" "$max_label_length" "$label" "$value"
+  fi
+done
+
+printf '\n'

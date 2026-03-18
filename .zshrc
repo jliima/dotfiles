@@ -93,7 +93,7 @@ export FZF_DEFAULT_OPTS="
 
 alias upp="sudo apt update && sudo apt upgrade -y"
 alias kate="kate -n"
-alias colors=". ~/dotfiles/scripts/pywal/colors.sh"
+alias colors="bash ~/dotfiles/scripts/pywal/colors.sh"
 alias pare="./dotfiles/scripts/pywal/run-pywal.sh --theme 'parecolors'"
 alias pywal-debug="./dotfiles/scripts/pywal/pywal-debug.sh"
 alias tg='python3 /home/hieroja/scripts/telegram-video-converter.py'
