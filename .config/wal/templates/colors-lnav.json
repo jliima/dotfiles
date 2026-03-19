@@ -14,7 +14,52 @@
           "blue": "{blue90}",
           "magenta": "{magenta90}",
           "cyan": "{cyan90}",
-          "white": "{white90}"
+          "white": "{white90}",
+          "black10": "{black10}",
+          "black30": "{black30}",
+          "black50": "{black50}",
+          "black70": "{black70}",
+          "black90": "{black90}",
+          "white10": "{white10}",
+          "white30": "{white30}",
+          "white50": "{white50}",
+          "white70": "{white70}",
+          "white90": "{white90}",
+          "grey10": "{grey10}",
+          "grey30": "{grey30}",
+          "grey50": "{grey50}",
+          "grey70": "{grey70}",
+          "grey90": "{grey90}",
+          "red10": "{red10}",
+          "red30": "{red30}",
+          "red50": "{red50}",
+          "red70": "{red70}",
+          "red90": "{red90}",
+          "green10": "{green10}",
+          "green30": "{green30}",
+          "green50": "{green50}",
+          "green70": "{green70}",
+          "green90": "{green90}",
+          "blue10": "{blue10}",
+          "blue30": "{blue30}",
+          "blue50": "{blue50}",
+          "blue70": "{blue70}",
+          "blue90": "{blue90}",
+          "yellow10": "{yellow10}",
+          "yellow30": "{yellow30}",
+          "yellow50": "{yellow50}",
+          "yellow70": "{yellow70}",
+          "yellow90": "{yellow90}",
+          "cyan10": "{cyan10}",
+          "cyan30": "{cyan30}",
+          "cyan50": "{cyan50}",
+          "cyan70": "{cyan70}",
+          "cyan90": "{cyan90}",
+          "magenta10": "{magenta10}",
+          "magenta30": "{magenta30}",
+          "magenta50": "{magenta50}",
+          "magenta70": "{magenta70}",
+          "magenta90":"{magenta90}"
         }},
         "styles": {{
           "identifier": {{
@@ -25,10 +70,10 @@
             "background-color": "$bg"
           }},
           "selected-text": {{
-            "background-color": "{black50}"
+            "background-color": "$black50"
           }},
           "alt-text": {{
-            "background-color": "{black30}"
+            "background-color": "$black30"
           }},
           "ok": {{
             "color": "$green",
@@ -43,33 +88,33 @@
             "bold": true
           }},
           "hidden": {{
-            "color": "{yellow70}",
+            "color": "$grey90",
             "bold": true
           }},
           "cursor-line": {{
-            "background-color": "{black30}"
+            "background-color": "$blue50"
           }},
           "popup": {{
             "color": "$fg",
-            "background-color": "{black30}"
+            "background-color": "$black30"
           }},
           "focused": {{
             "color": "$fg",
-            "background-color": "{black50}"
+            "background-color": "$black50"
           }},
           "table-border": {{
-            "color": "{white50}"
+            "color": "$white50"
           }},
           "breadcrumb": {{
-            "color": "{white70}",
+            "color": "$white70",
             "bold": true
           }},
           "quote-border": {{
-            "color": "{white50}",
-            "background-color": "{black30}"
+            "color": "$white50",
+            "background-color": "$black30"
           }},
           "quoted-text": {{
-            "background-color": "{black30}"
+            "background-color": "$black30"
           }},
           "hyperlink": {{
             "color": "$cyan",
@@ -87,10 +132,10 @@
             "color": "$yellow"
           }},
           "string": {{
-            "color": "$green"
+            "color": "$magenta"
           }},
           "comment": {{
-            "color": "{white50}"
+            "color": "$grey90"
           }},
           "variable": {{
             "color": "$blue"
@@ -120,12 +165,12 @@
         "status-styles": {{
           "title": {{
             "color": "$fg",
-            "background-color": "{black50}",
+            "background-color": "$black50",
             "bold": true
           }},
           "subtitle": {{
             "color": "$fg",
-            "background-color": "{black30}",
+            "background-color": "$black30",
             "bold": true
           }},
           "text": {{
@@ -145,11 +190,11 @@
             "background-color": "$bg"
           }},
           "info": {{
-            "color": "{white70}",
+            "color": "$white70",
             "background-color": "$bg"
           }},
           "inactive": {{
-            "color": "{white50}",
+            "color": "$white50",
             "background-color": "$bg"
           }}
         }},

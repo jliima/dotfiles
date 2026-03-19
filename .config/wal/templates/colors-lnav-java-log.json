@@ -4,15 +4,15 @@
     "highlights": {{
       "ts_field": {{
         "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}}(?= \\| )",
-        "color": "{white70}"
+        "color": "{grey90}"
       }},
       "thread_field": {{
         "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| \\K.{{1,30}}(?= \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| )",
-        "color": "{white70}"
+        "color": "{grey90}"
       }},
       "logger_field": {{
         "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| .{{1,30}} \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| \\K[^|]+(?= \\| )",
-        "color": "{white70}"
+        "color": "{grey90}"
       }},
       "level_trace": {{
         "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| .{{1,30}} \\| \\KTRACE(?= \\| )",
