@@ -1,0 +1,35 @@
+{{
+  "$schema": "https://lnav.org/schemas/format-v1.schema.json",
+  "java_log": {{
+    "highlights": {{
+      "ts_field": {{
+        "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}}(?= \\| )",
+        "color": "{white70}"
+      }},
+      "thread_field": {{
+        "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| \\K.{{1,30}}(?= \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| )",
+        "color": "{white70}"
+      }},
+      "logger_field": {{
+        "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| .{{1,30}} \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| \\K[^|]+(?= \\| )",
+        "color": "{white70}"
+      }},
+      "level_trace": {{
+        "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| .{{1,30}} \\| \\KTRACE(?= \\| )",
+        "color": "{yellow90}"
+      }},
+      "level_debug": {{
+        "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| .{{1,30}} \\| \\KDEBUG(?= \\| )",
+        "color": "{cyan90}"
+      }},
+      "level_info": {{
+        "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| .{{1,30}} \\| \\KINFO(?= \\| )",
+        "color": "{green90}"
+      }},
+      "level_warn_error_fatal": {{
+        "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| .{{1,30}} \\| \\K(?:WARN|ERROR|FATAL)(?= \\| )",
+        "color": "{red90}"
+      }}
+    }}
+  }}
+}}

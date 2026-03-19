@@ -5,13 +5,13 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 CACHE_DIR="$HOME/.cache/wal"
 
 SOURCE_CONFIG_FILE="$CACHE_DIR/colors-lnav.json"
-SOURCE_FORMAT_FILE="$CACHE_DIR/lnav-java-pipe-log.json"
+SOURCE_FORMAT_FILE="$CACHE_DIR/colors-lnav-java-log.json"
 
 TARGET_CONFIG_DIR="$HOME/.config/lnav/configs/installed"
-TARGET_CONFIG_FILE="$TARGET_CONFIG_DIR/pywal-lnav.json"
+TARGET_CONFIG_FILE="$TARGET_CONFIG_DIR/pywal-colors.json"
 
 TARGET_FORMAT_DIR="$HOME/.config/lnav/formats/installed"
-TARGET_FORMAT_FILE="$TARGET_FORMAT_DIR/java-pipe-log.json"
+TARGET_FORMAT_FILE="$TARGET_FORMAT_DIR/java-log-colors.json"
 
 # Create target directories if they don't exist
 mkdir -p "$TARGET_CONFIG_DIR" "$TARGET_FORMAT_DIR"

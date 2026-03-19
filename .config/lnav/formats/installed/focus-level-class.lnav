@@ -1,0 +1,7 @@
+#
+# @synopsis: focus-level-class
+# @description: Deterministic F9 view: logger class + body.
+#
+
+:show-fields timestamp thread level logger logger_prefix sep_ts_thread sep_thread_level sep_level_logger sep_logger_body
+:hide-fields timestamp thread level logger_prefix sep_ts_thread sep_thread_level sep_level_logger

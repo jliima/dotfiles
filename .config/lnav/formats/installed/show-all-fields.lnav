@@ -1,0 +1,6 @@
+#
+# @synopsis: show-all-fields
+# @description: Show all java_log fields and separator fields.
+#
+
+:show-fields timestamp thread level logger logger_prefix sep_ts_thread sep_thread_level sep_level_logger sep_logger_body

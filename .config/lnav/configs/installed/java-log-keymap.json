@@ -1,0 +1,33 @@
+{
+  "$schema": "https://lnav.org/schemas/config-v1.schema.json",
+  "ui": {
+    "theme": "pywal-colors",
+    "views": {
+      "log": {
+        "time-column": "enabled"
+      }
+    },
+    "keymap-defs": {
+      "default": {
+        "f4": {
+          "command": "|show-all-fields"
+        },
+        "f5": {
+          "command": ":hide-fields timestamp sep_ts_thread"
+        },
+        "f6": {
+          "command": ":hide-fields thread sep_ts_thread sep_thread_level"
+        },
+        "f7": {
+          "command": ":hide-fields level sep_thread_level sep_level_logger"
+        },
+        "f8": {
+          "command": ":hide-fields logger logger_prefix sep_level_logger sep_logger_body"
+        },
+        "f9": {
+          "command": "|focus-level-class"
+        }
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "$schema": "https://lnav.org/schemas/format-v1.schema.json",
-  "java_pipe_log": {
-    "title": "Java Pipe Log",
+  "java_log": {
+    "title": "Java Log",
     "description": "Java logback pattern: timestamp | thread | level | logger | message",
     "url": "local",
     "regex": {
@@ -35,36 +35,6 @@
       "warning": "WARN",
       "error": "ERROR",
       "fatal": "FATAL"
-    },
-    "highlights": {
-      "ts_field": {
-        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3}(?= \\| )",
-        "color": "#959ea8"
-      },
-      "thread_field": {
-        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| \\K.{1,30}(?= \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| )",
-        "color": "#959ea8"
-      },
-      "logger_field": {
-        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| .{1,30} \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| \\K[^|]+(?= \\| )",
-        "color": "#959ea8"
-      },
-      "level_trace": {
-        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| .{1,30} \\| \\KTRACE(?= \\| )",
-        "color": "#ee8109"
-      },
-      "level_debug": {
-        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| .{1,30} \\| \\KDEBUG(?= \\| )",
-        "color": "#0ba3a4"
-      },
-      "level_info": {
-        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| .{1,30} \\| \\KINFO(?= \\| )",
-        "color": "#0bde96"
-      },
-      "level_warn_error_fatal": {
-        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| .{1,30} \\| \\K(?:WARN|ERROR|FATAL)(?= \\| )",
-        "color": "#f3170d"
-      }
     },
     "sample": [
       {
