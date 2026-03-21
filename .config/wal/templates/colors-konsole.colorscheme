@@ -16,7 +16,7 @@ RandomHueRange=360
 RandomSaturationRange=100
 
 [ForegroundIntense]
-Color={white90.rgb}
+Color={white5.rgb}
 RandomHueRange=360
 RandomSaturationRange=100
 
@@ -31,78 +31,78 @@ RandomHueRange=360
 RandomSaturationRange=100
 
 [BackgroundIntense]
-Color={grey90.rgb}
+Color={grey5.rgb}
 RandomHueRange=360
 RandomSaturationRange=100
 
 [Color0]
-Color={black90.rgb}
+Color={black5.rgb}
 
 [Color0Faint]
-Color={black90.rgb}
+Color={black5.rgb}
 
 [Color0Intense]
-Color={grey90.rgb}
+Color={grey5.rgb}
 
 [Color1]
-Color={red90.rgb}
+Color={red5.rgb}
 
 [Color1Faint]
-Color={red50.rgb}
+Color={red3.rgb}
 
 [Color1Intense]
-Color={red90.rgb}
+Color={red5.rgb}
 
 [Color2]
-Color={green90.rgb}
+Color={green5.rgb}
 
 [Color2Faint]
-Color={green90.rgb}
+Color={green5.rgb}
 
 [Color2Intense]
-Color={green90.rgb}
+Color={green5.rgb}
 
 [Color3]
-Color={yellow90.rgb}
+Color={yellow5.rgb}
 
 [Color3Faint]
-Color={yellow90.rgb}
+Color={yellow5.rgb}
 
 [Color3Intense]
-Color={yellow90.rgb}
+Color={yellow5.rgb}
 
 [Color4]
-Color={blue90.rgb}
+Color={blue5.rgb}
 
 [Color4Faint]
-Color={blue50.rgb}
+Color={blue3.rgb}
 
 [Color4Intense]
-Color={blue90.rgb}
+Color={blue5.rgb}
 
 [Color5]
-Color={magenta70.rgb}
+Color={magenta4.rgb}
 
 [Color5Faint]
-Color={magenta70.rgb}
+Color={magenta4.rgb}
 
 [Color5Intense]
-Color={magenta90.rgb}
+Color={magenta5.rgb}
 
 [Color6]
-Color={cyan90.rgb}
+Color={cyan5.rgb}
 
 [Color6Faint]
-Color={cyan90.rgb}
+Color={cyan5.rgb}
 
 [Color6Intense]
-Color={cyan90.rgb}
+Color={cyan5.rgb}
 
 [Color7]
-Color={white70.rgb}
+Color={white4.rgb}
 
 [Color7Faint]
-Color={white70.rgb}
+Color={white4.rgb}
 
 [Color7Intense]
-Color={white90.rgb}
+Color={white5.rgb}

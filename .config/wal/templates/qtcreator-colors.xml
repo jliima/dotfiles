@@ -2,90 +2,90 @@
 <style-scheme version="1.0" name="Pywal colors">
   <style name="Text" foreground="{foreground}" background="{background}"/>
   <style name="Link" underlineStyle="SingleUnderline"/>
-  <style name="Selection" background="{grey70}"/>
-  <style name="LineNumber" foreground="{grey90}"/>
+  <style name="Selection" background="{grey4}"/>
+  <style name="LineNumber" foreground="{grey5}"/>
   <style name="SearchResult" background="#324365"/>
-  <style name="SearchResultAlt1" foreground="#000033" background="{green90}"/>
-  <style name="SearchResultAlt2" foreground="#330000" background="{yellow90}"/>
-  <style name="SearchResultContainingFunction" background="{grey90}"/>
-  <style name="SearchScope" background="{grey90}"/>
-  <style name="Parentheses" foreground="{foreground}" background="{background}" underlineColor="{blue70}" underlineStyle="SingleUnderline"/>
-  <style name="ParenthesesMismatch" foreground="{background}" background="{magenta90}"/>
-  <style name="AutoComplete" background="{grey90}"/>
-  <style name="CurrentLine" background="{grey90}"/>
-  <style name="CurrentLineNumber" foreground="{white90}"/>
+  <style name="SearchResultAlt1" foreground="#000033" background="{green5}"/>
+  <style name="SearchResultAlt2" foreground="#330000" background="{yellow5}"/>
+  <style name="SearchResultContainingFunction" background="{grey5}"/>
+  <style name="SearchScope" background="{grey5}"/>
+  <style name="Parentheses" foreground="{foreground}" background="{background}" underlineColor="{blue4}" underlineStyle="SingleUnderline"/>
+  <style name="ParenthesesMismatch" foreground="{background}" background="{magenta5}"/>
+  <style name="AutoComplete" background="{grey5}"/>
+  <style name="CurrentLine" background="{grey5}"/>
+  <style name="CurrentLineNumber" foreground="{white5}"/>
   <style name="Occurrences" background="#324365"/>
-  <style name="Occurrences.Unused" underlineColor="{yellow90}" underlineStyle="DashUnderline"/>
-  <style name="Occurrences.Rename" background="{red70}"/>
-  <style name="Number" foreground="{red70}"/>
-  <style name="String" foreground="{magenta90}"/>
-  <style name="Type" foreground="{blue70}"/>
-  <style name="Concept" foreground="{blue70}"/>
-  <style name="Namespace" foreground="{blue70}"/>
+  <style name="Occurrences.Unused" underlineColor="{yellow5}" underlineStyle="DashUnderline"/>
+  <style name="Occurrences.Rename" background="{red4}"/>
+  <style name="Number" foreground="{red4}"/>
+  <style name="String" foreground="{magenta5}"/>
+  <style name="Type" foreground="{blue4}"/>
+  <style name="Concept" foreground="{blue4}"/>
+  <style name="Namespace" foreground="{blue4}"/>
   <style name="Local"/>
   <style name="Parameter"/>
   <style name="Global"/>
   <style name="Field" foreground="{foreground}"/>
-  <style name="Static" foreground="{blue70}" italic="false"/>
-  <style name="VirtualMethod" foreground="{blue70}" italic="false"/>
-  <style name="Function" foreground="{blue70}"/>
-  <style name="Keyword" foreground="{green90}"/>
-  <style name="PrimitiveType" foreground="{green90}"/>
-  <style name="Operator" foreground="{yellow90}"/>
-  <style name="Overloaded Operator" foreground="{yellow90}"/>
+  <style name="Static" foreground="{blue4}" italic="false"/>
+  <style name="VirtualMethod" foreground="{blue4}" italic="false"/>
+  <style name="Function" foreground="{blue4}"/>
+  <style name="Keyword" foreground="{green5}"/>
+  <style name="PrimitiveType" foreground="{green5}"/>
+  <style name="Operator" foreground="{yellow5}"/>
+  <style name="Overloaded Operator" foreground="{yellow5}"/>
   <style name="Punctuation"/>
-  <style name="Preprocessor" foreground="{yellow90}"/>
-  <style name="Macro" foreground="{blue70}"/>
-  <style name="Label" foreground="{red70}" bold="true"/>
-  <style name="Comment" foreground="{grey90}" italic="false"/>
-  <style name="Doxygen.Comment" foreground="{grey90}" italic="false"/>
-  <style name="Doxygen.Tag" foreground="{blue70}"/>
-  <style name="VisualWhitespace" foreground="{grey90}"/>
-  <style name="QmlLocalId" foreground="{blue70}"/>
+  <style name="Preprocessor" foreground="{yellow5}"/>
+  <style name="Macro" foreground="{blue4}"/>
+  <style name="Label" foreground="{red4}" bold="true"/>
+  <style name="Comment" foreground="{grey5}" italic="false"/>
+  <style name="Doxygen.Comment" foreground="{grey5}" italic="false"/>
+  <style name="Doxygen.Tag" foreground="{blue4}"/>
+  <style name="VisualWhitespace" foreground="{grey5}"/>
+  <style name="QmlLocalId" foreground="{blue4}"/>
   <style name="QmlExternalId"/>
-  <style name="QmlTypeId" foreground="{blue70}"/>
-  <style name="QmlRootObjectProperty" foreground="{blue70}"/>
-  <style name="QmlScopeObjectProperty" foreground="{blue70}"/>
+  <style name="QmlTypeId" foreground="{blue4}"/>
+  <style name="QmlRootObjectProperty" foreground="{blue4}"/>
+  <style name="QmlScopeObjectProperty" foreground="{blue4}"/>
   <style name="QmlExternalObjectProperty"/>
   <style name="JsScopeVar"/>
-  <style name="JsImportVar" foreground="{yellow90}"/>
-  <style name="JsGlobalVar" foreground="{yellow90}"/>
-  <style name="QmlStateName" foreground="{blue70}"/>
-  <style name="Binding" foreground="{magenta90}"/>
-  <style name="DisabledCode" foreground="{grey90}"/>
-  <style name="AddedLine" foreground="{green90}"/>
-  <style name="RemovedLine" foreground="{red70}"/>
-  <style name="DiffFile" foreground="{blue70}"/>
-  <style name="DiffLocation" foreground="{yellow90}"/>
-  <style name="DiffFileLine" foreground="{background}" background="{yellow90}"/>
-  <style name="DiffContextLine" foreground="{background}" background="{blue70}"/>
-  <style name="DiffSourceLine" foreground="{background}" background="{red70}"/>
-  <style name="DiffSourceChar" foreground="{background}" background="{red70}"/>
-  <style name="DiffDestLine" foreground="{background}" background="{green90}"/>
-  <style name="DiffDestChar" foreground="{background}" background="{green90}"/>
-  <style name="LogChangeLine" foreground="{red70}"/>
-  <style name="LogAuthorName" foreground="{blue70}"/>
-  <style name="LogCommitDate" foreground="{green90}"/>
-  <style name="LogCommitHash" foreground="{red70}"/>
+  <style name="JsImportVar" foreground="{yellow5}"/>
+  <style name="JsGlobalVar" foreground="{yellow5}"/>
+  <style name="QmlStateName" foreground="{blue4}"/>
+  <style name="Binding" foreground="{magenta5}"/>
+  <style name="DisabledCode" foreground="{grey5}"/>
+  <style name="AddedLine" foreground="{green5}"/>
+  <style name="RemovedLine" foreground="{red4}"/>
+  <style name="DiffFile" foreground="{blue4}"/>
+  <style name="DiffLocation" foreground="{yellow5}"/>
+  <style name="DiffFileLine" foreground="{background}" background="{yellow5}"/>
+  <style name="DiffContextLine" foreground="{background}" background="{blue4}"/>
+  <style name="DiffSourceLine" foreground="{background}" background="{red4}"/>
+  <style name="DiffSourceChar" foreground="{background}" background="{red4}"/>
+  <style name="DiffDestLine" foreground="{background}" background="{green5}"/>
+  <style name="DiffDestChar" foreground="{background}" background="{green5}"/>
+  <style name="LogChangeLine" foreground="{red4}"/>
+  <style name="LogAuthorName" foreground="{blue4}"/>
+  <style name="LogCommitDate" foreground="{green5}"/>
+  <style name="LogCommitHash" foreground="{red4}"/>
   <style name="LogCommitSubject"/>
-  <style name="LogDecoration" foreground="{magenta90}"/>
-  <style name="Warning" underlineColor="{yellow90}" underlineStyle="WaveUnderline"/>
-  <style name="WarningContext" underlineColor="{yellow90}" underlineStyle="WaveUnderline"/>
-  <style name="Error" underlineColor="{red70}" underlineStyle="WaveUnderline"/>
-  <style name="ErrorContext" underlineColor="{red70}" underlineStyle="WaveUnderline"/>
+  <style name="LogDecoration" foreground="{magenta5}"/>
+  <style name="Warning" underlineColor="{yellow5}" underlineStyle="WaveUnderline"/>
+  <style name="WarningContext" underlineColor="{yellow5}" underlineStyle="WaveUnderline"/>
+  <style name="Error" underlineColor="{red4}" underlineStyle="WaveUnderline"/>
+  <style name="ErrorContext" underlineColor="{red4}" underlineStyle="WaveUnderline"/>
   <style name="Declaration"/>
   <style name="FunctionDefinition"/>
   <style name="OutputArgument" italic="false"/>
   <style name="StaticMember"/>
   <style name="CocoCodeAdded"/>
-  <style name="CocoPartiallyCovered" foreground="{yellow90}"/>
-  <style name="CocoNotCovered" foreground="{red70}"/>
-  <style name="CocoFullyCovered" foreground="{green90}"/>
-  <style name="CocoManuallyValidated" foreground="{blue70}"/>
-  <style name="CocoDeadCode" foreground="{magenta90}"/>
-  <style name="CocoExecutionCountTooLow" foreground="{red70}"/>
-  <style name="CocoNotCoveredInfo" foreground="{red70}"/>
-  <style name="CocoCoveredInfo" foreground="{green90}"/>
-  <style name="CocoManuallyValidatedInfo" foreground="{blue70}"/>
+  <style name="CocoPartiallyCovered" foreground="{yellow5}"/>
+  <style name="CocoNotCovered" foreground="{red4}"/>
+  <style name="CocoFullyCovered" foreground="{green5}"/>
+  <style name="CocoManuallyValidated" foreground="{blue4}"/>
+  <style name="CocoDeadCode" foreground="{magenta5}"/>
+  <style name="CocoExecutionCountTooLow" foreground="{red4}"/>
+  <style name="CocoNotCoveredInfo" foreground="{red4}"/>
+  <style name="CocoCoveredInfo" foreground="{green5}"/>
+  <style name="CocoManuallyValidatedInfo" foreground="{blue4}"/>
   <style name="LastStyleSentinel"/>
 </style-scheme>

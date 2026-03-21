@@ -4,7 +4,7 @@
   --accent-l: 48%;
 
 
-  --color16: color-mix(in hsl, {black90}, white 3%);
+  --color16: color-mix(in hsl, {black5}, white 3%);
 
   /*primary background colour ( main )*/
   --background-primary: {background};
@@ -18,42 +18,42 @@
   --background-accent: #000;
 
   /*border colour ==> changes the horizontal line / divider in settings*/
-  --background-modifier-border: {grey90};
+  --background-modifier-border: {grey5};
   /*background colour for input boxes*/
   --background-modifier-form-field: #0000004d;
   --background-modifier-form-field-highlighted: #00000038;
   --background-modifier-box-shadow: #0000004d;
   /*form field colour when no error in settings*/
-  --background-modifier-success: {green90};
+  --background-modifier-success: {green5};
   /*form field colour when error in settings*/
-  --background-modifier-error: {red70};
+  --background-modifier-error: {red4};
   --background-modifier-error-rgb: 61, 0, 0;
-  --background-modifier-error-hover: {red70};
+  --background-modifier-error-hover: {red4};
   --background-modifier-cover: #00000099;
 
   --background-primary: {background} !important;
   --background-secondary: {background} !important;
   --titlebar-background-focused: {background} !important;
   --background-modifier-form-field: {background} !important;
-  --background-modifier-border-focus: {red70} !important;
-  --divider-color: {red70} !important;
+  --background-modifier-border-focus: {red4} !important;
+  --divider-color: {red4} !important;
   --background-modifier-cover: {background} !important;
-  --prompt-border-color: {red70} !important;
-  --layer-1: {red70} !important;
-  --background-modifier-border: {red70}77 !important;
+  --prompt-border-color: {red4} !important;
+  --layer-1: {red4} !important;
+  --background-modifier-border: {red4}77 !important;
   --interactive-normal: var(--layer-1) !important;
-  --text-faint: {red70} !important;
-  --background-modifier-border-hover: {red70} !important;
-  --indentation-guide-color: {red70} !important;
-  --indentation-guide-color-active: {red70} !important;
+  --text-faint: {red4} !important;
+  --background-modifier-border-hover: {red4} !important;
+  --indentation-guide-color: {red4} !important;
+  --indentation-guide-color-active: {red4} !important;
 
   /* markdown headings colours 
-  --text-title-h1: {red70};
-  --text-title-h2: {green90};
-  --text-title-h3: {blue70};
-  --text-title-h4: {yellow90};
-  --text-title-h5: {magenta90};
-  --text-title-h6: {grey70};*/
+  --text-title-h1: {red4};
+  --text-title-h2: {green5};
+  --text-title-h3: {blue4};
+  --text-title-h4: {yellow5};
+  --text-title-h5: {magenta5};
+  --text-title-h6: {grey4};*/
 
   /* markdown headings colours */
   --text-title-h1: {foreground};
@@ -64,21 +64,21 @@
   --text-title-h6: {foreground};
 
   /*hyperlinks colour*/
-  --text-accent: {blue70};
+  --text-accent: {blue4};
   /*hyperlinks colour on hover ( with cursor )*/
-  --text-accent-hover: {red70};
+  --text-accent-hover: {red4};
   /*your normal simple text colour*/
   --text-normal: {foreground};;
   /*setting and file explorer folder text*/
   --text-muted: {foreground};;
   /*settings headers and '>' character for file explorer*/
-  --text-faint: {grey90};
-  --text-error: {red70};
-  --text-error-hover: {red70};
+  --text-faint: {grey5};
+  --text-error: {red4};
+  --text-error-hover: {red4};
   /*your highlighter colour*/
-  --text-highlight-bg: {green90};
+  --text-highlight-bg: {green5};
   /*background colour when highlighting text with mouse*/
-  --text-selection: {grey70};
+  --text-selection: {grey4};
   --text-on-accent: {foreground};;
 
   /*color of buttons*/
@@ -88,32 +88,32 @@
   --interactive-accent-hover: hsl(var(--accent-h), calc(var(--accent-s) + 5%), calc(var(--accent-l) - 10%));
 
   /*scrollbar colour on hover ( with cursor )*/
-  --scrollbar-active-thumb-bg: {blue70};
+  --scrollbar-active-thumb-bg: {blue4};
   --scrollbar-bg: #ffffff0d;
   /*scrollbar colour*/
   --scrollbar-thumb-bg: #20242f;
   
   /*for things like border colour in status bar*/
-  --panel-border-color: {grey90};
+  --panel-border-color: {grey5};
 
   /*comments colours in code blocks*/
-  --gray-1: {grey90};
+  --gray-1: {grey5};
   /*brakets colours in code blocks*/
-  --gray-2: {grey90};
+  --gray-2: {grey5};
 
   /*colour palette*/
-  --red: {red70};
-  --orange: {yellow90};
-  --green: {green90};
-  --aqua: {blue70};
-  --purple: {magenta90};
-  --blue: {blue70};
-  --yellow: {yellow90};
+  --red: {red4};
+  --orange: {yellow5};
+  --green: {green5};
+  --aqua: {blue4};
+  --purple: {magenta5};
+  --blue: {blue4};
+  --yellow: {yellow5};
   
 
   --background-modifier-hover: hsla(var(--accent-h), calc(var(--accent-s) - 35%), var(--accent-l), 0.06);
   /*borders dividing things like editor and file explorer*/
-  --divider-color-hover: {blue70};
+  --divider-color-hover: {blue4};
   
   /*outline for different "objects"*/
   --tab-outline-color: var(--gray-1);
@@ -127,7 +127,7 @@
   /*background colour of message box ( updates and more )*/
   /*NOTE: this needs refinement*/
   /*--background-modifier-message: #16202b;*/
-  /*--background-modifier-message: {grey70};*/
+  /*--background-modifier-message: {grey4};*/
   --background-modifier-message: #a0a1a7;
 
 
@@ -146,7 +146,7 @@
   --checkbox-color-hover: var(--purple);
 
   /*background color of text in file explorer*/
-  --nav-item-background-active: {blue70};
+  --nav-item-background-active: {blue4};
   --nav-item-color-active: #ffffff;
 
   /*tag text colour*/
@@ -159,7 +159,7 @@
   /*tag background colour on hover ( with mouse )*/
   /* --tag-background-hover: #9c9c9c; */
   /*--tag-background-hover: #e5c07b;*/
-  --tag-background-hover: {green90};
+  --tag-background-hover: {green5};
   /*tag background padding size ( x-direction )*/
   --tag-padding-x: 5px;
   /*tag background padding size ( y-direction )*/
@@ -320,17 +320,17 @@ body:not(.is-grabbing) .nav-folder-title.is-being-dragged,
 
 .token.comment, .token.prolog, .token.doctype, .token.cdata,
 .HyperMD-codeblock .cm-comment {{
-  color: {grey90} !important;
+  color: {grey5} !important;
 }}
 
 .token.punctuation,
 .HyperMD-codeblock .cm-hmd-codeblock, .HyperMD-codeblock .cm-bracket {{
-  color: {grey90} !important;
+  color: {grey5} !important;
 }}
 
 .token.selector, .token.tag,
 .HyperMD-codeblock .cm-tag, .HyperMD-codeblock .cm-property, .HyperMD-codeblock .cm-meta, .HyperMD-codeblock .cm-qualifier, .HyperMD-codeblock .cm-header, .HyperMD-codeblock .cm-quote, .HyperMD-codeblock .cm-hr, .HyperMD-codeblock .cm-link {{
-  color: {grey90} !important;
+  color: {grey5} !important;
 }}
 
 .token.property, .token.boolean, .token.number, .token.constant, .token.symbol, .token.attr-name, .token.deleted,
@@ -416,14 +416,14 @@ body:not(.is-grabbing) .nav-folder-title.is-being-dragged,
 /*change the color of bold*/
 /*remove `strong, ` to only work in source view*/
 strong, .cm-s-obsidian span.cm-formatting-strong, .cm-s-obsidian span.cm-strong {{
-  /* color: {blue70}; */
-  color: {green90};
+  /* color: {blue4}; */
+  color: {green5};
 }}
 
 /*change the color of italicised text*/
 /*remove `em, ` to only work in source view*/
 em, .cm-s-obsidian span.cm-formatting-em, .cm-s-obsidian span.cm-em {{
-  color: {red70};
+  color: {red4};
 }}
 
 
@@ -435,16 +435,16 @@ em, .cm-s-obsidian span.cm-formatting-em, .cm-s-obsidian span.cm-em {{
   --code-background: var(--color16); /* Code block background */
 
   /* Syntax highlighting */
-  .cm-comment {{ color: {grey90} !important; }}              /* Comments */
-  .cm-keyword {{ color: {green90} !important; }}              /* Keywords */
-  .cm-string {{ color: {magenta90} !important; }}              /* Strings */
-  .cm-builtin {{ color: {green90} !important; }}          /* Builtins */
-  .cm-def {{ color: {blue70} !important; }}                        /* Functions */
-  .cm-tag {{ color: {red70} !important; }}                  /* HTML tags */
-  .cm-attribute {{ color: {yellow90} !important; }}            /* Attr names */
-  .cm-number {{ color: {red70} !important; }}               /* Numbers */
-  .cm-property {{ color: {cyan90} !important; }}             /* Properties */
-  .cm-qualifier {{ color: {red70} !important; }}            /* Constants */
+  .cm-comment {{ color: {grey5} !important; }}              /* Comments */
+  .cm-keyword {{ color: {green5} !important; }}              /* Keywords */
+  .cm-string {{ color: {magenta5} !important; }}              /* Strings */
+  .cm-builtin {{ color: {green5} !important; }}          /* Builtins */
+  .cm-def {{ color: {blue4} !important; }}                        /* Functions */
+  .cm-tag {{ color: {red4} !important; }}                  /* HTML tags */
+  .cm-attribute {{ color: {yellow5} !important; }}            /* Attr names */
+  .cm-number {{ color: {red4} !important; }}               /* Numbers */
+  .cm-property {{ color: {cyan5} !important; }}             /* Properties */
+  .cm-qualifier {{ color: {red4} !important; }}            /* Constants */
   .cm-operator {{ color: {foreground} !important; }}         /* Operators */
 }}
 
@@ -453,20 +453,20 @@ em, .cm-s-obsidian span.cm-formatting-em, .cm-s-obsidian span.cm-em {{
 ***********************/
 .markdown-preview-view {{
   /* Syntax highlighting */
-  .token.comment {{ color: {grey90} !important; }}           /* Comments */
-  .token.keyword {{ color: {green90} !important; }}           /* Keywords */
-  .token.string {{ color: {magenta90} !important; }}           /* Strings */
-  .token.function {{ color: {green90} !important; }}                /* Functions */
+  .token.comment {{ color: {grey5} !important; }}           /* Comments */
+  .token.keyword {{ color: {green5} !important; }}           /* Keywords */
+  .token.string {{ color: {magenta5} !important; }}           /* Strings */
+  .token.function {{ color: {green5} !important; }}                /* Functions */
   .token.class-name {{ color: {foreground} !important; }}    /* Classes */
-  .token.number {{ color: {red70} !important; }}            /* Numbers */
+  .token.number {{ color: {red4} !important; }}            /* Numbers */
   .token.operator {{ color: {foreground} !important; }}      /* Operators */
-  .token.tag {{ color: {red70} !important; }}               /* HTML tags */
-  .token.attr-name {{ color: {blue70} !important; }}         /* Attr names */
+  .token.tag {{ color: {red4} !important; }}               /* HTML tags */
+  .token.attr-name {{ color: {blue4} !important; }}         /* Attr names */
   .token.attr-value {{ color: {foreground} !important; }}        /* Attr values */
-  .token.constant {{ color: {red70} !important; }}          /* Constants */
-  .token.selector {{ color: {magenta90} !important; }}         /* CSS selectors */
-  .token.important {{ color: {yellow90} !important; }}         /* !important */
-  .token.builtin {{ color: {green90} !important; }}
+  .token.constant {{ color: {red4} !important; }}          /* Constants */
+  .token.selector {{ color: {magenta5} !important; }}         /* CSS selectors */
+  .token.important {{ color: {yellow5} !important; }}         /* !important */
+  .token.builtin {{ color: {green5} !important; }}
 }}
 
 

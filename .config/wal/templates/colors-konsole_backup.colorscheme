@@ -14,7 +14,7 @@ RandomHueRange=360
 RandomSaturationRange=100
 
 [Color0]
-Color={black90.rgb}
+Color={black5.rgb}
 
 [Color0Faint]
 Color=49,54,59
@@ -23,7 +23,7 @@ Color=49,54,59
 Color=85,96,114
 
 [Color1]
-Color={red70.rgb}
+Color={red4.rgb}
 
 [Color1Faint]
 Color=205,34,47
@@ -32,7 +32,7 @@ Color=205,34,47
 Color=243,23,13
 
 [Color2]
-Color={green90.rgb}
+Color={green5.rgb}
 
 [Color2Faint]
 Color=11,222,150
@@ -41,7 +41,7 @@ Color=11,222,150
 Color=11,222,150
 
 [Color3]
-Color={yellow90.rgb}
+Color={yellow5.rgb}
 
 [Color3Faint]
 Color=238,129,9
@@ -50,7 +50,7 @@ Color=238,129,9
 Color=238,129,9
 
 [Color4]
-Color={blue70.rgb}
+Color={blue4.rgb}
 
 [Color4Faint]
 Color=97,175,239
@@ -59,7 +59,7 @@ Color=97,175,239
 Color=97,175,239
 
 [Color5]
-Color={grey70.rgb}
+Color={grey4.rgb}
 
 [Color5Faint]
 Color=85,96,114
@@ -68,7 +68,7 @@ Color=85,96,114
 Color=201,27,142
 
 [Color6]
-Color={cyan90.rgb}
+Color={cyan5.rgb}
 
 [Color6Faint]
 Color=11,163,164
@@ -77,7 +77,7 @@ Color=11,163,164
 Color=11,163,164
 
 [Color7]
-Color={white70.rgb}
+Color={white4.rgb}
 
 [Color7Faint]
 Color=211,221,232

@@ -4,31 +4,31 @@
     "highlights": {{
       "ts_field": {{
         "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}}(?= \\| )",
-        "color": "{grey90}"
+        "color": "{grey5}"
       }},
       "thread_field": {{
         "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| \\K.{{1,30}}(?= \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| )",
-        "color": "{grey90}"
+        "color": "{grey5}"
       }},
       "logger_field": {{
         "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| .{{1,30}} \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| \\K[^|]+(?= \\| )",
-        "color": "{grey90}"
+        "color": "{grey5}"
       }},
       "level_trace": {{
         "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| .{{1,30}} \\| \\KTRACE(?= \\| )",
-        "color": "{yellow90}"
+        "color": "{yellow5}"
       }},
       "level_debug": {{
         "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| .{{1,30}} \\| \\KDEBUG(?= \\| )",
-        "color": "{cyan90}"
+        "color": "{cyan5}"
       }},
       "level_info": {{
         "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| .{{1,30}} \\| \\KINFO(?= \\| )",
-        "color": "{green90}"
+        "color": "{green5}"
       }},
       "level_warn_error_fatal": {{
         "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| .{{1,30}} \\| \\K(?:WARN|ERROR|FATAL)(?= \\| )",
-        "color": "{red90}"
+        "color": "{red5}"
       }}
     }}
   }}

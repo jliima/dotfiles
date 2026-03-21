@@ -8,17 +8,17 @@
   --background-secondary: {background} !important;
   --titlebar-background-focused: {background} !important;
   --background-modifier-form-field: {background} !important;
-  --background-modifier-border-focus: {blue90}33 !important;
-  --divider-color: {grey70} !important;
+  --background-modifier-border-focus: {blue5}33 !important;
+  --divider-color: {grey4} !important;
   --background-modifier-cover: {background} !important;
-  --prompt-border-color: {grey70} !important;
-  --layer-1: {grey70} !important;
-  --background-modifier-border: {grey70} !important;
+  --prompt-border-color: {grey4} !important;
+  --layer-1: {grey4} !important;
+  --background-modifier-border: {grey4} !important;
   --interactive-normal: var(--layer-1) !important;
-  --text-faint: {grey70} !important;
-  --background-modifier-border-hover: {blue90}33 !important;
-  --indentation-guide-color: {grey70} !important;
-  --indentation-guide-color-active: {blue90}77 !important;
+  --text-faint: {grey4} !important;
+  --background-modifier-border-hover: {blue5}33 !important;
+  --indentation-guide-color: {grey4} !important;
+  --indentation-guide-color-active: {blue5}77 !important;
 
   /* markdown headings colours */
   --text-title-h1: {foreground};
@@ -29,36 +29,36 @@
   --text-title-h6: {foreground};
 
   /*colour palette*/
-  --red: {red70};
-  --orange: {yellow90};
-  --green: {green90};
-  --aqua: {blue90};
-  --purple: {magenta90};
-  --blue: {blue90};
-  --yellow: {yellow90};
+  --red: {red4};
+  --orange: {yellow5};
+  --green: {green5};
+  --aqua: {blue5};
+  --purple: {magenta5};
+  --blue: {blue5};
+  --yellow: {yellow5};
 
   /*hyperlinks colour*/
-  --text-accent: {blue90};
+  --text-accent: {blue5};
   /*hyperlinks colour on hover ( with cursor )*/
-  --text-accent-hover: {red70};
+  --text-accent-hover: {red4};
   /*your normal simple text colour*/
   --text-normal: {foreground};
   /*setting and file explorer folder text*/
   --text-muted: {foreground};
   /*settings headers and '>' character for file explorer*/
-  --text-faint: {grey90};
-  --text-error: {red70};
-  --text-error-hover: {red70};
+  --text-faint: {grey5};
+  --text-error: {red4};
+  --text-error-hover: {red4};
   /*your highlighter colour*/
-  --text-highlight-bg: {green90};
+  --text-highlight-bg: {green5};
   /*background colour when highlighting text with mouse*/
-  --text-selection: {blue90};
+  --text-selection: {blue5};
   --text-on-accent: {foreground};
-  --metadata-background: {black30};
+  --metadata-background: {black2};
 }}
 
 .theme-dark .nav-folder-title-content::before {{
-  color: {red70}77 !important;
+  color: {red4}77 !important;
 }}
 
 body {{
@@ -104,7 +104,7 @@ body {{
 /* folders */
 
 .nav-folder-title-content {{
-  color: {blue90};
+  color: {blue5};
   font-weight: 600;
   margin-left: -1.1rem;
   margin-top: -0.5rem;
@@ -124,7 +124,7 @@ body {{
   width: 0.9rem;
   height: 0.9rem;
   margin-right: 0.4rem;
-  background-color: {blue90};
+  background-color: {blue5};
   -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2.165 19.551c.186.28.499.449.835.449h15c.4 0 .762-.238.919-.606l3-7A.998.998 0 0 0 21 11h-1V8c0-1.103-.897-2-2-2h-6.655L8.789 4H4c-1.103 0-2 .897-2 2v13h.007a1 1 0 0 0 .158.551zM18 8v3H6c-.4 0-.762.238-.919.606L4 14.129V8h14z"></path></svg>');
 }}
 
@@ -138,11 +138,11 @@ body {{
 }}
 
 .search-result .collapse-icon {{
-  cursor: {white70};
+  cursor: {white4};
 }}
 
 .search-result:not(.is-collapsed) .search-result-file-title {{
-  color: {blue90};
+  color: {blue5};
 }}
 
 /* File tab separators */
@@ -222,7 +222,7 @@ mjx-container {{
 /*controls the colour "help" on hover ( with cursor )*/
 .tooltip {{
   color: {foreground};
-  background-color: {grey70};
+  background-color: {grey4};
 }}
 
 .view-header-title {{
@@ -242,14 +242,14 @@ mjx-container {{
 }}
 
 .theme-dark button.mod-warning {{
-  --background-modifier-error: {red70}33;
-  --background-modifier-error-hover: {red70}33;
+  --background-modifier-error: {red4}33;
+  --background-modifier-error-hover: {red4}33;
 }}
 
 
 .token.comment, .token.prolog, .token.doctype, .token.cdata,
 .HyperMD-codeblock .cm-comment {{
-  color: {grey90} !important;
+  color: {grey5} !important;
 }}
 
 .token.punctuation,
@@ -259,7 +259,7 @@ mjx-container {{
 
 .token.selector, .token.tag,
 .HyperMD-codeblock .cm-tag, .HyperMD-codeblock .cm-property, .HyperMD-codeblock .cm-meta, .HyperMD-codeblock .cm-qualifier, .HyperMD-codeblock .cm-header, .HyperMD-codeblock .cm-quote, .HyperMD-codeblock .cm-hr, .HyperMD-codeblock .cm-link {{
-  color: {grey90} !important;
+  color: {grey5} !important;
 }}
 
 .token.property, .token.boolean, .token.number, .token.constant, .token.symbol, .token.attr-name, .token.deleted,
@@ -344,14 +344,14 @@ mjx-container {{
  * Color for bold, remove "strong", to only apply for source view.
  */
 /*strong, .cm-s-obsidian span.cm-formatting-strong, .cm-s-obsidian span.cm-strong {{
-  color: {green90};
+  color: {green5};
 }}*/
 
 /* Change the color of italicised text.
  * Remove `em, ` to only work in source view
 */
 /*em, .cm-s-obsidian span.cm-formatting-em, .cm-s-obsidian span.cm-em {{
-  color: {red70};
+  color: {red4};
 }}
 */
 
@@ -360,19 +360,19 @@ mjx-container {{
 ***********************/
 .cm-s-obsidian {{
   /* Base colors */
-  --code-background: {black30}; /* Code block background */
+  --code-background: {black2}; /* Code block background */
 
   /* Syntax highlighting */
-  .cm-comment {{ color: {grey90} !important; }}      /* Comments */
-  .cm-keyword {{ color: {green90} !important; }}      /* Keywords */
-  .cm-string {{ color: {magenta90} !important; }}      /* Strings */
-  .cm-builtin {{ color: {green90} !important; }}      /* Builtins */
-  .cm-def {{ color: {blue90} !important; }}          /* Functions */
-  .cm-tag {{ color: {red70} !important; }}          /* HTML tags */
-  .cm-attribute {{ color: {yellow90} !important; }}    /* Attr names */
-  .cm-number {{ color: {red70} !important; }}       /* Numbers */
-  .cm-property {{ color: {cyan90} !important; }}     /* Properties */
-  .cm-qualifier {{ color: {red70} !important; }}    /* Constants */
+  .cm-comment {{ color: {grey5} !important; }}      /* Comments */
+  .cm-keyword {{ color: {green5} !important; }}      /* Keywords */
+  .cm-string {{ color: {magenta5} !important; }}      /* Strings */
+  .cm-builtin {{ color: {green5} !important; }}      /* Builtins */
+  .cm-def {{ color: {blue5} !important; }}          /* Functions */
+  .cm-tag {{ color: {red4} !important; }}          /* HTML tags */
+  .cm-attribute {{ color: {yellow5} !important; }}    /* Attr names */
+  .cm-number {{ color: {red4} !important; }}       /* Numbers */
+  .cm-property {{ color: {cyan5} !important; }}     /* Properties */
+  .cm-qualifier {{ color: {red4} !important; }}    /* Constants */
   .cm-operator {{ color: {foreground} !important; }} /* Operators */
 }}
 
@@ -381,29 +381,29 @@ mjx-container {{
 ***********************/
 .markdown-preview-view {{
   /* Syntax highlighting */
-  .token.comment {{ color: {grey90} !important; }}        /* Comments */
-  .token.keyword {{ color: {green90} !important; }}        /* Keywords */
-  .token.string {{ color: {magenta90} !important; }}        /* Strings */
-  .token.function {{ color: {green90} !important; }}       /* Functions */
+  .token.comment {{ color: {grey5} !important; }}        /* Comments */
+  .token.keyword {{ color: {green5} !important; }}        /* Keywords */
+  .token.string {{ color: {magenta5} !important; }}        /* Strings */
+  .token.function {{ color: {green5} !important; }}       /* Functions */
   .token.class-name {{ color: {foreground} !important; }} /* Classes */
-  .token.number {{ color: {red70} !important; }}         /* Numbers */
+  .token.number {{ color: {red4} !important; }}         /* Numbers */
   .token.operator {{ color: {foreground} !important; }}   /* Operators */
-  .token.tag {{ color: {red70} !important; }}            /* HTML tags */
-  .token.attr-name {{ color: {blue90} !important; }}      /* Attr names */
+  .token.tag {{ color: {red4} !important; }}            /* HTML tags */
+  .token.attr-name {{ color: {blue5} !important; }}      /* Attr names */
   .token.attr-value {{ color: {foreground} !important; }} /* Attr values */
-  .token.constant {{ color: {red70} !important; }}       /* Constants */
-  .token.selector {{ color: {magenta90} !important; }}      /* CSS selectors */
-  .token.important {{ color: {yellow90} !important; }}      /* !important */
-  .token.builtin {{ color: {green90} !important; }}
+  .token.constant {{ color: {red4} !important; }}       /* Constants */
+  .token.selector {{ color: {magenta5} !important; }}      /* CSS selectors */
+  .token.important {{ color: {yellow5} !important; }}      /* !important */
+  .token.builtin {{ color: {green5} !important; }}
 }}
 
 .markdown-preview-view :not(pre) > code {{
-  --code-background: {grey70};
+  --code-background: {grey4};
   color: {foreground} !important;
 }}
 
 .cm-inline-code {{
-  --code-background: {grey70};
+  --code-background: {grey4};
 }}
 
 /* Inline code */
@@ -443,14 +443,14 @@ pre[class*='language-'] {{
 pre[class*="language-"],
 .markdown-preview-view pre,
 .cm-s-obsidian .HyperMD-codeblock {{
-  background: {black30} !important;
+  background: {black2} !important;
   color: {foreground} !important;
   font-family: 'SF Mono' !important;
   font-weight: 600 !important;
 }}
 
 .inline-title {{
-  border-bottom: 1px solid {grey70};
+  border-bottom: 1px solid {grey4};
   padding-bottom: 0.2em;
 }}
 
