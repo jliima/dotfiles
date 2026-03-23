@@ -2,11 +2,12 @@
 .stfolder
 .stignore
 *.kate-swp
+__pycache__
 .config/Code/*
 !.config/Code/User/settings.json
 !.config/Code/User/keybindings.json
 
-scripts
+scripts/*
 !scripts/pywal
 !scripts/kde
 !scripts/applications
