@@ -91,7 +91,7 @@ export FZF_DEFAULT_OPTS="
   --bind=tab:down,shift-tab:up
 "
 
-alias upp="sudo apt update && sudo apt upgrade -y"
+alias upp="/home/hieroja/scripts/kde/update-packages.sh"
 alias kate="kate -n"
 alias colors="bash ~/dotfiles/scripts/pywal/colors.sh"
 alias pare="./dotfiles/scripts/pywal/run-pywal.sh --theme 'parecolors'"
