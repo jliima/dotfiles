@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 CACHE_DIR="$HOME/.cache/wal"
-
 
 SOURCE_FILE="$CACHE_DIR/colors-kate.theme"
 TARGET_DIR="$HOME/.local/share/org.kde.syntax-highlighting/themes"

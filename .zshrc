@@ -17,7 +17,7 @@ export PATH=$JAVA_HOME/bin:$PATH
 #export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 #export PATH=$JAVA_HOME/bin:$PATH
 
-export PATH=$PATH:/home/hieroja/.spicetify
+export PATH=$PATH:$HOME/.spicetify
 export TERM=xterm-256color
 export PYTHONPATH=~:$PYTHONPATH
 #export LESSOPEN="| grep -P 'alias|$' --color=always %s"
@@ -91,12 +91,12 @@ export FZF_DEFAULT_OPTS="
   --bind=tab:down,shift-tab:up
 "
 
-alias upp="/home/hieroja/scripts/kde/update-packages.sh"
+alias upp="$HOME/scripts/kde/update-packages.sh"
 alias kate="kate -n"
 alias colors="bash ~/dotfiles/scripts/pywal/colors.sh"
-alias pare="./dotfiles/scripts/pywal/run-pywal.sh --theme 'parecolors'"
+alias pare="$HOME/dotfiles/scripts/pywal/run-pywal.py"
 alias pywal-debug="./dotfiles/scripts/pywal/pywal-debug.sh"
-alias tg='python3 /home/hieroja/scripts/telegram-video-converter.py'
+alias tg='python3 $HOME/scripts/telegram-video-converter.py'
 
 alias ls="eza --icons -F -H --group-directories-first --git -1"
 alias cd="z"

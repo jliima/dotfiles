@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 CACHE_DIR="$HOME/.cache/wal"
-
 
 TARGET_DIR="$HOME/.config/QtProject/qtcreator/styles"
 TARGET_DIR_2="$HOME/.config/QtProject/qtcreator/themes"

@@ -4,8 +4,6 @@
 set -u
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-REPO_DIR="$(dirname "${SCRIPT_DIR}")"
-WALLPAPER_DIR="~/Pictures/Wallpapers"
 
 #if command -v kwallet-query &> /dev/null; then
 #  kwallet-query -l kdewallet > /dev/null
