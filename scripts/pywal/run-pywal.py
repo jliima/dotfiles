@@ -9,6 +9,8 @@ import argparse
 import os
 import subprocess
 import sys
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 # ANSI color codes for terminal output
@@ -25,10 +27,14 @@ class Colors:
 
 DEFAULT_THEME = "parecolors"
 
+# Lock for thread-safe printing
+print_lock = threading.Lock()
+
 
 def print_status(message: str, color: str = Colors.RESET) -> None:
-  """Print a status message with color."""
-  print(f"{color}{message}{Colors.RESET}")
+  """Print a status message with color (thread-safe)."""
+  with print_lock:
+    print(f"{color}{message}{Colors.RESET}")
 
 
 def print_header(message: str) -> None:
@@ -130,7 +136,7 @@ def run_wal(wal_args: list[str], debug: bool) -> bool:
     return False
 
 
-def run_application_script(script: Path, debug: bool) -> bool:
+def run_application_script(script: Path, debug: bool) -> tuple[Path, bool, int | None, str | None]:
   """Run a single application script.
 
   Args:
@@ -138,41 +144,30 @@ def run_application_script(script: Path, debug: bool) -> bool:
     debug: Whether to show script output.
 
   Returns:
-    True if script succeeded, False otherwise.
+    Tuple of (script, success, return_code, error_message).
   """
   if not script.is_file():
-    print_skipped(script.name, "not a file")
-    return False
+    return script, False, None, "not a file"
 
   if not os.access(script, os.X_OK):
-    print_skipped(script.name, "not executable")
-    return False
-
-  print_running(script.name)
+    return script, False, None, "not executable"
 
   try:
     if debug:
-      # Show output in debug mode
-      print_status(f"  {'─' * 50}", Colors.BLUE)
-      result = subprocess.run([str(script)], check=False)
-      print_status(f"  {'─' * 50}", Colors.BLUE)
+      result = subprocess.run([str(script)], check=False, capture_output=True, text=True)
     else:
-      # Suppress output in normal mode
       result = subprocess.run([str(script)], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
     if result.returncode == 0:
-      print_success(script.name)
-      return True
+      return script, True, result.returncode, None
     else:
-      print_failure(script.name, result.returncode)
-      return False
+      return script, False, result.returncode, None
   except Exception as e:
-    print_status(f"  ✗ Error running {script.name}: {e}", Colors.RED)
-    return False
+    return script, False, None, str(e)
 
 
 def run_application_scripts(scripts: list[Path], apps_dir: Path, debug: bool) -> tuple[int, int]:
-  """Run all application scripts.
+  """Run all application scripts in parallel.
 
   Args:
     scripts: List of script paths to run.
@@ -193,11 +188,27 @@ def run_application_scripts(scripts: list[Path], apps_dir: Path, debug: bool) ->
   success_count = 0
   failure_count = 0
 
-  for script in scripts:
-    if run_application_script(script, debug):
-      success_count += 1
-    else:
-      failure_count += 1
+  # Run scripts in parallel using ThreadPoolExecutor
+  with ThreadPoolExecutor() as executor:
+    # Submit all scripts for execution
+    futures = {executor.submit(run_application_script, script, debug): script for script in scripts}
+
+    # Process results as they complete
+    for future in as_completed(futures):
+      script, success, return_code, error_msg = future.result()
+
+      if success:
+        print_success(script.name)
+        success_count += 1
+      elif error_msg:
+        if error_msg in ("not a file", "not executable"):
+          print_skipped(script.name, error_msg)
+        else:
+          print_status(f"  ✗ Error running {script.name}: {error_msg}", Colors.RED)
+        failure_count += 1
+      else:
+        print_failure(script.name, return_code)
+        failure_count += 1
 
   return success_count, failure_count
 
