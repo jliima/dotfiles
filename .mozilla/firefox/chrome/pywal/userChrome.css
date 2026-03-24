@@ -1,4 +1,4 @@
-@import url("file:///home/hieroja/.cache/wal/colors.css");
+@import './colors.css';
 @import '../chrome_css/iconized_main_menu.css';
 @import '../chrome_css/iconized_menubar_items.css';
 @import '../chrome_css/iconized_places_context_menu.css';
@@ -13,7 +13,6 @@
 :root {
   color-scheme: dark !important;
 
-  /* Core mapping */
   --lwt-accent-color: var(--background) !important;
   --lwt-accent-color-inactive: var(--background) !important;
   --lwt-text-color: var(--white5) !important;
@@ -129,7 +128,6 @@ tooltip {
   -moz-appearance: none !important;
   padding: 6.5px !important;
 }
-
 
 /******* Hamburger- and arrowmenu *******/
 

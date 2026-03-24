@@ -1,4 +1,4 @@
-@import url("file:///home/hieroja/.cache/wal/colors.css");
+@import './colors.css';
 
 :root {
   color-scheme: dark !important;
