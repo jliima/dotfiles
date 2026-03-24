@@ -79,3 +79,140 @@ input:focus, textarea:focus {
     box-shadow: 0 0 0 1px var(--blue5) !important;
   }
 }
+
+@-moz-document url(about:preferences), url(about:blank), url(about:newtab), url(about:home), url(about:privatebrowsing), url(about:config) {
+
+  body {
+    font-family: var(--global-font) !important;
+
+    --pywalfox-font-size: 1rem;
+    --pywalfox-font-size-sm: 0.8rem;
+    
+    --pywalfox-accent: red;
+    --pywalfox-background: green;
+    --background-light: var(--black3);
+
+    --newtab-snippets-background-color: var(--background-light) !important;
+    --newtab-contextmenu-button-color: var(--background) !important;
+    --newtab-contextmenu-background-color: var(--background-light) !important;
+
+    /* Firefox 89 */
+    --newtab-topsites-background-color: var(--background-light) !important;
+    --newtab-textbox-background-color: var(--background-light) !important;
+    --customize-menu-background: var(--background-light) !important;
+    --customize-menu-secondary-action-background: var(--background) !important;
+    --customize-menu-secondary-action-background-hover: var(--background) !important;
+    --newtab-primary-action-background: var(--pywalfox-accent) !important;
+    --newtab-primary-action-background-off: var(--background) !important;
+    --customize-menu-line-color: var(--pywalfox-accent) !important;
+    --newtab-background-button-color: var(--background-light) !important;
+    --newtab-background-button-hover-color: var(--background-light) !important;
+  }
+
+  
+  @-moz-document url(about:preferences),url("about:home"),url("about:blank"),url("about:newtab"),url("about:privatebrowsing"), media-document(image) {
+    
+    body {background: var(--background) !important}
+    
+  }
+
+  html#preferences-root body#preferences-body stack#preferences-stack hbox vbox.main-content vbox.pane-container hbox.sticky-container {
+    background-color: var(--background) !important;
+  }
+    
+  
+  @-moz-document media-document(image) {
+    
+    html {
+      background-image: none !important;
+      scrollbar-color: var(--color4) !important;
+    }
+  }
+
+  /* Add bold text to most text */
+  .top-site-outer .title span, .top-site-outer .default-icon[data-fallback]::before,
+  .top-site-outer .search-topsite[data-fallback]::before, .context-menu > ul > li > a,
+  .top-site-outer .default-icon, .top-site-outer .search-topsite {
+    font-weight: bold !important;
+    font-size: var(--pywalfox-font-size-sm);
+  }
+
+  /* Bold text to activity card page labels */
+  .ds-highlights .section .section-list .card-outer .card-host-name {
+    font-weight: bold;
+  }
+
+  /* Remove box shadow border from top sites cards */
+  .top-site-outer .tile {
+    box-shadow: none !important;
+  }
+
+  /* Highlights card image placeholder */
+  [lwt-newtab-brighttext] .card-outer .card-preview-image-outer {
+    background-color: var(--pywalfox-accent) !important;
+  }
+
+  /* Top sites card hover border */
+  [lwt-newtab-brighttext] .ds-top-sites .top-sites .top-site-outer .top-site-inner > a:-moz-any(:hover) .tile {
+    box-shadow: 0 0 0 3px var(--background-light) !important;
+  }
+
+  /* Clock icon in new tab highlight cards */
+  [lwt-newtab-brighttext] .card > .card-details > .card-context {
+    clip-path: none !important;
+    background-color: var(--background-light) !important;
+  }
+
+  /* "Highlights" domain name */
+  .card-outer .card-host-name {
+    color: var(--pywalfox-accent) !important;
+  }
+
+  /* "Highlights" context icon */
+  .card-outer .card-context-icon {
+    fill: var(--pywalfox-accent) !important;
+  }
+
+  /* "Top sites" and "Highlights" titles */
+  .ds-header, .ds-layout .section-title span {
+    color: var(--newtab-text-primary-color) !important;
+  }
+
+  /* "Top sites" and "Highlights" icons */
+  .ds-header .icon, .ds-layout .section-title span .icon {
+    fill: var(--newtab-text-primary-color) !important;
+  }
+
+  /* Change card and search input background color based for dark mode */
+  [lwt-newtab-brighttext] .trailheadCard,
+  [lwt-newtab-brighttext] .search-wrapper input,
+  [lwt-newtab-brighttext] .top-site-outer .top-site-icon,
+  [lwt-newtab-brighttext] .ds-highlights .section .section-list .card-outer {
+    background-color: var(--background-light) !important;
+  }
+
+  /* Card border when hovering in dark mode */
+  [lwt-newtab-brighttext] .card-outer:-moz-any(:hover, :focus, .active):not(.placeholder) {
+    box-shadow: 0 0 0 5px var(--background-light) !important;
+  }
+
+  /* Card border when hovering in light mode */
+  .card-outer:-moz-any(:hover, :focus, .active):not(.placeholder) {
+    box-shadow: 0 0 0 5px white !important;
+  }
+
+  /* Hides the active background of a section when opening a context menu */
+  .collapsible-section.active {
+    background: none !important;
+  }
+
+  .personalize-button:hover,
+  .customize-menu .close-button:hover {
+    filter: brightness(80%);
+  }
+
+  [lwt-newtab-brighttext] .personalize-button:hover,
+  [lwt-newtab-brighttext] .customize-menu .close-button:hover {
+    filter: brightness(120%);
+  }
+}
