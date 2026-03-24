@@ -1,0 +1,199 @@
+/* Import pywal colors */
+@import 'file:///home/hieroja/.cache/wal/colors.css';
+
+/* Firefox UI Theme - Using Pywal Colors */
+
+:root {
+  /* Toolbar colors */
+  --toolbar-bgcolor: var(--background) !important;
+  --toolbar-color: var(--foreground) !important;
+  --toolbar-non-lwt-bgcolor: var(--background) !important;
+  --toolbar-non-lwt-textcolor: var(--foreground) !important;
+  --toolbar-non-lwt-bgimage: none !important;
+  
+  /* Tab colors */
+  --tab-bgcolor: var(--black3) !important;
+  --tab-selected-bgcolor: var(--black4) !important;
+  --tab-hover-bgcolor: var(--grey2) !important;
+  --tab-text-color: var(--white3) !important;
+  --tab-selected-text-color: var(--foreground) !important;
+  
+  /* URL bar / Search bar */
+  --urlbar-background-color: var(--black3) !important;
+  --urlbar-text-color: var(--foreground) !important;
+  --urlbar-focused-background-color: var(--black4) !important;
+  --urlbar-placeholder-color: var(--grey5) !important;
+  
+  /* Sidebar */
+  --sidebar-background-color: var(--black2) !important;
+  --sidebar-text-color: var(--foreground) !important;
+  --sidebar-border-color: var(--grey3) !important;
+  
+  /* Popup panels */
+  --panel-background: var(--black3) !important;
+  --panel-color: var(--foreground) !important;
+  --panel-border-color: var(--grey4) !important;
+  --panel-separator-color: var(--grey3) !important;
+  
+  /* Menu colors */
+  --menu-background-color: var(--black3) !important;
+  --menu-color: var(--foreground) !important;
+  --menuitem-hover-background-color: var(--grey3) !important;
+  --menu-border-color: var(--grey4) !important;
+  
+  /* Buttons */
+  --button-bgcolor: var(--grey3) !important;
+  --button-hover-bgcolor: var(--grey4) !important;
+  --button-active-bgcolor: var(--grey5) !important;
+  --button-color: var(--foreground) !important;
+  
+  /* Links and accents */
+  --link-color: var(--blue5) !important;
+  --link-hover-color: var(--blue4) !important;
+  --focus-outline-color: var(--blue5) !important;
+  
+  /* Misc */
+  --arrowpanel-background: var(--black3) !important;
+  --arrowpanel-color: var(--foreground) !important;
+  --arrowpanel-border-color: var(--grey4) !important;
+  --lwt-accent-color: var(--background) !important;
+  --lwt-text-color: var(--foreground) !important;
+  --chrome-content-separator-color: var(--grey3) !important;
+}
+
+/* Toolbar styling */
+#nav-bar,
+#PersonalToolbar,
+#TabsToolbar,
+toolbar {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+  border-color: var(--grey3) !important;
+}
+
+/* Tab styling */
+.tabbrowser-tab {
+  background-color: var(--black3) !important;
+  color: var(--white3) !important;
+  border-color: var(--grey2) !important;
+}
+
+.tabbrowser-tab:hover {
+  background-color: var(--grey2) !important;
+}
+
+.tabbrowser-tab[selected="true"] {
+  background-color: var(--black4) !important;
+  color: var(--foreground) !important;
+  font-weight: bold !important;
+}
+
+/* URL bar styling */
+#urlbar,
+#searchbar {
+  background-color: var(--black3) !important;
+  color: var(--foreground) !important;
+  border-color: var(--grey4) !important;
+}
+
+#urlbar:focus-within,
+#searchbar:focus-within {
+  background-color: var(--black4) !important;
+  border-color: var(--blue5) !important;
+}
+
+#urlbar-background {
+  background-color: var(--black3) !important;
+  border-color: var(--grey4) !important;
+}
+
+/* Dropdown/autocomplete styling */
+#urlbar-results,
+.urlbarView,
+.search-panel-one-offs {
+  background-color: var(--black3) !important;
+  color: var(--foreground) !important;
+  border-color: var(--grey4) !important;
+}
+
+.urlbarView-row:hover,
+.urlbarView-row[selected] {
+  background-color: var(--grey3) !important;
+}
+
+/* Sidebar styling */
+#sidebar-box,
+#sidebar-header,
+.sidebar-panel {
+  background-color: var(--black2) !important;
+  color: var(--foreground) !important;
+  border-color: var(--grey3) !important;
+}
+
+/* Context menus and popups */
+menupopup,
+popup,
+panel {
+  background-color: var(--black3) !important;
+  color: var(--foreground) !important;
+  border-color: var(--grey4) !important;
+}
+
+menuitem:hover,
+menu:hover {
+  background-color: var(--grey3) !important;
+  color: var(--foreground) !important;
+}
+
+/* Buttons */
+toolbarbutton,
+button {
+  background-color: var(--grey3) !important;
+  color: var(--foreground) !important;
+  border-color: var(--grey4) !important;
+}
+
+toolbarbutton:hover,
+button:hover {
+  background-color: var(--grey4) !important;
+}
+
+/* Scrollbars */
+scrollbar {
+  background-color: var(--black2) !important;
+}
+
+thumb,
+scrollbar thumb {
+  background-color: var(--grey4) !important;
+  border-radius: 4px !important;
+}
+
+thumb:hover,
+scrollbar thumb:hover {
+  background-color: var(--grey5) !important;
+}
+
+/* Bookmarks toolbar */
+#PlacesToolbarItems .bookmark-item {
+  color: var(--foreground) !important;
+}
+
+#PlacesToolbarItems .bookmark-item:hover {
+  background-color: var(--grey3) !important;
+}
+
+/* Find bar */
+.findbar-textbox {
+  background-color: var(--black3) !important;
+  color: var(--foreground) !important;
+  border-color: var(--grey4) !important;
+}
+
+/* Notification box */
+notification,
+.notificationbox-stack {
+  background-color: var(--black3) !important;
+  color: var(--foreground) !important;
+  border-color: var(--grey4) !important;
+}
