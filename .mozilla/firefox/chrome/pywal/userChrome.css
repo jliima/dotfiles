@@ -35,6 +35,18 @@
 
   --sidebar-background-color: var(--background) !important;
   --sidebar-text-color: var(--white5) !important;
+
+  --tab-corner-rounding: 0px;
+  --animation-speed: 0.25s;
+  --urlbar-icon-border-radius: 10px !important;
+
+  --border-radius: 8px;
+
+  --toolbar-bgcolor: var(--background) !important;
+  --color-accent-primary: var(--blue5) !important;
+  --color-accent-primary-hover: red !important;
+  --color-accent-primary-active: var(--blue5) !important;
+  --focus-outline-width: 1px !important;
 }
 
 /* ===== Main chrome (PRIMARY SURFACE) ===== */
@@ -51,6 +63,7 @@
 /* ===== Tabs (SECONDARY SURFACE) ===== */
 .tabbrowser-tab .tab-background {
   background-color: var(--black4) !important;
+  border-radius: var(--border-radius) !important;
 }
 
 .tabbrowser-tab:hover .tab-background {
@@ -78,7 +91,6 @@
 
 #urlbar[focused="true"] #urlbar-background {
   border-color: var(--blue5) !important;
-  box-shadow: 0 0 0 1px var(--blue5) !important;
 }
 
 /* ===== Panels / menus ===== */
@@ -234,6 +246,35 @@ input#urlbar-input {
 #PlacesToolbarItems .bookmark-item {
   padding-top: 5px !important;
   padding-bottom: 5px !important;
+}
+
+
+/******* Right click menu *******/
+menuitem, menu {
+  -moz-appearance: none !important;
+  padding: 2px 0px 2px 0px !important;
+}
+
+menupopup {
+	-moz-appearance: none !important;
+	min-width: 150px !important;
+  border-style: none !important;
+}
+
+menupopup, panel {
+  --panel-border-radius: var(--border-radius) !important;
+}
+
+menuseparator {
+	-moz-appearance: none !important;
+	border: none !important;
+	padding: .5px 0px .5px 0px !important;
+	margin: 2px 2px 2px 8px !important;
+}
+
+menugroup {
+  outline-style: none;
+	padding: 0px !important;
 }
 
 
