@@ -42,7 +42,6 @@ plugins=(
 
 ZSH_AUTOSUGGEST_STRATEGY="match_prev_cmd" #"completion"
 source $ZSH/oh-my-zsh.sh
-
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 #disable underline
@@ -91,21 +90,22 @@ export FZF_DEFAULT_OPTS="
   --bind=tab:down,shift-tab:up
 "
 
+alias run-pywal="$HOME/dotfiles/scripts/pywal/run-pywal.py"
+
 alias upp="$HOME/scripts/kde/update-packages.sh"
 alias kate="kate -n"
 alias colors="bash ~/dotfiles/scripts/pywal/colors.sh"
-alias pare="$HOME/dotfiles/scripts/pywal/run-pywal.py"
-alias pywal-debug="./dotfiles/scripts/pywal/pywal-debug.sh"
 alias tg='python3 $HOME/scripts/telegram-video-converter.py'
 
 alias ls="eza --icons -F -H --group-directories-first --git -1"
 alias cd="z"
 alias cat="bat"
 alias grep="rg"
-alias find="echo 'Files: Ctrl+T\nText:  grep <text>'" #"fzf"
 alias tree="eza --icons --tree -F -H"
 alias dolphin="dolphin . >/dev/null & disown > /dev/null"
 alias neofetch="fastfetch"
+
+source "$HOME/dotfiles/scripts/pywal/run-pywal-completion.bash"
 
 precmd() { precmd() { echo } }
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
