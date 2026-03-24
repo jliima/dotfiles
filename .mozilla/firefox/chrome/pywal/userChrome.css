@@ -20,17 +20,17 @@
   --toolbar-bgcolor: var(--background) !important;
   --toolbar-color: var(--white5) !important;
 
-  --toolbar-field-background-color: var(--black4) !important;
+  --toolbar-field-background-color: var(--black3) !important;
   --toolbar-field-color: var(--white5) !important;
   --toolbar-field-border-color: var(--grey5) !important;
 
-  --toolbar-field-focus-background-color: var(--black4) !important;
+  --toolbar-field-focus-background-color: var(--black3) !important;
   --toolbar-field-focus-border-color: var(--blue5) !important;
 
-  --arrowpanel-background: var(--black4) !important;
+  --arrowpanel-background: var(--black3) !important;
   --arrowpanel-color: var(--white5) !important;
 
-  --menu-background-color: var(--black4) !important;
+  --menu-background-color: var(--black3) !important;
   --menu-color: var(--white5) !important;
 
   --sidebar-background-color: var(--background) !important;
@@ -62,17 +62,17 @@
 
 /* ===== Tabs (SECONDARY SURFACE) ===== */
 .tabbrowser-tab .tab-background {
-  background-color: var(--black4) !important;
+  background-color: var(--black3) !important;
   border-radius: var(--border-radius) !important;
 }
 
 .tabbrowser-tab:hover .tab-background {
-  background-color: var(--grey3) !important;
+  background-color: var(--blue3) !important;
 }
 
 /* Active tab uses accent */
 .tabbrowser-tab[selected="true"] .tab-background {
-  background-color: var(--blue5) !important;
+  background-color: var(--blue4) !important;
 }
 
 .tabbrowser-tab[selected="true"] .tab-label {
@@ -84,7 +84,7 @@
 #urlbar-background,
 #urlbar,
 .urlbar-input-container {
-  background-color: var(--black4) !important;
+  background-color: var(--blue1) !important;
   color: var(--white5) !important;
   border: 1px solid var(--grey5) !important;
 }
@@ -100,7 +100,7 @@ menupopup,
 #appMenu-popup,
 #downloadsPanel,
 #urlbar-results {
-  background-color: var(--black4) !important;
+  background-color: var(--blue1) !important;
   color: var(--white5) !important;
 }
 
