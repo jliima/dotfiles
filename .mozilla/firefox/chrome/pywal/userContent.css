@@ -1,249 +1,81 @@
-/* Import pywal colors */
-@import 'file:///home/hieroja/.cache/wal/colors.css';
+@import url("file:///home/hieroja/.cache/wal/colors.css");
 
-/* Web Content Theme - Using Pywal Colors */
-/* This affects built-in Firefox pages like about:preferences, about:addons, etc. */
+:root {
+  color-scheme: dark !important;
+  accent-color: var(--blue5) !important;
+}
 
-@-moz-document url-prefix("about:"),
-               url-prefix("chrome://"),
-               url-prefix("moz-extension://") {
-  
-  /* General page background and text */
-  :root,
+/* ===== GLOBAL WEB CONTENT ===== */
+html, body {
+  background: var(--background) !important;
+  color: var(--white5) !important;
+}
+
+/* Links */
+a {
+  color: var(--blue5) !important;
+}
+a:hover {
+  color: var(--blue4) !important;
+}
+
+/* Selection */
+::selection {
+  background: var(--blue5) !important;
+  color: var(--background) !important;
+}
+
+/* Inputs */
+input, textarea, select, button {
+  background: var(--black4) !important;
+  color: var(--white5) !important;
+  border: 1px solid var(--grey5) !important;
+}
+
+input:focus, textarea:focus {
+  outline: 2px solid var(--blue5) !important;
+}
+
+/* ===== NEW TAB PAGE (CRITICAL PART) ===== */
+
+/* Firefox new tab root */
+@-moz-document url("about:newtab"), url("about:home") {
   body {
-    --in-content-page-background: var(--background) !important;
-    --in-content-page-color: var(--foreground) !important;
-    --in-content-text-color: var(--foreground) !important;
-    --in-content-deemphasized-text: var(--white2) !important;
-    
-    /* Boxes and containers */
-    --in-content-box-background: var(--black3) !important;
-    --in-content-box-background-odd: var(--black2) !important;
-    --in-content-box-border-color: var(--grey3) !important;
-    --in-content-box-info-background: var(--grey2) !important;
-    
-    /* Borders */
-    --in-content-border-color: var(--grey3) !important;
-    --in-content-border-hover: var(--grey4) !important;
-    --in-content-border-focus: var(--blue5) !important;
-    
-    /* Buttons */
-    --in-content-button-background: var(--grey3) !important;
-    --in-content-button-background-hover: var(--grey4) !important;
-    --in-content-button-background-active: var(--grey5) !important;
-    --in-content-button-text-color: var(--foreground) !important;
-    
-    /* Primary buttons */
-    --in-content-primary-button-background: var(--blue5) !important;
-    --in-content-primary-button-background-hover: var(--blue4) !important;
-    --in-content-primary-button-background-active: var(--blue3) !important;
-    --in-content-primary-button-text-color: var(--black1) !important;
-    
-    /* Links */
-    --in-content-link-color: var(--blue5) !important;
-    --in-content-link-color-hover: var(--blue4) !important;
-    --in-content-link-color-active: var(--blue3) !important;
-    --in-content-link-color-visited: var(--magenta4) !important;
-    
-    /* Tables */
-    --in-content-table-background: var(--black2) !important;
-    --in-content-table-border-color: var(--grey3) !important;
-    --in-content-table-header-background: var(--black3) !important;
-    --in-content-table-row-hover: var(--grey2) !important;
-    
-    /* Dialogs */
-    --in-content-dialog-background: var(--black2) !important;
-    --in-content-dialog-border-color: var(--grey4) !important;
-    
-    /* Categories (sidebar navigation) */
-    --in-content-category-background: var(--black2) !important;
-    --in-content-category-background-hover: var(--grey2) !important;
-    --in-content-category-background-active: var(--grey3) !important;
-    --in-content-category-background-selected: var(--grey3) !important;
-    --in-content-category-background-selected-hover: var(--grey4) !important;
-    --in-content-category-text: var(--foreground) !important;
-    --in-content-category-text-selected: var(--foreground) !important;
-    
-    /* Focus */
-    --in-content-focus-outline-color: var(--blue5) !important;
-    
-    /* Icons */
-    --in-content-icon-color: var(--foreground) !important;
-    
-    /* Success/Warning/Error colors */
-    --green-50: var(--green5) !important;
-    --green-60: var(--green4) !important;
-    --green-70: var(--green3) !important;
-    --yellow-50: var(--yellow5) !important;
-    --yellow-60: var(--yellow4) !important;
-    --yellow-70: var(--yellow3) !important;
-    --red-50: var(--red5) !important;
-    --red-60: var(--red4) !important;
-    --red-70: var(--red3) !important;
-    
-    /* Scrollbars */
-    scrollbar-color: var(--grey4) var(--black2) !important;
-    
-    background-color: var(--background) !important;
-    color: var(--foreground) !important;
+    background: var(--background) !important;
   }
-  
-  /* Apply to main elements */
-  body,
-  html,
-  #mainContent,
-  .main-content {
-    background-color: var(--background) !important;
-    color: var(--foreground) !important;
+
+  .outer-wrapper,
+  .activity-stream,
+  .top-sites-list,
+  .card-outer,
+  .search-wrapper {
+    background: transparent !important;
   }
-  
-  /* Input fields */
-  input,
-  textarea,
-  select {
-    background-color: var(--black3) !important;
-    color: var(--foreground) !important;
-    border-color: var(--grey3) !important;
+
+  /* Top sites / cards use secondary surface */
+  .top-site-outer .tile,
+  .top-site-outer .icon-wrapper,
+  .ds-card {
+    background: var(--black4) !important;
+    color: var(--white5) !important;
+    border: 1px solid var(--grey4) !important;
   }
-  
-  input:focus,
-  textarea:focus,
-  select:focus {
+
+  .top-site-outer:hover .tile {
+    background: var(--grey3) !important;
+  }
+
+  /* Search box */
+  .search-handoff-button,
+  .search-inner-wrapper input {
+    background: var(--black4) !important;
+    color: var(--white5) !important;
+    border: 1px solid var(--grey5) !important;
+  }
+
+  .search-handoff-button:focus,
+  .search-inner-wrapper input:focus {
     border-color: var(--blue5) !important;
-    outline-color: var(--blue5) !important;
-  }
-  
-  /* Checkboxes and radio buttons */
-  input[type="checkbox"],
-  input[type="radio"] {
-    background-color: var(--grey3) !important;
-    border-color: var(--grey4) !important;
-  }
-  
-  input[type="checkbox"]:checked,
-  input[type="radio"]:checked {
-    background-color: var(--blue5) !important;
-    border-color: var(--blue5) !important;
-  }
-  
-  /* Buttons */
-  button,
-  .button {
-    background-color: var(--grey3) !important;
-    color: var(--foreground) !important;
-    border-color: var(--grey4) !important;
-  }
-  
-  button:hover,
-  .button:hover {
-    background-color: var(--grey4) !important;
-  }
-  
-  button:active,
-  .button:active {
-    background-color: var(--grey5) !important;
-  }
-  
-  /* Primary buttons */
-  button.primary,
-  .button-primary {
-    background-color: var(--blue5) !important;
-    color: var(--black1) !important;
-  }
-  
-  button.primary:hover,
-  .button-primary:hover {
-    background-color: var(--blue4) !important;
-  }
-  
-  /* Links */
-  a,
-  a:link {
-    color: var(--blue5) !important;
-  }
-  
-  a:visited {
-    color: var(--magenta4) !important;
-  }
-  
-  a:hover {
-    color: var(--blue4) !important;
-  }
-  
-  /* Tables */
-  table,
-  th,
-  td {
-    border-color: var(--grey3) !important;
-    background-color: var(--black2) !important;
-    color: var(--foreground) !important;
-  }
-  
-  th {
-    background-color: var(--black3) !important;
-  }
-  
-  tr:hover {
-    background-color: var(--grey2) !important;
-  }
-  
-  /* Code blocks */
-  code,
-  pre {
-    background-color: var(--black3) !important;
-    color: var(--cyan5) !important;
-    border-color: var(--grey3) !important;
-  }
-  
-  /* Panels and cards */
-  .panel,
-  .card {
-    background-color: var(--black3) !important;
-    border-color: var(--grey3) !important;
-    color: var(--foreground) !important;
-  }
-  
-  /* Dropdowns */
-  select option {
-    background-color: var(--black3) !important;
-    color: var(--foreground) !important;
-  }
-  
-  /* Scrollbars for web content */
-  * {
-    scrollbar-width: thin !important;
-    scrollbar-color: var(--grey4) var(--black2) !important;
-  }
-  
-  ::-webkit-scrollbar {
-    width: 10px !important;
-    background-color: var(--black2) !important;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background-color: var(--grey4) !important;
-    border-radius: 4px !important;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: var(--grey5) !important;
-  }
-  
-  /* Modals and overlays */
-  .modal,
-  .overlay {
-    background-color: var(--black2) !important;
-    border-color: var(--grey4) !important;
-  }
-  
-  /* Headers */
-  h1, h2, h3, h4, h5, h6 {
-    color: var(--foreground) !important;
-  }
-  
-  /* Disabled elements */
-  :disabled,
-  [disabled] {
-    opacity: 0.5 !important;
+    box-shadow: 0 0 0 1px var(--blue5) !important;
   }
 }

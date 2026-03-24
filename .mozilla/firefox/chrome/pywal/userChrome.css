@@ -1,199 +1,299 @@
-/* Import pywal colors */
-@import 'file:///home/hieroja/.cache/wal/colors.css';
-
-/* Firefox UI Theme - Using Pywal Colors */
+@import url("file:///home/hieroja/.cache/wal/colors.css");
+@import '../chrome_css/iconized_main_menu.css';
+@import '../chrome_css/iconized_menubar_items.css';
+@import '../chrome_css/iconized_places_context_menu.css';
+@import '../chrome_css/iconized_tabs_context_menu.css';
+@import '../chrome_css/iconized_textbox_context_menu.css';
+@import '../chrome_css/less_static_throbber.css';
+@import '../chrome_css/hide_unwanted_stuff.css';
+@import '../chrome_css/compact_extension_panel.css';
+@import '../chrome_css/font_change.css';
+@import '../chrome_css/custom_bookmark_icons.css';
 
 :root {
-  /* Toolbar colors */
-  --toolbar-bgcolor: var(--background) !important;
-  --toolbar-color: var(--foreground) !important;
-  --toolbar-non-lwt-bgcolor: var(--background) !important;
-  --toolbar-non-lwt-textcolor: var(--foreground) !important;
-  --toolbar-non-lwt-bgimage: none !important;
-  
-  /* Tab colors */
-  --tab-bgcolor: var(--black3) !important;
-  --tab-selected-bgcolor: var(--black4) !important;
-  --tab-hover-bgcolor: var(--grey2) !important;
-  --tab-text-color: var(--white3) !important;
-  --tab-selected-text-color: var(--foreground) !important;
-  
-  /* URL bar / Search bar */
-  --urlbar-background-color: var(--black3) !important;
-  --urlbar-text-color: var(--foreground) !important;
-  --urlbar-focused-background-color: var(--black4) !important;
-  --urlbar-placeholder-color: var(--grey5) !important;
-  
-  /* Sidebar */
-  --sidebar-background-color: var(--black2) !important;
-  --sidebar-text-color: var(--foreground) !important;
-  --sidebar-border-color: var(--grey3) !important;
-  
-  /* Popup panels */
-  --panel-background: var(--black3) !important;
-  --panel-color: var(--foreground) !important;
-  --panel-border-color: var(--grey4) !important;
-  --panel-separator-color: var(--grey3) !important;
-  
-  /* Menu colors */
-  --menu-background-color: var(--black3) !important;
-  --menu-color: var(--foreground) !important;
-  --menuitem-hover-background-color: var(--grey3) !important;
-  --menu-border-color: var(--grey4) !important;
-  
-  /* Buttons */
-  --button-bgcolor: var(--grey3) !important;
-  --button-hover-bgcolor: var(--grey4) !important;
-  --button-active-bgcolor: var(--grey5) !important;
-  --button-color: var(--foreground) !important;
-  
-  /* Links and accents */
-  --link-color: var(--blue5) !important;
-  --link-hover-color: var(--blue4) !important;
-  --focus-outline-color: var(--blue5) !important;
-  
-  /* Misc */
-  --arrowpanel-background: var(--black3) !important;
-  --arrowpanel-color: var(--foreground) !important;
-  --arrowpanel-border-color: var(--grey4) !important;
+  color-scheme: dark !important;
+
+  /* Core mapping */
   --lwt-accent-color: var(--background) !important;
-  --lwt-text-color: var(--foreground) !important;
-  --chrome-content-separator-color: var(--grey3) !important;
+  --lwt-accent-color-inactive: var(--background) !important;
+  --lwt-text-color: var(--white5) !important;
+
+  --toolbar-bgcolor: var(--background) !important;
+  --toolbar-color: var(--white5) !important;
+
+  --toolbar-field-background-color: var(--black4) !important;
+  --toolbar-field-color: var(--white5) !important;
+  --toolbar-field-border-color: var(--grey5) !important;
+
+  --toolbar-field-focus-background-color: var(--black4) !important;
+  --toolbar-field-focus-border-color: var(--blue5) !important;
+
+  --arrowpanel-background: var(--black4) !important;
+  --arrowpanel-color: var(--white5) !important;
+
+  --menu-background-color: var(--black4) !important;
+  --menu-color: var(--white5) !important;
+
+  --sidebar-background-color: var(--background) !important;
+  --sidebar-text-color: var(--white5) !important;
 }
 
-/* Toolbar styling */
+/* ===== Main chrome (PRIMARY SURFACE) ===== */
+#navigator-toolbox,
+#titlebar,
+#TabsToolbar,
 #nav-bar,
 #PersonalToolbar,
-#TabsToolbar,
-toolbar {
+#toolbar-menubar {
   background-color: var(--background) !important;
-  color: var(--foreground) !important;
-  border-color: var(--grey3) !important;
+  color: var(--white5) !important;
 }
 
-/* Tab styling */
-.tabbrowser-tab {
-  background-color: var(--black3) !important;
-  color: var(--white3) !important;
-  border-color: var(--grey2) !important;
-}
-
-.tabbrowser-tab:hover {
-  background-color: var(--grey2) !important;
-}
-
-.tabbrowser-tab[selected="true"] {
+/* ===== Tabs (SECONDARY SURFACE) ===== */
+.tabbrowser-tab .tab-background {
   background-color: var(--black4) !important;
-  color: var(--foreground) !important;
-  font-weight: bold !important;
 }
 
-/* URL bar styling */
+.tabbrowser-tab:hover .tab-background {
+  background-color: var(--grey3) !important;
+}
+
+/* Active tab uses accent */
+.tabbrowser-tab[selected="true"] .tab-background {
+  background-color: var(--blue5) !important;
+}
+
+.tabbrowser-tab[selected="true"] .tab-label {
+  color: var(--background) !important;
+  font-weight: 600 !important;
+}
+
+/* ===== URL bar (SECONDARY SURFACE) ===== */
+#urlbar-background,
 #urlbar,
-#searchbar {
-  background-color: var(--black3) !important;
-  color: var(--foreground) !important;
-  border-color: var(--grey4) !important;
-}
-
-#urlbar:focus-within,
-#searchbar:focus-within {
+.urlbar-input-container {
   background-color: var(--black4) !important;
+  color: var(--white5) !important;
+  border: 1px solid var(--grey5) !important;
+}
+
+#urlbar[focused="true"] #urlbar-background {
   border-color: var(--blue5) !important;
+  box-shadow: 0 0 0 1px var(--blue5) !important;
 }
 
-#urlbar-background {
-  background-color: var(--black3) !important;
-  border-color: var(--grey4) !important;
-}
-
-/* Dropdown/autocomplete styling */
-#urlbar-results,
-.urlbarView,
-.search-panel-one-offs {
-  background-color: var(--black3) !important;
-  color: var(--foreground) !important;
-  border-color: var(--grey4) !important;
-}
-
-.urlbarView-row:hover,
-.urlbarView-row[selected] {
-  background-color: var(--grey3) !important;
-}
-
-/* Sidebar styling */
-#sidebar-box,
-#sidebar-header,
-.sidebar-panel {
-  background-color: var(--black2) !important;
-  color: var(--foreground) !important;
-  border-color: var(--grey3) !important;
-}
-
-/* Context menus and popups */
+/* ===== Panels / menus ===== */
+panel,
+panelview,
 menupopup,
-popup,
-panel {
-  background-color: var(--black3) !important;
-  color: var(--foreground) !important;
-  border-color: var(--grey4) !important;
+#appMenu-popup,
+#downloadsPanel,
+#urlbar-results {
+  background-color: var(--black4) !important;
+  color: var(--white5) !important;
 }
 
-menuitem:hover,
-menu:hover {
-  background-color: var(--grey3) !important;
-  color: var(--foreground) !important;
-}
-
-/* Buttons */
-toolbarbutton,
-button {
-  background-color: var(--grey3) !important;
-  color: var(--foreground) !important;
-  border-color: var(--grey4) !important;
-}
-
+/* Hover states */
 toolbarbutton:hover,
-button:hover {
-  background-color: var(--grey4) !important;
-}
-
-/* Scrollbars */
-scrollbar {
-  background-color: var(--black2) !important;
-}
-
-thumb,
-scrollbar thumb {
-  background-color: var(--grey4) !important;
-  border-radius: 4px !important;
-}
-
-thumb:hover,
-scrollbar thumb:hover {
-  background-color: var(--grey5) !important;
-}
-
-/* Bookmarks toolbar */
-#PlacesToolbarItems .bookmark-item {
-  color: var(--foreground) !important;
-}
-
-#PlacesToolbarItems .bookmark-item:hover {
+.menuitem:hover,
+.subviewbutton:hover {
   background-color: var(--grey3) !important;
 }
 
-/* Find bar */
-.findbar-textbox {
-  background-color: var(--black3) !important;
-  color: var(--foreground) !important;
-  border-color: var(--grey4) !important;
+/* ===== Sidebar ===== */
+#sidebar-box,
+#sidebar,
+#sidebar-header {
+  background-color: var(--background) !important;
+  color: var(--white5) !important;
 }
 
-/* Notification box */
-notification,
-.notificationbox-stack {
-  background-color: var(--black3) !important;
-  color: var(--foreground) !important;
-  border-color: var(--grey4) !important;
+/* Remove border around UI */
+#tabbrowser-tabbox {
+  outline: none !important;
+  box-shadow: none !important;
+  border-radius: 0px !important;
+}
+
+/* Tabs background */
+#navigator-toolbox {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.subviewbutton.panel-subview-footer {
+  border-top: 1px var(--foreground) !important;
+}
+
+tooltip {
+  -moz-appearance: none !important;
+  padding: 6.5px !important;
+}
+
+
+/******* Hamburger- and arrowmenu *******/
+
+/* Hidden menu items */
+#widget-overflow-mainView > .panel-subview-body > toolbarseparator,
+.PanelUI-subView menuseparator, 
+.PanelUI-subView toolbarseparator,
+.cui-widget-panelview menuseparator, 
+.cui-widget-panel toolbarseparator {
+  -moz-appearance: none !important;
+  min-height: 0;
+  border-top: 0px solid var(--panel-separator-color) !important;
+  border-bottom: none;
+  margin: 0px 0!important;
+  padding: 0;
+}
+
+/******* Statuspanel  *******/
+/* aka. the bottom left corner that shows link that is hovered */
+#statuspanel #statuspanel-label {
+  border: 0px solid !important;
+  border-top: var(--border-radius) !important;
+  padding: 5px 5px 5px 5px !important;
+}
+
+/******* TABBAR *******/
+.tab-background {
+  border-radius: var(--border-radius) !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+#tabbrowser-tabs {
+  margin-top: 3px !important;
+  margin-left: 3px !important;
+  
+}
+
+/******* URLBAR *******/
+#urlbar {
+  min-height: 32px !important;
+  margin: 0px !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+#urlbar-background, #urlbar {
+  border-radius: var(--border-radius) !important;
+}
+
+input#urlbar-input {
+  text-align: left !important;
+  margin-left: 10px !important;
+  margin-top: 3px !important;
+  margin-bottom: 3px !important;
+  margin-right: 3px !important;
+}
+
+/******* URLBAR DROPDOWN MENU *******/
+
+.urlbarView {
+  margin-inline: 0px !important;
+  border: none !important;
+  width: 100% !important;
+  box-shadow: none !important;
+  clip-path: inset(0px -20px -30px -20px) !important;
+  animation: none !important;
+  margin-block-start: 0px !important;
+  outline: none;
+}
+
+.urlbarView-results {
+  padding-block: 0px !important;
+}
+
+.urlbarView .urlbarView-row {
+  border-radius: 10px !important;
+  padding-block: 0px !important;
+}
+
+
+/******* Nav-bar icons *******/
+
+#nav-bar .toolbarbutton-icon {
+  width: 20px !important;
+  padding-left: 1px !important;
+  padding-right: 1px !important;
+}
+
+#PanelUI-button {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  border-left: none !important;
+}
+
+#PanelUI-menu-button, .toolbarbutton-badge-stack {
+  padding-left: 0px !important;
+  padding-right: 1px !important;
+}
+
+
+/******* Bookmark settings *******/
+
+#PlacesToolbarItems .bookmark-item {
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+
+
+/******* Left-side menus *******/
+
+#bookmarks-view,
+#historyTree,
+#history-panel,
+#search-box {
+  -moz-appearance: none !important;
+  border: 0px !important;
+  border-right: 0px !important;
+}
+
+sidebar-history {
+  font-family: var(--global-font) !important;
+  font-weight: 500 !important;
+}
+
+#sidebar {
+  padding: 0px !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+#sidebar-box #sidebar {
+  font-family: var(--global-font) !important;
+  font-weight: 500 !important;
+  height: 100vh;
+}
+
+#sidebar-box ~ #sidebar-splitter {
+  width: 8px !important;
+}
+
+#sidebar-panel-close {
+  display: none !important;
+}
+
+.toolbarbutton[id="f0811709-d562-4380-9704-dcec7896b444"] .toolbarbutton-icon {
+  list-style-image: url("icons/arrow-right.svg") !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+#_f0811709-d562-4380-9704-dcec7896b444_-browser-action .toolbarbutton-1 .toolbarbutton-badge-stack {        
+  background-image: url("icons/arrow-right.svg") !important;
+  background-repeat: no-repeat !important;
+  background-size: 18px !important;
+  background-position: center !important;
+}
+#_f0811709-d562-4380-9704-dcec7896b444_-browser-action  image{ opacity: 0 !important; }
+
+.tab-icon-image,
+#PlacesToolbarItems > .bookmark-item[label]:not([container]) image {
+  filter: grayscale(0.4) !important;
 }
