@@ -22,11 +22,11 @@ cp "$SOURCE_FILE" "$TARGET_FILE" && echo "Copied $SOURCE_FILE to $TARGET_FILE"
 cp "$SOURCE_FILE2" "$TARGET_FILE_2" && echo "Copied $SOURCE_FILE2 to $TARGET_FILE_2"
 cp "$SOURCE_FILE3" "$TARGET_FILE_3" && echo "Copied $SOURCE_FILE3 to $TARGET_FILE_3"
 
-
-OPENT_INSTANCES=$(pidof qtcreator)
-
-if [ -n "$OPENT_INSTANCES" ]; then
-  echo "Open instances of qtcreator found, restarting them"
-  killall qtcreator
-  $HOME/Qt/Tools/QtCreator/bin/qtcreator -lastsession 2>/dev/null 1>&2 &
-fi
+# TODO fix at some point, this is a bit hacky
+#OPENT_INSTANCES=$(pidof qtcreator)
+#
+#if [ -n "$OPENT_INSTANCES" ]; then
+#  echo "Open instances of qtcreator found, restarting them"
+#  killall qtcreator
+#  $HOME/Qt/Tools/QtCreator/bin/qtcreator -lastsession 2>/dev/null 1>&2 &
+#fi
