@@ -39,7 +39,7 @@ def print_status(message: str, color: str = Colors.RESET) -> None:
 
 def print_header(message: str) -> None:
   """Print a header message."""
-  print_status(f"\n{Colors.BOLD}{message}{Colors.RESET}", Colors.CYAN)
+  print_status(f"{Colors.BOLD}{message}{Colors.RESET}", Colors.CYAN)
 
 
 def print_running(script_name: str) -> None:
@@ -60,6 +60,13 @@ def print_failure(script_name: str, return_code: int) -> None:
 def print_skipped(script_name: str, reason: str) -> None:
   """Print skipped status for a script."""
   print_status(f"  ⊘ Skipped: {script_name} ({reason})", Colors.YELLOW)
+
+
+def print_debug_output(output: str) -> None:
+  """Print captured debug output, prefixing each line with two spaces."""
+  with print_lock:
+    for line in output.splitlines():
+      print(f"  {line}")
 
 
 def get_script_dir() -> Path:
@@ -120,7 +127,6 @@ def run_wal(wal_args: list[str], debug: bool) -> bool:
 
   try:
     if debug:
-      print()
       result = subprocess.run(cmd, check=False)
     else:
       result = subprocess.run(cmd, check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -136,7 +142,9 @@ def run_wal(wal_args: list[str], debug: bool) -> bool:
     return False
 
 
-def run_application_script(script: Path, debug: bool) -> tuple[Path, bool, int | None, str | None]:
+def run_application_script(
+  script: Path, debug: bool
+) -> tuple[Path, bool, int | None, str | None, str, str]:
   """Run a single application script.
 
   Args:
@@ -144,7 +152,7 @@ def run_application_script(script: Path, debug: bool) -> tuple[Path, bool, int |
     debug: Whether to show script output.
 
   Returns:
-    Tuple of (script, success, return_code, error_message).
+    Tuple of (script, success, return_code, error_message, stdout, stderr).
   """
   if not script.is_file():
     return script, False, None, "not a file"
@@ -159,11 +167,11 @@ def run_application_script(script: Path, debug: bool) -> tuple[Path, bool, int |
       result = subprocess.run([str(script)], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
     if result.returncode == 0:
-      return script, True, result.returncode, None
+      return script, True, result.returncode, None, result.stdout if debug else "", result.stderr if debug else ""
     else:
-      return script, False, result.returncode, None
+      return script, False, result.returncode, None, result.stdout if debug else "", result.stderr if debug else ""
   except Exception as e:
-    return script, False, None, str(e)
+    return script, False, None, str(e), "", ""
 
 
 def run_application_scripts(scripts: list[Path], apps_dir: Path, debug: bool) -> tuple[int, int]:
@@ -183,7 +191,7 @@ def run_application_scripts(scripts: list[Path], apps_dir: Path, debug: bool) ->
     print_status("  No application scripts to run.", Colors.YELLOW)
     return 0, 0
 
-  print_status(f"  Found {len(scripts)} scripts in {apps_dir}\n", Colors.CYAN)
+  print_status(f"  Found {len(scripts)} scripts in {apps_dir}", Colors.CYAN)
 
   success_count = 0
   failure_count = 0
@@ -195,7 +203,15 @@ def run_application_scripts(scripts: list[Path], apps_dir: Path, debug: bool) ->
 
     # Process results as they complete
     for future in as_completed(futures):
-      script, success, return_code, error_msg = future.result()
+      script, success, return_code, error_msg, stdout, stderr = future.result()
+
+      if debug:
+        if stdout.strip():
+          print_status(f"  Output from {script.name} (stdout):", Colors.MAGENTA)
+          print_debug_output(stdout)
+        if stderr.strip():
+          print_status(f"  Output from {script.name} (stderr):", Colors.YELLOW)
+          print_debug_output(stderr)
 
       if success:
         print_success(script.name)

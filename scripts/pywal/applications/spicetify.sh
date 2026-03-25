@@ -9,9 +9,18 @@ TARGET_FILE="$TARGET_DIR/color.ini"
 
 # Create target directory if it doesn't exist
 mkdir -p "$TARGET_DIR"
-cp "$SOURCE_FILE" "$TARGET_FILE"
 
-# Remove all '#' characters from the target file
-sed -i 's/#//g' "$TARGET_FILE"
+TEMP_FILE="$(mktemp)"
+trap 'rm -f "$TEMP_FILE"' EXIT
 
-spicetify apply
+# Build the target content and only apply if it changed.
+sed 's/#//g' "$SOURCE_FILE" > "$TEMP_FILE"
+
+if [[ ! -f "$TARGET_FILE" ]] || ! cmp -s "$TEMP_FILE" "$TARGET_FILE"; then
+  echo "Spicetify: theme changed, updating color.ini and applying..."
+  cp "$TEMP_FILE" "$TARGET_FILE"
+  spicetify apply
+  echo "Spicetify: apply complete."
+else
+  echo "Spicetify: no theme changes detected, skipping apply."
+fi
