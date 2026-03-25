@@ -6,103 +6,103 @@ Opacity=1
 Wallpaper=
 
 [Foreground]
-Color=207,220,235
+Color=#cfdceb
 RandomHueRange=360
 RandomSaturationRange=100
 
 [ForegroundFaint]
-Color=207,220,235
+Color=#cfdceb
 RandomHueRange=360
 RandomSaturationRange=100
 
 [ForegroundIntense]
-Color=207,220,235
+Color=#cfdceb
 RandomHueRange=360
 RandomSaturationRange=100
 
 [Background]
-Color=16,23,30
+Color=#10171e
 RandomHueRange=360
 RandomSaturationRange=100
 
 [BackgroundFaint]
-Color=16,23,30
+Color=#10171e
 RandomHueRange=360
 RandomSaturationRange=100
 
 [BackgroundIntense]
-Color=85,96,114
+Color=#142431
 RandomHueRange=360
 RandomSaturationRange=100
 
 [Color0]
-Color=36,68,86
+Color=#556072
 
 [Color0Faint]
-Color=36,68,86
+Color=#414d59
 
 [Color0Intense]
-Color=85,96,114
+Color=#556072
 
 [Color1]
-Color=205,34,47
+Color=#cd222f
 
 [Color1Faint]
-Color=136,29,36
+Color=#881d24
 
 [Color1Intense]
-Color=205,34,47
+Color=#cd222f
 
 [Color2]
-Color=11,222,150
+Color=#0bde96
 
 [Color2Faint]
-Color=11,222,150
+Color=#0bde96
 
 [Color2Intense]
-Color=11,222,150
+Color=#0bde96
 
 [Color3]
-Color=238,129,9
+Color=#ee8109
 
 [Color3Faint]
-Color=238,129,9
+Color=#ee8109
 
 [Color3Intense]
-Color=238,129,9
+Color=#ee8109
 
 [Color4]
-Color=97,175,239
+Color=#61afef
 
 [Color4Faint]
-Color=58,106,147
+Color=#3a6a93
 
 [Color4Intense]
-Color=97,175,239
+Color=#61afef
 
 [Color5]
-Color=163,22,116
+Color=#a31674
 
 [Color5Faint]
-Color=163,22,116
+Color=#a31674
 
 [Color5Intense]
-Color=201,27,142
+Color=#c91b8e
 
 [Color6]
-Color=11,163,164
+Color=#0ba3a4
 
 [Color6Faint]
-Color=11,163,164
+Color=#0ba3a4
 
 [Color6Intense]
-Color=11,163,164
+Color=#0ba3a4
 
 [Color7]
-Color=201,212,223
+Color=#cfdceb
 
 [Color7Faint]
-Color=201,212,223
+Color=#d3dde8
 
 [Color7Intense]
-Color=207,220,235
+Color=#cfdceb

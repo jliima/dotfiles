@@ -36,13 +36,13 @@ RandomHueRange=360
 RandomSaturationRange=100
 
 [Color0]
-Color={black5}
+Color={color8}
 
 [Color0Faint]
-Color={black5}
+Color={grey4}
 
 [Color0Intense]
-Color={grey5}
+Color={color8}
 
 [Color1]
 Color={red5}
