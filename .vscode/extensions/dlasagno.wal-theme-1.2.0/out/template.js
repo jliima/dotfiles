@@ -1,13 +1,50 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = (colors, bordered) => ({
+
+// Function to load custom colors - called each time theme is generated
+function loadCustomColors() {
+    try {
+        const fs = require('fs');
+        const path = require('path');
+        const os = require('os');
+        const customColorsPath = path.join(os.homedir(), '.cache', 'wal', 'colors-vscode.js');
+        
+        // Clear require cache to ensure fresh load
+        if (require.cache[customColorsPath]) {
+            delete require.cache[customColorsPath];
+        }
+        
+        // Try to resolve the absolute path
+        let resolvedPath;
+        try {
+            resolvedPath = require.resolve(customColorsPath);
+            if (require.cache[resolvedPath]) {
+                delete require.cache[resolvedPath];
+            }
+        } catch (e) {
+            // Path not in cache, that's fine
+        }
+        
+        // Require the file fresh
+        return require(customColorsPath);
+    } catch (e) {
+        // Custom colors not available, will use default color array indices
+        return null;
+    }
+}
+
+exports.default = (colors, bordered) => {
+    // Load custom colors fresh each time theme is generated
+    const customColors = loadCustomColors();
+    
+    return {
     'type': 'dark',
     'colors': {
         // Colour reference https://code.visualstudio.com/docs/getstarted/theme-color-reference
         // CONTRAST COLOURS
         // --
         // BASE COLOURS
-        'focusBorder': colors[8].hex() + '77',
+        'focusBorder': colors[1].hex() + '77',
         'foreground': colors[7].hex(),
         'widget.shadow': colors[0].darken(0.25).hex(),
         'selection.background': colors[7].hex() + '77',
@@ -64,7 +101,7 @@ exports.default = (colors, bordered) => ({
         'activityBarBadge.background': colors[1].hex(),
         'activityBarBadge.foreground': colors[0].hex(),
         // SIDE BAR
-        'sideBar.background': colors[0].hex(),
+        'sideBar.background': (customColors && customColors.special.black1) || colors[0].hex(),
         'sideBar.border': bordered ? colors[8].hex() + '33' : colors[0].hex(),
         'sideBarTitle.foreground': colors[7].hex() + '99',
         'sideBarSectionHeader.background': colors[0].hex(),
@@ -87,7 +124,7 @@ exports.default = (colors, bordered) => ({
         'tab.unfocusedActiveForeground': colors[7].hex() + '99',
         'tab.unfocusedInactiveForeground': colors[7].hex() + '99',
         // EDITOR
-        'editor.background': bordered ? colors[0].lighten(0.20).hex() : colors[0].hex(),
+        'editor.background': (customColors && customColors.special.background) || colors[0].hex(),
         'editor.foreground': colors[7].hex(),
         'editorLineNumber.foreground': colors[8].hex() + '92',
         'editorLineNumber.activeForeground': colors[8].hex(),
@@ -261,13 +298,13 @@ exports.default = (colors, bordered) => ({
         'terminal.ansiBrightWhite': colors[15].hex(),
 
         'debugConsole.infoForeground': colors[12].hex(),
-        'sideBar.border': colors[5].hex(),
+        'sideBar.border': (customColors && customColors.special.grey5) || colors[8].hex(),
         'tab.activeBorder': colors[12].hex(),
         'editor.selectionHighlightBackground': colors[3].hex() + '00',
         'editor.selectionHighlightBorder': colors[3].hex(),
         'editor.wordHighlightBackground': colors[3].hex() + '00',
         'editor.wordHighlightBorder': colors[3].hex(),
-        'editorUnnecessaryCode.border': colors[5].hex(),
+        'editorUnnecessaryCode.border': (customColors && customColors.special.grey5) || colors[8].hex(),
         'editorUnnecessaryCode.opacity': '#000000'
     },
 'tokenColors': [
@@ -283,7 +320,7 @@ exports.default = (colors, bordered) => ({
     'scope': ['comment'],
     'settings': {
       'fontStyle': 'italic',
-      'foreground': colors[8].hex() + 'b0'
+      'foreground': (customColors && customColors.special.grey5) || colors[8].hex() + 'b0'
     }
   },
 
@@ -540,7 +577,7 @@ exports.default = (colors, bordered) => ({
       'meta.import.js',
       'meta.import.ts'
     ],
-    'settings': { 'foreground': colors[2].hex() }
+    'settings': { 'foreground': (customColors && customColors.syntax.keywords) || colors[2].hex() }
   },
 
   {
@@ -559,13 +596,13 @@ exports.default = (colors, bordered) => ({
       'storage.type.annotation',
       'meta.annotation'
     ],
-    'settings': { 'foreground': colors[12].hex() }
+    'settings': { 'foreground': (customColors && customColors.syntax.functions) || colors[12].hex() }
   },
 
   {
     'name': 'Strings (custom)',
     'scope': ['string', 'string.quoted', 'string.template'],
-    'settings': { 'foreground': colors[13].hex() }
+    'settings': { 'foreground': (customColors && customColors.syntax.strings) || colors[13].hex() }
   },
 
   {
@@ -578,13 +615,13 @@ exports.default = (colors, bordered) => ({
       'variable.other.constant',
       'constant.language'
     ],
-    'settings': { 'foreground': colors[1].hex() }
+    'settings': { 'foreground': (customColors && customColors.syntax.numbers) || colors[1].hex() }
   },
 
   {
     'name': 'Variables & operator (custom)',
     'scope': ['variable', 'variable.other', 'identifier', 'keyword.operator'],
-    'settings': { 'foreground': colors[15].hex() }
+    'settings': { 'foreground': (customColors && customColors.syntax.variables) || colors[15].hex() }
   },
 
   {
@@ -607,5 +644,6 @@ exports.default = (colors, bordered) => ({
 
 ]
 
-});
+};
+};
 //# sourceMappingURL=template.js.map
