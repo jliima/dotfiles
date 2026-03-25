@@ -1,8 +1,10 @@
 {
   "special": {
     "background": "#1A0A2E",
+    "backgroundLighter": "#905106",
     "foreground": "#FFFFFF",
     "cursor": "#FFFFFF",
+
     "black1": "#2E1A0A",
     "black2": "#1A1A1A",
     "black3": "#333333",

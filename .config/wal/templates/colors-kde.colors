@@ -7,11 +7,11 @@ shadeSortColumn=true
 contrast=4
 
 [WM]
-activeBackground={black3}
-activeBlend={black3}
+activeBackground={background}
+activeBlend={background}
 activeForeground={foreground}
-inactiveBackground={black3}
-inactiveBlend={black3}
+inactiveBackground={background}
+inactiveBlend={background}
 inactiveForeground={grey4}
 
 [ColorEffects:Disabled]
@@ -35,8 +35,8 @@ IntensityAmount=0
 IntensityEffect=0
 
 [Colors:Complementary]
-BackgroundAlternate={background}
-BackgroundNormal={black3}
+BackgroundAlternate={backgroundLighter}
+BackgroundNormal={background}
 DecorationFocus={blue5}
 DecorationHover={blue4}
 ForegroundActive={cyan5}
@@ -49,8 +49,8 @@ ForegroundPositive={green5}
 ForegroundVisited={magenta5}
 
 [Colors:View]
-BackgroundAlternate={black3}
-BackgroundNormal={background}
+BackgroundAlternate={background}
+BackgroundNormal={backgroundLighter}
 DecorationFocus={blue5}
 DecorationHover={blue4}
 ForegroundActive={cyan5}
@@ -63,8 +63,8 @@ ForegroundPositive={green5}
 ForegroundVisited={magenta5}
 
 [Colors:Window]
-BackgroundAlternate={black3}
-BackgroundNormal={background}
+BackgroundAlternate={background}
+BackgroundNormal={backgroundLighter}
 DecorationFocus={blue5}
 DecorationHover={blue4}
 ForegroundActive={blue5}
@@ -78,7 +78,7 @@ ForegroundVisited={magenta5}
 
 [Colors:Button]
 BackgroundAlternate={black3}
-BackgroundNormal={black3}
+BackgroundNormal={background}
 DecorationFocus={blue5}
 DecorationHover={blue4}
 ForegroundActive={blue5}
@@ -106,7 +106,7 @@ ForegroundVisited={white4}
 
 [Colors:Tooltip]
 BackgroundAlternate={black3}
-BackgroundNormal={black3}
+BackgroundNormal={background}
 DecorationFocus={blue5}
 DecorationHover={blue4}
 ForegroundActive={blue5}

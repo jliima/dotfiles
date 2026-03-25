@@ -54,8 +54,8 @@ exports.default = (colors, bordered) => {
         'textLink.activeForeground': colors[13].hex(),
         'textPreformat.foreground': colors[7].hex(),
         // BUTTON CONTROL
-        'button.background': colors[1].hex(),
-        'button.foreground': colors[0].hex(),
+        'button.background': (customColors && customColors.special.blue5) || colors[4].hex(),
+        'button.foreground': (customColors && customColors.special.background) || colors[0].hex(),
         //'button.hoverBackground': '',
         // DROPDOWN CONTROL
         'dropdown.background': colors[0].lighten(0.20).hex(),
@@ -67,11 +67,11 @@ exports.default = (colors, bordered) => {
         'input.foreground': colors[7].hex(),
         'input.placeholderForeground': colors[8].hex() + '77',
         'inputOption.activeBorder': colors[1].hex(),
-        'inputValidation.errorBackground': colors[0].hex(),
+        'inputValidation.errorBackground': (customColors && customColors.special.background) || colors[0].hex(),
         'inputValidation.errorBorder': colors[4].hex(),
-        'inputValidation.infoBackground': colors[0].hex(),
+        'inputValidation.infoBackground': (customColors && customColors.special.background) || colors[0].hex(),
         'inputValidation.infoBorder': colors[2].hex(),
-        'inputValidation.warningBackground': colors[0].hex(),
+        'inputValidation.warningBackground': (customColors && customColors.special.background) || colors[0].hex(),
         'inputValidation.warningBorder': colors[3].hex(),
         // SCROLLBAR CONTROL
         'scrollbar.shadow': colors[8].hex() + '33',
@@ -80,7 +80,7 @@ exports.default = (colors, bordered) => {
         'scrollbarSlider.activeBackground': colors[7].hex() + '92',
         // BADGE
         'badge.background': colors[1].hex(),
-        'badge.foreground': colors[0].hex(),
+        'badge.foreground': (customColors && customColors.special.background) || colors[0].hex(),
         // PROGRESS BAR
         'progressBar.background': colors[1].hex(),
         // LISTS AND TREES
@@ -95,22 +95,22 @@ exports.default = (colors, bordered) => {
         'list.inactiveSelectionForeground': colors[7].hex(),
         'list.invalidItemForeground': colors[7].hex() + '77',
         // ACTIVITY BAR
-        'activityBar.background': colors[0].hex(),
+        'activityBar.background': (customColors && customColors.special.background) || colors[0].hex(),
         'activityBar.foreground': colors[7].hex(),
         'activityBar.border': bordered ? colors[8].hex() + '33' : colors[0].hex(),
         'activityBarBadge.background': colors[1].hex(),
-        'activityBarBadge.foreground': colors[0].hex(),
+        'activityBarBadge.foreground': (customColors && customColors.special.background) || colors[0].hex(),
         // SIDE BAR
-        'sideBar.background': (customColors && customColors.special.black1) || colors[0].hex(),
+        'sideBar.background': (customColors && customColors.special.background) || colors[0].hex(),
         'sideBar.border': bordered ? colors[8].hex() + '33' : colors[0].hex(),
         'sideBarTitle.foreground': colors[7].hex() + '99',
-        'sideBarSectionHeader.background': colors[0].hex(),
+        'sideBarSectionHeader.background': (customColors && customColors.special.background) || colors[0].hex(),
         'sideBarSectionHeader.foreground': colors[7].hex() + '99',
         // EDITOR GROUPS & TABS
         'editorGroup.border': colors[8].hex() + '33',
         //'editorGroup.background': colors[0].lighten(0.20).hex(), // deprecated
-        'editorGroupHeader.noTabsBackground': colors[0].hex(),
-        'editorGroupHeader.tabsBackground': colors[0].hex(),
+        'editorGroupHeader.noTabsBackground': (customColors && customColors.special.background) || colors[0].hex(),
+        'editorGroupHeader.tabsBackground': (customColors && customColors.special.background) || colors[0].hex(),
         'editorGroupHeader.tabsBorder': bordered ? colors[8].hex() + '33' : colors[0].hex(),
         'tab.activeBackground': bordered ? colors[0].lighten(0.20).hex() : colors[0].hex(),
         'tab.activeForeground': colors[7].hex(),
@@ -119,12 +119,12 @@ exports.default = (colors, bordered) => {
         'tab.activeBorderTop': bordered ? colors[1].hex() : undefined,
         'tab.unfocusedActiveBorder': bordered ? undefined : colors[7].hex() + '99',
         'tab.unfocusedActiveBorderTop': bordered ? colors[7].hex() + '99' : undefined,
-        'tab.inactiveBackground': colors[0].hex(),
+        'tab.inactiveBackground': (customColors && customColors.special.background) || colors[0].hex(),
         'tab.inactiveForeground': colors[7].hex() + '99',
         'tab.unfocusedActiveForeground': colors[7].hex() + '99',
         'tab.unfocusedInactiveForeground': colors[7].hex() + '99',
         // EDITOR
-        'editor.background': (customColors && customColors.special.background) || colors[0].hex(),
+        'editor.background': (customColors && customColors.special.backgroundLighter) || colors[0].hex(),
         'editor.foreground': colors[7].hex(),
         'editorLineNumber.foreground': colors[8].hex() + '92',
         'editorLineNumber.activeForeground': colors[8].hex(),
@@ -212,13 +212,13 @@ exports.default = (colors, bordered) => {
         // 'editorOverviewRuler.incomingContentForeground': '?',
         // 'editorOverviewRuler.commonContentForeground': '?',
         // Panel
-        'panel.background': colors[0].hex(),
+        'panel.background': (customColors && customColors.special.background) || colors[0].hex(),
         'panel.border': colors[8].hex() + '33',
         'panelTitle.activeBorder': colors[1].hex(),
         'panelTitle.activeForeground': colors[7].hex(),
         'panelTitle.inactiveForeground': colors[7].hex() + '99',
         // STATUS BAR
-        'statusBar.background': colors[0].hex(),
+        'statusBar.background': (customColors && customColors.special.background) || colors[0].hex(),
         'statusBar.foreground': colors[7].hex(),
         'statusBar.border': bordered ? colors[8].hex() + '33' : colors[0].hex(),
         'statusBar.debuggingBackground': colors[3].hex(),
@@ -229,9 +229,9 @@ exports.default = (colors, bordered) => {
         'statusBarItem.prominentBackground': colors[8].hex() + '33',
         'statusBarItem.prominentHoverBackground': '#00000030',
         // TITLE BAR
-        'titleBar.activeBackground': colors[0].hex(),
+        'titleBar.activeBackground': (customColors && customColors.special.background) || colors[0].hex(),
         'titleBar.activeForeground': colors[7].hex(),
-        'titleBar.inactiveBackground': colors[0].hex(),
+        'titleBar.inactiveBackground': (customColors && customColors.special.background) || colors[0].hex(),
         'titleBar.inactiveForeground': colors[7].hex(),
         'titleBar.border': bordered ? colors[8].hex() + '33' : colors[0].hex(),
         // MENU BAR
@@ -253,7 +253,7 @@ exports.default = (colors, bordered) => {
         // 'notifications.border': '?',
         // 'notificationLink.foreground': '?',
         // EXTENSIONS
-        'extensionButton.prominentForeground': colors[0].hex(),
+        'extensionButton.prominentForeground': (customColors && customColors.special.background) || colors[0].hex(),
         'extensionButton.prominentBackground': colors[1].hex(),
         'extensionButton.prominentHoverBackground': colors[1].hex() + 'b3',
         // QUICK PICKER
@@ -261,7 +261,7 @@ exports.default = (colors, bordered) => {
         'pickerGroup.foreground': colors[7].hex() + 'b3',
         // DEBUG
         'debugTokenExpression.value': colors[7].hex() + 'b3',
-        'debugToolBar.background': colors[0].hex(),
+        'debugToolBar.background': (customColors && customColors.special.background) || colors[0].hex(),
         // 'debugToolBar.border': '',
         // WELCOME PAGE
         // 'welcomePage.buttonBackground': '?'
@@ -278,9 +278,9 @@ exports.default = (colors, bordered) => {
         'settings.headerForeground': colors[7].hex(),
         'settings.modifiedItemIndicator': colors[2].hex(),
         // TERMINAL
-        'terminal.background': colors[0].hex(),
+        'terminal.background': (customColors && customColors.special.background) || colors[0].hex(),
         'terminal.foreground': colors[7].hex(),
-        'terminal.ansiBlack': colors[0].hex(),
+        'terminal.ansiBlack': (customColors && customColors.special.background) || colors[0].hex(),
         'terminal.ansiRed': colors[1].hex(),
         'terminal.ansiGreen': colors[2].hex(),
         'terminal.ansiYellow': colors[3].hex(),
@@ -310,7 +310,7 @@ exports.default = (colors, bordered) => {
 'tokenColors': [
   {
     'settings': {
-      'background': colors[0].hex(),
+      'background': (customColors && customColors.special.background) || colors[0].hex(),
       'foreground': colors[7].hex()
     }
   },

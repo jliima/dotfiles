@@ -5,18 +5,19 @@
 module.exports = {{
   // Syntax highlighting colors based on custom palette
   syntax: {{
-    functions: '{red5}',
+    functions: '{blue5}',
     keywords: '{green5}',
-    numbers: '{yellow5}',
-    strings: '{blue5}',
+    numbers: '{red5}',
+    strings: '{magenta5}',
     types: '{magenta5}',
-    variables: '{cyan5}',
-    comments: '{red5}'
+    variables: '{blue5}',
+    comments: '{grey5}'
   }},
   
   // Full special color palette
   special: {{
     background: '{background}',
+    backgroundLighter: '{backgroundLighter}',
     foreground: '{foreground}',
     cursor: '{cursor}',
     

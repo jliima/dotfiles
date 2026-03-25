@@ -21,12 +21,12 @@ RandomHueRange=360
 RandomSaturationRange=100
 
 [Background]
-Color={background}
+Color={backgroundLighter}
 RandomHueRange=360
 RandomSaturationRange=100
 
 [BackgroundFaint]
-Color={background}
+Color={backgroundLighter}
 RandomHueRange=360
 RandomSaturationRange=100
 

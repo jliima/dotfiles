@@ -4,6 +4,7 @@ wallpaper='{wallpaper}'
 
 # Special
 background='{background}'
+backgroundLighter='{backgroundLighter}'
 foreground='{foreground}'
 cursor='{cursor}'
 black1='{black1}'
