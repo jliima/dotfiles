@@ -54,7 +54,7 @@
   /*background colour when highlighting text with mouse*/
   --text-selection: {blue5};
   --text-on-accent: {foreground};
-  --metadata-background: {black2};
+  --metadata-background: {black3};
 }}
 
 .theme-dark .nav-folder-title-content::before {{
@@ -360,7 +360,7 @@ mjx-container {{
 ***********************/
 .cm-s-obsidian {{
   /* Base colors */
-  --code-background: {black2}; /* Code block background */
+  --code-background: {black3}; /* Code block background */
 
   /* Syntax highlighting */
   .cm-comment {{ color: {grey5} !important; }}      /* Comments */
@@ -443,7 +443,7 @@ pre[class*='language-'] {{
 pre[class*="language-"],
 .markdown-preview-view pre,
 .cm-s-obsidian .HyperMD-codeblock {{
-  background: {black2} !important;
+  background: {black3} !important;
   color: {foreground} !important;
   font-family: 'SF Mono' !important;
   font-weight: 600 !important;
