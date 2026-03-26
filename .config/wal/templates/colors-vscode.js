@@ -3,18 +3,7 @@
 // Based on custom color definitions in colors.json special section
 
 module.exports = {{
-  // Syntax highlighting colors based on custom palette
-  syntax: {{
-    functions: '{blue5}',
-    keywords: '{green5}',
-    numbers: '{red5}',
-    strings: '{magenta5}',
-    types: '{magenta5}',
-    variables: '{blue5}',
-    comments: '{grey5}'
-  }},
-  
-  // Full special color palette
+  // Full special color palette (includes syntax highlighting)
   special: {{
     background: '{background}',
     backgroundLighter: '{backgroundLighter}',
@@ -65,7 +54,22 @@ module.exports = {{
     magenta2: '{magenta2}',
     magenta3: '{magenta3}',
     magenta4: '{magenta4}',
-    magenta5: '{magenta5}'
+    magenta5: '{magenta5}',
+    
+    syntaxKeyword: '{syntaxKeyword}',
+    syntaxString: '{syntaxString}',
+    syntaxComment: '{syntaxComment}',
+    syntaxNumber: '{syntaxNumber}',
+    syntaxFunction: '{syntaxFunction}',
+    syntaxClass: '{syntaxClass}',
+    syntaxType: '{syntaxType}',
+    syntaxConstant: '{syntaxConstant}',
+    syntaxVariable: '{syntaxVariable}',
+    syntaxOperator: '{syntaxOperator}',
+    syntaxAnnotation: '{syntaxAnnotation}',
+    syntaxDocTag: '{syntaxDocTag}',
+    syntaxStringEscape: '{syntaxStringEscape}',
+    syntaxPunctuation: '{syntaxPunctuation}'
   }},
   
   // Standard 16 terminal colors

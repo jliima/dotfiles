@@ -363,17 +363,17 @@ mjx-container {{
   --code-background: {black3}; /* Code block background */
 
   /* Syntax highlighting */
-  .cm-comment {{ color: {grey5} !important; }}      /* Comments */
-  .cm-keyword {{ color: {green5} !important; }}      /* Keywords */
-  .cm-string {{ color: {magenta5} !important; }}      /* Strings */
-  .cm-builtin {{ color: {green5} !important; }}      /* Builtins */
-  .cm-def {{ color: {blue5} !important; }}          /* Functions */
-  .cm-tag {{ color: {red4} !important; }}          /* HTML tags */
-  .cm-attribute {{ color: {yellow5} !important; }}    /* Attr names */
-  .cm-number {{ color: {red4} !important; }}       /* Numbers */
-  .cm-property {{ color: {cyan5} !important; }}     /* Properties */
-  .cm-qualifier {{ color: {red4} !important; }}    /* Constants */
-  .cm-operator {{ color: {foreground} !important; }} /* Operators */
+  .cm-comment {{ color: {syntaxComment} !important; }}      /* Comments */
+  .cm-keyword {{ color: {syntaxKeyword} !important; }}      /* Keywords */
+  .cm-string {{ color: {syntaxString} !important; }}      /* Strings */
+  .cm-builtin {{ color: {syntaxKeyword} !important; }}      /* Builtins */
+  .cm-def {{ color: {syntaxFunction} !important; }}          /* Functions */
+  .cm-tag {{ color: {syntaxNumber} !important; }}          /* HTML tags */
+  .cm-attribute {{ color: {syntaxDocTag} !important; }}    /* Attr names */
+  .cm-number {{ color: {syntaxNumber} !important; }}       /* Numbers */
+  .cm-property {{ color: {syntaxType} !important; }}     /* Properties */
+  .cm-qualifier {{ color: {syntaxConstant} !important; }}    /* Constants */
+  .cm-operator {{ color: {syntaxOperator} !important; }} /* Operators */
 }}
 
 /***********************
@@ -381,20 +381,20 @@ mjx-container {{
 ***********************/
 .markdown-preview-view {{
   /* Syntax highlighting */
-  .token.comment {{ color: {grey5} !important; }}        /* Comments */
-  .token.keyword {{ color: {green5} !important; }}        /* Keywords */
-  .token.string {{ color: {magenta5} !important; }}        /* Strings */
-  .token.function {{ color: {green5} !important; }}       /* Functions */
-  .token.class-name {{ color: {foreground} !important; }} /* Classes */
-  .token.number {{ color: {red4} !important; }}         /* Numbers */
-  .token.operator {{ color: {foreground} !important; }}   /* Operators */
-  .token.tag {{ color: {red4} !important; }}            /* HTML tags */
-  .token.attr-name {{ color: {blue5} !important; }}      /* Attr names */
-  .token.attr-value {{ color: {foreground} !important; }} /* Attr values */
-  .token.constant {{ color: {red4} !important; }}       /* Constants */
-  .token.selector {{ color: {magenta5} !important; }}      /* CSS selectors */
-  .token.important {{ color: {yellow5} !important; }}      /* !important */
-  .token.builtin {{ color: {green5} !important; }}
+  .token.comment {{ color: {syntaxComment} !important; }}        /* Comments */
+  .token.keyword {{ color: {syntaxKeyword} !important; }}        /* Keywords */
+  .token.string {{ color: {syntaxString} !important; }}        /* Strings */
+  .token.function {{ color: {syntaxFunction} !important; }}       /* Functions */
+  .token.class-name {{ color: {syntaxClass} !important; }} /* Classes */
+  .token.number {{ color: {syntaxNumber} !important; }}         /* Numbers */
+  .token.operator {{ color: {syntaxOperator} !important; }}   /* Operators */
+  .token.tag {{ color: {syntaxNumber} !important; }}            /* HTML tags */
+  .token.attr-name {{ color: {syntaxDocTag} !important; }}      /* Attr names */
+  .token.attr-value {{ color: {syntaxString} !important; }} /* Attr values */
+  .token.constant {{ color: {syntaxConstant} !important; }}       /* Constants */
+  .token.selector {{ color: {syntaxString} !important; }}      /* CSS selectors */
+  .token.important {{ color: {syntaxDocTag} !important; }}      /* !important */
+  .token.builtin {{ color: {syntaxKeyword} !important; }}
 }}
 
 .markdown-preview-view :not(pre) > code {{

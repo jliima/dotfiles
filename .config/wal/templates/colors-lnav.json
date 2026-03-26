@@ -5,119 +5,127 @@
     "theme-defs": {{
       "pywal-colors": {{
         "vars": {{
-          "bg": "{background}",
-          "fg": "{foreground}",
-          "black": "{black5}",
-          "red": "{red5}",
-          "green": "{green5}",
-          "yellow": "{yellow5}",
-          "blue": "{blue5}",
-          "magenta": "{magenta5}",
-          "cyan": "{cyan5}",
-          "white": "{white5}",
-          "black10": "{black1}",
-          "black30": "{black2}",
-          "black50": "{black3}",
-          "black70": "{black4}",
-          "black90": "{black5}",
-          "white10": "{white1}",
-          "white30": "{white2}",
-          "white50": "{white3}",
-          "white70": "{white4}",
-          "white90": "{white5}",
-          "grey10": "{grey1}",
-          "grey30": "{grey2}",
-          "grey50": "{grey3}",
-          "grey70": "{grey4}",
-          "grey90": "{grey5}",
-          "red10": "{red1}",
-          "red30": "{red2}",
-          "red50": "{red3}",
-          "red70": "{red4}",
-          "red90": "{red5}",
-          "green10": "{green1}",
-          "green30": "{green2}",
-          "green50": "{green3}",
-          "green70": "{green4}",
-          "green90": "{green5}",
-          "blue10": "{blue1}",
-          "blue30": "{blue2}",
-          "blue50": "{blue3}",
-          "blue70": "{blue4}",
-          "blue90": "{blue5}",
-          "yellow10": "{yellow1}",
-          "yellow30": "{yellow2}",
-          "yellow50": "{yellow3}",
-          "yellow70": "{yellow4}",
-          "yellow90": "{yellow5}",
-          "cyan10": "{cyan1}",
-          "cyan30": "{cyan2}",
-          "cyan50": "{cyan3}",
-          "cyan70": "{cyan4}",
-          "cyan90": "{cyan5}",
-          "magenta10": "{magenta1}",
-          "magenta30": "{magenta2}",
-          "magenta50": "{magenta3}",
-          "magenta70": "{magenta4}",
-          "magenta90":"{magenta5}"
+          "background": "{background}",
+          "backgroundLighter": "{backgroundLighter}",
+          "foreground": "{foreground}",
+          "cursor": "{cursor}",
+          "black1": "{black1}",
+          "black2": "{black2}",
+          "black3": "{black3}",
+          "black4": "{black4}",
+          "black5": "{black5}",
+          "white1": "{white1}",
+          "white2": "{white2}",
+          "white3": "{white3}",
+          "white4": "{white4}",
+          "white5": "{white5}",
+          "grey1": "{grey1}",
+          "grey2": "{grey2}",
+          "grey3": "{grey3}",
+          "grey4": "{grey4}",
+          "grey5": "{grey5}",
+          "red1": "{red1}",
+          "red2": "{red2}",
+          "red3": "{red3}",
+          "red4": "{red4}",
+          "red5": "{red5}",
+          "green1": "{green1}",
+          "green2": "{green2}",
+          "green3": "{green3}",
+          "green4": "{green4}",
+          "green5": "{green5}",
+          "blue1": "{blue1}",
+          "blue2": "{blue2}",
+          "blue3": "{blue3}",
+          "blue4": "{blue4}",
+          "blue5": "{blue5}",
+          "yellow1": "{yellow1}",
+          "yellow2": "{yellow2}",
+          "yellow3": "{yellow3}",
+          "yellow4": "{yellow4}",
+          "yellow5": "{yellow5}",
+          "cyan1": "{cyan1}",
+          "cyan2": "{cyan2}",
+          "cyan3": "{cyan3}",
+          "cyan4": "{cyan4}",
+          "cyan5": "{cyan5}",
+          "magenta1": "{magenta1}",
+          "magenta2": "{magenta2}",
+          "magenta3": "{magenta3}",
+          "magenta4": "{magenta4}",
+          "magenta5": "{magenta5}",
+          "syntaxKeyword": "{syntaxKeyword}",
+          "syntaxString": "{syntaxString}",
+          "syntaxComment": "{syntaxComment}",
+          "syntaxNumber": "{syntaxNumber}",
+          "syntaxFunction": "{syntaxFunction}",
+          "syntaxClass": "{syntaxClass}",
+          "syntaxType": "{syntaxType}",
+          "syntaxConstant": "{syntaxConstant}",
+          "syntaxVariable": "{syntaxVariable}",
+          "syntaxOperator": "{syntaxOperator}",
+          "syntaxAnnotation": "{syntaxAnnotation}",
+          "syntaxDocTag": "{syntaxDocTag}",
+          "syntaxStringEscape": "{syntaxStringEscape}",
+          "syntaxPunctuation": "{syntaxPunctuation}"
         }},
         "styles": {{
           "identifier": {{
-            "color": "$blue"
+            "color": "$blue5"
           }},
           "text": {{
-            "color": "$fg",
-            "background-color": "$bg"
+            "color": "$foreground",
+            "background-color": "$background"
           }},
           "selected-text": {{
-            "background-color": "$black50"
+            "background-color": "$black3"
           }},
           "alt-text": {{
-            "background-color": "$black30"
+            "background-color": "$black2"
           }},
           "ok": {{
-            "color": "$green",
+            "color": "$green5",
             "bold": true
           }},
           "warning": {{
-            "color": "$yellow",
+            "color": "$yellow5",
             "bold": true
           }},
           "error": {{
-            "color": "$red",
+            "color": "$red5",
             "bold": true
           }},
           "hidden": {{
-            "color": "$grey90",
+            "color": "$grey5",
             "bold": true
           }},
           "cursor-line": {{
-            "background-color": "$blue50"
+            "background-color": "$blue3"
           }},
           "popup": {{
-            "color": "$fg",
-            "background-color": "$black30"
+            "color": "$foreground",
+            "background-color": "$black2"
           }},
           "focused": {{
-            "color": "$fg",
-            "background-color": "$black50"
+            "color": "$foreground",
+            "background-color": "$black3"
           }},
           "table-border": {{
-            "color": "$white50"
+            "color": "$white3"
           }},
           "breadcrumb": {{
-            "color": "$white70",
+            "color": "$white4",
             "bold": true
           }},
           "quote-border": {{
-            "color": "$white50",
-            "background-color": "$black30"
+            "color": "$white3",
+            "background-color": "$black2"
           }},
           "quoted-text": {{
-            "background-color": "$black30"
+            "background-color": "$black2"
           }},
           "hyperlink": {{
-            "color": "$cyan",
+            "color": "$cyan5",
             "underline": true
           }},
           "h1": {{
@@ -129,96 +137,99 @@
         }},
         "syntax-styles": {{
           "keyword": {{
-            "color": "$yellow"
+            "color": "$syntaxKeyword"
           }},
           "string": {{
-            "color": "$magenta"
+            "color": "$syntaxString"
           }},
           "comment": {{
-            "color": "$grey90"
+            "color": "$syntaxComment"
           }},
           "variable": {{
-            "color": "$blue"
+            "color": "$syntaxVariable"
           }},
           "symbol": {{
-            "color": "$magenta"
+            "color": "$syntaxType"
           }},
           "re-special": {{
-            "color": "$cyan"
+            "color": "$syntaxStringEscape"
           }},
           "re-repeat": {{
-            "color": "$yellow"
+            "color": "$syntaxDocTag"
           }},
           "diff-delete": {{
-            "color": "$red"
+            "color": "$red5"
           }},
           "diff-add": {{
-            "color": "$green"
+            "color": "$green5"
           }},
           "diff-section": {{
-            "color": "$magenta"
+            "color": "$syntaxAnnotation"
           }},
           "file": {{
-            "color": "$blue"
+            "color": "$syntaxFunction"
+          }},
+          "number": {{
+            "color": "$syntaxNumber"
           }}
         }},
         "status-styles": {{
           "title": {{
-            "color": "$fg",
-            "background-color": "$black50",
+            "color": "$foreground",
+            "background-color": "$black3",
             "bold": true
           }},
           "subtitle": {{
-            "color": "$fg",
-            "background-color": "$black30",
+            "color": "$foreground",
+            "background-color": "$black2",
             "bold": true
           }},
           "text": {{
-            "color": "$fg",
-            "background-color": "$bg"
+            "color": "$foreground",
+            "background-color": "$background"
           }},
           "warn": {{
-            "color": "$yellow",
-            "background-color": "$bg"
+            "color": "$yellow5",
+            "background-color": "$background"
           }},
           "alert": {{
-            "color": "$red",
-            "background-color": "$bg"
+            "color": "$red5",
+            "background-color": "$background"
           }},
           "active": {{
-            "color": "$green",
-            "background-color": "$bg"
+            "color": "$green5",
+            "background-color": "$background"
           }},
           "info": {{
-            "color": "$white70",
-            "background-color": "$bg"
+            "color": "$white4",
+            "background-color": "$background"
           }},
           "inactive": {{
-            "color": "$white50",
-            "background-color": "$bg"
+            "color": "$white3",
+            "background-color": "$background"
           }}
         }},
         "log-level-styles": {{
           "trace": {{
-            "color": "$fg"
+            "color": "$foreground"
           }},
           "debug": {{
-            "color": "$fg"
+            "color": "$foreground"
           }},
           "info": {{
-            "color": "$fg"
+            "color": "$foreground"
           }},
           "warning": {{
-            "color": "$fg"
+            "color": "$foreground"
           }},
           "error": {{
-            "color": "$fg"
+            "color": "$foreground"
           }},
           "critical": {{
-            "color": "$fg"
+            "color": "$foreground"
           }},
           "fatal": {{
-            "color": "$fg"
+            "color": "$foreground"
           }}
         }}
       }}

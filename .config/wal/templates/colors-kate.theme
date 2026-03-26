@@ -278,52 +278,52 @@
             "text-color": "{red4}"
         }},
         "Annotation": {{
-            "selected-text-color": "{yellow5}",
-            "text-color": "{yellow5}"
+            "selected-text-color": "{syntaxAnnotation}",
+            "text-color": "{syntaxAnnotation}"
         }},
         "Attribute": {{
-            "selected-text-color": "{green5}",
-            "text-color": "{green5}"
+            "selected-text-color": "{syntaxKeyword}",
+            "text-color": "{syntaxKeyword}"
         }},
         "BaseN": {{
-            "selected-text-color": "{red4}",
-            "text-color": "{red4}"
+            "selected-text-color": "{syntaxNumber}",
+            "text-color": "{syntaxNumber}"
         }},
         "BuiltIn": {{
-            "selected-text-color": "{green5}",
-            "text-color": "{green5}"
+            "selected-text-color": "{syntaxKeyword}",
+            "text-color": "{syntaxKeyword}"
         }},
         "Char": {{
-            "selected-text-color": "{green5}",
-            "text-color": "{green5}"
+            "selected-text-color": "{syntaxString}",
+            "text-color": "{syntaxString}"
         }},
         "Comment": {{
-            "selected-text-color": "{grey5}",
-            "text-color": "{grey5}"
+            "selected-text-color": "{syntaxComment}",
+            "text-color": "{syntaxComment}"
         }},
         "CommentVar": {{
-            "selected-text-color": "{red4}",
-            "text-color": "{red4}"
+            "selected-text-color": "{syntaxDocTag}",
+            "text-color": "{syntaxDocTag}"
         }},
         "Constant": {{
-            "selected-text-color": "{red4}",
-            "text-color": "{red4}"
+            "selected-text-color": "{syntaxConstant}",
+            "text-color": "{syntaxConstant}"
         }},
         "ControlFlow": {{
-            "selected-text-color": "{green5}",
-            "text-color": "{green5}"
+            "selected-text-color": "{syntaxKeyword}",
+            "text-color": "{syntaxKeyword}"
         }},
         "DataType": {{
-            "selected-text-color": "{green5}",
-            "text-color": "{green5}"
+            "selected-text-color": "{syntaxType}",
+            "text-color": "{syntaxType}"
         }},
         "DecVal": {{
-            "selected-text-color": "{red4}",
-            "text-color": "{red4}"
+            "selected-text-color": "{syntaxNumber}",
+            "text-color": "{syntaxNumber}"
         }},
         "Documentation": {{
-            "selected-text-color": "{red4}",
-            "text-color": "#a43340"
+            "selected-text-color": "{syntaxComment}",
+            "text-color": "{syntaxComment}"
         }},
         "Error": {{
             "selected-text-color": "{red5}",
@@ -331,69 +331,69 @@
             "underline": true
         }},
         "Extension": {{
-            "selected-text-color": "{blue5}",
-            "text-color": "{blue5}"
+            "selected-text-color": "{syntaxFunction}",
+            "text-color": "{syntaxFunction}"
         }},
         "Float": {{
-            "selected-text-color": "{red4}",
-            "text-color": "{red4}"
+            "selected-text-color": "{syntaxNumber}",
+            "text-color": "{syntaxNumber}"
         }},
         "Function": {{
-            "selected-text-color": "{blue5}",
-            "text-color": "{blue5}"
+            "selected-text-color": "{syntaxFunction}",
+            "text-color": "{syntaxFunction}"
         }},
         "Import": {{
-            "selected-text-color": "{yellow5}",
-            "text-color": "{yellow5}"
+            "selected-text-color": "{syntaxKeyword}",
+            "text-color": "{syntaxKeyword}"
         }},
         "Information": {{
-            "selected-text-color": "{yellow5}",
-            "text-color": "{yellow5}"
+            "selected-text-color": "{syntaxDocTag}",
+            "text-color": "{syntaxDocTag}"
         }},
         "Keyword": {{
-            "selected-text-color": "{green5}",
-            "text-color": "{green5}"
+            "selected-text-color": "{syntaxKeyword}",
+            "text-color": "{syntaxKeyword}"
         }},
         "Normal": {{
             "selected-text-color": "{foreground}",
             "text-color": "{foreground}"
         }},
         "Operator": {{
-            "selected-text-color": "{foreground}",
-            "text-color": "{foreground}"
+            "selected-text-color": "{syntaxOperator}",
+            "text-color": "{syntaxOperator}"
         }},
         "Others": {{
-            "selected-text-color": "{green5}",
-            "text-color": "{green5}"
+            "selected-text-color": "{syntaxKeyword}",
+            "text-color": "{syntaxKeyword}"
         }},
         "Preprocessor": {{
-            "selected-text-color": "{green5}",
-            "text-color": "{green5}"
+            "selected-text-color": "{syntaxKeyword}",
+            "text-color": "{syntaxKeyword}"
         }},
         "RegionMarker": {{
             "background-color": "{background}",
-            "selected-text-color": "{blue5}",
-            "text-color": "{blue5}"
+            "selected-text-color": "{syntaxComment}",
+            "text-color": "{syntaxComment}"
         }},
         "SpecialChar": {{
-            "selected-text-color": "{blue5}",
-            "text-color": "{blue5}"
+            "selected-text-color": "{syntaxStringEscape}",
+            "text-color": "{syntaxStringEscape}"
         }},
         "SpecialString": {{
-            "selected-text-color": "{magenta5}",
-            "text-color": "{magenta5}"
+            "selected-text-color": "{syntaxString}",
+            "text-color": "{syntaxString}"
         }},
         "String": {{
-            "selected-text-color": "{magenta5}",
-            "text-color": "{magenta5}"
+            "selected-text-color": "{syntaxString}",
+            "text-color": "{syntaxString}"
         }},
         "Variable": {{
-            "selected-text-color": "{foreground}",
-            "text-color": "{foreground}"
+            "selected-text-color": "{syntaxVariable}",
+            "text-color": "{syntaxVariable}"
         }},
         "VerbatimString": {{
-            "selected-text-color": "{magenta5}",
-            "text-color": "{magenta5}"
+            "selected-text-color": "{syntaxString}",
+            "text-color": "{syntaxString}"
         }},
         "Warning": {{
             "selected-text-color": "{red4}",

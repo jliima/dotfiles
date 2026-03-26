@@ -49,7 +49,22 @@
     "magenta2": "#660066",
     "magenta3": "#990099",
     "magenta4": "#CC00CC",
-    "magenta5": "#FF00FF"
+    "magenta5": "#FF00FF",
+
+    "syntaxKeyword": "#FF6600",
+    "syntaxString": "#66FF00",
+    "syntaxComment": "#6600FF",
+    "syntaxNumber": "#FF0066",
+    "syntaxFunction": "#00FF66",
+    "syntaxClass": "#0066FF",
+    "syntaxType": "#FFFF66",
+    "syntaxConstant": "#FF66FF",
+    "syntaxVariable": "#66FFFF",
+    "syntaxOperator": "#FFCC00",
+    "syntaxAnnotation": "#CC00FF",
+    "syntaxDocTag": "#00FFCC",
+    "syntaxStringEscape": "#FF3399",
+    "syntaxPunctuation": "#99FF33"
   },
   "colors": {
     "color0": "#0A2E1A",

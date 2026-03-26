@@ -320,7 +320,7 @@ exports.default = (colors, bordered) => {
     'scope': ['comment'],
     'settings': {
       'fontStyle': 'italic',
-      'foreground': (customColors && customColors.special.grey5) || colors[8].hex() + 'b0'
+      'foreground': (customColors && customColors.special.syntaxComment) || colors[8].hex() + 'b0'
     }
   },
 
@@ -328,7 +328,7 @@ exports.default = (colors, bordered) => {
     'name': 'Regular Expressions and Escape Characters',
     'scope': ['string.regexp', 'constant.character', 'constant.other'],
     'settings': {
-      'foreground': colors[14].hex()
+      'foreground': (customColors && customColors.special.syntaxStringEscape) || colors[14].hex()
     }
   },
 
@@ -577,7 +577,7 @@ exports.default = (colors, bordered) => {
       'meta.import.js',
       'meta.import.ts'
     ],
-    'settings': { 'foreground': (customColors && customColors.syntax.keywords) || colors[2].hex() }
+    'settings': { 'foreground': (customColors && customColors.special.syntaxKeyword) || colors[2].hex() }
   },
 
   {
@@ -596,13 +596,13 @@ exports.default = (colors, bordered) => {
       'storage.type.annotation',
       'meta.annotation'
     ],
-    'settings': { 'foreground': (customColors && customColors.syntax.functions) || colors[12].hex() }
+    'settings': { 'foreground': (customColors && customColors.special.syntaxFunction) || colors[12].hex() }
   },
 
   {
     'name': 'Strings (custom)',
     'scope': ['string', 'string.quoted', 'string.template'],
-    'settings': { 'foreground': (customColors && customColors.syntax.strings) || colors[13].hex() }
+    'settings': { 'foreground': (customColors && customColors.special.syntaxString) || colors[13].hex() }
   },
 
   {
@@ -615,13 +615,13 @@ exports.default = (colors, bordered) => {
       'variable.other.constant',
       'constant.language'
     ],
-    'settings': { 'foreground': (customColors && customColors.syntax.numbers) || colors[1].hex() }
+    'settings': { 'foreground': (customColors && customColors.special.syntaxNumber) || colors[1].hex() }
   },
 
   {
     'name': 'Variables & operator (custom)',
     'scope': ['variable', 'variable.other', 'identifier', 'keyword.operator'],
-    'settings': { 'foreground': (customColors && customColors.syntax.variables) || colors[15].hex() }
+    'settings': { 'foreground': (customColors && customColors.special.syntaxVariable) || colors[15].hex() }
   },
 
   {
@@ -639,7 +639,7 @@ exports.default = (colors, bordered) => {
       'meta.brackets',
       'meta.delimiter'
     ],
-    'settings': { 'foreground': colors[15].hex() }
+    'settings': { 'foreground': (customColors && customColors.special.syntaxPunctuation) || colors[15].hex() }
   }
 
 ]
