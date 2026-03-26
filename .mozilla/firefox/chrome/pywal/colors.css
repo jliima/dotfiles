@@ -1,19 +1,20 @@
 :root {
   --wallpaper: url("None");
 
-  --background: #10171e;
+  --background: #0d1419;
+  --backgroundLighter: #10171e;
   --foreground: #cfdceb;
   --cursor: #cfdceb;
 
   --black1: #0d1217;
-  --black2: #10171e;
-  --black3: #142431;
-  --black4: #193545;
-  --black5: #244456;
+  --black2: #0d1419;
+  --black3: #10171e;
+  --black4: #142431;
+  --black5: #193545;
   --white1: #8b98a6;
   --white2: #a1adba;
   --white3: #b6c2ce;
-  --white4: #c9d4df;
+  --white4: #d3dde8;
   --white5: #cfdceb;
   --grey1: #1c252d;
   --grey2: #27313b;
