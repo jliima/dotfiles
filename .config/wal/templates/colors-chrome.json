@@ -5,10 +5,10 @@
   "theme": {{
     "colors": {{
       "frame": [{background.rgb}],
-      "frame_inactive": [{background.rgb}],
-      "toolbar": [{background.rgb}],
+      "frame_inactive": [{black1.rgb}],
+      "toolbar": [{backgroundLighter.rgb}],
       "ntp_text": [{foreground.rgb}],
-      "ntp_link": [{green5.rgb}],
+      "ntp_link": [{magenta5.rgb}],
       "ntp_section": [{grey5.rgb}],
       "button_background.rgb": [{foreground.rgb}],
       "toolbar_button_icon": [{foreground.rgb}],
