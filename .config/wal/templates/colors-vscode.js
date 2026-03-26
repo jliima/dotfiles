@@ -3,13 +3,9 @@
 // Based on custom color definitions in colors.json special section
 
 module.exports = {{
-  // Full special color palette (includes syntax highlighting)
+  // Full special color palette (includes UI and syntax highlighting)
   special: {{
-    background: '{background}',
-    backgroundLighter: '{backgroundLighter}',
-    foreground: '{foreground}',
-    cursor: '{cursor}',
-    
+    // Base color palette
     black1: '{black1}',
     black2: '{black2}',
     black3: '{black3}',
@@ -55,7 +51,35 @@ module.exports = {{
     magenta3: '{magenta3}',
     magenta4: '{magenta4}',
     magenta5: '{magenta5}',
-    
+
+    // UI colors
+    background: '{background}',
+    backgroundAlt: '{backgroundAlt}',
+    surface: '{surface}',
+    surfaceHover: '{surfaceHover}',
+    overlay: '{overlay}',
+    accent: '{accent}',
+    accentHover: '{accentHover}',
+    accentSubtle: '{accentSubtle}',
+    foreground: '{foreground}',
+    textSecondary: '{textSecondary}',
+    textMuted: '{textMuted}',
+    textDisabled: '{textDisabled}',
+    textInverse: '{textInverse}',
+    textLink: '{textLink}',
+    border: '{border}',
+    borderSubtle: '{borderSubtle}',
+    borderFocus: '{borderFocus}',
+    selection: '{selection}',
+    highlight: '{highlight}',
+    highlightActive: '{highlightActive}',
+    success: '{success}',
+    warning: '{warning}',
+    error: '{error}',
+    info: '{info}',
+    cursor: '{cursor}',
+
+    // Syntax colors
     syntaxKeyword: '{syntaxKeyword}',
     syntaxString: '{syntaxString}',
     syntaxComment: '{syntaxComment}',

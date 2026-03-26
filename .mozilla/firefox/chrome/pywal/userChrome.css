@@ -15,26 +15,26 @@
 
   --lwt-accent-color: var(--background) !important;
   --lwt-accent-color-inactive: var(--background) !important;
-  --lwt-text-color: var(--white5) !important;
+  --lwt-text-color: var(--foreground) !important;
 
   --toolbar-bgcolor: var(--background) !important;
-  --toolbar-color: var(--white5) !important;
+  --toolbar-color: var(--foreground) !important;
 
-  --toolbar-field-background-color: var(--black3) !important;
-  --toolbar-field-color: var(--white5) !important;
-  --toolbar-field-border-color: var(--grey5) !important;
+  --toolbar-field-background-color: var(--surface) !important;
+  --toolbar-field-color: var(--foreground) !important;
+  --toolbar-field-border-color: var(--border) !important;
 
-  --toolbar-field-focus-background-color: var(--black3) !important;
-  --toolbar-field-focus-border-color: var(--blue5) !important;
+  --toolbar-field-focus-background-color: var(--surface) !important;
+  --toolbar-field-focus-border-color: var(--borderFocus) !important;
 
-  --arrowpanel-background: var(--black3) !important;
-  --arrowpanel-color: var(--white5) !important;
+  --arrowpanel-background: var(--surface) !important;
+  --arrowpanel-color: var(--foreground) !important;
 
-  --menu-background-color: var(--black3) !important;
-  --menu-color: var(--white5) !important;
+  --menu-background-color: var(--surface) !important;
+  --menu-color: var(--foreground) !important;
 
   --sidebar-background-color: var(--background) !important;
-  --sidebar-text-color: var(--white5) !important;
+  --sidebar-text-color: var(--foreground) !important;
 
   --tab-corner-rounding: 0px;
   --animation-speed: 0.25s;
@@ -43,9 +43,9 @@
   --border-radius: 8px;
 
   --toolbar-bgcolor: var(--background) !important;
-  --color-accent-primary: var(--blue5) !important;
-  --color-accent-primary-hover: red !important;
-  --color-accent-primary-active: var(--blue5) !important;
+  --color-accent-primary: var(--accent) !important;
+  --color-accent-primary-hover: var(--accentHover) !important;
+  --color-accent-primary-active: var(--accent) !important;
   --focus-outline-width: 1px !important;
 }
 
@@ -57,23 +57,23 @@
 #PersonalToolbar,
 #toolbar-menubar {
   background-color: var(--background) !important;
-  color: var(--white5) !important;
+  color: var(--foreground) !important;
 }
 
 /* ===== Tabs (SECONDARY SURFACE) ===== */
 .tabbrowser-tab .tab-background {
-  background-color: var(--black3) !important;
+  background-color: var(--surface) !important;
   border-radius: var(--border-radius) !important;
 }
 
 .tabbrowser-tab:hover .tab-background {
-  background-color: var(--blue3) !important;
+  background-color: var(--surfaceHover) !important;
 }
 
 /* Active tab uses accent */
 .tabbrowser-tab[selected="true"] .tab-background {
-  background-color: var(--blue3) !important;
-  color: white !important;
+  background-color: var(--accentSubtle) !important;
+  color: var(--foreground) !important;
 }
 
 .tabbrowser-tab[selected="true"] .tab-label {
@@ -85,13 +85,13 @@
 #urlbar-background,
 #urlbar,
 .urlbar-input-container {
-  background-color: var(--blue1) !important;
-  color: var(--white5) !important;
-  border: 1px solid var(--grey5) !important;
+  background-color: var(--surface) !important;
+  color: var(--foreground) !important;
+  border: 1px solid var(--border) !important;
 }
 
 #urlbar[focused="true"] #urlbar-background {
-  border-color: var(--blue5) !important;
+  border-color: var(--borderFocus) !important;
 }
 
 /* ===== Panels / menus ===== */
@@ -101,15 +101,15 @@ menupopup,
 #appMenu-popup,
 #downloadsPanel,
 #urlbar-results {
-  background-color: var(--black3) !important;
-  color: var(--white5) !important;
+  background-color: var(--overlay) !important;
+  color: var(--foreground) !important;
 }
 
 /* Hover states */
 toolbarbutton:hover,
 .menuitem:hover,
 .subviewbutton:hover {
-  background-color: var(--grey3) !important;
+  background-color: var(--surfaceHover) !important;
 }
 
 /* ===== Sidebar ===== */
@@ -117,7 +117,7 @@ toolbarbutton:hover,
 #sidebar,
 #sidebar-header {
   background-color: var(--background) !important;
-  color: var(--white5) !important;
+  color: var(--foreground) !important;
 }
 
 /* Remove border around UI */
@@ -134,7 +134,7 @@ toolbarbutton:hover,
 }
 
 .subviewbutton.panel-subview-footer {
-  border-top: 1px var(--foreground) !important;
+  border-top: 1px var(--border) !important;
 }
 
 tooltip {

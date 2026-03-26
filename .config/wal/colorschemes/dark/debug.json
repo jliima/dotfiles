@@ -1,9 +1,8 @@
 {
   "special": {
     "background": "#1A0A2E",
-    "backgroundLighter": "#905106",
     "foreground": "#FFFFFF",
-    "cursor": "#FFFFFF",
+    "cursor": "#FF00FF",
 
     "black1": "#2E1A0A",
     "black2": "#1A1A1A",
@@ -50,6 +49,34 @@
     "magenta3": "#990099",
     "magenta4": "#CC00CC",
     "magenta5": "#FF00FF",
+
+    "backgroundAlt": "#0A1E2E",
+    "surface": "#2E0A1A",
+    "surfaceHover": "#3E1A2A",
+    "overlay": "#1A2E0A",
+
+    "accent": "#FF00AA",
+    "accentHover": "#CC0088",
+    "accentSubtle": "#660044",
+
+    "textSecondary": "#AAFFAA",
+    "textMuted": "#77AA77",
+    "textDisabled": "#447744",
+    "textInverse": "#000000",
+    "textLink": "#00AAFF",
+
+    "border": "#AA00AA",
+    "borderSubtle": "#550055",
+    "borderFocus": "#FFAA00",
+
+    "selection": "#004488",
+    "highlight": "#884400",
+    "highlightActive": "#AA6600",
+
+    "success": "#00FF00",
+    "warning": "#FFFF00",
+    "error": "#FF0000",
+    "info": "#00FFFF",
 
     "syntaxKeyword": "#FF6600",
     "syntaxString": "#66FF00",

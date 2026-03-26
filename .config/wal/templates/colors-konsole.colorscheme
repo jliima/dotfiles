@@ -21,17 +21,17 @@ RandomHueRange=360
 RandomSaturationRange=100
 
 [Background]
-Color={backgroundLighter}
+Color={background}
 RandomHueRange=360
 RandomSaturationRange=100
 
 [BackgroundFaint]
-Color={backgroundLighter}
+Color={backgroundAlt}
 RandomHueRange=360
 RandomSaturationRange=100
 
 [BackgroundIntense]
-Color={black3}
+Color={surface}
 RandomHueRange=360
 RandomSaturationRange=100
 

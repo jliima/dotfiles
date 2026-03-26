@@ -1,403 +1,403 @@
 {{
-    "custom-styles": {{
-        "Diff": {{
-            "Added line": {{
-                "selected-text-color": "{green5}",
-                "text-color": "{green5}"
-            }},
-            "Changed line (new)": {{
-                "selected-text-color": "{green5}",
-                "text-color": "{green5}"
-            }},
-            "Changed line (old)": {{
-                "selected-text-color": "{red4}",
-                "text-color": "{red4}"
-            }},
-            "Removed line": {{
-                "selected-text-color": "{red4}",
-                "text-color": "{red4}"
-            }}
-        }},
-        "Doxygen": {{
-            "Custom Tags": {{
-                "bold": true
-            }},
-            "Dot Graph": {{
-                "italic": false
-            }},
-            "Entities": {{
-                "italic": false
-            }},
-            "Formulas": {{
-                "italic": false
-            }},
-            "Message Sequence Chart": {{
-                "italic": false
-            }},
-            "Todo": {{
-                "selected-text-color": "{red4}",
-                "text-color": "{red4}"
-            }}
-        }},
-        "Go": {{
-            "Predeclared Identifier": {{
-                "selected-text-color": "{yellow5}",
-                "text-color": "{yellow5}"
-            }}
-        }},
-        "HTML": {{
-            "Error": {{
-                "underline": false
-            }}
-        }},
-        "INI Files": {{
-            "Assignment": {{
-                "selected-text-color": "{foreground}",
-                "text-color": "{foreground}"
-            }},
-            "Section": {{
-                "selected-text-color": "{blue5}",
-                "text-color": "{blue5}"
-            }}
-        }},
-        "JavaScript": {{
-            "Built-in Objects": {{
-                "selected-text-color": "{yellow5}",
-                "text-color": "{yellow5}"
-            }},
-            "Function Declaration": {{
-                "selected-text-color": "{blue5}",
-                "text-color": "{blue5}"
-            }},
-            "Function Name": {{
-                "selected-text-color": "{blue5}",
-                "text-color": "{blue5}"
-            }},
-            "Module": {{
-                "selected-text-color": "{magenta5}",
-                "text-color": "{magenta5}"
-            }},
-            "Object Member": {{
-                "selected-text-color": "{red4}",
-                "text-color": "{red4}"
-            }},
-            "Object Method (Built-in)": {{
-                "italic": false,
-                "selected-text-color": "{blue5}",
-                "text-color": "{blue5}"
-            }},
-            "Object Property (Built-in)": {{
-                "italic": false
-            }},
-            "Reserved": {{
-                "italic": false
-            }}
-        }},
-        "Javadoc": {{
-            "InlineTag": {{
-                "bold": true
-            }},
-            "JavadocParam": {{
-                "bold": true,
-                "italic": false
-            }},
-            "SeeTag": {{
-                "bold": true,
-                "italic": false
-            }}
-        }},
-        "Markdown": {{
-            "Code": {{
-                "selected-text-color": "{yellow5}",
-                "text-color": "{yellow5}"
-            }},
-            "Emphasis Text": {{
-                "selected-text-color": "{magenta5}",
-                "text-color": "{magenta5}"
-            }},
-            "Fenced Code": {{
-                "selected-text-color": "{yellow5}",
-                "text-color": "{yellow5}"
-            }},
-            "Header H1": {{
-                "selected-text-color": "{red4}",
-                "text-color": "{red4}"
-            }},
-            "Header H2": {{
-                "selected-text-color": "{red4}",
-                "text-color": "{red4}"
-            }},
-            "Header H3": {{
-                "selected-text-color": "{red4}",
-                "text-color": "{red4}"
-            }},
-            "Header H4": {{
-                "selected-text-color": "{red4}",
-                "text-color": "{red4}"
-            }},
-            "Header H5": {{
-                "selected-text-color": "{red4}",
-                "text-color": "{red4}"
-            }},
-            "Header H6": {{
-                "selected-text-color": "{red4}",
-                "text-color": "{red4}"
-            }},
-            "Link": {{
-                "selected-text-color": "{magenta5}",
-                "text-color": "{magenta5}"
-            }},
-            "Reference-Link Name": {{
-                "selected-text-color": "{blue5}",
-                "text-color": "{blue5}"
-            }},
-            "Reference-Link Target": {{
-                "selected-text-color": "{blue5}",
-                "text-color": "{blue5}"
-            }},
-            "Reference-Link Target: Link": {{
-                "selected-text-color": "{magenta5}",
-                "text-color": "{magenta5}"
-            }},
-            "Reference-Link: Email": {{
-                "selected-text-color": "{magenta5}",
-                "text-color": "{magenta5}"
-            }},
-            "Reference-Link: Link": {{
-                "selected-text-color": "{magenta5}",
-                "text-color": "{magenta5}"
-            }},
-            "Strong Text": {{
-                "selected-text-color": "{yellow5}",
-                "text-color": "{yellow5}"
-            }}
-        }},
-        "Python": {{
-            "Builtin Function": {{
-                "selected-text-color": "{blue5}",
-                "text-color": "{blue5}"
-            }},
-            "String Substitution": {{
-                "selected-text-color": "{yellow5}",
-                "text-color": "{yellow5}"
-            }}
-        }},
-        "Rust": {{
-            "Lifetime": {{
-                "selected-text-color": "{yellow5}",
-                "text-color": "{yellow5}"
-            }},
-            "Macro": {{
-                "selected-text-color": "{blue5}",
-                "text-color": "{blue5}"
-            }},
-            "Self": {{
-                "selected-text-color": "{red4}",
-                "text-color": "{red4}"
-            }},
-            "Trait": {{
-                "selected-text-color": "{yellow5}",
-                "text-color": "{yellow5}"
-            }},
-            "Type": {{
-                "selected-text-color": "{blue5}",
-                "text-color": "{blue5}"
-            }}
-        }},
-        "TypeScript": {{
-            "Built-in Objects": {{
-                "selected-text-color": "{yellow5}",
-                "text-color": "{yellow5}"
-            }},
-            "Module": {{
-                "selected-text-color": "{magenta5}",
-                "text-color": "{magenta5}"
-            }},
-            "Object Member": {{
-                "selected-text-color": "{red4}",
-                "text-color": "{red4}"
-            }},
-            "Object Method (Built-in)": {{
-                "selected-text-color": "{blue5}",
-                "text-color": "{blue5}"
-            }},
-            "Types": {{
-                "selected-text-color": "{blue5}",
-                "text-color": "{blue5}"
-            }}
-        }},
-        "XML": {{
-            "Attribute": {{
-                "selected-text-color": "{yellow5}",
-                "text-color": "{yellow5}"
-            }},
-            "Element": {{
-                "selected-text-color": "{green5}",
-                "text-color": "{green5}"
-            }}
-        }}
+  "custom-styles": {{
+    "Diff": {{
+      "Added line": {{
+        "selected-text-color": "{green5}",
+        "text-color": "{green5}"
+      }},
+      "Changed line (new)": {{
+        "selected-text-color": "{green5}",
+        "text-color": "{green5}"
+      }},
+      "Changed line (old)": {{
+        "selected-text-color": "{red4}",
+        "text-color": "{red4}"
+      }},
+      "Removed line": {{
+        "selected-text-color": "{red4}",
+        "text-color": "{red4}"
+      }}
     }},
-    "editor-colors": {{
-        "BackgroundColor": "{background}",
-        "BracketMatching": "{grey5}",
-        "CodeFolding": "{grey5}",
-        "CurrentLine": "#0a99bbff",
-        "CurrentLineNumber": "{white5}",
-        "IconBorder": "{background}",
-        "IndentationLine": "#3a3f44",
-        "LineNumbers": "{grey5}",
-        "MarkBookmark": "#0404bf",
-        "MarkBreakpointActive": "{red5}",
-        "MarkBreakpointDisabled": "#820683",
-        "MarkBreakpointReached": "#6d6e07",
-        "MarkError": "{red4}",
-        "MarkExecution": "#4d4e50",
-        "MarkWarning": "{yellow5}",
-        "ModifiedLines": "{yellow5}",
-        "ReplaceHighlight": "{magenta4}",
-        "SavedLines": "{green5}",
-        "SearchHighlight": "{magenta4}",
-        "Separator": "{grey5}",
-        "SpellChecking": "{red4}",
-        "TabMarker": "#21252b",
-        "TemplateBackground": "#31363b",
-        "TemplateFocusedPlaceholder": "#123723",
-        "TemplatePlaceholder": "#123723",
-        "TemplateReadOnlyPlaceholder": "{red4}",
-        "TextSelection": "{grey4}",
-        "WordWrapMarker": "{grey5}"
+    "Doxygen": {{
+      "Custom Tags": {{
+        "bold": true
+      }},
+      "Dot Graph": {{
+        "italic": false
+      }},
+      "Entities": {{
+        "italic": false
+      }},
+      "Formulas": {{
+        "italic": false
+      }},
+      "Message Sequence Chart": {{
+        "italic": false
+      }},
+      "Todo": {{
+        "selected-text-color": "{red4}",
+        "text-color": "{red4}"
+      }}
     }},
-    "metadata": {{
-        "name": "pywal-colors",
-        "revision": 1
+    "Go": {{
+      "Predeclared Identifier": {{
+        "selected-text-color": "{yellow5}",
+        "text-color": "{yellow5}"
+      }}
     }},
-    "text-styles": {{
-        "Alert": {{
-            "background-color": "{background}",
-            "selected-text-color": "{red4}",
-            "text-color": "{red4}"
-        }},
-        "Annotation": {{
-            "selected-text-color": "{syntaxAnnotation}",
-            "text-color": "{syntaxAnnotation}"
-        }},
-        "Attribute": {{
-            "selected-text-color": "{syntaxKeyword}",
-            "text-color": "{syntaxKeyword}"
-        }},
-        "BaseN": {{
-            "selected-text-color": "{syntaxNumber}",
-            "text-color": "{syntaxNumber}"
-        }},
-        "BuiltIn": {{
-            "selected-text-color": "{syntaxKeyword}",
-            "text-color": "{syntaxKeyword}"
-        }},
-        "Char": {{
-            "selected-text-color": "{syntaxString}",
-            "text-color": "{syntaxString}"
-        }},
-        "Comment": {{
-            "selected-text-color": "{syntaxComment}",
-            "text-color": "{syntaxComment}"
-        }},
-        "CommentVar": {{
-            "selected-text-color": "{syntaxDocTag}",
-            "text-color": "{syntaxDocTag}"
-        }},
-        "Constant": {{
-            "selected-text-color": "{syntaxConstant}",
-            "text-color": "{syntaxConstant}"
-        }},
-        "ControlFlow": {{
-            "selected-text-color": "{syntaxKeyword}",
-            "text-color": "{syntaxKeyword}"
-        }},
-        "DataType": {{
-            "selected-text-color": "{syntaxType}",
-            "text-color": "{syntaxType}"
-        }},
-        "DecVal": {{
-            "selected-text-color": "{syntaxNumber}",
-            "text-color": "{syntaxNumber}"
-        }},
-        "Documentation": {{
-            "selected-text-color": "{syntaxComment}",
-            "text-color": "{syntaxComment}"
-        }},
-        "Error": {{
-            "selected-text-color": "{red5}",
-            "text-color": "{red5}",
-            "underline": true
-        }},
-        "Extension": {{
-            "selected-text-color": "{syntaxFunction}",
-            "text-color": "{syntaxFunction}"
-        }},
-        "Float": {{
-            "selected-text-color": "{syntaxNumber}",
-            "text-color": "{syntaxNumber}"
-        }},
-        "Function": {{
-            "selected-text-color": "{syntaxFunction}",
-            "text-color": "{syntaxFunction}"
-        }},
-        "Import": {{
-            "selected-text-color": "{syntaxKeyword}",
-            "text-color": "{syntaxKeyword}"
-        }},
-        "Information": {{
-            "selected-text-color": "{syntaxDocTag}",
-            "text-color": "{syntaxDocTag}"
-        }},
-        "Keyword": {{
-            "selected-text-color": "{syntaxKeyword}",
-            "text-color": "{syntaxKeyword}"
-        }},
-        "Normal": {{
-            "selected-text-color": "{foreground}",
-            "text-color": "{foreground}"
-        }},
-        "Operator": {{
-            "selected-text-color": "{syntaxOperator}",
-            "text-color": "{syntaxOperator}"
-        }},
-        "Others": {{
-            "selected-text-color": "{syntaxKeyword}",
-            "text-color": "{syntaxKeyword}"
-        }},
-        "Preprocessor": {{
-            "selected-text-color": "{syntaxKeyword}",
-            "text-color": "{syntaxKeyword}"
-        }},
-        "RegionMarker": {{
-            "background-color": "{background}",
-            "selected-text-color": "{syntaxComment}",
-            "text-color": "{syntaxComment}"
-        }},
-        "SpecialChar": {{
-            "selected-text-color": "{syntaxStringEscape}",
-            "text-color": "{syntaxStringEscape}"
-        }},
-        "SpecialString": {{
-            "selected-text-color": "{syntaxString}",
-            "text-color": "{syntaxString}"
-        }},
-        "String": {{
-            "selected-text-color": "{syntaxString}",
-            "text-color": "{syntaxString}"
-        }},
-        "Variable": {{
-            "selected-text-color": "{syntaxVariable}",
-            "text-color": "{syntaxVariable}"
-        }},
-        "VerbatimString": {{
-            "selected-text-color": "{syntaxString}",
-            "text-color": "{syntaxString}"
-        }},
-        "Warning": {{
-            "selected-text-color": "{red4}",
-            "text-color": "{red4}"
-        }}
+    "HTML": {{
+      "Error": {{
+        "underline": false
+      }}
+    }},
+    "INI Files": {{
+      "Assignment": {{
+        "selected-text-color": "{foreground}",
+        "text-color": "{foreground}"
+      }},
+      "Section": {{
+        "selected-text-color": "{blue5}",
+        "text-color": "{blue5}"
+      }}
+    }},
+    "JavaScript": {{
+      "Built-in Objects": {{
+        "selected-text-color": "{yellow5}",
+        "text-color": "{yellow5}"
+      }},
+      "Function Declaration": {{
+        "selected-text-color": "{blue5}",
+        "text-color": "{blue5}"
+      }},
+      "Function Name": {{
+        "selected-text-color": "{blue5}",
+        "text-color": "{blue5}"
+      }},
+      "Module": {{
+        "selected-text-color": "{magenta5}",
+        "text-color": "{magenta5}"
+      }},
+      "Object Member": {{
+        "selected-text-color": "{red4}",
+        "text-color": "{red4}"
+      }},
+      "Object Method (Built-in)": {{
+        "italic": false,
+        "selected-text-color": "{blue5}",
+        "text-color": "{blue5}"
+      }},
+      "Object Property (Built-in)": {{
+        "italic": false
+      }},
+      "Reserved": {{
+        "italic": false
+      }}
+    }},
+    "Javadoc": {{
+      "InlineTag": {{
+        "bold": true
+      }},
+      "JavadocParam": {{
+        "bold": true,
+        "italic": false
+      }},
+      "SeeTag": {{
+        "bold": true,
+        "italic": false
+      }}
+    }},
+    "Markdown": {{
+      "Code": {{
+        "selected-text-color": "{yellow5}",
+        "text-color": "{yellow5}"
+      }},
+      "Emphasis Text": {{
+        "selected-text-color": "{magenta5}",
+        "text-color": "{magenta5}"
+      }},
+      "Fenced Code": {{
+        "selected-text-color": "{yellow5}",
+        "text-color": "{yellow5}"
+      }},
+      "Header H1": {{
+        "selected-text-color": "{red4}",
+        "text-color": "{red4}"
+      }},
+      "Header H2": {{
+        "selected-text-color": "{red4}",
+        "text-color": "{red4}"
+      }},
+      "Header H3": {{
+        "selected-text-color": "{red4}",
+        "text-color": "{red4}"
+      }},
+      "Header H4": {{
+        "selected-text-color": "{red4}",
+        "text-color": "{red4}"
+      }},
+      "Header H5": {{
+        "selected-text-color": "{red4}",
+        "text-color": "{red4}"
+      }},
+      "Header H6": {{
+        "selected-text-color": "{red4}",
+        "text-color": "{red4}"
+      }},
+      "Link": {{
+        "selected-text-color": "{magenta5}",
+        "text-color": "{magenta5}"
+      }},
+      "Reference-Link Name": {{
+        "selected-text-color": "{blue5}",
+        "text-color": "{blue5}"
+      }},
+      "Reference-Link Target": {{
+        "selected-text-color": "{blue5}",
+        "text-color": "{blue5}"
+      }},
+      "Reference-Link Target: Link": {{
+        "selected-text-color": "{magenta5}",
+        "text-color": "{magenta5}"
+      }},
+      "Reference-Link: Email": {{
+        "selected-text-color": "{magenta5}",
+        "text-color": "{magenta5}"
+      }},
+      "Reference-Link: Link": {{
+        "selected-text-color": "{magenta5}",
+        "text-color": "{magenta5}"
+      }},
+      "Strong Text": {{
+        "selected-text-color": "{yellow5}",
+        "text-color": "{yellow5}"
+      }}
+    }},
+    "Python": {{
+      "Builtin Function": {{
+        "selected-text-color": "{blue5}",
+        "text-color": "{blue5}"
+      }},
+      "String Substitution": {{
+        "selected-text-color": "{yellow5}",
+        "text-color": "{yellow5}"
+      }}
+    }},
+    "Rust": {{
+      "Lifetime": {{
+        "selected-text-color": "{yellow5}",
+        "text-color": "{yellow5}"
+      }},
+      "Macro": {{
+        "selected-text-color": "{blue5}",
+        "text-color": "{blue5}"
+      }},
+      "Self": {{
+        "selected-text-color": "{red4}",
+        "text-color": "{red4}"
+      }},
+      "Trait": {{
+        "selected-text-color": "{yellow5}",
+        "text-color": "{yellow5}"
+      }},
+      "Type": {{
+        "selected-text-color": "{blue5}",
+        "text-color": "{blue5}"
+      }}
+    }},
+    "TypeScript": {{
+      "Built-in Objects": {{
+        "selected-text-color": "{yellow5}",
+        "text-color": "{yellow5}"
+      }},
+      "Module": {{
+        "selected-text-color": "{magenta5}",
+        "text-color": "{magenta5}"
+      }},
+      "Object Member": {{
+        "selected-text-color": "{red4}",
+        "text-color": "{red4}"
+      }},
+      "Object Method (Built-in)": {{
+        "selected-text-color": "{blue5}",
+        "text-color": "{blue5}"
+      }},
+      "Types": {{
+        "selected-text-color": "{blue5}",
+        "text-color": "{blue5}"
+      }}
+    }},
+    "XML": {{
+      "Attribute": {{
+        "selected-text-color": "{yellow5}",
+        "text-color": "{yellow5}"
+      }},
+      "Element": {{
+        "selected-text-color": "{green5}",
+        "text-color": "{green5}"
+      }}
     }}
+  }},
+  "editor-colors": {{
+    "BackgroundColor": "{background}",
+    "BracketMatching": "{border}",
+    "CodeFolding": "{textDisabled}",
+    "CurrentLine": "{highlight}",
+    "CurrentLineNumber": "{foreground}",
+    "IconBorder": "{backgroundAlt}",
+    "IndentationLine": "{borderSubtle}",
+    "LineNumbers": "{textDisabled}",
+    "MarkBookmark": "{info}",
+    "MarkBreakpointActive": "{error}",
+    "MarkBreakpointDisabled": "{textDisabled}",
+    "MarkBreakpointReached": "{warning}",
+    "MarkError": "{error}",
+    "MarkExecution": "{highlightActive}",
+    "MarkWarning": "{warning}",
+    "ModifiedLines": "{warning}",
+    "ReplaceHighlight": "{accentSubtle}",
+    "SavedLines": "{success}",
+    "SearchHighlight": "{accentSubtle}",
+    "Separator": "{border}",
+    "SpellChecking": "{error}",
+    "TabMarker": "{borderSubtle}",
+    "TemplateBackground": "{surface}",
+    "TemplateFocusedPlaceholder": "{accentSubtle}",
+    "TemplatePlaceholder": "{highlight}",
+    "TemplateReadOnlyPlaceholder": "{error}",
+    "TextSelection": "{selection}",
+    "WordWrapMarker": "{textDisabled}"
+  }},
+  "metadata": {{
+    "name": "pywal-colors",
+    "revision": 1
+  }},
+  "text-styles": {{
+    "Alert": {{
+      "background-color": "{backgroundAlt}",
+      "selected-text-color": "{error}",
+      "text-color": "{error}"
+    }},
+    "Annotation": {{
+      "selected-text-color": "{syntaxAnnotation}",
+      "text-color": "{syntaxAnnotation}"
+    }},
+    "Attribute": {{
+      "selected-text-color": "{syntaxKeyword}",
+      "text-color": "{syntaxKeyword}"
+    }},
+    "BaseN": {{
+      "selected-text-color": "{syntaxNumber}",
+      "text-color": "{syntaxNumber}"
+    }},
+    "BuiltIn": {{
+      "selected-text-color": "{syntaxKeyword}",
+      "text-color": "{syntaxKeyword}"
+    }},
+    "Char": {{
+      "selected-text-color": "{syntaxString}",
+      "text-color": "{syntaxString}"
+    }},
+    "Comment": {{
+      "selected-text-color": "{syntaxComment}",
+      "text-color": "{syntaxComment}"
+    }},
+    "CommentVar": {{
+      "selected-text-color": "{syntaxDocTag}",
+      "text-color": "{syntaxDocTag}"
+    }},
+    "Constant": {{
+      "selected-text-color": "{syntaxConstant}",
+      "text-color": "{syntaxConstant}"
+    }},
+    "ControlFlow": {{
+      "selected-text-color": "{syntaxKeyword}",
+      "text-color": "{syntaxKeyword}"
+    }},
+    "DataType": {{
+      "selected-text-color": "{syntaxType}",
+      "text-color": "{syntaxType}"
+    }},
+    "DecVal": {{
+      "selected-text-color": "{syntaxNumber}",
+      "text-color": "{syntaxNumber}"
+    }},
+    "Documentation": {{
+      "selected-text-color": "{syntaxComment}",
+      "text-color": "{syntaxComment}"
+    }},
+    "Error": {{
+      "selected-text-color": "{red5}",
+      "text-color": "{red5}",
+      "underline": true
+    }},
+    "Extension": {{
+      "selected-text-color": "{syntaxFunction}",
+      "text-color": "{syntaxFunction}"
+    }},
+    "Float": {{
+      "selected-text-color": "{syntaxNumber}",
+      "text-color": "{syntaxNumber}"
+    }},
+    "Function": {{
+      "selected-text-color": "{syntaxFunction}",
+      "text-color": "{syntaxFunction}"
+    }},
+    "Import": {{
+      "selected-text-color": "{syntaxKeyword}",
+      "text-color": "{syntaxKeyword}"
+    }},
+    "Information": {{
+      "selected-text-color": "{syntaxDocTag}",
+      "text-color": "{syntaxDocTag}"
+    }},
+    "Keyword": {{
+      "selected-text-color": "{syntaxKeyword}",
+      "text-color": "{syntaxKeyword}"
+    }},
+    "Normal": {{
+      "selected-text-color": "{foreground}",
+      "text-color": "{foreground}"
+    }},
+    "Operator": {{
+      "selected-text-color": "{syntaxOperator}",
+      "text-color": "{syntaxOperator}"
+    }},
+    "Others": {{
+      "selected-text-color": "{syntaxKeyword}",
+      "text-color": "{syntaxKeyword}"
+    }},
+    "Preprocessor": {{
+      "selected-text-color": "{syntaxKeyword}",
+      "text-color": "{syntaxKeyword}"
+    }},
+    "RegionMarker": {{
+      "background-color": "{background}",
+      "selected-text-color": "{syntaxComment}",
+      "text-color": "{syntaxComment}"
+    }},
+    "SpecialChar": {{
+      "selected-text-color": "{syntaxStringEscape}",
+      "text-color": "{syntaxStringEscape}"
+    }},
+    "SpecialString": {{
+      "selected-text-color": "{syntaxString}",
+      "text-color": "{syntaxString}"
+    }},
+    "String": {{
+      "selected-text-color": "{syntaxString}",
+      "text-color": "{syntaxString}"
+    }},
+    "Variable": {{
+      "selected-text-color": "{syntaxVariable}",
+      "text-color": "{syntaxVariable}"
+    }},
+    "VerbatimString": {{
+      "selected-text-color": "{syntaxString}",
+      "text-color": "{syntaxString}"
+    }},
+    "Warning": {{
+      "selected-text-color": "{red4}",
+      "text-color": "{red4}"
+    }}
+  }}
 }}

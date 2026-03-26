@@ -5,10 +5,6 @@
     "theme-defs": {{
       "pywal-colors": {{
         "vars": {{
-          "background": "{background}",
-          "backgroundLighter": "{backgroundLighter}",
-          "foreground": "{foreground}",
-          "cursor": "{cursor}",
           "black1": "{black1}",
           "black2": "{black2}",
           "black3": "{black3}",
@@ -54,6 +50,31 @@
           "magenta3": "{magenta3}",
           "magenta4": "{magenta4}",
           "magenta5": "{magenta5}",
+          "background": "{background}",
+          "backgroundAlt": "{backgroundAlt}",
+          "surface": "{surface}",
+          "surfaceHover": "{surfaceHover}",
+          "overlay": "{overlay}",
+          "accent": "{accent}",
+          "accentHover": "{accentHover}",
+          "accentSubtle": "{accentSubtle}",
+          "foreground": "{foreground}",
+          "textSecondary": "{textSecondary}",
+          "textMuted": "{textMuted}",
+          "textDisabled": "{textDisabled}",
+          "textInverse": "{textInverse}",
+          "textLink": "{textLink}",
+          "border": "{border}",
+          "borderSubtle": "{borderSubtle}",
+          "borderFocus": "{borderFocus}",
+          "selection": "{selection}",
+          "highlight": "{highlight}",
+          "highlightActive": "{highlightActive}",
+          "success": "{success}",
+          "warning": "{warning}",
+          "error": "{error}",
+          "info": "{info}",
+          "cursor": "{cursor}",
           "syntaxKeyword": "{syntaxKeyword}",
           "syntaxString": "{syntaxString}",
           "syntaxComment": "{syntaxComment}",
@@ -71,61 +92,61 @@
         }},
         "styles": {{
           "identifier": {{
-            "color": "$blue5"
+            "color": "$accent"
           }},
           "text": {{
             "color": "$foreground",
             "background-color": "$background"
           }},
           "selected-text": {{
-            "background-color": "$black3"
+            "background-color": "$selection"
           }},
           "alt-text": {{
-            "background-color": "$black2"
+            "background-color": "$surface"
           }},
           "ok": {{
-            "color": "$green5",
+            "color": "$success",
             "bold": true
           }},
           "warning": {{
-            "color": "$yellow5",
+            "color": "$warning",
             "bold": true
           }},
           "error": {{
-            "color": "$red5",
+            "color": "$error",
             "bold": true
           }},
           "hidden": {{
-            "color": "$grey5",
+            "color": "$textDisabled",
             "bold": true
           }},
           "cursor-line": {{
-            "background-color": "$blue3"
+            "background-color": "$highlight"
           }},
           "popup": {{
             "color": "$foreground",
-            "background-color": "$black2"
+            "background-color": "$overlay"
           }},
           "focused": {{
             "color": "$foreground",
-            "background-color": "$black3"
+            "background-color": "$surface"
           }},
           "table-border": {{
-            "color": "$white3"
+            "color": "$border"
           }},
           "breadcrumb": {{
-            "color": "$white4",
+            "color": "$textSecondary",
             "bold": true
           }},
           "quote-border": {{
-            "color": "$white3",
-            "background-color": "$black2"
+            "color": "$border",
+            "background-color": "$surface"
           }},
           "quoted-text": {{
-            "background-color": "$black2"
+            "background-color": "$surface"
           }},
           "hyperlink": {{
-            "color": "$cyan5",
+            "color": "$textLink",
             "underline": true
           }},
           "h1": {{
@@ -158,10 +179,10 @@
             "color": "$syntaxDocTag"
           }},
           "diff-delete": {{
-            "color": "$red5"
+            "color": "$error"
           }},
           "diff-add": {{
-            "color": "$green5"
+            "color": "$success"
           }},
           "diff-section": {{
             "color": "$syntaxAnnotation"
@@ -176,12 +197,12 @@
         "status-styles": {{
           "title": {{
             "color": "$foreground",
-            "background-color": "$black3",
+            "background-color": "$surface",
             "bold": true
           }},
           "subtitle": {{
             "color": "$foreground",
-            "background-color": "$black2",
+            "background-color": "$overlay",
             "bold": true
           }},
           "text": {{
@@ -189,23 +210,23 @@
             "background-color": "$background"
           }},
           "warn": {{
-            "color": "$yellow5",
+            "color": "$warning",
             "background-color": "$background"
           }},
           "alert": {{
-            "color": "$red5",
+            "color": "$error",
             "background-color": "$background"
           }},
           "active": {{
-            "color": "$green5",
+            "color": "$success",
             "background-color": "$background"
           }},
           "info": {{
-            "color": "$white4",
+            "color": "$textSecondary",
             "background-color": "$background"
           }},
           "inactive": {{
-            "color": "$white3",
+            "color": "$textDisabled",
             "background-color": "$background"
           }}
         }},

@@ -3,7 +3,7 @@
 
 :root {
   color-scheme: dark !important;
-  accent-color: var(--blue5) !important;
+  accent-color: var(--accent) !important;
 }
 
 @-moz-document 
@@ -19,11 +19,11 @@ media-document(image) {
 
   
   html, body {
-    --newtab-background-color: var(--backgroundLighter) !important;
+    --newtab-background-color: var(--backgroundAlt) !important;
     --newtab-wallpaper: none !important;
-    --newtab-snippets-background-color: var(--backgroundLighter) !important;
+    --newtab-snippets-background-color: var(--backgroundAlt) !important;
     --newtab-contextmenu-button-color: var(--background) !important;
-    --newtab-contextmenu-background-color: var(--backgroundLighter) !important;
+    --newtab-contextmenu-background-color: var(--overlay) !important;
 
     font-family: var(--global-font) !important;
   }
@@ -46,29 +46,29 @@ media-document(image) {
 /*
 html, body {
   background: var(--bcackground) !important;
-  color: var(--white5) !important;
+  color: var(--foreground) !important;
 }
 
 a {
-  color: var(--blue5) !important;
+  color: var(--textLink) !important;
 }
 a:hover {
-  color: var(--blue4) !important;
+  color: var(--accentHover) !important;
 }
 
 ::selection {
-  background: var(--blue5) !important;
-  color: var(--background) !important;
+  background: var(--selection) !important;
+  color: var(--textInverse) !important;
 }
 
 input, textarea, select, button {
-  background: var(--black4) !important;
-  color: var(--white5) !important;
-  border: 1px solid var(--grey5) !important;
+  background: var(--surface) !important;
+  color: var(--foreground) !important;
+  border: 1px solid var(--border) !important;
 }
 
 input:focus, textarea:focus {
-  outline: 2px solid var(--blue5) !important;
+  outline: 2px solid var(--borderFocus) !important;
 }
 */
 /* ===== NEW TAB PAGE ===== */
@@ -81,21 +81,21 @@ input:focus, textarea:focus {
   .top-site-outer .tile,
   .top-site-outer .icon-wrapper,
   .ds-card {
-    color: var(--white5) !important;
-    border: 1px solid var(--grey4) !important;
+    color: var(--foreground) !important;
+    border: 1px solid var(--border) !important;
   }
 
   /* Search box */
   .search-handoff-button,
   .search-inner-wrapper input {
-    color: var(--white5) !important;
-    border: 1px solid var(--grey5) !important;
+    color: var(--foreground) !important;
+    border: 1px solid var(--border) !important;
   }
 
   .search-handoff-button:focus,
   .search-inner-wrapper input:focus {
-    border-color: var(--blue5) !important;
-    box-shadow: 0 0 0 1px var(--blue5) !important;
+    border-color: var(--borderFocus) !important;
+    box-shadow: 0 0 0 1px var(--borderFocus) !important;
   }
 }
 
@@ -108,14 +108,14 @@ input:focus, textarea:focus {
 
   [lwt-newtab-brighttext] .card > .card-details > .card-context {
     clip-path: none !important;
-    background-color: var(--backgroundLighter) !important;
+    background-color: var(--backgroundAlt) !important;
   }
 
   [lwt-newtab-brighttext] .trailheadCard,
   [lwt-newtab-brighttext] .search-wrapper input,
   [lwt-newtab-brighttext] .top-site-outer .top-site-icon,
   [lwt-newtab-brighttext] .ds-highlights .section .section-list .card-outer {
-    background-color: var(--backgroundLighter) !important;
+    background-color: var(--backgroundAlt) !important;
   }
 
   .collapsible-section.active {
@@ -142,7 +142,7 @@ input:focus, textarea:focus {
 
   /* Top sites card hover border */
   [lwt-newtab-brighttext] .ds-top-sites .top-sites .top-site-outer .top-site-inner > a:-moz-any(:hover) .tile {
-    box-shadow: 0 0 0 3px var(--backgroundLighter) !important;
+    box-shadow: 0 0 0 3px var(--surfaceHover) !important;
   }
 
   /* "Top sites" and "Highlights" titles */
@@ -157,7 +157,7 @@ input:focus, textarea:focus {
 
   /* Card border when hovering in dark mode */
   [lwt-newtab-brighttext] .card-outer:-moz-any(:hover, :focus, .active):not(.placeholder) {
-    box-shadow: 0 0 0 5px var(--backgroundLighter) !important;
+    box-shadow: 0 0 0 5px var(--surfaceHover) !important;
   }
 
   /* Card border when hovering in light mode */

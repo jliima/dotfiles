@@ -1,11 +1,12 @@
 :root {
   --wallpaper: url("None");
 
-  --background: #0d1419;
-  --backgroundLighter: #10171e;
+  /* Core */
+  --background: #10171e;
   --foreground: #cfdceb;
   --cursor: #cfdceb;
 
+  /* Base palette */
   --black1: #0d1217;
   --black2: #0d1419;
   --black3: #10171e;
@@ -52,6 +53,47 @@
   --magenta4: #a31674;
   --magenta5: #c91b8e;
 
+  /* UI colors */
+  --backgroundAlt: #0d1419;
+  --surface: #142431;
+  --surfaceHover: #193545;
+  --overlay: #1c252d;
+  --accent: #61afef;
+  --accentHover: #4d8cc4;
+  --accentSubtle: #274762;
+  --textSecondary: #a1adba;
+  --textMuted: #8b98a6;
+  --textDisabled: #556072;
+  --textInverse: #10171e;
+  --textLink: #61afef;
+  --border: #27313b;
+  --borderSubtle: #1c252d;
+  --borderFocus: #61afef;
+  --selection: #274762;
+  --highlight: #193545;
+  --highlightActive: #333e49;
+  --success: #0bde96;
+  --warning: #ee8109;
+  --error: #cd222f;
+  --info: #61afef;
+
+  /* Syntax colors */
+  --syntaxKeyword: #0bde96;
+  --syntaxString: #c91b8e;
+  --syntaxComment: #556072;
+  --syntaxNumber: #cd222f;
+  --syntaxFunction: #61afef;
+  --syntaxClass: #61afef;
+  --syntaxType: #0ba3a4;
+  --syntaxConstant: #cd222f;
+  --syntaxVariable: #cfdceb;
+  --syntaxOperator: #cfdceb;
+  --syntaxAnnotation: #61afef;
+  --syntaxDocTag: #ee8109;
+  --syntaxStringEscape: #0ba3a4;
+  --syntaxPunctuation: #d3dde8;
+
+  /* Terminal colors */
   --color0: #10171e;
   --color1: #cd222f;
   --color2: #0bde96;
