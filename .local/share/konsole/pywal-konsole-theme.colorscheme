@@ -26,12 +26,12 @@ RandomHueRange=360
 RandomSaturationRange=100
 
 [BackgroundFaint]
-Color=#10171e
+Color=#0d1419
 RandomHueRange=360
 RandomSaturationRange=100
 
 [BackgroundIntense]
-Color=#10171e
+Color=#142431
 RandomHueRange=360
 RandomSaturationRange=100
 
