@@ -229,6 +229,33 @@ def run_application_scripts(scripts: list[Path], apps_dir: Path, debug: bool) ->
   return success_count, failure_count
 
 
+def open_script_in_editor(script_name: str) -> int:
+  """Open the specified application script in VS Code.
+
+  Args:
+    script_name: Name of the script to open (with or without .sh extension).
+
+  Returns:
+    Exit code (0 on success, 1 on failure).
+  """
+  apps_dir = get_applications_dir()
+
+  # Support both with and without .sh extension
+  script_file = script_name if script_name.endswith(".sh") else f"{script_name}.sh"
+  script_path = apps_dir / script_file
+
+  if not script_path.is_file():
+    print_status(f"Error: Script not found: {script_path}", Colors.RED)
+    return 1
+
+  try:
+    result = subprocess.run(["code", str(script_path)], check=False)
+    return result.returncode
+  except FileNotFoundError:
+    print_status("Error: 'code' command not found. Is VS Code installed?", Colors.RED)
+    return 1
+
+
 def create_parser() -> argparse.ArgumentParser:
   """Create the argument parser."""
   parser = argparse.ArgumentParser(
@@ -238,10 +265,17 @@ def create_parser() -> argparse.ArgumentParser:
   )
 
   parser.add_argument(
-    "--app",
-    action="append",
+    "--open-script",
     metavar="SCRIPT",
-    help="Specify which application script(s) to run. Can be used multiple times. "
+    help="Open the specified application script in the default editor. "
+         "Ignores all other flags when used.",
+  )
+
+  parser.add_argument(
+    "--app",
+    nargs="+",
+    metavar="SCRIPT",
+    help="Specify which application script(s) to run. Multiple scripts can be specified. "
          "If not specified, all scripts in the applications directory will be run.",
   )
 
@@ -283,6 +317,10 @@ def parse_args(args: list[str]) -> tuple[argparse.Namespace, list[str]]:
 def main() -> int:
   """Main entry point."""
   args, wal_args = parse_args(sys.argv[1:])
+
+  # Handle --open-script flag (ignores all other flags)
+  if args.open_script:
+    return open_script_in_editor(args.open_script)
 
   # Run wal first
   if not run_wal(wal_args, args.debug):
