@@ -12,9 +12,9 @@
 # Introduction
 
 > [!WARNING]
-> Currently work in progress. Can break stuff. Scripts are not 100% tested.
+> Currently work in progress. Can break stuff.
 
-Designed for Kubuntu 24.10.
+Works on my my machine running [Kubuntu 25.10](https://kubuntu.org/)
 
 ## Requirements
 
@@ -32,6 +32,7 @@ Designed for Kubuntu 24.10.
 - [Pywalfox](https://github.com/Frewacom/pywalfox)
 - [Dark Reader Pywalfox](https://github.com/eylles/pywal16)
 - [Walogram](https://codeberg.org/thirtysix/walogram)
+- [Intellij Idea](https://github.com/jliima/jetbrains-pywal-theme)
 
 ### ZSH & CLI Programs
 

@@ -23,15 +23,35 @@ RELOAD_PLUGIN_JAR="$PROJECT_DIR/reload-plugin/build/distributions/pywal-reload-p
 RELOAD_PLUGIN_SUBDIR="pywal-reload-plugin/lib"
 RELOAD_PORT=9988
 
-# ── Validate cache files ─────────────────────────────────────────────────────
+# ── Validate project directory ───────────────────────────────────────────────
+if [[ ! -d "$PROJECT_DIR" ]]; then
+  echo "Error: jetbrains-pywal-theme project not found at $PROJECT_DIR" >&2
+  echo "" >&2
+  echo "  Have you cloned the repository?" >&2
+  echo "  → git clone https://github.com/jliima/jetbrains-pywal-theme $PROJECT_DIR" >&2
+  echo "" >&2
+  echo "  After cloning, build the reload plugin:" >&2
+  echo "  → cd $PROJECT_DIR/reload-plugin && ./gradlew buildPlugin" >&2
+  echo "" >&2
+  echo "  See https://github.com/jliima/jetbrains-pywal-theme for full setup instructions." >&2
+  exit 1
+fi
+
 if [[ ! -f "$ICLS_TEMPLATE" ]]; then
   echo "Error: $ICLS_TEMPLATE not found." >&2
+  echo "  The repository may be incomplete. Visit https://github.com/jliima/jetbrains-pywal-theme" >&2
   exit 1
 fi
 
 if [[ ! -f "$COLORS_JSON" ]]; then
   echo "Error: $COLORS_JSON not found. Run pywal first." >&2
   exit 1
+fi
+
+if [[ ! -f "$RELOAD_PLUGIN_JAR" ]]; then
+  echo "Warning: Reload plugin not built. Live reload will not be available." >&2
+  echo "  Build it with: cd $PROJECT_DIR/reload-plugin && ./gradlew buildPlugin" >&2
+  echo "  See https://github.com/jliima/jetbrains-pywal-theme for details." >&2
 fi
 
 BUILD_DIR="$(mktemp -d)"
