@@ -1,8 +1,8 @@
 {{
-  "name": "Pare Colors theme",
+  "name": "Pywal",
   "author": "hieroja",
   "dark": true,
-  "editorScheme": "pare-colors",
+  "editorScheme": "pywal-color-scheme",
   "colors": {{
     "background":       "{background}",
     "foreground":       "{foreground}",
