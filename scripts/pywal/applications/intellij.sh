@@ -19,6 +19,9 @@ SCHEME_NAME="pywal-color-scheme"
 JAR_NAME="pywal-theme.jar"
 JAR_SUBDIR="pywal/lib"
 THEME_JSON_NAME="pywal.theme.json"
+RELOAD_PLUGIN_JAR="$PROJECT_DIR/reload-plugin/build/distributions/pywal-reload-plugin-1.0.0.zip"
+RELOAD_PLUGIN_SUBDIR="pywal-reload-plugin/lib"
+RELOAD_PORT=9988
 
 # ── Validate cache files ─────────────────────────────────────────────────────
 if [[ ! -f "$ICLS_CACHE" ]]; then
@@ -84,11 +87,40 @@ done < <(find "$SHARE_DIR" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | \
 
 echo "✓ Deployed JAR to $deployed_jar IDE share directories"
 
+# ── Deploy reload plugin to all IDE share directories ────────────────────────
+if [[ -f "$RELOAD_PLUGIN_JAR" ]]; then
+  RELOAD_PLUGIN_TMP="$BUILD_DIR/reload-plugin-unzip"
+  unzip -q "$RELOAD_PLUGIN_JAR" -d "$RELOAD_PLUGIN_TMP"
+  RELOAD_PLUGIN_INNER_JAR=$(find "$RELOAD_PLUGIN_TMP" -name "*.jar" | head -1)
+
+  deployed_reload=0
+  while IFS= read -r ide_dir; do
+    target_dir="$ide_dir/$RELOAD_PLUGIN_SUBDIR"
+    mkdir -p "$target_dir"
+    if cp "$RELOAD_PLUGIN_INNER_JAR" "$target_dir/"; then
+      echo "  → $target_dir/$(basename "$RELOAD_PLUGIN_INNER_JAR")"
+      ((deployed_reload++)) || true
+    fi
+  done < <(find "$SHARE_DIR" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | \
+    grep -E '/(IntelliJIdea|PyCharm|WebStorm|Rider|DataGrip|GoLand|CLion|PhpStorm|RubyMine|AppCode|Android)[0-9]')
+
+  echo "✓ Deployed reload plugin to $deployed_reload IDE share directories"
+else
+  echo "⚠ Reload plugin not built; skipping (run 'cd $PROJECT_DIR/reload-plugin && ./gradlew buildPlugin')"
+fi
+
+# ── Trigger live reload in any running IDE instances ─────────────────────────
+reload_response=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
+  "http://localhost:$RELOAD_PORT/reload" --max-time 3 2>/dev/null || true)
+
+if [[ "$reload_response" == "200" ]]; then
+  echo "✓ Live reload triggered (port $RELOAD_PORT)"
+else
+  echo "  (No running IDE responded on port $RELOAD_PORT — restart to apply)"
+fi
+
 # ── Summary ───────────────────────────────────────────────────────────────────
 echo ""
 echo "IntelliJ pywal theme applied."
 echo "  Color scheme: $SCHEME_NAME"
 echo "  IDEs updated: ICLS=$deployed_icls, JAR=$deployed_jar"
-echo ""
-echo "Note: Restart IntelliJ IDEs to pick up the new UI theme."
-echo "      The color scheme may update without restart in some versions."
