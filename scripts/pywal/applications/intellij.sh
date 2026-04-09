@@ -12,7 +12,7 @@ SHARE_DIR="$HOME/.local/share/JetBrains"
 PROJECT_DIR="$HOME/JetBrainsProjects/jetbrains-pywal-theme"
 ASSETS_DIR="$PROJECT_DIR/assets"
 
-ICLS_CACHE="$CACHE_DIR/colors-intellij.icls"
+ICLS_TEMPLATE="$PROJECT_DIR/pywal_color_scheme.icls"
 COLORS_JSON="$CACHE_DIR/colors.json"
 
 SCHEME_NAME="pywal-color-scheme"
@@ -24,8 +24,8 @@ RELOAD_PLUGIN_SUBDIR="pywal-reload-plugin/lib"
 RELOAD_PORT=9988
 
 # ── Validate cache files ─────────────────────────────────────────────────────
-if [[ ! -f "$ICLS_CACHE" ]]; then
-  echo "Error: $ICLS_CACHE not found. Run pywal first." >&2
+if [[ ! -f "$ICLS_TEMPLATE" ]]; then
+  echo "Error: $ICLS_TEMPLATE not found." >&2
   exit 1
 fi
 
@@ -34,13 +34,16 @@ if [[ ! -f "$COLORS_JSON" ]]; then
   exit 1
 fi
 
-# ── Build processed ICLS (strip # from hex color values) ─────────────────────
 BUILD_DIR="$(mktemp -d)"
 trap 'rm -rf "$BUILD_DIR"' EXIT
 
+# ── Build processed ICLS from template + colors.json ─────────────────────────
 PROCESSED_ICLS="$BUILD_DIR/${SCHEME_NAME}.icls"
-sed 's/value="#\([0-9a-fA-F]\{6\}\)"/value="\1"/g' "$ICLS_CACHE" > "$PROCESSED_ICLS"
-echo "✓ Processed ICLS (stripped # from hex values)"
+python3 "$PROJECT_DIR/scripts/build-icls.py" \
+  "$COLORS_JSON" \
+  "$ICLS_TEMPLATE" \
+  "$PROCESSED_ICLS" > /dev/null
+echo "✓ Built ICLS from template + colors.json"
 
 # ── Deploy ICLS to all IDE config directories ─────────────────────────────────
 deployed_icls=0
