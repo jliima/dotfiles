@@ -13,7 +13,7 @@ PROJECT_DIR="$HOME/JetBrainsProjects/jetbrains-pywal-theme"
 ASSETS_DIR="$PROJECT_DIR/assets"
 
 ICLS_CACHE="$CACHE_DIR/colors-intellij.icls"
-THEME_JSON_CACHE="$CACHE_DIR/colors-intellij-theme.json"
+COLORS_JSON="$CACHE_DIR/colors.json"
 
 SCHEME_NAME="pywal-color-scheme"
 JAR_NAME="pywal-theme.jar"
@@ -29,8 +29,8 @@ if [[ ! -f "$ICLS_CACHE" ]]; then
   exit 1
 fi
 
-if [[ ! -f "$THEME_JSON_CACHE" ]]; then
-  echo "Error: $THEME_JSON_CACHE not found. Run pywal first." >&2
+if [[ ! -f "$COLORS_JSON" ]]; then
+  echo "Error: $COLORS_JSON not found. Run pywal first." >&2
   exit 1
 fi
 
@@ -53,6 +53,14 @@ done < <(find "$CONFIG_DIR" -maxdepth 2 -type d -name "colors" -print0 2>/dev/nu
 
 echo "✓ Deployed ICLS to $deployed_icls IDE config directories"
 
+# ── Build theme JSON from colors.json + ui-mapping.json ──────────────────────
+THEME_JSON="$BUILD_DIR/$THEME_JSON_NAME"
+python3 "$PROJECT_DIR/scripts/build-theme-json.py" \
+  "$COLORS_JSON" \
+  "$PROJECT_DIR/theme/ui-mapping.json" \
+  "$THEME_JSON"
+echo "✓ Built theme JSON from colors.json + ui-mapping.json"
+
 # ── Build theme JAR ───────────────────────────────────────────────────────────
 JAR_BUILD_DIR="$BUILD_DIR/jar"
 mkdir -p "$JAR_BUILD_DIR/META-INF" "$JAR_BUILD_DIR/theme"
@@ -62,8 +70,8 @@ cp "$ASSETS_DIR/META-INF/MANIFEST.MF" "$JAR_BUILD_DIR/META-INF/"
 cp "$ASSETS_DIR/META-INF/plugin.xml"  "$JAR_BUILD_DIR/META-INF/"
 cp "$ASSETS_DIR/META-INF/pluginIcon.svg" "$JAR_BUILD_DIR/META-INF/"
 
-# Copy the pywal-generated theme JSON (no # stripping needed for JSON)
-cp "$THEME_JSON_CACHE" "$JAR_BUILD_DIR/theme/$THEME_JSON_NAME"
+# Copy the built theme JSON into the JAR
+cp "$THEME_JSON" "$JAR_BUILD_DIR/theme/$THEME_JSON_NAME"
 
 # Bundle the processed ICLS inside the JAR as fallback
 cp "$PROCESSED_ICLS" "$JAR_BUILD_DIR/theme/${SCHEME_NAME}.icls"
