@@ -268,13 +268,16 @@ _launch=Meta+Ctrl+Left
 [services][2nd-monitor-to-right.sh.desktop]
 _launch=Meta+Ctrl+Right
 
+[services][chromium.desktop]
+_launch=Meta+C
+
 [services][chromium_chromium.desktop]
 Incognito=Meta+Shift+C
 _launch=Meta+C
 
 [services][firefox.desktop]
 _launch=Meta+F
-new-private-window=Meta+Shift+F
+new-private-window=Meta+Ctrl+Shift+F
 
 [services][jellyfin-couch-mode-exit.sh.desktop]
 _launch=Home Page
@@ -294,6 +297,18 @@ _launch=Meta+Ctrl+Shift+Left
 [services][net.local.2nd-monitor-to-right-vertical.sh.desktop]
 _launch=Meta+Ctrl+Shift+Right
 
+[services][net.local.code.desktop]
+_launch=Meta+/
+
+[services][net.local.konsole.desktop]
+_launch=Meta+Space
+
+[services][net.local.open-firefox.sh.desktop]
+_launch=Meta+Shift+F
+
+[services][net.local.open-obsidian.sh.desktop]
+_launch=Meta+Shift+R
+
 [services][open-obsidian.sh.desktop]
 _launch=Meta+R
 
@@ -307,7 +322,7 @@ _launch=Meta+E
 _launch=Meta+T\tCtrl+Alt+T
 
 [services][org.kde.krunner.desktop]
-_launch=Search\tMeta+Space\tAlt+F2\tAlt+Space\tMeta
+_launch=Meta\tSearch\tAlt+F2\tAlt+Space
 
 [services][org.kde.plasma-systemmonitor.desktop]
 _launch=Meta+Esc\tCtrl+Alt+Del
@@ -317,39 +332,18 @@ _launch=Meta+Ctrl+Alt+Shift+Space\tMeta+.\tMeta+:
 
 [services][org.kde.spectacle.desktop]
 ActiveWindowScreenShot=Meta+Print\tCtrl+#
-RecordRegion=Meta+Shift+R
+RecordRegion=Ctrl+%
+RecordWindow=none
 RectangularRegionScreenShot=Ctrl+$
 
 [services][org.kde.touchpadshortcuts.desktop]
 ToggleTouchpad=Touchpad Toggle\tMeta+Ctrl+Zenkaku Hankaku
 
+[services][org.keepassxc.KeePassXC.desktop]
+_launch=Meta+X
+
 [services][systemsettings.desktop]
 _launch=Meta+S
-
-[snap.chromium]
-30E462BD67CBA3690A75A2B21C77916E-autofill_card=none,none,Autofill the last used card for the current website
-30E462BD67CBA3690A75A2B21C77916E-autofill_identity=none,none,Autofill the last used identity for the current website
-30E462BD67CBA3690A75A2B21C77916E-autofill_login=none,none,Autofill the last used login for the current website
-30E462BD67CBA3690A75A2B21C77916E-generate_password=none,none,Generate and copy a new random password to the clipboard
-30E462BD67CBA3690A75A2B21C77916E-lock_vault=none,none,Lock the vault
-A1981FBE6AA1A7D9FBC5B8D01235501B-openManage=none,none,Manage
-A1981FBE6AA1A7D9FBC5B8D01235501B-reload=none,none,Reload
-A1981FBE6AA1A7D9FBC5B8D01235501B-styleDisableAll=none,none,Turn all styles off
-E8A1799373767D00906A1067DA62B24F-addSite=none,none,Toggle current site
-E8A1799373767D00906A1067DA62B24F-switchEngine=none,none,Theme generation mode
-E8A1799373767D00906A1067DA62B24F-toggle=none,none,Toggle extension
-_k_friendly_name=snap.chromium
-
-[snap.chromiumchromium_global_shortcuts]
-30E462BD67CBA3690A75A2B21C77916E-autofill_card=none,none,Autofill the last used card for the current website
-30E462BD67CBA3690A75A2B21C77916E-autofill_identity=none,none,Autofill the last used identity for the current website
-30E462BD67CBA3690A75A2B21C77916E-autofill_login=none,none,Autofill the last used login for the current website
-30E462BD67CBA3690A75A2B21C77916E-generate_password=none,none,Generate and copy a new random password to the clipboard
-30E462BD67CBA3690A75A2B21C77916E-lock_vault=none,none,Lock the vault
-E8A1799373767D00906A1067DA62B24F-addSite=none,none,Toggle current site
-E8A1799373767D00906A1067DA62B24F-switchEngine=none,none,Theme generation mode
-E8A1799373767D00906A1067DA62B24F-toggle=none,none,Toggle extension
-_k_friendly_name=snap.chromiumchromium_global_shortcuts
 
 [wacomtablet]
 Map to fullscreen=Meta+Ctrl+F,Meta+Ctrl+F,Map to fullscreen

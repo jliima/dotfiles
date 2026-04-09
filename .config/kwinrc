@@ -1,7 +1,7 @@
 [Activities][LastVirtualDesktop]
 01d330cb-9bbe-491b-9b9d-bbb8af2d59cb=5fe3c330-d9c7-4aa5-95b7-2a07860b2f38
-077838da-9eec-48a4-a192-15b02cd27a23=133e8701-1643-46e9-8d05-8873fdefb750
-46aedfd0-880a-4613-ace7-df6585ebbbda=ebf61ed0-bf8b-47cb-b27d-6180f4e22238
+077838da-9eec-48a4-a192-15b02cd27a23=5fe3c330-d9c7-4aa5-95b7-2a07860b2f38
+46aedfd0-880a-4613-ace7-df6585ebbbda=5fe3c330-d9c7-4aa5-95b7-2a07860b2f38
 
 [Desktops]
 Id_1=5fe3c330-d9c7-4aa5-95b7-2a07860b2f38
@@ -26,10 +26,10 @@ CommandAll2=Nothing
 
 [NightColor]
 Active=true
-EveningBeginFixed=0000
+EveningBeginFixed=2300
 Mode=Times
-MorningBeginFixed=0700
-NightTemperature=6500
+MorningBeginFixed=0658
+NightTemperature=2900
 TransitionTime=1
 
 [Plugins]
