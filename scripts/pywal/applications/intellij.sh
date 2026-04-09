@@ -17,7 +17,6 @@ THEME_JSON_CACHE="$CACHE_DIR/colors-intellij-theme.json"
 
 SCHEME_NAME="pywal-color-scheme"
 JAR_NAME="pywal-theme.jar"
-JAR_SUBDIR="pywal"
 THEME_JSON_NAME="pywal.theme.json"
 
 # ── Validate cache files ─────────────────────────────────────────────────────
@@ -73,10 +72,8 @@ echo "✓ Built $JAR_NAME"
 # ── Deploy JAR to all IDE share directories ───────────────────────────────────
 deployed_jar=0
 while IFS= read -r ide_dir; do
-  target_dir="$ide_dir/$JAR_SUBDIR"
-  mkdir -p "$target_dir"
-  if cp "$JAR_OUTPUT" "$target_dir/$JAR_NAME"; then
-    echo "  → $target_dir/$JAR_NAME"
+  if cp "$JAR_OUTPUT" "$ide_dir/$JAR_NAME"; then
+    echo "  → $ide_dir/$JAR_NAME"
     ((deployed_jar++)) || true
   fi
 done < <(find "$SHARE_DIR" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | \
