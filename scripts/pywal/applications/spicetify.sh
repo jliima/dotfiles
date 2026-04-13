@@ -19,7 +19,7 @@ sed 's/#//g' "$SOURCE_FILE" > "$TEMP_FILE"
 if [[ ! -f "$TARGET_FILE" ]] || ! cmp -s "$TEMP_FILE" "$TARGET_FILE"; then
   echo "Spicetify: theme changed, updating color.ini and applying..."
   cp "$TEMP_FILE" "$TARGET_FILE"
-  spicetify apply
+  spicetify apply --no-restart
   echo "Spicetify: apply complete."
 else
   echo "Spicetify: no theme changes detected, skipping apply."
