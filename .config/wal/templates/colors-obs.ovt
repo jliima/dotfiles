@@ -1,0 +1,52 @@
+@OBSThemeMeta {{
+    name: 'Pywal';
+    id: 'com.obsproject.Yami.Pywal';
+    extends: 'com.obsproject.Yami';
+    author: 'pywal';
+    dark: 'true';
+}}
+
+@OBSThemeVars {{
+    /* Preview area background */
+    --bg_preview: {background};
+
+    /* Grey scale — darkest (8) to lightest (1), mapped to pywal bg/surface ramp */
+    --grey8: {black1};
+    --grey7: {backgroundAlt};
+    --grey6: {background};
+    --grey5: {surface};
+    --grey4: {surfaceHover};
+    --grey3: {border};
+    --grey2: {grey3};
+    --grey1: {grey5};
+
+    /* Accent / primary */
+    --primary: {accent};
+    --primary_light: {accent};
+    --primary_lighter: {accent};
+    --primary_dark: {accentHover};
+    --primary_darker: {accentSubtle};
+
+    /* Semantic colours */
+    --warning: {warning};
+    --danger: {error};
+
+    /* Text */
+    --text: {foreground};
+    --text_light: {foreground};
+    --text_muted: {textSecondary};
+    --text_disabled: {textDisabled};
+
+    /* Scrollbar accent */
+    --scrollbar_hover: {accent};
+    --scrollbar_border: {accent};
+
+    /* Palette links */
+    --palette_link: {textLink};
+    --palette_linkVisited: {accentHover};
+
+    /* Danger buttons (record/stop — always red) */
+    --button_bg_red: {red3};
+    --button_bg_red_hover: {red4};
+    --button_bg_red_down: {red2};
+}}

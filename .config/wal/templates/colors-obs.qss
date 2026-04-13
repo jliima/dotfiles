@@ -1,0 +1,753 @@
+/*
+ * OBS Studio Pywal Theme
+ * Template source: ~/.config/wal/templates/colors-obs.qss
+ * Output:         ~/.cache/wal/colors-obs.qss
+ * Install to:     ~/.config/obs-studio/themes/Pywal.qss
+ *
+ * To apply: open OBS Settings → General → Theme → Pywal
+ */
+
+/* ========================
+   Base / Window
+   ======================== */
+QWidget {{
+    background-color: {background};
+    color: {foreground};
+    selection-background-color: {selection};
+    selection-color: {foreground};
+    outline: none;
+}}
+
+QWidget:disabled {{
+    color: {textDisabled};
+    background-color: {background};
+}}
+
+QFrame {{
+    background-color: {background};
+    border: none;
+}}
+
+/* ========================
+   Labels
+   ======================== */
+QLabel {{
+    background: transparent;
+    color: {foreground};
+}}
+
+QLabel:disabled {{
+    color: {textDisabled};
+}}
+
+/* ========================
+   Buttons
+   ======================== */
+QPushButton {{
+    background-color: {surface};
+    color: {foreground};
+    border: 1px solid {border};
+    border-radius: 3px;
+    padding: 4px 12px;
+    outline: none;
+}}
+
+QPushButton:hover {{
+    background-color: {surfaceHover};
+    border-color: {borderFocus};
+}}
+
+QPushButton:pressed {{
+    background-color: {accentSubtle};
+}}
+
+QPushButton:checked {{
+    background-color: {accentSubtle};
+    border-color: {accent};
+}}
+
+QPushButton:disabled {{
+    background-color: {surface};
+    color: {textDisabled};
+    border-color: {borderSubtle};
+}}
+
+QPushButton#confirmButton,
+QPushButton#okButton,
+QPushButton[themeID="addIconSmall"] {{
+    background-color: {accentSubtle};
+    color: {foreground};
+    border-color: {accent};
+}}
+
+QPushButton#confirmButton:hover,
+QPushButton#okButton:hover {{
+    background-color: {accent};
+    color: {textInverse};
+}}
+
+/* ========================
+   Line Edits / Text Inputs
+   ======================== */
+QLineEdit,
+QTextEdit,
+QPlainTextEdit {{
+    background-color: {surface};
+    color: {foreground};
+    border: 1px solid {border};
+    border-radius: 3px;
+    padding: 2px 4px;
+    selection-background-color: {selection};
+    selection-color: {foreground};
+}}
+
+QLineEdit:focus,
+QTextEdit:focus,
+QPlainTextEdit:focus {{
+    border-color: {borderFocus};
+}}
+
+QLineEdit:disabled,
+QTextEdit:disabled,
+QPlainTextEdit:disabled {{
+    background-color: {background};
+    color: {textDisabled};
+    border-color: {borderSubtle};
+}}
+
+/* ========================
+   Combo Box
+   ======================== */
+QComboBox {{
+    background-color: {surface};
+    color: {foreground};
+    border: 1px solid {border};
+    border-radius: 3px;
+    padding: 2px 20px 2px 6px;
+    min-width: 50px;
+}}
+
+QComboBox:hover {{
+    border-color: {borderFocus};
+}}
+
+QComboBox:focus {{
+    border-color: {borderFocus};
+}}
+
+QComboBox::drop-down {{
+    border: none;
+    background-color: transparent;
+    width: 20px;
+}}
+
+QComboBox::down-arrow {{
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid {foreground};
+    width: 0;
+    height: 0;
+}}
+
+QComboBox QAbstractItemView {{
+    background-color: {surface};
+    color: {foreground};
+    border: 1px solid {border};
+    selection-background-color: {selection};
+    selection-color: {foreground};
+    outline: none;
+}}
+
+QComboBox:disabled {{
+    background-color: {background};
+    color: {textDisabled};
+    border-color: {borderSubtle};
+}}
+
+/* ========================
+   Spin Box
+   ======================== */
+QSpinBox,
+QDoubleSpinBox {{
+    background-color: {surface};
+    color: {foreground};
+    border: 1px solid {border};
+    border-radius: 3px;
+    padding: 2px 4px;
+}}
+
+QSpinBox:focus,
+QDoubleSpinBox:focus {{
+    border-color: {borderFocus};
+}}
+
+QSpinBox::up-button,
+QDoubleSpinBox::up-button,
+QSpinBox::down-button,
+QDoubleSpinBox::down-button {{
+    background-color: {surface};
+    border: none;
+    width: 16px;
+}}
+
+QSpinBox::up-button:hover,
+QDoubleSpinBox::up-button:hover,
+QSpinBox::down-button:hover,
+QDoubleSpinBox::down-button:hover {{
+    background-color: {surfaceHover};
+}}
+
+/* ========================
+   Check Box / Radio Button
+   ======================== */
+QCheckBox,
+QRadioButton {{
+    color: {foreground};
+    background: transparent;
+    spacing: 6px;
+}}
+
+QCheckBox:disabled,
+QRadioButton:disabled {{
+    color: {textDisabled};
+}}
+
+QCheckBox::indicator,
+QRadioButton::indicator {{
+    width: 14px;
+    height: 14px;
+    border: 1px solid {border};
+    border-radius: 3px;
+    background-color: {surface};
+}}
+
+QCheckBox::indicator:checked,
+QRadioButton::indicator:checked {{
+    background-color: {accent};
+    border-color: {accent};
+}}
+
+QCheckBox::indicator:hover,
+QRadioButton::indicator:hover {{
+    border-color: {borderFocus};
+}}
+
+/* ========================
+   Group Box
+   ======================== */
+QGroupBox {{
+    background-color: {backgroundAlt};
+    border: 1px solid {border};
+    border-radius: 4px;
+    margin-top: 10px;
+    padding-top: 10px;
+    font-weight: bold;
+}}
+
+QGroupBox::title {{
+    color: {foreground};
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    left: 8px;
+    padding: 0 4px;
+    background-color: {backgroundAlt};
+}}
+
+/* ========================
+   Tab Bar / Tab Widget
+   ======================== */
+QTabWidget::pane {{
+    background-color: {backgroundAlt};
+    border: 1px solid {border};
+    border-radius: 0 3px 3px 3px;
+}}
+
+QTabBar {{
+    background-color: transparent;
+}}
+
+QTabBar::tab {{
+    background-color: {surface};
+    color: {textSecondary};
+    border: 1px solid {border};
+    border-bottom: none;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 5px 12px;
+    min-width: 80px;
+}}
+
+QTabBar::tab:hover {{
+    background-color: {surfaceHover};
+    color: {foreground};
+}}
+
+QTabBar::tab:selected {{
+    background-color: {backgroundAlt};
+    color: {foreground};
+    border-bottom: 2px solid {accent};
+}}
+
+/* ========================
+   Scroll Bars
+   ======================== */
+QScrollBar:vertical {{
+    background-color: {backgroundAlt};
+    width: 10px;
+    border: none;
+    border-radius: 5px;
+}}
+
+QScrollBar::handle:vertical {{
+    background-color: {border};
+    min-height: 20px;
+    border-radius: 5px;
+    margin: 2px;
+}}
+
+QScrollBar::handle:vertical:hover {{
+    background-color: {accent};
+}}
+
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical {{
+    height: 0;
+    border: none;
+    background: none;
+}}
+
+QScrollBar::add-page:vertical,
+QScrollBar::sub-page:vertical {{
+    background: none;
+}}
+
+QScrollBar:horizontal {{
+    background-color: {backgroundAlt};
+    height: 10px;
+    border: none;
+    border-radius: 5px;
+}}
+
+QScrollBar::handle:horizontal {{
+    background-color: {border};
+    min-width: 20px;
+    border-radius: 5px;
+    margin: 2px;
+}}
+
+QScrollBar::handle:horizontal:hover {{
+    background-color: {accent};
+}}
+
+QScrollBar::add-line:horizontal,
+QScrollBar::sub-line:horizontal {{
+    width: 0;
+    border: none;
+    background: none;
+}}
+
+QScrollBar::add-page:horizontal,
+QScrollBar::sub-page:horizontal {{
+    background: none;
+}}
+
+/* ========================
+   List / Tree Views
+   ======================== */
+QListWidget,
+QTreeWidget,
+QListView,
+QTreeView {{
+    background-color: {backgroundAlt};
+    color: {foreground};
+    border: 1px solid {border};
+    border-radius: 3px;
+    alternate-background-color: {surface};
+    outline: none;
+}}
+
+QListWidget::item,
+QTreeWidget::item,
+QListView::item,
+QTreeView::item {{
+    padding: 3px 4px;
+    border: none;
+}}
+
+QListWidget::item:hover,
+QTreeWidget::item:hover,
+QListView::item:hover,
+QTreeView::item:hover {{
+    background-color: {surfaceHover};
+}}
+
+QListWidget::item:selected,
+QTreeWidget::item:selected,
+QListView::item:selected,
+QTreeView::item:selected {{
+    background-color: {selection};
+    color: {foreground};
+}}
+
+QTreeView::branch {{
+    background-color: {backgroundAlt};
+}}
+
+/* ========================
+   Menu / Menu Bar
+   ======================== */
+QMenuBar {{
+    background-color: {backgroundAlt};
+    color: {foreground};
+    border-bottom: 1px solid {border};
+}}
+
+QMenuBar::item {{
+    background: transparent;
+    padding: 4px 8px;
+}}
+
+QMenuBar::item:selected {{
+    background-color: {surface};
+    color: {foreground};
+}}
+
+QMenuBar::item:pressed {{
+    background-color: {accentSubtle};
+}}
+
+QMenu {{
+    background-color: {surface};
+    color: {foreground};
+    border: 1px solid {border};
+    border-radius: 3px;
+    padding: 2px 0;
+}}
+
+QMenu::item {{
+    padding: 5px 24px 5px 12px;
+    background: transparent;
+}}
+
+QMenu::item:selected {{
+    background-color: {selection};
+    color: {foreground};
+}}
+
+QMenu::item:disabled {{
+    color: {textDisabled};
+}}
+
+QMenu::separator {{
+    height: 1px;
+    background-color: {border};
+    margin: 3px 8px;
+}}
+
+QMenu::indicator {{
+    width: 14px;
+    height: 14px;
+}}
+
+/* ========================
+   Toolbar
+   ======================== */
+QToolBar {{
+    background-color: {backgroundAlt};
+    border-bottom: 1px solid {border};
+    spacing: 3px;
+    padding: 2px;
+}}
+
+QToolBar::separator {{
+    background-color: {border};
+    width: 1px;
+    margin: 3px 4px;
+}}
+
+QToolButton {{
+    background-color: transparent;
+    color: {foreground};
+    border: 1px solid transparent;
+    border-radius: 3px;
+    padding: 3px;
+}}
+
+QToolButton:hover {{
+    background-color: {surfaceHover};
+    border-color: {border};
+}}
+
+QToolButton:pressed,
+QToolButton:checked {{
+    background-color: {accentSubtle};
+    border-color: {accent};
+}}
+
+/* ========================
+   Sliders
+   ======================== */
+QSlider::groove:horizontal {{
+    background-color: {surface};
+    height: 4px;
+    border-radius: 2px;
+    border: none;
+}}
+
+QSlider::handle:horizontal {{
+    background-color: {accent};
+    border: none;
+    width: 14px;
+    height: 14px;
+    margin: -5px 0;
+    border-radius: 7px;
+}}
+
+QSlider::handle:horizontal:hover {{
+    background-color: {accentHover};
+}}
+
+QSlider::sub-page:horizontal {{
+    background-color: {accent};
+    height: 4px;
+    border-radius: 2px;
+}}
+
+QSlider::add-page:horizontal {{
+    background-color: {surface};
+    height: 4px;
+    border-radius: 2px;
+}}
+
+QSlider::groove:vertical {{
+    background-color: {surface};
+    width: 4px;
+    border-radius: 2px;
+    border: none;
+}}
+
+QSlider::handle:vertical {{
+    background-color: {accent};
+    border: none;
+    width: 14px;
+    height: 14px;
+    margin: 0 -5px;
+    border-radius: 7px;
+}}
+
+QSlider::handle:vertical:hover {{
+    background-color: {accentHover};
+}}
+
+QSlider::sub-page:vertical {{
+    background-color: {surface};
+    width: 4px;
+    border-radius: 2px;
+}}
+
+QSlider::add-page:vertical {{
+    background-color: {accent};
+    width: 4px;
+    border-radius: 2px;
+}}
+
+/* ========================
+   Progress Bar
+   ======================== */
+QProgressBar {{
+    background-color: {surface};
+    border: 1px solid {border};
+    border-radius: 3px;
+    text-align: center;
+    color: {foreground};
+}}
+
+QProgressBar::chunk {{
+    background-color: {accent};
+    border-radius: 3px;
+}}
+
+/* ========================
+   Dock Widget
+   ======================== */
+QDockWidget {{
+    color: {foreground};
+    titlebar-close-icon: none;
+    titlebar-normal-icon: none;
+}}
+
+QDockWidget::title {{
+    background-color: {surface};
+    border-bottom: 1px solid {border};
+    padding: 4px 8px;
+    text-align: left;
+    font-weight: bold;
+}}
+
+QDockWidget::close-button,
+QDockWidget::float-button {{
+    background: transparent;
+    border: none;
+    padding: 2px;
+    border-radius: 2px;
+}}
+
+QDockWidget::close-button:hover,
+QDockWidget::float-button:hover {{
+    background-color: {surfaceHover};
+}}
+
+/* ========================
+   Header View
+   ======================== */
+QHeaderView::section {{
+    background-color: {surface};
+    color: {foreground};
+    border: none;
+    border-right: 1px solid {border};
+    border-bottom: 1px solid {border};
+    padding: 4px 8px;
+    font-weight: bold;
+}}
+
+QHeaderView::section:hover {{
+    background-color: {surfaceHover};
+}}
+
+/* ========================
+   Tooltip
+   ======================== */
+QToolTip {{
+    background-color: {overlay};
+    color: {foreground};
+    border: 1px solid {border};
+    border-radius: 3px;
+    padding: 4px 8px;
+}}
+
+/* ========================
+   Status Bar
+   ======================== */
+QStatusBar {{
+    background-color: {backgroundAlt};
+    color: {textSecondary};
+    border-top: 1px solid {border};
+}}
+
+QStatusBar::item {{
+    border: none;
+}}
+
+/* ========================
+   Splitter
+   ======================== */
+QSplitter::handle {{
+    background-color: {border};
+}}
+
+QSplitter::handle:horizontal {{
+    width: 2px;
+}}
+
+QSplitter::handle:vertical {{
+    height: 2px;
+}}
+
+QSplitter::handle:hover {{
+    background-color: {accent};
+}}
+
+/* ========================
+   Scrollable Area
+   ======================== */
+QAbstractScrollArea {{
+    background-color: {backgroundAlt};
+}}
+
+QAbstractScrollArea > QWidget {{
+    background-color: {backgroundAlt};
+}}
+
+/* ========================
+   Dialog / Message Box
+   ======================== */
+QDialog {{
+    background-color: {background};
+}}
+
+QDialogButtonBox QPushButton {{
+    min-width: 70px;
+}}
+
+QMessageBox {{
+    background-color: {background};
+}}
+
+QMessageBox QLabel {{
+    color: {foreground};
+}}
+
+/* ========================
+   OBS: Volume Meter
+   ======================== */
+VolumeMeter {{
+    qproperty-backgroundNominalColor: {success};
+    qproperty-backgroundWarningColor: {warning};
+    qproperty-backgroundErrorColor: {error};
+    qproperty-foregroundNominalColor: {success};
+    qproperty-foregroundWarningColor: {warning};
+    qproperty-foregroundErrorColor: {error};
+    qproperty-magnitudeColor: {surface};
+    qproperty-majorTickColor: {textMuted};
+    qproperty-minorTickColor: {borderSubtle};
+    qproperty-inputPeakHoldColor: {accent};
+    qproperty-outputPeakHoldColor: {accent};
+    background-color: {backgroundAlt};
+}}
+
+/* ========================
+   OBS: Scene / Source Lists
+   ======================== */
+#scenes,
+#sources {{
+    background-color: {backgroundAlt};
+    border: 1px solid {border};
+}}
+
+/* ========================
+   OBS: Preview area
+   ======================== */
+#preview {{
+    background-color: #000000;
+    border: 1px solid {border};
+}}
+
+/* ========================
+   OBS: Mixer scroll area
+   ======================== */
+#mixerScrollArea {{
+    background-color: {backgroundAlt};
+    border: none;
+}}
+
+/* ========================
+   OBS: Controls dock (Start/Stop buttons)
+   ======================== */
+#controlsDock QPushButton {{
+    padding: 6px 16px;
+    font-weight: bold;
+}}
+
+/* Recording button — always red when recording (semantic UI color) */
+#recordButton:checked {{
+    background-color: {error};
+    color: {textInverse};
+    border-color: {error};
+}}
+
+/* Streaming button — accent when live */
+#streamButton:checked {{
+    background-color: {accentSubtle};
+    color: {foreground};
+    border-color: {accent};
+}}
