@@ -1,5 +1,13 @@
 // Place your key bindings in this file to override the defaults
 [
+    {
+        "key": "shift+enter",
+        "command": "workbench.action.terminal.sendSequence",
+        "when": "terminalFocus",
+        "args": {
+            "text": "\u001b\r"
+        }
+    },
   {
     "key": "alt+[Backquote]",
     "command": "workbench.action.toggleSidebarVisibility"
