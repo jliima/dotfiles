@@ -4,6 +4,8 @@ switch-to-activity-01d330cb-9bbe-491b-9b9d-bbb8af2d59cb=none,none,Switch to acti
 switch-to-activity-077838da-9eec-48a4-a192-15b02cd27a23=none,none,Switch to activity "School"
 switch-to-activity-46aedfd0-880a-4613-ace7-df6585ebbbda=none,none,Switch to activity "Work"
 switch-to-activity-876d77a5-74b6-42ac-ac24-652ff59335cd=none,none,Switch to activity "Default"
+switch-to-activity-8ea0d281-8962-4dee-a3d5-606fe345c261=none,none,Switch to activity "School"
+switch-to-activity-f40e76ab-5bb7-4051-b406-52ceb7367c5c=none,none,Switch to activity "Work"
 
 [KDE Keyboard Layout Switcher]
 Switch keyboard layout to English (US)=none,none,Switch keyboard layout to English (US)
@@ -285,6 +287,9 @@ _launch=Home Page
 [services][jellyfin-couch-mode-initiate.sh.desktop]
 _launch=Tools
 
+[services][jetbrains-idea-0c0706a7-ff76-4f56-8d07-4577f186a1ea.desktop]
+_launch=Meta+A
+
 [services][jetbrains-idea-ed171af8-af00-44b8-9b0c-54d54c8cef16.desktop]
 _launch=Meta+A
 
@@ -308,6 +313,9 @@ _launch=Meta+Shift+F
 
 [services][net.local.open-obsidian.sh.desktop]
 _launch=Meta+Shift+R
+
+[services][net.local.open-obsidian.sh.desktop]
+_launch=Meta+R
 
 [services][open-obsidian.sh.desktop]
 _launch=Meta+R
