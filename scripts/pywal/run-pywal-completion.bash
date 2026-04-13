@@ -6,7 +6,7 @@
 
 _run_pywal_completions() {
   local cur prev script_dir apps_dir app_names all_apps selected_apps remaining_apps
-  local i in_app_context
+  local i in_app_context themes_dir theme_names
 
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
@@ -14,6 +14,7 @@ _run_pywal_completions() {
   # Find the script directory (works for both direct call and alias)
   script_dir="$HOME/dotfiles/scripts/pywal"
   apps_dir="$script_dir/applications"
+  themes_dir="$HOME/.config/wal/colorschemes"
 
   # If previous word is --open-script, complete with application names
   if [[ "$prev" == "--open-script" ]]; then
@@ -21,6 +22,20 @@ _run_pywal_completions() {
       app_names=$(find "$apps_dir" -maxdepth 1 -type f -name "*.sh" -printf "%f\n" 2>/dev/null | sed 's/\.sh$//' | sort)
       COMPREPLY=($(compgen -W "$app_names" -- "$cur"))
     fi
+    return
+  fi
+
+  # If previous word is --theme or -f, complete with theme names from dark and light
+  if [[ "$prev" == "--theme" || "$prev" == "-f" ]]; then
+    theme_names=""
+    if [[ -d "$themes_dir/dark" ]]; then
+      theme_names+=$(find "$themes_dir/dark" -maxdepth 1 -name "*.json" -printf "%f\n" 2>/dev/null | sed 's/\.json$//')
+      theme_names+=" "
+    fi
+    if [[ -d "$themes_dir/light" ]]; then
+      theme_names+=$(find "$themes_dir/light" -maxdepth 1 -name "*.json" -printf "%f\n" 2>/dev/null | sed 's/\.json$//')
+    fi
+    COMPREPLY=($(compgen -W "$theme_names" -- "$cur"))
     return
   fi
 
@@ -67,7 +82,7 @@ _run_pywal_completions() {
   fi
 
   # Default completion for flags
-  local flags="--app --debug --open-script --help -h"
+  local flags="--app --debug --open-script --theme -f --help -h"
   COMPREPLY=($(compgen -W "$flags" -- "$cur"))
 }
 

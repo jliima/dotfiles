@@ -6,7 +6,10 @@ all application scripts in the applications directory to apply the theme.
 """
 
 import argparse
+import importlib.util
+import json
 import os
+import shutil
 import subprocess
 import sys
 import threading
@@ -26,6 +29,9 @@ class Colors:
 
 
 DEFAULT_THEME = "parecolors"
+
+WAL_COLORSCHEMES_DIR = Path.home() / ".config/wal/colorschemes"
+WALLPAPER_SETTER_SCRIPT = Path.home() / "scripts/kde/set-wallpaper-for-activity.py"
 
 # Lock for thread-safe printing
 print_lock = threading.Lock()
@@ -256,6 +262,136 @@ def open_script_in_editor(script_name: str) -> int:
     return 1
 
 
+def find_theme(theme_name: str) -> tuple[Path | None, bool]:
+  """Find a theme file in the dark or light colorschemes directory.
+
+  Returns:
+    Tuple of (theme_path, is_light). theme_path is None if not found.
+  """
+  # If given an explicit path that already exists, detect folder from its location
+  candidate = Path(theme_name).expanduser()
+  if candidate.exists():
+    resolved = candidate.resolve()
+    is_light = (WAL_COLORSCHEMES_DIR.resolve() / "light") in resolved.parents
+    return resolved, is_light
+
+  theme_file = theme_name if theme_name.endswith(".json") else f"{theme_name}.json"
+
+  dark_path = WAL_COLORSCHEMES_DIR / "dark" / theme_file
+  if dark_path.exists():
+    return dark_path, False
+
+  light_path = WAL_COLORSCHEMES_DIR / "light" / theme_file
+  if light_path.exists():
+    return light_path, True
+
+  return None, False
+
+
+def resolve_wal_args(wal_args: list[str]) -> tuple[list[str], Path | None]:
+  """Auto-detect light themes and add -l flag when needed.
+
+  Returns:
+    Tuple of (updated_wal_args, theme_file_path).
+  """
+  updated_args = list(wal_args)
+  theme_path = None
+
+  for i, arg in enumerate(wal_args):
+    if arg in ("--theme", "-f") and i + 1 < len(wal_args):
+      path, is_light = find_theme(wal_args[i + 1])
+      theme_path = path
+      if is_light and "-l" not in wal_args:
+        updated_args.append("-l")
+      break
+
+  return updated_args, theme_path
+
+
+def _get_current_activity_id() -> str | None:
+  """Get the UUID of the currently active KDE Plasma activity."""
+  candidates = ["/usr/lib/qt6/bin/qdbus", "qdbus-qt6", "qdbus"]
+  for candidate in candidates:
+    path = shutil.which(candidate) or (candidate if Path(candidate).exists() else None)
+    if not path:
+      continue
+    result = subprocess.run(
+      [path, "org.kde.ActivityManager", "/ActivityManager/Activities", "CurrentActivity"],
+      capture_output=True,
+      text=True,
+    )
+    if result.returncode == 0 and result.stdout.strip():
+      return result.stdout.strip()
+
+  # Fallback: dbus-send
+  result = subprocess.run(
+    [
+      "dbus-send", "--session", "--dest=org.kde.ActivityManager",
+      "--print-reply", "/ActivityManager/Activities",
+      "org.kde.ActivityManager.Activities.CurrentActivity",
+    ],
+    capture_output=True,
+    text=True,
+  )
+  for line in result.stdout.splitlines():
+    if "string" in line:
+      parts = line.strip().split('"')
+      if len(parts) >= 2:
+        return parts[1]
+
+  return None
+
+
+def set_plasma_wallpaper(theme_file: Path | None, debug: bool) -> None:
+  """Set the Plasma wallpaper for the current activity if the theme defines one."""
+  if not theme_file or not theme_file.exists():
+    return
+
+  try:
+    theme_data = json.loads(theme_file.read_text())
+  except Exception as e:
+    if debug:
+      print_status(f"  Could not parse theme file: {e}", Colors.YELLOW)
+    return
+
+  wallpaper = theme_data.get("wallpaper")
+  if not wallpaper:
+    return
+
+  wallpaper_path = Path(wallpaper).expanduser().resolve()
+  print_header("Setting Plasma wallpaper")
+  print_status(f"  Wallpaper: {wallpaper_path}", Colors.MAGENTA)
+
+  if not wallpaper_path.exists():
+    print_status(f"  ✗ Wallpaper file not found: {wallpaper_path}", Colors.RED)
+    return
+
+  if not WALLPAPER_SETTER_SCRIPT.exists():
+    print_status(f"  ✗ Wallpaper setter not found: {WALLPAPER_SETTER_SCRIPT}", Colors.RED)
+    return
+
+  spec = importlib.util.spec_from_file_location("set_wallpaper_for_activity", WALLPAPER_SETTER_SCRIPT)
+  mod = importlib.util.module_from_spec(spec)
+  try:
+    spec.loader.exec_module(mod)
+  except Exception as e:
+    print_status(f"  ✗ Could not load wallpaper setter: {e}", Colors.RED)
+    return
+
+  activity_id = _get_current_activity_id()
+  if not activity_id:
+    print_status("  ✗ Could not determine current Plasma activity", Colors.RED)
+    return
+
+  try:
+    mod.applyWallpaper(activity_id, str(wallpaper_path))
+    print_status("  ✓ Wallpaper applied to current activity", Colors.GREEN)
+  except FileNotFoundError:
+    print_status(f"  ✗ Wallpaper file not found: {wallpaper_path}", Colors.RED)
+  except Exception as e:
+    print_status(f"  ✗ Failed to set wallpaper: {e}", Colors.RED)
+
+
 def create_parser() -> argparse.ArgumentParser:
   """Create the argument parser."""
   parser = argparse.ArgumentParser(
@@ -288,7 +424,7 @@ def create_parser() -> argparse.ArgumentParser:
   return parser
 
 
-def parse_args(args: list[str]) -> tuple[argparse.Namespace, list[str]]:
+def parse_args(args: list[str]) -> tuple[argparse.Namespace, list[str], Path | None]:
   """Parse command line arguments.
 
   Separates our script's arguments from wal arguments.
@@ -297,7 +433,7 @@ def parse_args(args: list[str]) -> tuple[argparse.Namespace, list[str]]:
     args: Command line arguments.
 
   Returns:
-    Tuple of (parsed_args, wal_args).
+    Tuple of (parsed_args, wal_args, theme_file_path).
   """
   parser = create_parser()
 
@@ -311,12 +447,15 @@ def parse_args(args: list[str]) -> tuple[argparse.Namespace, list[str]]:
   if not has_theme:
     wal_args = ["--theme", DEFAULT_THEME] + wal_args
 
-  return known_args, wal_args
+  # Resolve theme path and auto-add -l for light themes
+  wal_args, theme_path = resolve_wal_args(wal_args)
+
+  return known_args, wal_args, theme_path
 
 
 def main() -> int:
   """Main entry point."""
-  args, wal_args = parse_args(sys.argv[1:])
+  args, wal_args, theme_path = parse_args(sys.argv[1:])
 
   # Handle --open-script flag (ignores all other flags)
   if args.open_script:
@@ -326,6 +465,9 @@ def main() -> int:
   if not run_wal(wal_args, args.debug):
     print_status("\nAborting: pywal failed", Colors.RED)
     return 1
+
+  # Set Plasma wallpaper if defined in theme
+  set_plasma_wallpaper(theme_path, args.debug)
 
   # Get and run application scripts
   apps_dir = get_applications_dir()
