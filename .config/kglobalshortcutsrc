@@ -88,7 +88,7 @@ Switch to Desktop 20=none,,Switch to Desktop 20
 Switch to Desktop 3=Meta+3,Ctrl+F3,Switch to Desktop 3
 Switch to Desktop 4=Meta+4,Ctrl+F4,Switch to Desktop 4
 Switch to Desktop 5=Meta+5,,Switch to Desktop 5
-Switch to Desktop 6=Meta+6,,Switch to Desktop 6
+Switch to Desktop 6=Meta+',,Switch to Desktop 6
 Switch to Desktop 7=none,,Switch to Desktop 7
 Switch to Desktop 8=none,,Switch to Desktop 8
 Switch to Desktop 9=none,,Switch to Desktop 9
@@ -179,7 +179,7 @@ Window to Desktop 20=none,,Window to Desktop 20
 Window to Desktop 3=Meta+#,,Window to Desktop 3
 Window to Desktop 4=Meta+$,,Window to Desktop 4
 Window to Desktop 5=Meta+%,,Window to Desktop 5
-Window to Desktop 6=Meta+^,,Window to Desktop 6
+Window to Desktop 6=Meta+`,,Window to Desktop 6
 Window to Desktop 7=none,,Window to Desktop 7
 Window to Desktop 8=none,,Window to Desktop 8
 Window to Desktop 9=none,,Window to Desktop 9
@@ -293,9 +293,6 @@ _launch=Meta+A
 [services][jetbrains-idea-ed171af8-af00-44b8-9b0c-54d54c8cef16.desktop]
 _launch=Meta+A
 
-[services][konsole.desktop]
-_launch=Meta+'
-
 [services][net.local.2nd-monitor-to-left-vertical.sh.desktop]
 _launch=Meta+Ctrl+Shift+Left
 
@@ -313,9 +310,6 @@ _launch=Meta+Shift+F
 
 [services][net.local.open-obsidian.sh.desktop]
 _launch=Meta+Shift+R
-
-[services][net.local.open-obsidian.sh.desktop]
-_launch=Meta+R
 
 [services][open-obsidian.sh.desktop]
 _launch=Meta+R
