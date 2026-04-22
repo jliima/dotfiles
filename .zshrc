@@ -155,3 +155,4 @@ tg-dlp() {
 eval "$(starship init zsh)"
 
 export PATH="$HOME/scripts/work-scripts:$PATH"
+[[ -f "$HOME/scripts/work-scripts/workrc" ]] && source "$HOME/scripts/work-scripts/workrc"
