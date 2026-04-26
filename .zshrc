@@ -94,7 +94,7 @@ alias run-pywal="$HOME/dotfiles/scripts/pywal/run-pywal.py"
 
 alias upp="$HOME/scripts/kde/update-packages.sh"
 alias kate="kate -n"
-alias colors="bash ~/dotfiles/scripts/pywal/colors.sh"
+alias colors="python3 $HOME/dotfiles/scripts/pywal/display-colors-cli.py"
 alias tg='python3 $HOME/scripts/telegram-video-converter.py'
 
 alias ls="eza --icons -F -H --group-directories-first --git -1"
@@ -156,3 +156,5 @@ eval "$(starship init zsh)"
 
 export PATH="$HOME/scripts/work-scripts:$PATH"
 [[ -f "$HOME/scripts/work-scripts/workrc" ]] && source "$HOME/scripts/work-scripts/workrc"
+
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
