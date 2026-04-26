@@ -1,0 +1,48 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Monitor Layout
+Name[en_US]=Monitor Layout
+Name[fi]=Näyttöasettelu
+Comment=Set dual-monitor layout
+Comment[en_US]=Set dual-monitor layout
+Comment[fi]=Aseta kahden näytön asettelu
+GenericName=Display Layout
+GenericName[en_US]=Display Layout
+GenericName[fi]=Näyttöasettelu
+Keywords=Monitor;Display;Screen;Layout;
+Categories=Settings;HardwareSettings;
+Icon=preferences-desktop-display-randr
+Exec=$HOME/scripts/kde/set-monitor-layout.py
+Actions=left-landscape;left-portrait;right-landscape;right-portrait
+Terminal=false
+StartupNotify=false
+X-KDE-SubstituteUID=false
+
+[Desktop Action left-landscape]
+Name=Left – Landscape
+Name[en_US]=Left – Landscape
+Name[fi]=Vasen – Vaaka
+Exec=$HOME/scripts/kde/set-monitor-layout.py left-landscape
+Icon=preferences-desktop-display-randr
+
+[Desktop Action left-portrait]
+Name=Left – Portrait
+Name[en_US]=Left – Portrait
+Name[fi]=Vasen – Pysty
+Exec=$HOME/scripts/kde/set-monitor-layout.py left-portrait
+Icon=preferences-desktop-display-randr
+
+[Desktop Action right-landscape]
+Name=Right – Landscape
+Name[en_US]=Right – Landscape
+Name[fi]=Oikea – Vaaka
+Exec=$HOME/scripts/kde/set-monitor-layout.py right-landscape
+Icon=preferences-desktop-display-randr
+
+[Desktop Action right-portrait]
+Name=Right – Portrait
+Name[en_US]=Right – Portrait
+Name[fi]=Oikea – Pysty
+Exec=$HOME/scripts/kde/set-monitor-layout.py right-portrait
+Icon=preferences-desktop-display-randr
