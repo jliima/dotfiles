@@ -1,12 +1,44 @@
 #!/usr/bin/env bash
-# script location: /scripts/open-firefox.sh
+# ------------------------------------------------------------------------------
+# Name:        open-firefox.sh
+# Description: Open Firefox with a profile based on argument or current KDE activity.
+#
+# Details:
+#   If a profile name is given as an argument, Firefox opens with that profile.
+#   Otherwise the script detects the current KDE Plasma activity and selects
+#   the matching profile (Work, School, or default). Additional arguments
+#   are passed through to Firefox.
+# ------------------------------------------------------------------------------
+set -euo pipefail
 
-show_help() {
-    cat << EOF
-Usage: $(basename "$0") [PROFILE] [FIREFOX_ARGS...]
+# ==== Configuration ====
+FIREFOX_BIN="/usr/bin/firefox"
+NODE_PATH="$HOME/.nvm/versions/node/v22.20.0/bin"
 
-Open Firefox with a specific profile. If no profile is specified, the profile
-is determined based on the current KDE Plasma activity.
+# ==== Colors ====
+RED='\033[1;31m'
+GREEN='\033[1;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[1;34m'
+MAGENTA='\033[1;35m'
+CYAN='\033[1;36m'
+BOLD='\033[1m'
+NC='\033[0m'
+
+# ==== Output helpers ====
+print_header()  { echo -e "${BOLD}${MAGENTA}>>> $1${NC}"; }
+print_success() { echo -e "${GREEN}✓ $1${NC}"; }
+print_error()   { echo -e "${RED}✗ $1${NC}"; }
+print_info()    { echo -e "${BLUE}> $1${NC}"; }
+print_warn()    { echo -e "${YELLOW}! $1${NC}"; }
+
+# ==== Functions ====
+usage() {
+  cat <<EOF
+Usage: $(basename "$0") [OPTIONS] [PROFILE] [FIREFOX_ARGS...]
+
+  Open Firefox with a specific profile. If no profile is specified, the profile
+  is determined based on the current KDE Plasma activity.
 
 Arguments:
   PROFILE    Optional profile name to use. Valid values:
@@ -27,41 +59,45 @@ Examples:
 EOF
 }
 
-# Handle help flag
-if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
-    show_help
-    exit 0
-fi
-
-# Needed for custom Dark Reader plugin to work
-export PATH="$HOME/.nvm/versions/node/v22.20.0/bin:$PATH"
-
-# Check if first argument is a profile name
-case "$1" in
-    work)
-        shift
-        /usr/bin/firefox --P "Work" "$@"
-        exit 0
-        ;;
-    school)
-        shift
-        /usr/bin/firefox --P "School" "$@"
-        exit 0
-        ;;
-    default)
-        shift
-        /usr/bin/firefox "$@"
-        exit 0
-        ;;
+# ==== Main ====
+case "${1:-}" in
+  -h|--help) usage; exit 0 ;;
 esac
 
-# No profile argument - use activity-based detection
+# Needed for custom Dark Reader plugin to work
+export PATH="$NODE_PATH:$PATH"
+
+case "${1:-}" in
+  work)
+    shift
+    print_info "Opening Firefox with Work profile"
+    "$FIREFOX_BIN" --P "Work" "$@"
+    exit 0
+    ;;
+  school)
+    shift
+    print_info "Opening Firefox with School profile"
+    "$FIREFOX_BIN" --P "School" "$@"
+    exit 0
+    ;;
+  default)
+    shift
+    print_info "Opening Firefox with default profile"
+    "$FIREFOX_BIN" "$@"
+    exit 0
+    ;;
+esac
+
+# No profile argument — use activity-based detection
 CURRENT_ACTIVITY=$(plasma-activities-cli6 --current-activity | awk '{print $3}')
 
 if [ "$CURRENT_ACTIVITY" = "Work" ]; then
-    /usr/bin/firefox --P "Work" "$@"
+  print_info "Activity detected: Work"
+  "$FIREFOX_BIN" --P "Work" "$@"
 elif [ "$CURRENT_ACTIVITY" = "School" ]; then
-    /usr/bin/firefox --P "School" "$@"
+  print_info "Activity detected: School"
+  "$FIREFOX_BIN" --P "School" "$@"
 else
-    /usr/bin/firefox "$@"
+  print_info "Activity detected: Default"
+  "$FIREFOX_BIN" "$@"
 fi
