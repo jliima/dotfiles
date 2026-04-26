@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=GitHub Copilot
+Comment=Launch GitHub Copilot in Konsole
+Terminal=false
+Categories=Development;
+StartupNotify=false
+Exec=konsole -p TerminalColumns=120 -p TerminalRows=60 -e /usr/bin/env copilot
+Icon=github-copilot

@@ -1,0 +1,37 @@
+[Desktop Entry]
+Type=Application
+Name=Obsidian
+Comment=Knowledge base
+Exec=/home/hieroja/scripts/kde/open-program/open-obsidian.sh %U
+Icon=obsidian
+Actions=open-default-vault;open-work-vault;open-school-vault
+Categories=Office;
+MimeType=x-scheme-handler/obsidian;
+NoDisplay=false
+PrefersNonDefaultGPU=false
+StartupNotify=false
+StartupWMClass=obsidian
+Terminal=false
+X-KDE-SubstituteUID=false
+X-KDE-Username=
+
+[Desktop Action open-default-vault]
+Name=New Window – Default Vault
+Name[en_US]=New Window – Default Vault
+Name[fi]=Uusi ikkuna – Default Vault
+Exec=/opt/Obsidian/obsidian "obsidian://open?vault=default-vault"
+Icon=window-new
+
+[Desktop Action open-work-vault]
+Name=New Window – Work Vault
+Name[en_US]=New Window – Work Vault
+Name[fi]=Uusi ikkuna – Work Vault
+Exec=/opt/Obsidian/obsidian "obsidian://open?vault=work-vault"
+Icon=window-new
+
+[Desktop Action open-school-vault]
+Name=New Window – School Vault
+Name[en_US]=New Window – School Vault
+Name[fi]=Uusi ikkuna – School Vault
+Exec=/opt/Obsidian/obsidian "obsidian://open?vault=school-vault"
+Icon=window-new

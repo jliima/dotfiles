@@ -1,0 +1,56 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Firefox
+Name[en_US]=Firefox
+Name[fi]=Firefox
+Comment=Browse the World Wide Web
+Comment[en_US]=Browse the World Wide Web
+Comment[fi]=Selaa Internetiä
+GenericName=Web Browser
+GenericName[en_US]=Web Browser
+GenericName[fi]=Verkkoselain
+Keywords=Internet;WWW;Browser;Web;Explorer;
+Keywords[en_US]=Internet;WWW;Browser;Web;Explorer;
+Keywords[fi]=Internet;WWW;Browser;Web;Explorer;netti;webbi;selain;
+X-GNOME-FullName=Firefox Web Browser
+X-GNOME-FullName[en_US]=Firefox Web Browser
+X-GNOME-FullName[fi]=Firefox-verkkoselain
+Exec=/home/hieroja/scripts/kde/open-program/open-firefox.sh %u
+Actions=new-window;new-window-default-profile;new-private-window;open-profile-manager
+Categories=GNOME;GTK;Network;WebBrowser;
+Icon=firefox-symbolic
+MimeType=x-scheme-handler/https;video/webm;video/ogg;text/html;image/webp;image/svg+xml;image/png;image/jpeg;image/gif;image/avif;audio/webm;audio/ogg;audio/flac;application/xml;application/xhtml+xml;application/x-xpinstall;application/rss+xml;application/rdf+xml;application/pdf;application/json;
+StartupNotify=true
+StartupWMClass=firefox
+Terminal=false
+X-KDE-SubstituteUID=false
+X-KDE-Username=
+X-MultipleArgs=false
+
+[Desktop Action new-window]
+Name=New Window
+Name[en_US]=New Window
+Name[fi]=Uusi ikkuna
+Exec=/home/hieroja/scripts/kde/open-program/open-firefox.sh --new-window %u
+Icon=window-new
+
+[Desktop Action new-window-default-profile]
+Name=New Window – Default Profile
+Name[en_US]=New Window – Default Profile
+Name[fi]=Uusi ikkuna – Default Profile
+Exec=/home/hieroja/scripts/kde/open-program/open-firefox.sh "default" %u
+Icon=window-new
+
+[Desktop Action new-private-window]
+Name=New Private Window
+Name[en_US]=New Private Window
+Name[fi]=Uusi yksityinen ikkuna
+Exec=/home/hieroja/scripts/kde/open-program/open-firefox.sh --private-window %u
+Icon=view-private
+
+[Desktop Action open-profile-manager]
+Name=Open Profile Manager
+Name[en_US]=Open Profile Manager
+Name[fi]=Avaa profiilien hallinta
+Exec=firefox --ProfileManager

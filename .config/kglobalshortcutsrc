@@ -287,6 +287,9 @@ _launch=Meta+F
 new-private-window=Meta+Ctrl+Shift+F
 new-window-default-profile=Meta+Shift+F
 
+[services][github-copilot.desktop]
+_launch=Meta+Space
+
 [services][jellyfin-couch-mode-exit.sh.desktop]
 _launch=Home Page
 
@@ -307,9 +310,6 @@ _launch=Meta+Ctrl+Shift+Right
 
 [services][net.local.code.desktop]
 _launch=Meta+/
-
-[services][net.local.open-obsidian.sh.desktop]
-_launch=Meta+Shift+R
 
 [services][obsidian.desktop]
 _launch=Meta+R
