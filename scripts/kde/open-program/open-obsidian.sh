@@ -70,4 +70,4 @@ vault_name=$(basename "$vault_dir")
 vault_name_encoded=$(printf '%s' "$vault_name" | sed 's/ /%20/g')
 
 # Open via the obsidian:// URI
-xdg-open "obsidian://open?vault=${vault_name_encoded}" >/dev/null 2>&1 &
+/opt/Obsidian/obsidian "obsidian://open?vault=${vault_name_encoded}" >/dev/null 2>&1 &

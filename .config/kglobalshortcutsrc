@@ -277,9 +277,15 @@ _launch=Meta+C
 Incognito=Meta+Shift+C
 _launch=Meta+C
 
+[services][com.github.iwalton3.jellyfin-media-player.desktop]
+ExitSofaMode=Home Page
+JereFlixSofaMode=Launch Mail
+MikaflixSofaMode=Tools
+
 [services][firefox.desktop]
 _launch=Meta+F
 new-private-window=Meta+Ctrl+Shift+F
+new-window-default-profile=Meta+Shift+F
 
 [services][jellyfin-couch-mode-exit.sh.desktop]
 _launch=Home Page
@@ -302,14 +308,12 @@ _launch=Meta+Ctrl+Shift+Right
 [services][net.local.code.desktop]
 _launch=Meta+/
 
-[services][net.local.konsole.desktop]
-_launch=Meta+Space
-
-[services][net.local.open-firefox.sh.desktop]
-_launch=Meta+Shift+F
-
 [services][net.local.open-obsidian.sh.desktop]
 _launch=Meta+Shift+R
+
+[services][obsidian.desktop]
+_launch=Meta+R
+open-default-vault=Meta+Shift+R
 
 [services][open-obsidian.sh.desktop]
 _launch=Meta+R

@@ -27,4 +27,4 @@ fi
 #  telegram-desktop -startintray &
 #fi
 
-"$SCRIPT_DIR/set-wallpaper.sh" >/dev/null 2>&1
+"$SCRIPT_DIR/kde/set-wallpaper.sh" >/dev/null 2>&1
