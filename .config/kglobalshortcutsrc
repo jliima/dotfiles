@@ -264,11 +264,6 @@ switch to next activity=none,,Switch to Next Activity
 switch to previous activity=none,,Switch to Previous Activity
 toggle do not disturb=none,,Toggle do not disturb
 
-[services][2nd-monitor-to-left.sh.desktop]
-_launch=Meta+Ctrl+Left
-
-[services][2nd-monitor-to-right.sh.desktop]
-_launch=Meta+Ctrl+Right
 
 [services][chromium.desktop]
 _launch=Meta+C
@@ -302,11 +297,11 @@ _launch=Meta+A
 [services][jetbrains-idea-ed171af8-af00-44b8-9b0c-54d54c8cef16.desktop]
 _launch=Meta+A
 
-[services][net.local.2nd-monitor-to-left-vertical.sh.desktop]
-_launch=Meta+Ctrl+Shift+Left
-
-[services][net.local.2nd-monitor-to-right-vertical.sh.desktop]
-_launch=Meta+Ctrl+Shift+Right
+[services][monitor-layout.desktop]
+left-landscape=Meta+Ctrl+Left
+left-portrait=Meta+Ctrl+Shift+Left
+right-landscape=Meta+Ctrl+Right
+right-portrait=Meta+Ctrl+Shift+Right
 
 [services][net.local.code.desktop]
 _launch=Meta+/
