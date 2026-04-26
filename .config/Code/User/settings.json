@@ -23,8 +23,9 @@
   "workbench.editor.limit.enabled": true,
   "workbench.editor.tabSizingFixedMaxWidth": 200,
   "workbench.editorAssociations": {
-    "*.pdf": "default",
-    "*.md": "vscode.markdown.preview.editor",
+    "*.copilotmd": "vscode.markdown.preview.editor",
+    "*.pdf": "pdf.preview",
+    "*.md": "vscode.markdown.preview.editor"
   },
   "editor.scrollBeyondLastLine": false,
   "editor.detectIndentation": false,
@@ -144,5 +145,6 @@
     "editor.formatOnSave": true,
     "editor.formatOnSaveMode": "file",
     "editor.formatOnType": false,
-  }
+  },
+  "pdf-preview.default.sidebar": true
 }
