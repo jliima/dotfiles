@@ -5,14 +5,15 @@
 #
 # Details:
 #   Switches display output to the TV (HDMI), disables desktop monitors,
-#   sets the Scarlett audio sink, stops Telegram, and launches the
-#   requested Jellyfin profile (jereflix or mikaflix) in fullscreen.
-#   All actions are logged to a timestamped log file.
+#   sets the Scarlett audio sink, suspends KDE Night Light, stops Telegram,
+#   and launches the requested Jellyfin profile (jereflix or mikaflix) in
+#   fullscreen. All actions are logged to a timestamped log file.
 # ------------------------------------------------------------------------------
 set -euo pipefail
 
 # ==== Configuration ====
 LOG_FILE="$HOME/.local/state/open-jellyfin-sofa-mode.log"
+NIGHT_LIGHT_PID_FILE="$HOME/.local/state/night-light-inhibit.pid"
 JEREFLIX_LAUNCHER="$HOME/.local/bin/jmp-jereflix"
 MIKAFLIX_LAUNCHER="$HOME/.local/bin/jmp-mikaflix"
 TV_NAME="HDMI-A-1"
@@ -102,6 +103,31 @@ pactl set-default-sink "$scarlett_sink"
 log "Stopping Telegram."
 print_info "Stopping Telegram"
 killall Telegram >/dev/null 2>&1 || true
+
+log "Suspending Night Light."
+print_info "Suspending Night Light"
+if [ -f "$NIGHT_LIGHT_PID_FILE" ] && kill -0 "$(cat "$NIGHT_LIGHT_PID_FILE")" 2>/dev/null; then
+  print_warn "Night Light is already suspended (PID $(cat "$NIGHT_LIGHT_PID_FILE"))"
+  log "Night Light already suspended."
+else
+  python3 -c "
+import dbus, os, signal
+bus = dbus.SessionBus()
+nl = dbus.Interface(bus.get_object('org.kde.KWin', '/org/kde/KWin/NightLight'), 'org.kde.KWin.NightLight')
+cookie = nl.inhibit()
+with open('$NIGHT_LIGHT_PID_FILE', 'w') as f:
+    f.write(str(os.getpid()))
+signal.pause()
+" &
+  sleep 1
+  if [ -f "$NIGHT_LIGHT_PID_FILE" ] && kill -0 "$(cat "$NIGHT_LIGHT_PID_FILE")" 2>/dev/null; then
+    print_success "Night Light suspended (PID $(cat "$NIGHT_LIGHT_PID_FILE"))"
+    log "Night Light suspended (PID $(cat "$NIGHT_LIGHT_PID_FILE"))."
+  else
+    print_warn "Could not suspend Night Light"
+    log "Warning: could not suspend Night Light."
+  fi
+fi
 
 if pgrep -f jellyfinmediaplayer >/dev/null; then
   print_warn "Jellyfin Media Player is already running; skipping launch."

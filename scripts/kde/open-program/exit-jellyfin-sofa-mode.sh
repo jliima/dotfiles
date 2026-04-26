@@ -4,12 +4,14 @@
 # Description: Exit sofa/TV mode and restore the normal desktop layout.
 #
 # Details:
-#   Kills Jellyfin Media Player, switches the audio sink back to FiiO,
-#   re-enables the desktop monitors, and disables the TV output.
+#   Kills Jellyfin Media Player, resumes KDE Night Light, switches the
+#   audio sink back to FiiO, re-enables the desktop monitors, and disables
+#   the TV output.
 # ------------------------------------------------------------------------------
 set -euo pipefail
 
 # ==== Configuration ====
+NIGHT_LIGHT_PID_FILE="$HOME/.local/state/night-light-inhibit.pid"
 TV_NAME="HDMI-A-1"
 MONITOR1_NAME="DP-1"
 MONITOR2_NAME="DP-2"
@@ -52,6 +54,20 @@ print_header "Exiting sofa mode"
 
 print_info "Stopping Jellyfin Media Player"
 killall jellyfinmediaplayer >/dev/null 2>&1 || true
+
+print_info "Resuming Night Light"
+if [ -f "$NIGHT_LIGHT_PID_FILE" ]; then
+  pid=$(cat "$NIGHT_LIGHT_PID_FILE")
+  if kill -0 "$pid" 2>/dev/null; then
+    kill "$pid"
+    print_success "Night Light resumed (killed PID $pid)"
+  else
+    print_warn "Night Light holder (PID $pid) was not running"
+  fi
+  rm -f "$NIGHT_LIGHT_PID_FILE"
+else
+  print_warn "No Night Light inhibit PID found; nothing to resume"
+fi
 
 print_info "Setting FiiO audio sink"
 pactl set-default-sink "$(pactl list short sinks | awk '{print $2}' | grep 'FiiO')"
