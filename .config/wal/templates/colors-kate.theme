@@ -60,6 +60,44 @@
         "text-color": "{blue5}"
       }}
     }},
+    "JSON": {{
+      "Style_Seperator_Array": {{
+        "bold": false,
+        "selected-text-color": "{foreground}",
+        "text-color": "{foreground}"
+      }},
+      "Style_Seperator_Pair": {{
+        "bold": false,
+        "selected-text-color": "{foreground}",
+        "text-color": "{foreground}"
+      }},
+      "Style_String_Key": {{
+        "selected-text-color": "{blue5}",
+        "text-color": "{blue5}"
+        }},
+      "Style_String_Value_Char": {{
+        "text-color": "{syntaxStringEscape}"
+      }}
+    }},
+    "JSONC": {{
+      "Style_Seperator_Array": {{
+        "bold": false,
+        "selected-text-color": "{foreground}",
+        "text-color": "{foreground}"
+      }},
+      "Style_Seperator_Pair": {{
+        "bold": false,
+        "selected-text-color": "{foreground}",
+        "text-color": "{foreground}"
+      }},
+      "Style_String_Key": {{
+        "selected-text-color": "{blue5}",
+        "text-color": "{blue5}"
+        }},
+      "Style_String_Value_Char": {{
+        "text-color": "{syntaxStringEscape}"
+      }}
+    }},
     "JavaScript": {{
       "Built-in Objects": {{
         "selected-text-color": "{yellow5}",
