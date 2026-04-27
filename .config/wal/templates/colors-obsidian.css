@@ -449,6 +449,50 @@ pre[class*="language-"],
   font-weight: 600 !important;
 }}
 
+/* ============================================================
+ * MERMAID DIAGRAM STYLING (layout / centering only)
+ * ============================================================ */
+
+/* Allow SVG to render at natural size */
+.mermaid svg {{
+  max-width: none !important;
+  height: auto !important;
+}}
+
+/* Edit mode (Live Preview) - expand beyond text column and center */
+.cm-embed-block.cm-lang-mermaid {{
+  width: 100vw !important;
+  max-width: none !important;
+  position: relative !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  overflow: visible !important;
+  display: flex !important;
+  justify-content: center !important;
+}}
+
+/* Read mode - allow mermaid to overflow the sizer */
+.markdown-preview-view .markdown-preview-sizer {{
+  overflow: visible !important;
+}}
+
+/* Read mode - center */
+.markdown-preview-view .block-language-mermaid {{
+  display: flex !important;
+  justify-content: center !important;
+  overflow: visible !important;
+  width: 100% !important;
+}}
+
+.markdown-preview-view .block-language-mermaid .mermaid {{
+  overflow: visible !important;
+}}
+
+.markdown-preview-view .block-language-mermaid .mermaid svg {{
+  max-width: none !important;
+  overflow: visible !important;
+}}
+
 .inline-title {{
   border-bottom: 1px solid {border};
   padding-bottom: 0.2em;
