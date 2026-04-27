@@ -264,7 +264,6 @@ switch to next activity=none,,Switch to Next Activity
 switch to previous activity=none,,Switch to Previous Activity
 toggle do not disturb=none,,Toggle do not disturb
 
-
 [services][chromium.desktop]
 _launch=Meta+C
 
@@ -344,7 +343,7 @@ ToggleTouchpad=Touchpad Toggle\tMeta+Ctrl+Zenkaku Hankaku
 _launch=Meta+X
 
 [services][systemsettings.desktop]
-_launch=Meta+S
+_launch=Meta+Ctrl+;
 
 [wacomtablet]
 Map to fullscreen=Meta+Ctrl+F,Meta+Ctrl+F,Map to fullscreen
