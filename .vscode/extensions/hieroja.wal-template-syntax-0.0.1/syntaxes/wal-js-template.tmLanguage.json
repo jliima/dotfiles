@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "WAL JS Template",
+  "scopeName": "source.js.wal-template",
+  "patterns": [
+    {
+      "include": "source.js"
+    }
+  ]
+}

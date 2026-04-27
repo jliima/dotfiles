@@ -1,0 +1,79 @@
+{
+  "name": "wal-template-syntax",
+  "displayName": "WAL Template Syntax",
+  "description": "Syntax highlighting for pywal template JSON/CSS/JS files with WAL placeholders.",
+  "version": "0.0.1",
+  "publisher": "hieroja",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "wal-json-template",
+        "aliases": [
+          "WAL JSON Template"
+        ],
+        "extensions": [
+          ".wal-json-template"
+        ],
+        "configuration": "./language-configuration.json"
+      },
+      {
+        "id": "wal-css-template",
+        "aliases": [
+          "WAL CSS Template"
+        ],
+        "extensions": [
+          ".wal-css-template"
+        ],
+        "configuration": "./language-configuration.json"
+      },
+      {
+        "id": "wal-js-template",
+        "aliases": [
+          "WAL JS Template"
+        ],
+        "extensions": [
+          ".wal-js-template"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "wal-json-template",
+        "scopeName": "source.wal-json-template",
+        "path": "./syntaxes/wal-json-template.tmLanguage.json"
+      },
+      {
+        "language": "wal-css-template",
+        "scopeName": "source.css.wal-template",
+        "path": "./syntaxes/wal-css-template.tmLanguage.json",
+        "embeddedLanguages": {
+          "source.css": "css"
+        }
+      },
+      {
+        "language": "wal-js-template",
+        "scopeName": "source.js.wal-template",
+        "path": "./syntaxes/wal-js-template.tmLanguage.json",
+        "embeddedLanguages": {
+          "source.js": "javascript"
+        }
+      },
+      {
+        "scopeName": "source.wal-template.injection",
+        "path": "./syntaxes/wal-template-injection.tmLanguage.json",
+        "injectTo": [
+          "source.wal-json-template",
+          "source.css.wal-template",
+          "source.js.wal-template"
+        ]
+      }
+    ]
+  }
+}

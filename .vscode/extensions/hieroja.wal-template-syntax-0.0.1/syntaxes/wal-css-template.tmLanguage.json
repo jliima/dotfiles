@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "WAL CSS Template",
+  "scopeName": "source.css.wal-template",
+  "patterns": [
+    {
+      "include": "source.css"
+    }
+  ]
+}

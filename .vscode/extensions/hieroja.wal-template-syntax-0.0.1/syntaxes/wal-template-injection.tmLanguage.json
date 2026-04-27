@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "WAL Template Injection",
+  "scopeName": "source.wal-template.injection",
+  "injectionSelector": "L:source.wal-json-template, L:source.css.wal-template, L:source.js.wal-template",
+  "patterns": [
+    {
+      "name": "constant.character.escape.wal-template",
+      "match": "\\{(?=\\{)"
+    },
+    {
+      "name": "constant.character.escape.wal-template",
+      "match": "\\}(?=\\})"
+    },
+    {
+      "name": "variable.other.wal-template",
+      "match": "\\{[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*\\}"
+    }
+  ]
+}

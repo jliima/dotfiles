@@ -1,0 +1,8 @@
+{
+  "files.associations": {
+    "**/.config/wal/templates/*.json": "wal-json-template",
+    "**/.config/wal/templates/*.css": "wal-css-template",
+    "**/.config/wal/templates/*.js": "wal-js-template",
+    "**/.config/wal/templates/colors-kate.theme": "wal-json-template"
+  }
+}
