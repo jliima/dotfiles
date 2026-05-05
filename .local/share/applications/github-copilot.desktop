@@ -8,7 +8,7 @@ Categories=Development;
 StartupNotify=false
 Exec=$HOME/dotfiles/scripts/kde/open-program/open-copilot.sh
 Icon=/home/hieroja/dotfiles/Icons/github-copilot.svg
-Actions=DefaultGPT53CodexHigh;DefaultHaiku45;WorkHaiku45;WorkSonnet46High;WorkOpus46High;
+Actions=DefaultGPT53CodexHigh;DefaultHaiku45;WorkHaiku45;WorkSonnet46High;WorkOpus46High;InvertActivity;
 
 [Desktop Action DefaultGPT53CodexHigh]
 Name=default — GPT-5.3 Codex (High)
@@ -29,3 +29,7 @@ Exec=$HOME/dotfiles/scripts/kde/open-program/open-copilot.sh --user work --model
 [Desktop Action WorkOpus46High]
 Name=work — Claude Opus 4.6 (High)
 Exec=$HOME/dotfiles/scripts/kde/open-program/open-copilot.sh --user work --model claude-opus-4.6 --effort high
+
+[Desktop Action InvertActivity]
+Name=Invert activity (default/work)
+Exec=$HOME/dotfiles/scripts/kde/open-program/open-copilot.sh --invert

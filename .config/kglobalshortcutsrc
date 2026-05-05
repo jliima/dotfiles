@@ -285,6 +285,7 @@ new-private-window=Meta+Ctrl+Shift+F
 new-window-default-profile=Meta+Shift+F
 
 [services][github-copilot.desktop]
+InvertActivity=Meta+Shift+Space
 _launch=Meta+Space
 
 [services][jellyfin-couch-mode-exit.sh.desktop]

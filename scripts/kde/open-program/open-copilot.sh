@@ -9,6 +9,12 @@
 #   to isolate credentials per user. A manual user override can be provided
 #   with -u/--user, including the aliases "default" and "work". Any additional
 #   flags are passed through to the Copilot CLI.
+#
+#   First-time setup:
+#   - Create $HOME/dotfiles/.env/copilot with WORK_USER and DEFAULT_USER.
+#   - Run the script once per profile to log in (e.g., with --user default
+#     or --user work). This writes credentials under ~/.copilot-<user> via
+#     COPILOT_HOME. Repeat after clearing those directories or changing users.
 # ------------------------------------------------------------------------------
 set -euo pipefail
 
@@ -19,6 +25,7 @@ KONSOLE_ROWS=60
 WORK_USER=""
 DEFAULT_USER=""
 MANUAL_USER=""
+INVERT_ACTIVITY=false
 ENV_DIR="$HOME/dotfiles/.env"
 COPILOT_ENV_FILE="$ENV_DIR/copilot"
 COPILOT_HOME_BASE="$HOME/.copilot"
@@ -56,6 +63,7 @@ Usage: $(basename "$0") [OPTIONS]
 Options:
   -h, --help           Show this help message and exit
   -u, --user USER      Override the user for this launch
+  --invert             Swap default/work selection for activity-based launch
 
   Additional flags are passed through to the Copilot CLI.
 
@@ -88,9 +96,17 @@ get_copilot_user() {
   current_activity=$(plasma-activities-cli6 --current-activity | awk '{print $3}')
 
   if [ "$current_activity" = "Work" ]; then
-    echo "$WORK_USER"
+    if [ "$INVERT_ACTIVITY" = true ]; then
+      echo "$DEFAULT_USER"
+    else
+      echo "$WORK_USER"
+    fi
   else
-    echo "$DEFAULT_USER"
+    if [ "$INVERT_ACTIVITY" = true ]; then
+      echo "$WORK_USER"
+    else
+      echo "$DEFAULT_USER"
+    fi
   fi
 }
 
@@ -136,6 +152,10 @@ while [[ $# -gt 0 ]]; do
       fi
       MANUAL_USER="$2"
       shift 2
+      ;;
+    --invert)
+      INVERT_ACTIVITY=true
+      shift
       ;;
     *)
       COPILOT_ARGS+=("$1")
