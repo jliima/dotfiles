@@ -6,5 +6,26 @@ Comment=Launch GitHub Copilot in Konsole
 Terminal=false
 Categories=Development;
 StartupNotify=false
-Exec=konsole -p TerminalColumns=120 -p TerminalRows=60 -e /usr/bin/env copilot
-Icon=github-copilot
+Exec=$HOME/dotfiles/scripts/kde/open-program/open-copilot.sh
+Icon=/home/hieroja/dotfiles/Icons/github-copilot.svg
+Actions=DefaultGPT53CodexHigh;DefaultHaiku45;WorkHaiku45;WorkSonnet46High;WorkOpus46High;
+
+[Desktop Action DefaultGPT53CodexHigh]
+Name=default — GPT-5.3 Codex (High)
+Exec=$HOME/dotfiles/scripts/kde/open-program/open-copilot.sh --user default --model gpt-5.3-codex --effort high
+
+[Desktop Action DefaultHaiku45]
+Name=default — Claude Haiku 4.5
+Exec=$HOME/dotfiles/scripts/kde/open-program/open-copilot.sh --user default --model claude-haiku-4.5
+
+[Desktop Action WorkHaiku45]
+Name=work — Claude Haiku 4.5
+Exec=$HOME/dotfiles/scripts/kde/open-program/open-copilot.sh --user work --model claude-haiku-4.5
+
+[Desktop Action WorkSonnet46High]
+Name=work — Claude Sonnet 4.6 (High)
+Exec=$HOME/dotfiles/scripts/kde/open-program/open-copilot.sh --user work --model claude-sonnet-4.6 --effort high
+
+[Desktop Action WorkOpus46High]
+Name=work — Claude Opus 4.6 (High)
+Exec=$HOME/dotfiles/scripts/kde/open-program/open-copilot.sh --user work --model claude-opus-4.6 --effort high

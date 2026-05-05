@@ -3,6 +3,7 @@
 .stignore
 *.kate-swp
 __pycache__
+.env/
 .config/Code/*
 !.config/Code/User/settings.json
 !.config/Code/User/keybindings.json

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Dotfiles
+Comment=Launch VS Code in dotfiles repo
+Terminal=false
+Categories=Development;
+StartupNotify=false
+Exec=code $HOME/dotfiles
+Icon=folder-text-symbolic
