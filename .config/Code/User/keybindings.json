@@ -207,5 +207,35 @@
   {
     "key": "ctrl+alt+b",
     "command": "-workbench.action.toggleAuxiliaryBar"
+  },
+  {
+    "key": "alt+[Backquote]",
+    "command": "workbench.action.chat.open",
+    "when": "!chatSetupDisabled && !chatSetupHidden"
+  },
+  {
+    "key": "ctrl+alt+i",
+    "command": "-workbench.action.chat.open",
+    "when": "!chatSetupDisabled && !chatSetupHidden"
+  },
+  {
+    "key": "alt+[Backquote]",
+    "command": "atlascode.rovodev.askInteractive",
+    "when": "atlascode:rovoDevEnabled && editorTextFocus && !atlascode:bbyEnvironmentActive"
+  },
+  {
+    "key": "ctrl+alt+i",
+    "command": "-atlascode.rovodev.askInteractive",
+    "when": "atlascode:rovoDevEnabled && editorTextFocus && !atlascode:bbyEnvironmentActive"
+  },
+  {
+    "key": "alt+[Backquote]",
+    "command": "workbench.panel.chat",
+    "when": "workbench.panel.chat.view.copilot.active"
+  },
+  {
+    "key": "ctrl+alt+i",
+    "command": "-workbench.panel.chat",
+    "when": "workbench.panel.chat.view.copilot.active"
   }
 ]
