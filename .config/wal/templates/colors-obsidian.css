@@ -6,6 +6,7 @@
 
   --background-primary: {background} !important;
   --background-secondary: {backgroundAlt} !important;
+  --setting-items-background: {surface} !important;
   --titlebar-background-focused: {backgroundAlt} !important;
   --background-modifier-form-field: {surface} !important;
   --background-modifier-border-focus: {borderFocus}33 !important;
@@ -55,6 +56,17 @@
   --text-selection: {selection};
   --text-on-accent: {textInverse};
   --metadata-background: {surface};
+}}
+
+.modal,
+.prompt {{
+  border-color: {border} !important;
+  border-width: 0.75px !important;
+}}
+
+.modal:hover,
+.prompt:hover {{
+  border-color: {borderFocus} !important;
 }}
 
 .theme-dark .nav-folder-title-content::before {{
