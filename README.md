@@ -14,7 +14,7 @@
 > [!WARNING]
 > Currently work in progress. Can break stuff.
 
-Works on my my machine running [Kubuntu 25.10](https://kubuntu.org/)
+Works on my my machine running [Kubuntu 26.04](https://kubuntu.org/)
 
 ## Requirements
 

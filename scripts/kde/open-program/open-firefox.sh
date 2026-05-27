@@ -89,12 +89,13 @@ case "${1:-}" in
 esac
 
 # No profile argument — use activity-based detection
-CURRENT_ACTIVITY=$(plasma-activities-cli6 --current-activity | awk '{print $3}')
+CURRENT_ACTIVITY_RAW=$(plasma-activities-cli6 --current-activity | sed -E 's/^[^ ]+ //; s/ \([^)]*\)$//')
+CURRENT_ACTIVITY=$(echo "$CURRENT_ACTIVITY_RAW" | tr '[:upper:]' '[:lower:]')
 
-if [ "$CURRENT_ACTIVITY" = "Work" ]; then
+if [ "$CURRENT_ACTIVITY" = "work" ]; then
   print_info "Activity detected: Work"
   "$FIREFOX_BIN" --P "Work" "$@"
-elif [ "$CURRENT_ACTIVITY" = "School" ]; then
+elif [ "$CURRENT_ACTIVITY" = "school" ]; then
   print_info "Activity detected: School"
   "$FIREFOX_BIN" --P "School" "$@"
 else

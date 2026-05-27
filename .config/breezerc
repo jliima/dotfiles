@@ -1,5 +1,10 @@
 [Common]
+OutlineEnabled=false
 OutlineIntensity=OutlineOff
+RoundedCorners=false
+
+[Style]
+MenuOpacity=35
 
 [Windeco Exception 0]
 BorderSize=0

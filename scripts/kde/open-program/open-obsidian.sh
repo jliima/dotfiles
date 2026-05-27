@@ -83,11 +83,12 @@ if [ -n "${1:-}" ]; then
       ;;
   esac
 else
-  CURRENT_ACTIVITY=$(plasma-activities-cli6 --current-activity | awk '{print $3}')
+  CURRENT_ACTIVITY_RAW=$(plasma-activities-cli6 --current-activity | sed -E 's/^[^ ]+ //; s/ \([^)]*\)$//')
+  CURRENT_ACTIVITY=$(echo "$CURRENT_ACTIVITY_RAW" | tr '[:upper:]' '[:lower:]')
 
-  if [ "$CURRENT_ACTIVITY" = "Work" ]; then
+  if [ "$CURRENT_ACTIVITY" = "work" ]; then
     vault_dir="$WORK_VAULT"
-  elif [ "$CURRENT_ACTIVITY" = "School" ]; then
+  elif [ "$CURRENT_ACTIVITY" = "school" ]; then
     vault_dir="$SCHOOL_VAULT"
   else
     vault_dir="$DEFAULT_VAULT"
