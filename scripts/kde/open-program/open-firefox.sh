@@ -89,7 +89,7 @@ case "${1:-}" in
 esac
 
 # No profile argument — use activity-based detection
-CURRENT_ACTIVITY_RAW=$(plasma-activities-cli6 --current-activity | sed -E 's/^[^ ]+ //; s/ \([^)]*\)$//')
+CURRENT_ACTIVITY_RAW=$(plasma-activities-cli6 --current-activity | awk '{print $2}')
 CURRENT_ACTIVITY=$(echo "$CURRENT_ACTIVITY_RAW" | tr '[:upper:]' '[:lower:]')
 
 if [ "$CURRENT_ACTIVITY" = "work" ]; then

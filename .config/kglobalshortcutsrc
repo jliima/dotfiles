@@ -348,6 +348,8 @@ _launch=Meta+Ctrl+Alt+Shift+Space\tMeta+.\tMeta+:
 
 [services][org.kde.spectacle.desktop]
 ActiveWindowScreenShot=Meta+Print\tCtrl+#
+CurrentMonitorScreenShot=
+OpenWithoutScreenshot=
 RecordRegion=Ctrl+%
 RecordWindow=none
 RectangularRegionScreenShot=Ctrl+$

@@ -51,7 +51,7 @@ ZSH_HIGHLIGHT_STYLES[path_prefix]=none
 
 autoload -Uz compinit && compinit
 
-CURRENT_ACTIVITY=$(plasma-activities-cli6 --current-activity | awk '{print $3}')
+CURRENT_ACTIVITY=$(plasma-activities-cli6 --current-activity | awk '{print $2}')
 
 if [ "$CURRENT_ACTIVITY" = "Work" ]; then
   HISTDIR=~/.zsh_history_archive_work
@@ -96,11 +96,10 @@ alias upp="$HOME/scripts/kde/update-packages.sh"
 alias kate="kate -n"
 alias colors="python3 $HOME/dotfiles/scripts/pywal/display-colors-cli.py"
 alias tg='python3 $HOME/scripts/telegram-video-converter.py'
+alias edit-video="$HOME/scripts/video/edit-video.py"
 
 alias ls="eza --icons -F -H --group-directories-first --git -1"
 alias cd="z"
-alias cat="bat"
-alias grep="rg"
 alias tree="eza --icons --tree -F -H"
 alias dolphin="dolphin . >/dev/null & disown > /dev/null"
 alias neofetch="fastfetch"

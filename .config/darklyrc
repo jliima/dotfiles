@@ -1,9 +1,5 @@
 [Common]
 OutlineCloseButton=false
-ShadowStrength=153
 
 [Style]
-AdjustToDarkThemes=true
 RoundedRubberBandFrame=false
-TabBGColor=20,36,49
-TabUseHighlightColor=true

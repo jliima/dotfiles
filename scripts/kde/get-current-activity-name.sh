@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
 
-#echo "$(dbus-send --print-reply --dest=org.kde.ActivityManager /ActivityManager/Activities org.kde.ActivityManager.Activities.ActivityName string:"$(dbus-send --print-reply --dest=org.kde.ActivityManager /ActivityManager/Activities org.kde.ActivityManager.Activities.CurrentActivity | grep -oP '(?<=string ")[^"]+(?=")')" | grep -oP '(?<=string ")[^"]+(?=")')"
-
-echo "$(plasma-activities-cli6 --current-activity | awk '{print $3}')"
+echo "$(plasma-activities-cli6 --current-activity | awk '{print $2}')"
