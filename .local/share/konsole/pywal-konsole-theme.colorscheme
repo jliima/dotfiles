@@ -36,7 +36,7 @@ RandomHueRange=360
 RandomSaturationRange=100
 
 [Color0]
-Color=#556072
+Color=#10171e
 
 [Color0Faint]
 Color=#414d59
@@ -48,16 +48,16 @@ Color=#556072
 Color=#cd222f
 
 [Color1Faint]
-Color=#881d24
+Color=#b6212b
 
 [Color1Intense]
-Color=#cd222f
+Color=#f3170d
 
 [Color2]
 Color=#0bde96
 
 [Color2Faint]
-Color=#0bde96
+Color=#0ab479
 
 [Color2Intense]
 Color=#0bde96
@@ -66,7 +66,7 @@ Color=#0bde96
 Color=#ee8109
 
 [Color3Faint]
-Color=#ee8109
+Color=#c06b08
 
 [Color3Intense]
 Color=#ee8109
@@ -75,13 +75,13 @@ Color=#ee8109
 Color=#61afef
 
 [Color4Faint]
-Color=#3a6a93
+Color=#4d8cc4
 
 [Color4Intense]
 Color=#61afef
 
 [Color5]
-Color=#a31674
+Color=#c91b8e
 
 [Color5Faint]
 Color=#a31674
@@ -93,13 +93,13 @@ Color=#c91b8e
 Color=#0ba3a4
 
 [Color6Faint]
-Color=#0ba3a4
+Color=#098385
 
 [Color6Intense]
 Color=#0ba3a4
 
 [Color7]
-Color=#cfdceb
+Color=#d3dde8
 
 [Color7Faint]
 Color=#d3dde8

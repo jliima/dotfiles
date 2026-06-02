@@ -36,7 +36,7 @@ RandomHueRange=360
 RandomSaturationRange=100
 
 [Color0]
-Color={color8}
+Color={color0}
 
 [Color0Faint]
 Color={grey4}
@@ -45,64 +45,64 @@ Color={grey4}
 Color={color8}
 
 [Color1]
-Color={red5}
+Color={color1}
 
 [Color1Faint]
-Color={red3}
+Color={red4}
 
 [Color1Intense]
-Color={red5}
+Color={color9}
 
 [Color2]
-Color={green5}
+Color={color2}
 
 [Color2Faint]
-Color={green5}
+Color={green4}
 
 [Color2Intense]
-Color={green5}
+Color={color10}
 
 [Color3]
-Color={yellow5}
+Color={color3}
 
 [Color3Faint]
-Color={yellow5}
+Color={yellow4}
 
 [Color3Intense]
-Color={yellow5}
+Color={color11}
 
 [Color4]
-Color={blue5}
+Color={color4}
 
 [Color4Faint]
-Color={blue3}
+Color={blue4}
 
 [Color4Intense]
-Color={blue5}
+Color={color12}
 
 [Color5]
-Color={magenta4}
+Color={color5}
 
 [Color5Faint]
 Color={magenta4}
 
 [Color5Intense]
-Color={magenta5}
+Color={color13}
 
 [Color6]
-Color={cyan5}
+Color={color6}
 
 [Color6Faint]
-Color={cyan5}
+Color={cyan4}
 
 [Color6Intense]
-Color={cyan5}
+Color={color14}
 
 [Color7]
-Color={foreground}
+Color={color7}
 
 [Color7Faint]
-Color={white4}
+Color={color7}
 
 [Color7Intense]
-Color={white5}
+Color={color15}
