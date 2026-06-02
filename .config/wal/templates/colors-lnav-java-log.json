@@ -7,27 +7,63 @@
         "color": "{grey5}"
       }},
       "thread_field": {{
-        "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| \\K.{{1,30}}(?= \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| )",
+        "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| \\K[^|]+(?= \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| )",
         "color": "{grey5}"
       }},
       "logger_field": {{
         "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| .{{1,30}} \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| \\K[^|]+(?= \\| )",
-        "color": "{grey5}"
+        "color": "{foreground}"
+      }},
+      "logger_field_compact_level": {{
+        "pattern": "^⋮+(?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| \\K[^|]+(?= \\| )",
+        "color": "{foreground}"
+      }},
+      "logger_field_compact": {{
+        "pattern": "^⋮+(?!TRACE\\b|DEBUG\\b|INFO\\b|WARN\\b|ERROR\\b|FATAL\\b)\\K[^|]+(?= \\| )",
+        "color": "{foreground}"
+      }},
+      "logger_last_segment": {{
+        "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| [^|]+ \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| (?:[^|.]+\\.)*\\K[^|.]+(?= \\| )",
+        "color": "{blue5}"
+      }},
+      "logger_last_segment_compact_level": {{
+        "pattern": "^⋮+(?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| (?:[^|.]+\\.)*\\K[^|.]+(?= \\| )",
+        "color": "{blue5}"
+      }},
+      "logger_last_segment_compact": {{
+        "pattern": "^⋮+(?!TRACE\\b|DEBUG\\b|INFO\\b|WARN\\b|ERROR\\b|FATAL\\b)(?:[^|.]+\\.)*\\K[^|.]+(?= \\| )",
+        "color": "{blue5}"
       }},
       "level_trace": {{
-        "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| .{{1,30}} \\| \\KTRACE(?= \\| )",
+        "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| [^|]+ \\| \\KTRACE(?= \\| )",
+        "color": "{yellow5}"
+      }},
+      "level_trace_compact": {{
+        "pattern": "^⋮+\\KTRACE(?= \\| )",
         "color": "{yellow5}"
       }},
       "level_debug": {{
-        "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| .{{1,30}} \\| \\KDEBUG(?= \\| )",
+        "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| [^|]+ \\| \\KDEBUG(?= \\| )",
+        "color": "{cyan5}"
+      }},
+      "level_debug_compact": {{
+        "pattern": "^⋮+\\KDEBUG(?= \\| )",
         "color": "{cyan5}"
       }},
       "level_info": {{
-        "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| .{{1,30}} \\| \\KINFO(?= \\| )",
+        "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| [^|]+ \\| \\KINFO(?= \\| )",
+        "color": "{green5}"
+      }},
+      "level_info_compact": {{
+        "pattern": "^⋮+\\KINFO(?= \\| )",
         "color": "{green5}"
       }},
       "level_warn_error_fatal": {{
-        "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| .{{1,30}} \\| \\K(?:WARN|ERROR|FATAL)(?= \\| )",
+        "pattern": "^(?:\\d{{4}}-\\d{{2}}-\\d{{2}} )?\\d{{2}}:\\d{{2}}:\\d{{2}}[.:,]\\d{{3}} \\| [^|]+ \\| \\K(?:WARN|ERROR|FATAL)(?= \\| )",
+        "color": "{red5}"
+      }},
+      "level_warn_error_fatal_compact": {{
+        "pattern": "^⋮+\\K(?:WARN|ERROR|FATAL)(?= \\| )",
         "color": "{red5}"
       }}
     }}

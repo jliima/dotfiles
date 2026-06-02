@@ -6,7 +6,7 @@
     "url": "local",
     "regex": {
       "std": {
-        "pattern": "^(?<timestamp>(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3})(?<sep_ts_thread> \\| )(?<thread>.{1,30})(?<sep_thread_level> \\| )(?<level>TRACE|DEBUG|INFO|WARN|ERROR|FATAL)(?<sep_level_logger> \\| )(?<logger_prefix>(?:[^|.]+\\.)*)(?<logger>[^|.]+)(?<sep_logger_body> \\| )(?<body>.*)$"
+  "pattern": "^(?<timestamp>(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3})(?<sep_ts_thread> \\| )(?<thread>[^|]+)(?<sep_thread_level> \\| )(?<level>TRACE|DEBUG|INFO|WARN|ERROR|FATAL)(?<sep_level_logger> \\| )(?<logger_prefix>(?:[^|.]+\\.)*)(?<logger>[^|.]+)(?<sep_logger_body> \\| )(?<body>.*)$"
       }
     },
     "timestamp-format": [
@@ -38,7 +38,11 @@
     },
     "sample": [
       {
-        "line": "2026-03-17 13:53:45.014 | org.springframework.integratio | DEBUG | com.teleste.obs.extif.tcms.communication.base.utils.connection.ConnectionStateLogic | updateLifeSignalOn wasDead=false count=17 shouldEnable=false",
+        "line": "2026-03-17 13:53:45.014 | org.springframework.integratio | DEBUG | com.java.obs.extif.tcms.communication.base.utils.connection.ConnectionStateLogic | updateLifeSignalOn wasDead=false count=17 shouldEnable=false",
+        "level": "debug"
+      },
+      {
+        "line": "2026-06-02 11:17:03,756 | org.springframework.integration.dsl.StandardIntegrationFlow#1.ip:udp-inbound-channel-adapter#0-ip:udp-inbound-channel-adapter | DEBUG | com.java.obs.extif.trdp.messaging.udp.TRDPDataMessageHandler | Received data: 0x01, 0x02, 0x03, 0x04",
         "level": "debug"
       }
     ]
