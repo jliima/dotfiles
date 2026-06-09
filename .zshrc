@@ -98,7 +98,8 @@ alias colors="python3 $HOME/dotfiles/scripts/pywal/display-colors-cli.py"
 alias tg='python3 $HOME/scripts/telegram-video-converter.py'
 alias edit-video="$HOME/scripts/video/edit-video.py"
 
-alias ls="eza --icons -F -H --group-directories-first --git -1"
+alias ls="eza --icons -F -H --group-directories-first -w 80"
+alias la="eza --icons -F -H --group-directories-first -w 80 -a"
 alias cd="z"
 alias tree="eza --icons --tree -F -H"
 alias dolphin="dolphin . >/dev/null & disown > /dev/null"
