@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xkbConfigRegistry SYSTEM "xkb.dtd">
+<xkbConfigRegistry version="1.1">
+  <layoutList>
+    <layout>
+      <configItem>
+        <name>ficustom</name>
+        <shortDescription>FI+US</shortDescription>
+        <description>Finnish (Custom US hybrid)</description>
+        <languageList>
+          <iso639Id>fin</iso639Id>
+          <iso639Id>eng</iso639Id>
+        </languageList>
+      </configItem>
+    </layout>
+  </layoutList>
+</xkbConfigRegistry>
