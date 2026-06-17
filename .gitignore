@@ -12,3 +12,7 @@ scripts/*
 !scripts/pywal
 !scripts/kde
 !scripts/applications
+
+.mozilla/*
+!.mozilla/user.js
+!.mozilla/chrome/*
