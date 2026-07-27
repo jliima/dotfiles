@@ -24,3 +24,5 @@ _darcs
 
 .directory
 .stfolder
+.github
+.env
