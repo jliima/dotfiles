@@ -122,8 +122,29 @@
   "chat.commandCenter.enabled": false,
   "chat.agent.maxRequests": 35,
   "chat.tools.terminal.autoApprove": {
-    "npm run migrations:run": true,
-    "docker exec": true,
+    "/.*/": true,
+    "/^git\\s+push\\b/": false,
+    "/^git\\s+commit\\b/": false,
+    "/^git\\s+reset\\s+--hard\\b/": false,
+    "/^git\\s+clean\\s+-[a-z]*f[a-z]*d?\\b/i": false,
+    "/^python[0-9.]*\\b/i": false,
+    "/^py\\b/i": false,
+    "rm": false,
+    "rmdir": false,
+    "del": false,
+    "/^Remove-Item\\b/i": false,
+    "dd": false,
+    "mkfs": false,
+    "chmod": false,
+    "chown": false,
+    "kill": false,
+    "killall": false,
+    "shutdown": false,
+    "reboot": false,
+    "sudo": false,
+    "curl": false,
+    "wget": false,
+    "eval": false
   },
   "github.copilot.nextEditSuggestions.enabled": true,
   "github.copilot.enable": {
@@ -146,5 +167,6 @@
     "editor.formatOnSaveMode": "file",
     "editor.formatOnType": false,
   },
-  "pdf-preview.default.sidebar": true
+  "pdf-preview.default.sidebar": true,
+  "diffEditor.hideUnchangedRegions.enabled": true
 }
