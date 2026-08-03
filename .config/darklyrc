@@ -2,4 +2,8 @@
 OutlineCloseButton=false
 
 [Style]
+AdjustToDarkThemes=true
 RoundedRubberBandFrame=false
+TabBGColor=39,71,98
+TabUseHighlightColor=true
+UnifiedTabBarKonsole=true
