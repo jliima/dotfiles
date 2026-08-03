@@ -3,4 +3,5 @@
 --add-metadata
 --js-runtimes node
 --remote-components ejs:github
+--cookies-from-browser firefox
 -o ~/Downloads/%(title)s.%(ext)s
