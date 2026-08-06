@@ -118,13 +118,8 @@ ZSH_HIGHLIGHT_STYLES[path]=none
 ZSH_HIGHLIGHT_STYLES[path_prefix]=none
 
 source "$HOME/dotfiles/scripts/pywal/run-pywal-completion.bash"
-if command -v fzf >/dev/null 2>&1; then
-  if [[ -f "$HOME/.fzf.zsh" ]]; then
-    source "$HOME/.fzf.zsh"
-  else
-    source <(fzf --zsh)
-  fi
-fi
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 
