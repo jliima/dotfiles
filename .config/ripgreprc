@@ -1,0 +1,20 @@
+# Don't let ripgrep vomit really long lines to my terminal, and show a preview.
+--max-columns=150
+--max-columns-preview
+
+# Search hidden files / directories (e.g. dotfiles) by default
+--hidden
+
+# Using glob patterns to include/exclude files or folders
+--glob=!**/.git/**
+--glob=!**/*logback.xml
+--glob=!**/*.copilot*/session-state/**
+--glob=!**/github.copilot-chat/**
+--glob=!*zsh_history*
+--glob=!.config/Code/User/History/**
+--glob=!.config/Code/User/workspaceStorage/**
+--glob=!.claude/shell-snapshots/**
+--glob=!.local/share/klipper/**
+
+# Set the colors.
+--colors=line:style:underline
