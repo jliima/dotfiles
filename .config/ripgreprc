@@ -5,6 +5,9 @@
 # Search hidden files / directories (e.g. dotfiles) by default
 --hidden
 
+# Ignore case
+--smart-case
+
 # Using glob patterns to include/exclude files or folders
 --glob=!**/.git/**
 --glob=!**/*logback.xml
