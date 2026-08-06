@@ -8,13 +8,18 @@
 # Using glob patterns to include/exclude files or folders
 --glob=!**/.git/**
 --glob=!**/*logback.xml
---glob=!**/*.copilot*/session-state/**
---glob=!**/github.copilot-chat/**
 --glob=!*zsh_history*
+--glob=!.local/share/klipper/**
+
+--glob=!*.copilot*/command-history-state.json
+--glob=!*.copilot*/session-state/**
+--glob=!**/github.copilot-chat/**
+--glob=!.claude/shell-snapshots/**
+--glob=!.config/Code/logs/**
+--glob=!.config/Code/User/globalStorage/emptyWindowChatSessions/**
 --glob=!.config/Code/User/History/**
 --glob=!.config/Code/User/workspaceStorage/**
---glob=!.claude/shell-snapshots/**
---glob=!.local/share/klipper/**
+
 
 # Set colors
 --colors=path:fg:blue
