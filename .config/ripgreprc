@@ -16,5 +16,10 @@
 --glob=!.claude/shell-snapshots/**
 --glob=!.local/share/klipper/**
 
-# Set the colors.
---colors=line:style:underline
+# Set colors
+--colors=path:fg:blue
+--colors=line:style:intense
+--colors=line:fg:black
+--colors=column:fg:green
+--colors=match:fg:red
+#--colors=highlight:none
