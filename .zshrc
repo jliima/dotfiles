@@ -3,15 +3,15 @@
 umask 002
 ZSH_DISABLE_COMPFIX=true
 
-##############################################################################
+################################################################################
 # Exports
-##############################################################################
+################################################################################
 
 export ZSH="$HOME/.oh-my-zsh"
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgreprc"
 export TERM=xterm-256color
-export PYTHONPATH="$HOME:$PYTHONPATH"
+export PYTHONPATH="$HOME${PYTHONPATH:+:$PYTHONPATH}"
 export LESSOPEN="|pygmentize -g %s"
 export LESS="-R"
 export MANROFFOPT="-c"
@@ -36,14 +36,14 @@ export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.spicetify:$PATH"
 export PATH="$HOME/scripts/work-scripts:$PATH"
 
-##############################################################################
+################################################################################
 # Oh-My-Zsh Configuration
-##############################################################################
+################################################################################
 
 ZSH_THEME="robbyrussell"
 HISTSIZE=5000
 SAVEHIST=5000
-HIST_STAMPS="dd.mm.yyyy"
+HIST_STAMPS="yyyy-mm-dd"
 
 plugins=(
   git
@@ -56,31 +56,32 @@ plugins=(
 
 ZSH_AUTOSUGGEST_STRATEGY="match_prev_cmd" #"completion"
 
-##############################################################################
-# History Management
-##############################################################################
+################################################################################
+# Activity-based history
+################################################################################
 
-CURRENT_ACTIVITY=$(plasma-activities-cli6 --current-activity | awk '{print $2}')
+CURRENT_ACTIVITY=$(plasma-activities-cli6 --current-activity 2>/dev/null | awk 'NR==1 {print $2}')
 
-if [ "$CURRENT_ACTIVITY" = "Work" ]; then
-  HISTDIR=~/.zsh_history_archive_work
-  HISTFILE=~/.zsh_history_work
-  sort -f ~/.zsh_aliases_work -o ~/.zsh_aliases_work
-  source ~/.zsh_aliases_work
+if [[ "$CURRENT_ACTIVITY" == "Work" ]]; then
+  HISTDIR="$HOME/.zsh_history_archive_work"
+  HISTFILE="$HOME/.zsh_history_work"
 else
-  HISTDIR=~/.zsh_history_archive
-  HISTFILE=~/.zsh_history
+  HISTDIR="$HOME/.zsh_history_archive"
+  HISTFILE="$HOME/.zsh_history"
 fi
 
-sort -f ~/.zsh_aliases -o ~/.zsh_aliases
-source ~/.zsh_aliases
+mkdir -p "$HISTDIR"
+touch "$HISTFILE"
 
-##############################################################################
+################################################################################
 # Functions
-##############################################################################
+################################################################################
 
 archive_history() {
-  if [ $(wc -l < "$HISTFILE") -ge 5000 ]; then
+  local line_count
+  line_count=$(wc -l < "$HISTFILE")
+
+  if (( line_count >= SAVEHIST )); then
       mv "$HISTFILE" "$HISTDIR/zsh_history_$(date +%Y%m%d%H%M%S)"
       touch "$HISTFILE"
   fi
@@ -105,53 +106,25 @@ tg-dlp() {
     "$@"
 }
 
-##############################################################################
-# Aliases
-##############################################################################
-
-alias run-pywal="$HOME/dotfiles/scripts/pywal/run-pywal.py"
-alias upp="$HOME/scripts/kde/update-packages.sh"
-alias kate="kate -n"
-alias colors-show="python3 $HOME/dotfiles/scripts/pywal/display-colors-cli.py"
-alias tg="python3 $HOME/scripts/telegram-video-converter.py"
-alias edit-video="$HOME/scripts/video/edit-video.py"
-
-alias ls="eza --icons -F -H --group-directories-first -w 80"
-alias la="eza --icons -F -H --group-directories-first -w 80 -a"
-alias cd="z"
-alias tree="eza --icons --tree -F -H"
-alias dolphin="dolphin . >/dev/null & disown > /dev/null"
-alias neofetch="fastfetch"
-
-##############################################################################
+################################################################################
 # Oh-My-Zsh Initialization
-##############################################################################
+################################################################################
 
-source $ZSH/oh-my-zsh.sh
+source "$ZSH/oh-my-zsh.sh"
 
 # Disable underline in syntax highlighting
 (( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[path]=none
 ZSH_HIGHLIGHT_STYLES[path_prefix]=none
 
-# Initialize completion
-autoload -Uz compinit && compinit
-
-##############################################################################
-# Command Hooks
-##############################################################################
-
-precmd() {
-  archive_history
-}
-
-##############################################################################
-# External Initializations
-##############################################################################
-
 source "$HOME/dotfiles/scripts/pywal/run-pywal-completion.bash"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source <(fzf --zsh)
+if command -v fzf >/dev/null 2>&1; then
+  if [[ -f "$HOME/.fzf.zsh" ]]; then
+    source "$HOME/.fzf.zsh"
+  else
+    source <(fzf --zsh)
+  fi
+fi
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 
@@ -159,9 +132,9 @@ eval "$(starship init zsh)"
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
 . "$HOME/.local/bin/env"
 
-##############################################################################
+################################################################################
 # Interactive Shell Settings (NVM and lazy loading)
-##############################################################################
+################################################################################
 
 if [[ $- == *i* ]]; then
   export NVM_DIR="$HOME/.nvm"
@@ -182,3 +155,39 @@ if [[ $- == *i* ]]; then
   pnpm() { _load_nvm; command pnpm "$@"; }
   npx() { _load_nvm; command npx "$@"; }
 fi
+
+################################################################################
+# Aliases
+################################################################################
+
+if [[ -f "$HOME/.zsh_aliases" ]]; then
+  sort -f "$HOME/.zsh_aliases" -o "$HOME/.zsh_aliases"
+  source "$HOME/.zsh_aliases"
+fi
+
+if [[ "$CURRENT_ACTIVITY" == "Work" && -f "$HOME/.zsh_aliases_work" ]]; then
+  sort -f "$HOME/.zsh_aliases_work" -o "$HOME/.zsh_aliases_work"
+  source "$HOME/.zsh_aliases_work"
+fi
+
+alias run-pywal="$HOME/dotfiles/scripts/pywal/run-pywal.py"
+alias upp="$HOME/scripts/kde/update-packages.sh"
+alias kate="kate -n"
+alias colors-show="python3 $HOME/dotfiles/scripts/pywal/display-colors-cli.py"
+alias tg="python3 $HOME/scripts/telegram-video-converter.py"
+alias edit-video="$HOME/scripts/video/edit-video.py"
+
+alias ls="eza --icons -F -H --group-directories-first -w 80"
+alias la="eza --icons -F -H --group-directories-first -w 80 -a"
+alias cd="z"
+alias tree="eza --icons --tree -F -H"
+alias dolphin="dolphin . >/dev/null & disown > /dev/null"
+alias neofetch="fastfetch"
+
+################################################################################
+# Command Hooks
+################################################################################
+
+precmd() {
+  archive_history
+}
