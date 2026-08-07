@@ -180,9 +180,19 @@ alias dolphin="dolphin . >/dev/null & disown > /dev/null"
 alias neofetch="fastfetch"
 
 ################################################################################
+# Binds
+################################################################################
+
+# Bind Ctrl+backspace to erase the previous word
+bindkey '^H' backward-kill-word
+
+################################################################################
 # Command Hooks
 ################################################################################
 
 precmd() {
   archive_history
 }
+
+# Adds a blank line before each prompt EXCEPT the first prompt just after starting the shell.
+precmd() { precmd() { echo; } }
