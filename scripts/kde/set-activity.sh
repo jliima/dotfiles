@@ -44,7 +44,7 @@ EOF
 
 find_activity_id() {
   local name="$1"
-  plasma-activities-cli6 --list-activities | sed -n -E "s/^([0-9a-f-]+) ${name} \(.*\)\$/\1/p" | head -n1
+  timeout 5 plasma-activities-cli6 --list-activities | sed -n -E "s/^([0-9a-f-]+) ${name} \(.*\)\$/\1/p" | head -n1
 }
 
 # ==== Main ====
@@ -65,5 +65,5 @@ if [[ -z "$ACTIVITY_ID" ]]; then
   exit 1
 fi
 
-plasma-activities-cli6 --set-current-activity "$ACTIVITY_ID"
+timeout 5 plasma-activities-cli6 --set-current-activity "$ACTIVITY_ID"
 print_success "Switched to activity: $ACTIVITY_NAME"

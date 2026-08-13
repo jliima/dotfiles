@@ -93,7 +93,7 @@ load_env() {
 get_copilot_user() {
   local current_activity
 
-  current_activity=$(plasma-activities-cli6 --current-activity | awk '{print $2}')
+  current_activity=$("$HOME/scripts/kde/get-current-activity-name.sh")
 
   if [ "$current_activity" = "Work" ]; then
     if [ "$INVERT_ACTIVITY" = true ]; then

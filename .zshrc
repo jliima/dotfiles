@@ -60,7 +60,8 @@ ZSH_AUTOSUGGEST_STRATEGY="match_prev_cmd" #"completion"
 # Activity-based history
 ################################################################################
 
-CURRENT_ACTIVITY=$(plasma-activities-cli6 --current-activity 2>/dev/null | awk 'NR==1 {print $2}')
+CURRENT_ACTIVITY=$("$HOME/scripts/kde/get-current-activity-name.sh" 2>/dev/null)
+
 
 if [[ "$CURRENT_ACTIVITY" == "Work" ]]; then
   HISTDIR="$HOME/.zsh_history_archive_work"
