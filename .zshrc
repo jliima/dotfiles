@@ -122,6 +122,7 @@ source "$HOME/dotfiles/scripts/pywal/run-pywal-completion.bash"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source <(fzf --zsh)
 eval "$(zoxide init zsh)"
+export _ZO_DOCTOR=0
 eval "$(starship init zsh)"
 
 [[ -f "$HOME/scripts/work-scripts/workrc" ]] && source "$HOME/scripts/work-scripts/workrc"
@@ -191,9 +192,9 @@ bindkey '^H' backward-kill-word
 # Command Hooks
 ################################################################################
 
+# Adds a blank line before each prompt EXCEPT the first prompt just after starting the shell.
 precmd() {
   archive_history
+  [[ -n "$_PRECMD_RAN_ONCE" ]] && echo
+  _PRECMD_RAN_ONCE=1
 }
-
-# Adds a blank line before each prompt EXCEPT the first prompt just after starting the shell.
-precmd() { precmd() { echo; } }

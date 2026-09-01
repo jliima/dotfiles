@@ -64,6 +64,15 @@
   "editor.codeLensFontSize": 1,
   "editor.unicodeHighlight.invisibleCharacters": false,
   "editor.unicodeHighlight.ambiguousCharacters": false,
+  "files.watcherExclude": {
+  "**/node_modules/**": true,
+  "**/.git/**": true,
+  "**/dist/**": true,
+  "**/build/**": true,
+  "**/.venv/**": true,
+  "**/venv/**": true,
+  "**/__pycache__/**": true
+  },
   "terminal.integrated.fontFamily": "Liga SFMono Nerd Font",
   "terminal.integrated.fontSize": 13,
   "terminal.integrated.fontWeight": "600",
@@ -100,8 +109,6 @@
   "gitlens.currentLine.enabled": false,
   "diffEditor.ignoreTrimWhitespace": false,
   "gitlens.views.branches.showRemoteBranches": true,
-  "gitlens.ai.model": "vscode",
-  "gitlens.ai.vscode.model": "copilot:gpt-4.1",
   "gitlens.hovers.enabled": false,
   "gitlens.hovers.avatars": false,
   "gitlens.views.branches.avatars": false,
@@ -168,5 +175,6 @@
     "editor.formatOnType": false,
   },
   "pdf-preview.default.sidebar": true,
-  "diffEditor.hideUnchangedRegions.enabled": true
+  "diffEditor.hideUnchangedRegions.enabled": true,
+  "claudeCode.preferredLocation": "panel"
 }
