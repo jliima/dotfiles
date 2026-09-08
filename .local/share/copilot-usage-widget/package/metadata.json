@@ -1,0 +1,16 @@
+{
+    "KPlugin": {
+        "Id": "com.jliima.copilotusage",
+        "Name": "Copilot Usage",
+        "Description": "GitHub Copilot premium request usage and reset date. Reads ~/.copilot by default; point it at a different COPILOT_HOME via install.sh's optional argument",
+        "Authors": [
+            { "Name": "jliima" }
+        ],
+        "Category": "System Information",
+        "Icon": "utilities-system-monitor",
+        "License": "MIT",
+        "Version": "1.0"
+    },
+    "KPackageStructure": "Plasma/Applet",
+    "X-Plasma-API-Minimum-Version": "6.0"
+}
