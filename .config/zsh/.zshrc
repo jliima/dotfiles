@@ -35,6 +35,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.spicetify:$PATH"
 export PATH="$HOME/scripts/work-scripts:$PATH"
+export PATH="$HOME/.fzf/bin:$PATH"
 
 ################################################################################
 # Oh-My-Zsh Configuration
@@ -63,12 +64,14 @@ ZSH_AUTOSUGGEST_STRATEGY="match_prev_cmd" #"completion"
 CURRENT_ACTIVITY=$("$HOME/scripts/kde/get-current-activity-name.sh" 2>/dev/null)
 
 
+ZSH_STATE_DIR="$HOME/.local/state/zsh"
+
 if [[ "$CURRENT_ACTIVITY" == "Work" ]]; then
-  HISTDIR="$HOME/.zsh_history_archive_work"
-  HISTFILE="$HOME/.zsh_history_work"
+  HISTDIR="$ZSH_STATE_DIR/history_archive_work"
+  HISTFILE="$ZSH_STATE_DIR/history_work"
 else
-  HISTDIR="$HOME/.zsh_history_archive"
-  HISTFILE="$HOME/.zsh_history"
+  HISTDIR="$ZSH_STATE_DIR/history_archive"
+  HISTFILE="$ZSH_STATE_DIR/history"
 fi
 
 mkdir -p "$HISTDIR"
@@ -119,7 +122,6 @@ ZSH_HIGHLIGHT_STYLES[path]=none
 ZSH_HIGHLIGHT_STYLES[path_prefix]=none
 
 source "$HOME/dotfiles/scripts/pywal/run-pywal-completion.bash"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source <(fzf --zsh)
 eval "$(zoxide init zsh)"
 export _ZO_DOCTOR=0
@@ -139,10 +141,12 @@ if [[ $- == *i* ]]; then
   # Loader: source nvm and bash_completion, then undefine stubs so calls go directly to real commands
   _load_nvm() {
     # Prevent repeated loading
+    [ "$_NVM_REAL_LOADED" = 1 ] && return
     unset -f node npm pnpm npx nvm
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
     [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+    _NVM_REAL_LOADED=1
   }
 
   # Stub wrappers: load on first use, then forward the arguments
@@ -151,20 +155,50 @@ if [[ $- == *i* ]]; then
   npm() { _load_nvm; command npm "$@"; }
   pnpm() { _load_nvm; command pnpm "$@"; }
   npx() { _load_nvm; command npx "$@"; }
+
+  # Auto `nvm use` on cd into a directory with a .nvmrc (walking up to /),
+  # installing the pinned version first if it's missing. Only touches nvm
+  # (loading it for real if still a stub) when a .nvmrc is actually found,
+  # or when leaving one to revert to the default version, so cd'ing around
+  # directories without one stays free of the nvm.sh sourcing cost.
+  _use_nvmrc_if_present() {
+    local dir="$PWD" nvmrc=""
+    while [[ -n "$dir" ]]; do
+      if [[ -f "$dir/.nvmrc" ]]; then
+        nvmrc="$dir/.nvmrc"
+        break
+      fi
+      [[ "$dir" == "/" ]] && break
+      dir="${dir:h}"
+    done
+
+    if [[ -n "$nvmrc" ]]; then
+      _load_nvm
+      local wanted
+      wanted="$(<"$nvmrc")"
+      nvm list "$wanted" &>/dev/null || nvm install "$wanted"
+      nvm use --silent "$wanted"
+    elif [[ "$_NVM_REAL_LOADED" == 1 ]]; then
+      [[ "$(nvm version)" != "$(nvm version default)" ]] && nvm use default --silent
+    fi
+  }
+  autoload -U add-zsh-hook
+  add-zsh-hook chpwd _use_nvmrc_if_present
+  _use_nvmrc_if_present
 fi
 
 ################################################################################
 # Aliases
 ################################################################################
 
-if [[ -f "$HOME/.zsh_aliases" ]]; then
-  sort -f "$HOME/.zsh_aliases" -o "$HOME/.zsh_aliases"
-  source "$HOME/.zsh_aliases"
+if [[ -f "$ZDOTDIR/.zsh_aliases" ]]; then
+  sort -f "$ZDOTDIR/.zsh_aliases" -o "$ZDOTDIR/.zsh_aliases"
+  source "$ZDOTDIR/.zsh_aliases"
 fi
 
-if [[ "$CURRENT_ACTIVITY" == "Work" && -f "$HOME/.zsh_aliases_work" ]]; then
-  sort -f "$HOME/.zsh_aliases_work" -o "$HOME/.zsh_aliases_work"
-  source "$HOME/.zsh_aliases_work"
+if [[ "$CURRENT_ACTIVITY" == "Work" && -f "$ZDOTDIR/.zsh_aliases_work" ]]; then
+  sort -f "$ZDOTDIR/.zsh_aliases_work" -o "$ZDOTDIR/.zsh_aliases_work"
+  source "$ZDOTDIR/.zsh_aliases_work"
 fi
 
 alias run-pywal="$HOME/dotfiles/scripts/pywal/run-pywal.py"

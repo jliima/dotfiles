@@ -16,3 +16,5 @@ scripts/*
 .mozilla/*
 !.mozilla/user.js
 !.mozilla/chrome/*
+
+.config/zsh/.zcompdump*
