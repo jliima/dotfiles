@@ -18,3 +18,4 @@ scripts/*
 !.mozilla/chrome/*
 
 .config/zsh/.zcompdump*
+.config/zsh/.zsh_history_ignore

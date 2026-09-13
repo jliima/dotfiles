@@ -78,6 +78,33 @@ mkdir -p "$HISTDIR"
 touch "$HISTFILE"
 
 ################################################################################
+# History Ignore List
+################################################################################
+
+# Commands to skip when adding to history, matched as regex (full line, anchored).
+# A plain string with no regex chars, like "ls", still only matches itself.
+# List lives in $ZDOTDIR/.zsh_history_ignore, one pattern per line
+_zsh_history_ignore() {
+  setopt local_options extended_glob
+  local ignore_file="$ZDOTDIR/.zsh_history_ignore"
+  [[ -f "$ignore_file" ]] || return 0
+
+  local cmd="${1%$'\n'}"
+  cmd="${cmd##[[:space:]]#}"
+  cmd="${cmd%%[[:space:]]#}"
+
+  local pattern
+  while IFS= read -r pattern || [[ -n "$pattern" ]]; do
+    [[ -z "$pattern" || "$pattern" == '#'* ]] && continue
+    [[ "$cmd" =~ ^(${pattern})$ ]] && return 1
+  done < "$ignore_file"
+
+  return 0
+}
+autoload -U add-zsh-hook
+add-zsh-hook zshaddhistory _zsh_history_ignore
+
+################################################################################
 # Functions
 ################################################################################
 
