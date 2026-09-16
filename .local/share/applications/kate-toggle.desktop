@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Kate (focus or launch)
+Comment=Focus existing Kate window, or launch a new one
+Exec=/home/hieroja/dotfiles/scripts/kde/open-program/focus-or-launch.sh org.kde.kate -- kate
+Icon=kate
+Categories=Utility;TextEditor;
+NoDisplay=true
+StartupNotify=false
+Terminal=false

@@ -330,14 +330,23 @@ open-default-vault=Meta+Shift+R
 [services][open-obsidian.sh.desktop]
 _launch=Meta+R
 
-[services][org.kde.dolphin.desktop]
+[services][dolphin-toggle.desktop]
 _launch=Meta+D
 
-[services][org.kde.kate.desktop]
+[services][kate-toggle.desktop]
 _launch=Meta+E
 
+[services][konsole-toggle.desktop]
+_launch=Meta+T
+
+[services][org.kde.dolphin.desktop]
+_launch=Meta+Shift+D
+
+[services][org.kde.kate.desktop]
+_launch=Meta+Shift+E
+
 [services][org.kde.konsole.desktop]
-_launch=Meta+T\tCtrl+Alt+T
+_launch=Meta+Shift+T\tCtrl+Alt+T
 
 [services][org.kde.krunner.desktop]
 _launch=Alt+F2\tSearch\tMeta
