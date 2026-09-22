@@ -19,3 +19,4 @@ scripts/*
 
 .config/zsh/.zcompdump*
 .config/zsh/.zsh_history_ignore
+.config/zsh/.zsh_aliases*
