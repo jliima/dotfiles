@@ -19,7 +19,7 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 export FZF_DEFAULT_OPTS="
   --color 16
-  --color hl:09,fg+:015,bg+:05,hl+:09
+  --color hl:09,fg+:015,hl+:09
   --color info:008,prompt:003,spinner:011,pointer:006,marker:002
   --cycle
   --prompt='❯ ' #❯
@@ -28,6 +28,12 @@ export FZF_DEFAULT_OPTS="
   --layout=reverse
   --bind=tab:down,shift-tab:up
 "
+# Selection background from pywal (template: colors-fzf.sh), falls back to terminal bright blue
+[[ -f "$HOME/.cache/wal/colors-fzf.sh" ]] && source "$HOME/.cache/wal/colors-fzf.sh"
+FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS ${FZF_PYWAL_COLORS:---color bg+:12}"
+# Syntax-highlighted file preview for Ctrl-T (bat), directory listing for Alt-C
+export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:200 {}' --preview-window=right,60%,border-left"
+export FZF_ALT_C_OPTS="--preview 'ls --color=always -A {}'"
 
 # PATH setup (order matters)
 export PATH="$JAVA_HOME/bin:$PATH"
