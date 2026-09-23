@@ -21,6 +21,6 @@ menuitem > .menu-text, menuitem > .menu-iconic-text,
   /* Was 10pt (~13px), scaled up to match this display's pixel density (about
      140dpi vs the 96dpi CSS reference), since the OS-level display scale is
      left at 100% on purpose. */
-  font-size: 19px !important;
+  font-size: 12pt !important;
   font-weight: 500 !important;
 }

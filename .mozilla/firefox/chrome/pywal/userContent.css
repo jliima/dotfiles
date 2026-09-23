@@ -15,6 +15,55 @@
   :root:not(.system-font-size) {
     --font-size-root: 22px !important;
   }
+
+  /* moz-checkbox/moz-radio (e.g. every checkbox on about:preferences) only
+     set accent-color, so while appearance stayed "auto" the CHECKED fill
+     already followed the theme, but a native-rendered checkbox/radio (even
+     Firefox's own "non-native form controls") ignores author background-
+     color/border entirely while appearance:auto, which is why the unchecked
+     box kept painting Firefox's own default (#2b2a33) no matter what CSS
+     was set on it. Take over the paint fully instead. This still reaches
+     through moz-checkbox's shadow DOM because userContent.css is a
+     user-origin stylesheet, not a normal (shadow-scoped) author one, the
+     same reason --color-accent-primary above was already able to reach in. */
+  input[type="checkbox"],
+  input[type="radio"] {
+    appearance: none !important;
+    box-sizing: border-box !important;
+    width: 16px !important;
+    height: 16px !important;
+    background-color: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+  }
+
+  input[type="radio"] {
+    border-radius: 50% !important;
+  }
+
+  input[type="checkbox"]:checked,
+  input[type="radio"]:checked {
+    background-color: var(--accent) !important;
+    border-color: var(--accent) !important;
+  }
+
+  input[type="checkbox"]:checked::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background);
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  }
+
+  input[type="radio"]:checked::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: var(--background);
+    transform: scale(0.4);
+  }
 }
 
 /* ===== NEW TAB PAGE ===== */

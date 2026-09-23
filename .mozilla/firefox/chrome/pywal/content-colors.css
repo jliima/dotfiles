@@ -208,6 +208,25 @@ media-document(image) {
     --newtab-snippets-background-color: var(--backgroundAlt) !important;
     --newtab-contextmenu-button-color: var(--background) !important;
     --newtab-contextmenu-background-color: var(--overlay) !important;
+
+    /* New Tab / Activity Stream has its own separate --newtab-* token set
+       (chrome/browser/builtin-addons/newtab/data/css/activity-stream.css),
+       entirely disconnected from the --color-gray-* chain above. Most of
+       these ARE derived from --newtab-background-color via color-mix() and
+       so already follow the override above, but --newtab-background-color-
+       secondary, --newtab-background-card, --newtab-weather-background-color
+       and the "static" button backgrounds are independent hardcoded greys
+       (e.g. #42414d, rgba(66, 65, 77, …)) and need their own override, or
+       top-site icon tiles, the customize/search-handoff surfaces, and the
+       weather widget card keep showing Firefox's stock grey. */
+    --newtab-background-color-secondary: var(--surface) !important;
+    --newtab-background-card: var(--surface) !important;
+    --newtab-weather-background-color: var(--surface) !important;
+    --newtab-element-hover-color: var(--surfaceHover) !important;
+    --newtab-element-active-color: var(--surfaceHover) !important;
+    --newtab-button-static-background: var(--surface) !important;
+    --newtab-button-static-hover-background: var(--surfaceHover) !important;
+    --newtab-button-static-active-background: var(--surfaceHover) !important;
   }
 }
 
@@ -282,6 +301,10 @@ media-document(image) {
     --theme-toolbar-hover: var(--surfaceHover) !important;
     --theme-toolbar-alternate-hover: var(--surfaceHover) !important;
     --theme-toolbar-hover-active: var(--surfaceHover) !important;
+    /* Markup-view row hover highlight (.tag-hover in markup.css); not part
+       of the --theme-toolbar-* chain above so it kept showing its own
+       hardcoded dark grey (#353b48) instead of the theme. */
+    --theme-selection-background-hover: var(--surfaceHover) !important;
     --theme-popup-background: var(--overlay) !important;
     --theme-select-background: var(--surface) !important;
 
@@ -323,5 +346,84 @@ media-document(image) {
     --theme-highlight-lightorange: var(--warning) !important;
     --theme-highlight-pink: var(--magenta5) !important;
     --theme-highlight-gray: var(--textMuted) !important;
+
+    /* DevTools also has its own raw neutral grey scale (--grey-10..90) that
+       a lot of component CSS reads directly instead of going through the
+       --theme-* semantic layer above (e.g. .devtools-button-standalone's
+       text/border color, or the rule-view checkbox fill), so those spots
+       kept showing Firefox's stock greys no matter what --theme-* said.
+       Route it through the theme the same way --color-gray-* was remapped
+       for the rest of Firefox. */
+    --grey-10: var(--foreground) !important;
+    --grey-20: var(--border) !important;
+    --grey-25: var(--border) !important;
+    --grey-30: var(--foreground) !important;
+    --grey-40: var(--textSecondary) !important;
+    --grey-43: var(--textSecondary) !important;
+    --grey-45: var(--textSecondary) !important;
+    --grey-50: var(--textMuted) !important;
+    --grey-55: var(--textMuted) !important;
+    --grey-60: var(--surfaceHover) !important;
+    --grey-70: var(--surface) !important;
+    --grey-80: var(--backgroundAlt) !important;
+    --grey-85: var(--background) !important;
+    --grey-90: var(--background) !important;
+
+    /* Toggled/checked toolbar buttons (e.g. "Pick an element", an open
+       Settings panel) default to Firefox blue rather than the theme accent. */
+    --theme-toolbarbutton-checked-color: var(--accent) !important;
+    --theme-select-hover-border-color: var(--borderFocus) !important;
+  }
+
+  /* Same native-checkbox situation as about:preferences (see userContent.css):
+     appearance:auto ignores background-color/border entirely, so the Layout
+     panel's Grid/Flexbox checkboxes, Console's "Persist Logs", Settings
+     panel toggles, etc. kept showing the stock #2b2a33 fill. */
+  input[type="checkbox"],
+  input[type="radio"] {
+    appearance: none !important;
+    box-sizing: border-box !important;
+    width: 16px !important;
+    height: 16px !important;
+    background-color: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+  }
+
+  input[type="radio"] {
+    border-radius: 50% !important;
+  }
+
+  input[type="checkbox"]:checked,
+  input[type="radio"]:checked {
+    background-color: var(--accent) !important;
+    border-color: var(--accent) !important;
+  }
+
+  input[type="checkbox"]:checked::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background);
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  }
+
+  input[type="radio"]:checked::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: var(--background);
+    transform: scale(0.4);
+  }
+
+  /* Standalone buttons (Rules view "+ Add new rule", Console "Filter
+     output" area, …) hardcode their border/text color straight from the
+     raw grey scale via color-mix(), which the --grey-* remap above can't
+     always reach cleanly, so fix them directly too. */
+  .devtools-button.devtools-button-standalone {
+    border-color: var(--border) !important;
+    color: var(--foreground) !important;
   }
 }

@@ -30,6 +30,13 @@
   --color-accent-primary: var(--accent) !important;
   --color-accent-primary-hover: var(--accentHover) !important;
   --color-accent-primary-active: var(--accent) !important;
+
+  /* Backdrop behind the <browser> (.browserContainer, tabbrowser/content-
+     area.css), painted before the content process has anything to show,
+     on reload or a fast resize. Defaults to #2b2a33 and isn't part of any
+     --color-gray-* chain, so it flashes Firefox's stock grey for a frame
+     instead of the theme. */
+  --tabpanel-background-color: var(--background) !important;
 }
 
 /* ===== Main chrome (PRIMARY SURFACE) ===== */
@@ -43,22 +50,26 @@
   color: var(--foreground) !important;
 }
 
-/* ===== Tabs (SECONDARY SURFACE) ===== */
+/* ===== Tabs (SECONDARY SURFACE) =====
+   Brightness ladder: inactive (--surface) < active (--surfaceHover, a touch
+   lighter) < hover (--accentSubtle, brighter still). The hover rule is
+   listed after the [selected] one so that hovering the active tab
+   itself also shows the brighter hover color, not the dimmer active one:
+   both selectors have equal specificity, so source order decides. */
 .tabbrowser-tab .tab-background {
   background-color: var(--surface) !important;
 }
 
-.tabbrowser-tab:hover .tab-background {
+.tabbrowser-tab[selected] .tab-background {
   background-color: var(--surfaceHover) !important;
-}
-
-/* Active tab uses accent */
-.tabbrowser-tab[selected="true"] .tab-background {
-  background-color: var(--accentSubtle) !important;
   color: var(--foreground) !important;
 }
 
-.tabbrowser-tab[selected="true"] .tab-label {
+.tabbrowser-tab:hover .tab-background {
+  background-color: var(--accentSubtle) !important;
+}
+
+.tabbrowser-tab[selected] .tab-label {
   color: var(--foreground) !important;
 }
 
@@ -71,8 +82,29 @@
   border: 1px solid var(--border) !important;
 }
 
-#urlbar[focused="true"] #urlbar-background {
+/* Focus ring shared by the urlbar and the bookmarks/history sidebar search
+   box: a flat 2px --borderFocus ring (1px border + 1px box-shadow, so it
+   doesn't reflow the layout the way growing border-width to 2px would). */
+#urlbar[focused] #urlbar-background {
   border-color: var(--borderFocus) !important;
+  box-shadow: 0 0 0 1px var(--borderFocus) !important;
+}
+
+/* The bookmarks/history sidebar search box (#search-box) is a
+   <moz-input-search>: its real <input> lives inside a shadow root, so
+   putting the ring on the #search-box HOST left the shadow input's own
+   native focus outline still showing underneath, a second, offset ring
+   inside ours. A bare `input[type="search"]` selector still reaches
+   through the shadow boundary (this stylesheet is a user-origin sheet,
+   not a normal shadow-scoped author one, same as the checkbox fix in
+   userContent.css), so style the real input directly instead. */
+input[type="search"] {
+  outline: none !important;
+}
+
+input[type="search"]:focus {
+  border-color: var(--borderFocus) !important;
+  box-shadow: 0 0 0 1px var(--borderFocus) !important;
 }
 
 /* ===== Panels / menus ===== */
