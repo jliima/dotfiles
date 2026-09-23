@@ -1,0 +1,107 @@
+/* Color-only rules for the browser chrome (toolbars, tabs, panels, sidebar).
+   Structural/layout rules for the same components live in userChrome.css. */
+
+:root {
+  color-scheme: dark !important;
+
+  --lwt-accent-color: var(--background) !important;
+  --lwt-accent-color-inactive: var(--background) !important;
+  --lwt-text-color: var(--foreground) !important;
+
+  --toolbar-bgcolor: var(--background) !important;
+  --toolbar-color: var(--foreground) !important;
+
+  --toolbar-field-background-color: var(--surface) !important;
+  --toolbar-field-color: var(--foreground) !important;
+  --toolbar-field-border-color: var(--border) !important;
+
+  --toolbar-field-focus-background-color: var(--surface) !important;
+  --toolbar-field-focus-border-color: var(--borderFocus) !important;
+
+  --arrowpanel-background: var(--surface) !important;
+  --arrowpanel-color: var(--foreground) !important;
+
+  --menu-background-color: var(--surface) !important;
+  --menu-color: var(--foreground) !important;
+
+  --sidebar-background-color: var(--background) !important;
+  --sidebar-text-color: var(--foreground) !important;
+
+  --toolbar-bgcolor: var(--background) !important;
+  --color-accent-primary: var(--accent) !important;
+  --color-accent-primary-hover: var(--accentHover) !important;
+  --color-accent-primary-active: var(--accent) !important;
+}
+
+/* ===== Main chrome (PRIMARY SURFACE) ===== */
+#navigator-toolbox,
+#titlebar,
+#TabsToolbar,
+#nav-bar,
+#PersonalToolbar,
+#toolbar-menubar {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+/* ===== Tabs (SECONDARY SURFACE) ===== */
+.tabbrowser-tab .tab-background {
+  background-color: var(--surface) !important;
+}
+
+.tabbrowser-tab:hover .tab-background {
+  background-color: var(--surfaceHover) !important;
+}
+
+/* Active tab uses accent */
+.tabbrowser-tab[selected="true"] .tab-background {
+  background-color: var(--accentSubtle) !important;
+  color: var(--foreground) !important;
+}
+
+.tabbrowser-tab[selected="true"] .tab-label {
+  color: var(--foreground) !important;
+}
+
+/* ===== URL bar (SECONDARY SURFACE) ===== */
+#urlbar-background,
+#urlbar,
+.urlbar-input-container {
+  background-color: var(--surface) !important;
+  color: var(--foreground) !important;
+  border: 1px solid var(--border) !important;
+}
+
+#urlbar[focused="true"] #urlbar-background {
+  border-color: var(--borderFocus) !important;
+}
+
+/* ===== Panels / menus ===== */
+panel,
+panelview,
+menupopup,
+#appMenu-popup,
+#downloadsPanel,
+#urlbar-results {
+  background-color: var(--overlay) !important;
+  color: var(--foreground) !important;
+}
+
+/* Hover states */
+toolbarbutton:hover,
+.menuitem:hover,
+.subviewbutton:hover {
+  background-color: var(--surfaceHover) !important;
+}
+
+/* ===== Sidebar ===== */
+#sidebar-box,
+#sidebar,
+#sidebar-header {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+.subviewbutton.panel-subview-footer {
+  border-top: 1px var(--border) !important;
+}

@@ -1,61 +1,12 @@
-@import './colors.css';
-@import './tokenColors.css';
+@import './content-colors.css';
 
-:root {
-  color-scheme: dark !important;
-  accent-color: var(--accent) !important;
-}
-
-@-moz-document 
-url("about:newtab"), 
-url("about:home"), 
-url("about:preferences"), 
-url("about:config"), 
-url("about:blank"), 
-url("about:privatebrowsing"), 
-url("about:debugging"),
-url("about:support"),
-media-document(image) {
-
-  
+@-moz-document url("about:newtab"), url("about:home"), url("about:preferences"), url("about:config"), url("about:support"), url("about:debugging")  {
   html, body {
-    --newtab-background-color: var(--backgroundAlt) !important;
-    --newtab-wallpaper: none !important;
-    --newtab-snippets-background-color: var(--backgroundAlt) !important;
-    --newtab-contextmenu-button-color: var(--background) !important;
-    --newtab-contextmenu-background-color: var(--overlay) !important;
-
     font-family: var(--global-font) !important;
   }
 }
 
 /* ===== NEW TAB PAGE ===== */
-
-/* Firefox new tab root */
-@-moz-document url("about:newtab"), url("about:home"), url("about:preferences"), url("about:config"), url("about:support"), url("about:debugging")  {
-
-
-  /* Top sites / cards use secondary surface */
-  .top-site-outer .tile,
-  .top-site-outer .icon-wrapper,
-  .ds-card {
-    color: var(--foreground) !important;
-    border: 1px solid var(--border) !important;
-  }
-
-  /* Search box */
-  .search-handoff-button,
-  .search-inner-wrapper input {
-    color: var(--foreground) !important;
-    border: 1px solid var(--border) !important;
-  }
-
-  .search-handoff-button:focus,
-  .search-inner-wrapper input:focus {
-    border-color: var(--borderFocus) !important;
-    box-shadow: 0 0 0 1px var(--borderFocus) !important;
-  }
-}
 
 @-moz-document url(about:preferences), url(about:blank), url(about:newtab), url(about:home), url(about:privatebrowsing), url(about:config) {
 
@@ -74,31 +25,6 @@ media-document(image) {
   /* Remove box shadow border from top sites cards */
   .top-site-outer .tile {
     box-shadow: none !important;
-  }
-
-  /* Top sites card hover border */
-  [lwt-newtab-brighttext] .ds-top-sites .top-sites .top-site-outer .top-site-inner > a:-moz-any(:hover) .tile {
-    box-shadow: 0 0 0 3px var(--surfaceHover) !important;
-  }
-
-  /* "Top sites" and "Highlights" titles */
-  .ds-header, .ds-layout .section-title span {
-    color: var(--newtab-text-primary-color) !important;
-  }
-
-  /* "Top sites" and "Highlights" icons */
-  .ds-header .icon, .ds-layout .section-title span .icon {
-    fill: var(--newtab-text-primary-color) !important;
-  }
-
-  /* Card border when hovering in dark mode */
-  [lwt-newtab-brighttext] .card-outer:-moz-any(:hover, :focus, .active):not(.placeholder) {
-    box-shadow: 0 0 0 5px var(--surfaceHover) !important;
-  }
-
-  /* Card border when hovering in light mode */
-  .card-outer:-moz-any(:hover, :focus, .active):not(.placeholder) {
-    box-shadow: 0 0 0 5px white !important;
   }
 
   .personalize-button:hover,
