@@ -17,7 +17,10 @@ menuitem > .menu-text, menuitem > .menu-iconic-text,
 #sidebar-header,
 #search-box {
   -moz-appearance: none !important;
-  font-family: "SF Pro Display" !important; /*SF Pro Rounded*/
-  font-size: 10pt !important;
+  font-family: "SF Pro" !important;
+  /* Was 10pt (~13px), scaled up to match this display's pixel density (about
+     140dpi vs the 96dpi CSS reference), since the OS-level display scale is
+     left at 100% on purpose. */
+  font-size: 19px !important;
   font-weight: 500 !important;
 }

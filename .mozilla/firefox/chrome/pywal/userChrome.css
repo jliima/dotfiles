@@ -1,4 +1,6 @@
 @import './colors.css';
+@import './tokenColors.css';
+@import './chrome-colors.css';
 @import '../chrome_css/iconized_main_menu.css';
 @import '../chrome_css/iconized_menubar_items.css';
 @import '../chrome_css/iconized_places_context_menu.css';
@@ -11,113 +13,27 @@
 @import '../chrome_css/custom_bookmark_icons.css';
 
 :root {
-  color-scheme: dark !important;
-
-  --lwt-accent-color: var(--background) !important;
-  --lwt-accent-color-inactive: var(--background) !important;
-  --lwt-text-color: var(--foreground) !important;
-
-  --toolbar-bgcolor: var(--background) !important;
-  --toolbar-color: var(--foreground) !important;
-
-  --toolbar-field-background-color: var(--surface) !important;
-  --toolbar-field-color: var(--foreground) !important;
-  --toolbar-field-border-color: var(--border) !important;
-
-  --toolbar-field-focus-background-color: var(--surface) !important;
-  --toolbar-field-focus-border-color: var(--borderFocus) !important;
-
-  --arrowpanel-background: var(--surface) !important;
-  --arrowpanel-color: var(--foreground) !important;
-
-  --menu-background-color: var(--surface) !important;
-  --menu-color: var(--foreground) !important;
-
-  --sidebar-background-color: var(--background) !important;
-  --sidebar-text-color: var(--foreground) !important;
-
   --tab-corner-rounding: 0px;
   --animation-speed: 0.25s;
   --urlbar-icon-border-radius: 10px !important;
 
   --border-radius: 8px;
 
-  --toolbar-bgcolor: var(--background) !important;
-  --color-accent-primary: var(--accent) !important;
-  --color-accent-primary-hover: var(--accentHover) !important;
-  --color-accent-primary-active: var(--accent) !important;
   --focus-outline-width: 1px !important;
-}
 
-/* ===== Main chrome (PRIMARY SURFACE) ===== */
-#navigator-toolbox,
-#titlebar,
-#TabsToolbar,
-#nav-bar,
-#PersonalToolbar,
-#toolbar-menubar {
-  background-color: var(--background) !important;
-  color: var(--foreground) !important;
+  /* Referenced by the sidebar font-family rules below. Defined here (not in
+     colors.css) since colors.css is overwritten wholesale by pywal on every
+     wallpaper change and would silently drop this. */
+  --global-font: "SF Pro" !important;
 }
 
 /* ===== Tabs (SECONDARY SURFACE) ===== */
 .tabbrowser-tab .tab-background {
-  background-color: var(--surface) !important;
   border-radius: var(--border-radius) !important;
 }
 
-.tabbrowser-tab:hover .tab-background {
-  background-color: var(--surfaceHover) !important;
-}
-
-/* Active tab uses accent */
-.tabbrowser-tab[selected="true"] .tab-background {
-  background-color: var(--accentSubtle) !important;
-  color: var(--foreground) !important;
-}
-
 .tabbrowser-tab[selected="true"] .tab-label {
-  color: var(--foreground) !important;
   font-weight: 600 !important;
-}
-
-/* ===== URL bar (SECONDARY SURFACE) ===== */
-#urlbar-background,
-#urlbar,
-.urlbar-input-container {
-  background-color: var(--surface) !important;
-  color: var(--foreground) !important;
-  border: 1px solid var(--border) !important;
-}
-
-#urlbar[focused="true"] #urlbar-background {
-  border-color: var(--borderFocus) !important;
-}
-
-/* ===== Panels / menus ===== */
-panel,
-panelview,
-menupopup,
-#appMenu-popup,
-#downloadsPanel,
-#urlbar-results {
-  background-color: var(--overlay) !important;
-  color: var(--foreground) !important;
-}
-
-/* Hover states */
-toolbarbutton:hover,
-.menuitem:hover,
-.subviewbutton:hover {
-  background-color: var(--surfaceHover) !important;
-}
-
-/* ===== Sidebar ===== */
-#sidebar-box,
-#sidebar,
-#sidebar-header {
-  background-color: var(--background) !important;
-  color: var(--foreground) !important;
 }
 
 /* Remove border around UI */
@@ -133,10 +49,6 @@ toolbarbutton:hover,
   box-shadow: none !important;
 }
 
-.subviewbutton.panel-subview-footer {
-  border-top: 1px var(--border) !important;
-}
-
 tooltip {
   -moz-appearance: none !important;
   padding: 6.5px !important;
@@ -146,9 +58,9 @@ tooltip {
 
 /* Hidden menu items */
 #widget-overflow-mainView > .panel-subview-body > toolbarseparator,
-.PanelUI-subView menuseparator, 
+.PanelUI-subView menuseparator,
 .PanelUI-subView toolbarseparator,
-.cui-widget-panelview menuseparator, 
+.cui-widget-panelview menuseparator,
 .cui-widget-panel toolbarseparator {
   -moz-appearance: none !important;
   min-height: 0;
@@ -176,7 +88,7 @@ tooltip {
 #tabbrowser-tabs {
   margin-top: 3px !important;
   margin-left: 3px !important;
-  
+
 }
 
 /******* URLBAR *******/
@@ -328,7 +240,7 @@ sidebar-history {
   appearance: none !important;
 }
 
-#_f0811709-d562-4380-9704-dcec7896b444_-browser-action .toolbarbutton-1 .toolbarbutton-badge-stack {        
+#_f0811709-d562-4380-9704-dcec7896b444_-browser-action .toolbarbutton-1 .toolbarbutton-badge-stack {
   background-image: url("icons/arrow-right.svg") !important;
   background-repeat: no-repeat !important;
   background-size: 18px !important;
