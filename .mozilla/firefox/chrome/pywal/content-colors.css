@@ -1,25 +1,205 @@
 /* Color-only rules for about:* content pages. Structural/typography rules
    for the same pages live in userContent.css. */
 @import './colors.css';
-@import './tokenColors.css';
 
 /* Everything below is scoped to Firefox's own about:/image-viewer pages,
    never to arbitrary web content, so the theme colors only color
-   Firefox's own UI and never bleed into a visited website's page. */
+   Firefox's own UI and never bleed into a visited website's page.
+   url-prefix("about:") covers every about: page (addons, downloads, logins,
+   protections, firefoxview, networking, processes, cache, welcome, reader, …)
+   instead of an explicit list, since the about: scheme is never reachable by
+   real websites and new about: pages would otherwise keep showing Firefox's
+   stock colors until added here by hand. */
 @-moz-document
-url("about:newtab"),
-url("about:home"),
-url("about:preferences"),
-url("about:config"),
-url("about:blank"),
-url("about:privatebrowsing"),
-url("about:debugging"),
-url("about:support"),
+url-prefix("about:"),
 media-document(image) {
 
   :root {
     color-scheme: dark !important;
     accent-color: var(--accent) !important;
+  }
+
+  /* Same token mappings as tokenColors.css, inlined here (rather than @imported)
+     so they stay scoped to Firefox's own pages. Keep the two in sync. */
+  @layer tokens-foundation {
+    :root,
+    :host(.anonymous-content-host) {
+      --text-color: var(--foreground) !important;
+
+      --color-gray-0:   var(--foreground) !important;
+      --color-gray-20:  var(--background) !important;
+      --color-gray-30:  var(--backgroundAlt) !important;
+      --color-gray-50:  var(--surface) !important;
+      --color-gray-60:  var(--warning) !important;
+      --color-gray-70:  var(--textDisabled) !important;
+      --color-gray-80:  var(--surfaceHover) !important;
+      --color-gray-90:  var(--background) !important;
+      --color-gray-100: var(--background) !important;
+
+      --color-accent-primary: var(--accent) !important;
+      --color-accent-primary-hover: var(--accentHover) !important;
+      --color-accent-primary-active: var(--accent) !important;
+      --color-accent-primary-selected: var(--accent) !important;
+      --color-accent-attention: var(--accent) !important;
+
+      /* Firefox's design-system tokens (used by about:support, about:networking, …)
+         default this to a hardcoded rgb(35, 34, 43), unrelated to any --color-gray-*
+         token above, so it needs its own override or content boxes/tables show that
+         fixed dark-grey instead of our theme. */
+      --table-background-color: var(--surface) !important;
+      --table-border-color: var(--border) !important;
+
+      /* Same story for the newer moz-* panel/popup/sidebar/toolbar tokens: they
+         default to hardcoded rgb() greys (e.g. rgb(66, 65, 77), rgb(28, 27, 34))
+         instead of routing through --color-gray-*, so panels built from these
+         (site permission popups, the sidebar revamp, print preview, PDF.js
+         toolbar, …) show Firefox's stock grey instead of the theme. */
+      --panel-background-color: var(--overlay) !important;
+      --panel-border-color: var(--border) !important;
+      --panel-text-color: var(--foreground) !important;
+      --popup-border-color: var(--border) !important;
+      --sidebar-background-color: var(--background) !important;
+      --sidebar-text-color: var(--foreground) !important;
+      --toolbar-background-color: var(--background) !important;
+      --toolbar-field-background-color-focus: var(--surface) !important;
+
+      /* --input-text-background-color/-color default to the system colors
+         Field/FieldText (not routed through --color-gray-* at all), which on
+         this GTK/native-theme setup resolve to Firefox's own stock grey, so
+         moz-input-text/-search fields (e.g. "Find in Settings") keep showing
+         that instead of the theme no matter what else here is overridden. */
+      --input-text-background-color: var(--surface) !important;
+      --input-text-color: var(--foreground) !important;
+
+      --color-black: #000000 !important;
+      --color-black-alpha-10: oklch(0 0 0 / 10%);
+      --color-black-alpha-20: oklch(0 0 0 / 20%);
+      --color-black-alpha-30: oklch(0 0 0 / 30%);
+      --color-black-alpha-40: oklch(0 0 0 / 40%);
+      --color-black-alpha-50: oklch(0 0 0 / 50%);
+      --color-black-alpha-60: oklch(0 0 0 / 60%);
+      --color-black-alpha-70: oklch(0 0 0 / 70%);
+      --color-black-alpha-80: oklch(0 0 0 / 80%);
+      --color-black-alpha-90: oklch(0 0 0 / 90%);
+      --color-blue-0:   var(--info) !important;
+      --color-blue-10:  var(--info) !important;
+      --color-blue-20:  var(--info) !important;
+      --color-blue-30:  var(--info) !important;
+      --color-blue-40:  var(--info) !important;
+      --color-blue-50:  var(--info) !important;
+      --color-blue-60:  var(--info) !important;
+      --color-blue-70:  var(--info) !important;
+      --color-blue-80:  var(--info) !important;
+      --color-blue-90:  var(--info) !important;
+      --color-blue-100: var(--info) !important;
+      --color-blue-110: var(--info) !important;
+      --color-cyan-0:   var(--cyan5) !important;
+      --color-cyan-10:  var(--cyan5) !important;
+      --color-cyan-20:  var(--cyan5) !important;
+      --color-cyan-30:  var(--cyan5) !important;
+      --color-cyan-40:  var(--cyan5) !important;
+      --color-cyan-50:  var(--cyan5) !important;
+      --color-cyan-60:  var(--cyan5) !important;
+      --color-cyan-70:  var(--cyan5) !important;
+      --color-cyan-80:  var(--cyan5) !important;
+      --color-cyan-90:  var(--cyan5) !important;
+      --color-cyan-100: var(--cyan5) !important;
+      --color-cyan-110: var(--cyan5) !important;
+      --color-green-0:   var(--success) !important;
+      --color-green-10:  var(--success) !important;
+      --color-green-20:  var(--success) !important;
+      --color-green-30:  var(--success) !important;
+      --color-green-40:  var(--success) !important;
+      --color-green-50:  var(--success) !important;
+      --color-green-60:  var(--success) !important;
+      --color-green-70:  var(--success) !important;
+      --color-green-80:  var(--success) !important;
+      --color-green-90:  var(--success) !important;
+      --color-green-100: var(--success) !important;
+      --color-green-110: var(--success) !important;
+      --color-orange-0: var(--warning) !important;
+      --color-orange-10: var(--warning) !important;
+      --color-orange-20: var(--warning) !important;
+      --color-orange-30: var(--warning) !important;
+      --color-orange-40: var(--warning) !important;
+      --color-orange-50: var(--warning) !important;
+      --color-orange-60: var(--warning) !important;
+      --color-orange-70: var(--warning) !important;
+      --color-orange-80: var(--warning) !important;
+      --color-orange-90: var(--warning) !important;
+      --color-orange-100:var(--warning) !important;
+      --color-orange-110:var(--warning) !important;
+      --color-pink-0:   var(--magenta5) !important;
+      --color-pink-10:  var(--magenta5) !important;
+      --color-pink-20:  var(--magenta5) !important;
+      --color-pink-30:  var(--magenta5) !important;
+      --color-pink-40:  var(--magenta5) !important;
+      --color-pink-50:  var(--magenta5) !important;
+      --color-pink-60:  var(--magenta5) !important;
+      --color-pink-70:  var(--magenta5) !important;
+      --color-pink-80:  var(--magenta5) !important;
+      --color-pink-90:  var(--magenta5) !important;
+      --color-pink-100: var(--magenta5) !important;
+      --color-pink-110: var(--magenta5) !important;
+      --color-purple-0: var(--magenta4) !important;
+      --color-purple-10: var(--magenta4) !important;
+      --color-purple-20: var(--magenta4) !important;
+      --color-purple-30: var(--magenta4) !important;
+      --color-purple-40: var(--magenta4) !important;
+      --color-purple-50: var(--magenta4) !important;
+      --color-purple-60: var(--magenta4) !important;
+      --color-purple-70: var(--magenta4) !important;
+      --color-purple-80: var(--magenta4) !important;
+      --color-purple-90: var(--magenta4) !important;
+      --color-purple-100:var(--magenta4) !important;
+      --color-purple-110:var(--magenta4) !important;
+      --color-red-0:   var(--error) !important;
+      --color-red-10:  var(--error) !important;
+      --color-red-20:  var(--error) !important;
+      --color-red-30:  var(--error) !important;
+      --color-red-40:  var(--error) !important;
+      --color-red-50:  var(--error) !important;
+      --color-red-60:  var(--error) !important;
+      --color-red-70:  var(--error) !important;
+      --color-red-80:  var(--error) !important;
+      --color-red-90:  var(--error) !important;
+      --color-red-100: var(--error) !important;
+      --color-red-110: var(--error) !important;
+      --color-violet-0: var(--accentSubtle) !important;
+      --color-violet-10: var(--accentSubtle) !important;
+      --color-violet-20: var(--accentSubtle) !important;
+      --color-violet-30: var(--accentSubtle) !important;
+      --color-violet-40: var(--accentSubtle) !important;
+      --color-violet-50: var(--accentSubtle) !important;
+      --color-violet-60: var(--accentSubtle) !important;
+      --color-violet-70: var(--accentSubtle) !important;
+      --color-violet-80: var(--accentSubtle) !important;
+      --color-violet-90: var(--accentSubtle) !important;
+      --color-violet-100:var(--accentSubtle) !important;
+      --color-violet-110:var(--accentSubtle) !important;
+      --color-white: #ffffff;
+      --color-white-alpha-10: oklch(1 0 0 / 10%);
+      --color-white-alpha-20: oklch(1 0 0 / 20%);
+      --color-white-alpha-30: oklch(1 0 0 / 30%);
+      --color-white-alpha-40: oklch(1 0 0 / 40%);
+      --color-white-alpha-50: oklch(1 0 0 / 50%);
+      --color-white-alpha-60: oklch(1 0 0 / 60%);
+      --color-white-alpha-70: oklch(1 0 0 / 70%);
+      --color-white-alpha-80: oklch(1 0 0 / 80%);
+      --color-white-alpha-90: oklch(1 0 0 / 90%);
+      --color-yellow-0:   var(--warning) !important;
+      --color-yellow-10:  var(--warning) !important;
+      --color-yellow-20:  var(--warning) !important;
+      --color-yellow-30:  var(--warning) !important;
+      --color-yellow-40:  var(--warning) !important;
+      --color-yellow-50:  var(--warning) !important;
+      --color-yellow-60:  var(--warning) !important;
+      --color-yellow-70:  var(--warning) !important;
+      --color-yellow-80:  var(--warning) !important;
+      --color-yellow-90:  var(--warning) !important;
+      --color-yellow-100: var(--warning) !important;
+      --color-yellow-110: var(--warning) !important;
+    }
   }
 
   html, body {
@@ -80,5 +260,68 @@ media-document(image) {
   /* Card border when hovering in light mode */
   .card-outer:-moz-any(:hover, :focus, .active):not(.placeholder) {
     box-shadow: 0 0 0 5px white !important;
+  }
+}
+
+/* ===== DEVTOOLS (F12 / page inspector) =====
+   DevTools has its own theme variable system (chrome://devtools/skin/variables.css),
+   entirely separate from the "Acorn" tokens above, so it needs its own overrides.
+   Scoped to chrome://devtools/ only, same reasoning as everything else in this file. */
+@-moz-document url-prefix("chrome://devtools/") {
+  :root {
+    /* Backgrounds */
+    --theme-body-background: var(--background) !important;
+    --theme-body-emphasized-background: var(--surface) !important;
+    --theme-body-alternate-emphasized-background: var(--surfaceHover) !important;
+    --theme-sidebar-background: var(--backgroundAlt) !important;
+    --theme-tab-toolbar-background: var(--background) !important;
+    --theme-toolbar-background: var(--background) !important;
+    --theme-toolbar-alternate-background: var(--backgroundAlt) !important;
+    --theme-toolbar-background-hover: var(--surfaceHover) !important;
+    --theme-toolbar-background-alt: var(--surface) !important;
+    --theme-toolbar-hover: var(--surfaceHover) !important;
+    --theme-toolbar-alternate-hover: var(--surfaceHover) !important;
+    --theme-toolbar-hover-active: var(--surfaceHover) !important;
+    --theme-popup-background: var(--overlay) !important;
+    --theme-select-background: var(--surface) !important;
+
+    /* Text */
+    --theme-toolbar-color: var(--foreground) !important;
+    --theme-toolbar-selected-color: var(--foreground) !important;
+    --theme-icon-color: var(--foreground) !important;
+    --theme-icon-dimmed-color: var(--textMuted) !important;
+    --theme-icon-checked-color: var(--accent) !important;
+    --theme-comment: var(--textMuted) !important;
+    --theme-body-color: var(--foreground) !important;
+    --theme-link-color: var(--textLink) !important;
+    --theme-text-color-alt: var(--textSecondary) !important;
+    --theme-text-color-inactive: var(--textDisabled) !important;
+    --theme-text-color-strong: var(--foreground) !important;
+    --theme-popup-color: var(--foreground) !important;
+    --theme-select-color: var(--foreground) !important;
+
+    /* Borders, selection, focus */
+    --theme-toolbar-separator: var(--border) !important;
+    --theme-splitter-color: var(--border) !important;
+    --theme-emphasized-splitter-color: var(--borderFocus) !important;
+    --theme-popup-border-color: var(--border) !important;
+    --theme-focus-outline-color: var(--borderFocus) !important;
+    --theme-selection-background: var(--selection) !important;
+    --theme-selection-color: var(--foreground) !important;
+    --theme-text-selection-background: var(--selection) !important;
+
+    /* Syntax/status highlight colors: map to our theme's status palette rather
+       than leaving Firefox defaults, but keep them distinct from each other so
+       highlighted JS/CSS tokens and console levels stay tell-apart-able. */
+    --theme-highlight-green: var(--success) !important;
+    --theme-highlight-red: var(--error) !important;
+    --theme-highlight-yellow: var(--warning) !important;
+    --theme-highlight-blue: var(--info) !important;
+    --theme-highlight-purple: var(--accentSubtle) !important;
+    --theme-highlight-orange: var(--warning) !important;
+    --theme-highlight-bluegrey: var(--info) !important;
+    --theme-highlight-lightorange: var(--warning) !important;
+    --theme-highlight-pink: var(--magenta5) !important;
+    --theme-highlight-gray: var(--textMuted) !important;
   }
 }

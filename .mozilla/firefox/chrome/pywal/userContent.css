@@ -1,8 +1,19 @@
 @import './content-colors.css';
 
-@-moz-document url("about:newtab"), url("about:home"), url("about:preferences"), url("about:config"), url("about:support"), url("about:debugging")  {
+@-moz-document url-prefix("about:") {
   html, body {
-    font-family: var(--global-font) !important;
+    /* Content documents don't see custom properties set in the chrome
+       userChrome.css document, so this can't reference --global-font from
+       there; set the family directly instead. */
+    font-family: "SF Pro" !important;
+  }
+
+  /* Firefox's in-content pages size almost all text in rem, relative to this
+     token. Scaled up from the 15px default to match this display's pixel
+     density (about 140dpi vs the 96dpi CSS reference), since the OS-level
+     display scale is left at 100% on purpose. */
+  :root:not(.system-font-size) {
+    --font-size-root: 22px !important;
   }
 }
 
@@ -36,5 +47,14 @@
   [lwt-newtab-brighttext] .personalize-button:hover,
   [lwt-newtab-brighttext] .customize-menu .close-button:hover {
     filter: brightness(120%);
+  }
+}
+
+/* ===== DEVTOOLS (F12 / page inspector) sizing =====
+   Same proportional bump as the rest of the UI; DevTools defaults to 11px. */
+@-moz-document url-prefix("chrome://devtools/") {
+  :root {
+    --theme-body-font-size: 16px !important;
+    --theme-code-font-size: 16px !important;
   }
 }

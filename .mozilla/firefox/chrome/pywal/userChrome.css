@@ -1,4 +1,5 @@
 @import './colors.css';
+@import './tokenColors.css';
 @import './chrome-colors.css';
 @import '../chrome_css/iconized_main_menu.css';
 @import '../chrome_css/iconized_menubar_items.css';
@@ -19,6 +20,11 @@
   --border-radius: 8px;
 
   --focus-outline-width: 1px !important;
+
+  /* Referenced by the sidebar font-family rules below. Defined here (not in
+     colors.css) since colors.css is overwritten wholesale by pywal on every
+     wallpaper change and would silently drop this. */
+  --global-font: "SF Pro" !important;
 }
 
 /* ===== Tabs (SECONDARY SURFACE) ===== */
