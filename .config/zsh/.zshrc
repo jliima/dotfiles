@@ -105,6 +105,48 @@ autoload -U add-zsh-hook
 add-zsh-hook zshaddhistory _zsh_history_ignore
 
 ################################################################################
+# Skip typo'd commands
+################################################################################
+
+# Don't save commands that clearly failed because of a typo:
+#   - exit 127 (command not found)
+#   - ssh exiting 255 where the target hostname doesn't resolve
+# zshaddhistory runs before the command, so it stashes the line and blocks it.
+# precmd then saves it after the fact unless it was a typo.
+# Registered after _zsh_history_ignore, which short-circuits it for ignored lines.
+_zsh_history_defer() {
+  _ZSH_PENDING_HIST="${1%$'\n'}"
+  return 1
+}
+add-zsh-hook zshaddhistory _zsh_history_defer
+
+_zsh_ssh_host_unresolvable() {
+  local -a words
+  words=(${(Q)${(z)1}})
+  [[ "${words[1]}" == ssh ]] || return 1
+  local host
+  host=$(command ssh -G "${words[@]:1}" 2>/dev/null | awk '$1 == "hostname" { print $2; exit }')
+  [[ -n "$host" ]] && ! getent ahosts "$host" >/dev/null 2>&1
+}
+
+_zsh_history_commit() {
+  local st=$?
+  [[ -n "$_ZSH_PENDING_HIST" ]] || return $st
+  local line="$_ZSH_PENDING_HIST"
+  _ZSH_PENDING_HIST=
+
+  if (( st == 127 )); then
+    return $st
+  elif (( st == 255 )) && _zsh_ssh_host_unresolvable "$line"; then
+    return $st
+  fi
+  print -sr -- "$line"
+  return $st
+}
+# Must run first so $? is still the command's exit status
+precmd_functions=(_zsh_history_commit $precmd_functions)
+
+################################################################################
 # Functions
 ################################################################################
 
