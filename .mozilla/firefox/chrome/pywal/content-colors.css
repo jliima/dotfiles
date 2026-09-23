@@ -3,11 +3,9 @@
 @import './colors.css';
 @import './tokenColors.css';
 
-:root {
-  color-scheme: dark !important;
-  accent-color: var(--accent) !important;
-}
-
+/* Everything below is scoped to Firefox's own about:/image-viewer pages,
+   never to arbitrary web content, so the theme colors only color
+   Firefox's own UI and never bleed into a visited website's page. */
 @-moz-document
 url("about:newtab"),
 url("about:home"),
@@ -19,6 +17,11 @@ url("about:debugging"),
 url("about:support"),
 media-document(image) {
 
+  :root {
+    color-scheme: dark !important;
+    accent-color: var(--accent) !important;
+  }
+
   html, body {
     --newtab-background-color: var(--backgroundAlt) !important;
     --newtab-wallpaper: none !important;
@@ -28,7 +31,10 @@ media-document(image) {
   }
 }
 
-@-moz-document url("about:newtab"), url("about:home"), url("about:preferences"), url("about:config"), url("about:support"), url("about:debugging")  {
+/* The New Tab / Activity Stream components (.top-site-outer, .ds-card, …)
+   only ever render on about:newtab and about:home, so scope to just those
+   two instead of the full about: page list. */
+@-moz-document url("about:newtab"), url("about:home") {
 
   /* Top sites / cards use secondary surface */
   .top-site-outer .tile,
@@ -50,9 +56,6 @@ media-document(image) {
     border-color: var(--borderFocus) !important;
     box-shadow: 0 0 0 1px var(--borderFocus) !important;
   }
-}
-
-@-moz-document url(about:preferences), url(about:blank), url(about:newtab), url(about:home), url(about:privatebrowsing), url(about:config) {
 
   /* Top sites card hover border */
   [lwt-newtab-brighttext] .ds-top-sites .top-sites .top-site-outer .top-site-inner > a:-moz-any(:hover) .tile {

@@ -7,8 +7,9 @@
 }
 
 /* ===== NEW TAB PAGE ===== */
-
-@-moz-document url(about:preferences), url(about:blank), url(about:newtab), url(about:home), url(about:privatebrowsing), url(about:config) {
+/* These selectors (.top-site-outer, .ds-highlights, .context-menu, …) only
+   exist on the New Tab / Activity Stream page. */
+@-moz-document url("about:newtab"), url("about:home") {
 
   /* Add bold text to most text */
   .top-site-outer .title span, .top-site-outer .default-icon[data-fallback]::before,

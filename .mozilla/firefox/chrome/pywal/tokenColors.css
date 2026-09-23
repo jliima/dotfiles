@@ -1,3 +1,18 @@
+/* Firefox's internal "Acorn" design tokens (--color-gray-*, --color-blue-*, …).
+   Scoped to Firefox's own about:/image-viewer pages only, since these token
+   names are generic enough that leaving them unscoped would redefine the
+   same custom properties on arbitrary websites that happen to use the
+   same naming convention for their own theming. */
+@-moz-document
+url("about:newtab"),
+url("about:home"),
+url("about:preferences"),
+url("about:config"),
+url("about:blank"),
+url("about:privatebrowsing"),
+url("about:debugging"),
+url("about:support"),
+media-document(image) {
 @layer tokens-foundation {
   :root,
   :host(.anonymous-content-host) {
@@ -143,4 +158,5 @@
     --color-yellow-100: var(--warning) !important;
     --color-yellow-110: var(--warning) !important;
   }
+}
 }
