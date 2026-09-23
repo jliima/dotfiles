@@ -17,5 +17,5 @@ scripts/*
 !.mozilla/user.js
 !.mozilla/chrome/*
 
-.config/zsh/.zcompdump*
-.config/zsh/.zsh_history_ignore
+.config/zsh/*
+!.config/zsh/.zshrc
