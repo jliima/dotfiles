@@ -27,7 +27,6 @@
   --sidebar-background-color: var(--background) !important;
   --sidebar-text-color: var(--foreground) !important;
 
-  --toolbar-bgcolor: var(--background) !important;
   --color-accent-primary: var(--accent) !important;
   --color-accent-primary-hover: var(--accentHover) !important;
   --color-accent-primary-active: var(--accent) !important;
