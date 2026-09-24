@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """Fetch GitHub Copilot quota (premium requests + chat/completions) from the
 same internal endpoint the official `copilot` CLI itself calls
-(`GET /copilot_internal/user`, Bearer auth). Reads the default profile
-(~/.copilot) unless install.sh was given a custom COPILOT_HOME directory, in
-which case it reads only that one. Emits compact JSON for the Plasma widget,
+(`GET /copilot_internal/user`, Bearer auth). Reads the token from
+~/.copilot/config.json. Emits compact JSON for the Plasma widget,
 with the reset date pre-converted to epoch milliseconds.
 """
 import json
@@ -12,36 +11,13 @@ import datetime
 import urllib.request
 import urllib.error
 
-# install.sh writes this marker file when given a custom COPILOT_HOME
-# argument, and removes it when run with no argument (default profile).
-HOME_OVERRIDE_FILE = os.path.expanduser(
-    "~/.config/copilot-usage-widget/copilot_home")
-
-
-def resolve_copilot_home():
-    # COPILOT_USAGE_CONFIG is a full override (config.json's own path) for
-    # advanced/manual use; skip the marker file and default entirely.
-    override = os.environ.get("COPILOT_USAGE_CONFIG")
-    if override:
-        return os.path.dirname(os.path.expanduser(override)) or "."
-    try:
-        with open(HOME_OVERRIDE_FILE) as f:
-            custom = f.read().strip()
-        if custom:
-            return os.path.expanduser(custom)
-    except Exception:
-        pass
-    return os.path.expanduser("~/.copilot")
-
-
-COPILOT_HOME = resolve_copilot_home()
+COPILOT_HOME = os.path.expanduser("~/.copilot")
 CONFIG = os.environ.get("COPILOT_USAGE_CONFIG") or os.path.join(COPILOT_HOME, "config.json")
 CONFIG = os.path.expanduser(CONFIG)
 
 
 def emit(obj):
     obj["fetched_ms"] = int(datetime.datetime.now().timestamp() * 1000)
-    obj["copilot_home"] = COPILOT_HOME
     print(json.dumps(obj))
     raise SystemExit(0)
 

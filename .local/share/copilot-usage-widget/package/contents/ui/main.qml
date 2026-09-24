@@ -12,8 +12,7 @@ PlasmoidItem {
     // ---- config ----
     // Helper ships inside the package; resolve its path relative to this file
     // so the widget works on any machine (no hardcoded home path). It reads
-    // the default profile (~/.copilot) unless install.sh was given a custom
-    // COPILOT_HOME (see contents/code/copilot-usage.py).
+    // ~/.copilot/config.json (see contents/code/copilot-usage.py).
     readonly property string scriptPath: Qt.resolvedUrl("../code/copilot-usage.py").toString().replace(/^file:\/\//, "")
     readonly property string cmd: "python3 '" + scriptPath + "'"
     readonly property int pollMs: 300000   // 5 min — quota moves slowly, no need to hammer it
@@ -24,7 +23,6 @@ PlasmoidItem {
     property double resetMs: 0
     property string plan: ""
     property string login: ""          // whichever GitHub login the profile's config.json reports
-    property string copilotHome: ""    // resolved COPILOT_HOME, from the helper — reported on every run, even errors
     property string errorMsg: ""
     property double nowMs: 0           // ticks every 30s for live countdowns
     property double lastFetchMs: 0     // when the last successful fetch landed
@@ -60,7 +58,6 @@ PlasmoidItem {
                 var p = JSON.parse(data["stdout"])
                 if (p.error) {
                     root.errorMsg = p.error
-                    root.copilotHome = p.copilot_home ? p.copilot_home : root.copilotHome
                     // Only blank the data on genuine auth loss. Transient errors
                     // (rate limit, network blip) keep the last-known values so
                     // the widget degrades gracefully instead of flickering empty.
@@ -79,7 +76,6 @@ PlasmoidItem {
                 root.resetMs = p.reset_ms ? p.reset_ms : 0
                 root.plan = p.plan ? p.plan : ""
                 root.login = p.login ? p.login : ""
-                root.copilotHome = p.copilot_home ? p.copilot_home : root.copilotHome
                 root.lastFetchMs = p.fetched_ms ? p.fetched_ms : new Date().getTime()
                 root.errorMsg = ""
             } catch (e) {
@@ -305,7 +301,7 @@ PlasmoidItem {
                 wrapMode: Text.WordWrap
                 opacity: 0.7
                 text: root.errorMsg === "no-token" || root.errorMsg === "http-401"
-                      ? ("Not signed in.\nRun: " + (root.copilotHome ? ("COPILOT_HOME=" + root.copilotHome + " copilot") : "copilot"))
+                      ? "Not signed in.\nRun: copilot"
                       : (root.errorMsg !== "" ? ("Couldn't reach the usage API (" + root.errorMsg + ").")
                                               : "Loading…")
             }

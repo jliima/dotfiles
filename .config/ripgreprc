@@ -14,8 +14,8 @@
 --glob=!*zsh_history*
 --glob=!.local/share/klipper/**
 
---glob=!*.copilot*/command-history-state.json
---glob=!*.copilot*/session-state/**
+--glob=!.copilot/command-history-state.json
+--glob=!.copilot/session-state/**
 --glob=!**/github.copilot-chat/**
 --glob=!.claude/shell-snapshots/**
 --glob=!.config/Code/logs/**
