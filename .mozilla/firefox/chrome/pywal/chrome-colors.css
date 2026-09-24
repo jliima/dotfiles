@@ -1,0 +1,138 @@
+/* Color-only rules for the browser chrome (toolbars, tabs, panels, sidebar).
+   Structural/layout rules for the same components live in userChrome.css. */
+
+:root {
+  color-scheme: dark !important;
+
+  --lwt-accent-color: var(--background) !important;
+  --lwt-accent-color-inactive: var(--background) !important;
+  --lwt-text-color: var(--foreground) !important;
+
+  --toolbar-bgcolor: var(--background) !important;
+  --toolbar-color: var(--foreground) !important;
+
+  --toolbar-field-background-color: var(--surface) !important;
+  --toolbar-field-color: var(--foreground) !important;
+  --toolbar-field-border-color: var(--border) !important;
+
+  --toolbar-field-focus-background-color: var(--surface) !important;
+  --toolbar-field-focus-border-color: var(--borderFocus) !important;
+
+  --arrowpanel-background: var(--surface) !important;
+  --arrowpanel-color: var(--foreground) !important;
+
+  --menu-background-color: var(--surface) !important;
+  --menu-color: var(--foreground) !important;
+
+  --sidebar-background-color: var(--background) !important;
+  --sidebar-text-color: var(--foreground) !important;
+
+  --color-accent-primary: var(--accent) !important;
+  --color-accent-primary-hover: var(--accentHover) !important;
+  --color-accent-primary-active: var(--accent) !important;
+
+  /* Backdrop behind the <browser> (.browserContainer, tabbrowser/content-
+     area.css), painted before the content process has anything to show,
+     on reload or a fast resize. Defaults to #2b2a33 and isn't part of any
+     --color-gray-* chain, so it flashes Firefox's stock grey for a frame
+     instead of the theme. */
+  --tabpanel-background-color: var(--background) !important;
+}
+
+/* ===== Main chrome (PRIMARY SURFACE) ===== */
+#navigator-toolbox,
+#titlebar,
+#TabsToolbar,
+#nav-bar,
+#PersonalToolbar,
+#toolbar-menubar {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+/* ===== Tabs (SECONDARY SURFACE) =====
+   Brightness ladder: inactive (--surface) < active (--surfaceHover, a touch
+   lighter) < hover (--accentSubtle, brighter still). The hover rule is
+   listed after the [selected] one so that hovering the active tab
+   itself also shows the brighter hover color, not the dimmer active one:
+   both selectors have equal specificity, so source order decides. */
+.tabbrowser-tab .tab-background {
+  background-color: var(--surface) !important;
+}
+
+.tabbrowser-tab[selected] .tab-background {
+  background-color: var(--surfaceHover) !important;
+  color: var(--foreground) !important;
+}
+
+.tabbrowser-tab:hover .tab-background {
+  background-color: var(--accentSubtle) !important;
+}
+
+.tabbrowser-tab[selected] .tab-label {
+  color: var(--foreground) !important;
+}
+
+/* ===== URL bar (SECONDARY SURFACE) ===== */
+#urlbar-background,
+#urlbar,
+.urlbar-input-container {
+  background-color: var(--surface) !important;
+  color: var(--foreground) !important;
+  border: 1px solid var(--border) !important;
+}
+
+/* Focus ring shared by the urlbar and the bookmarks/history sidebar search
+   box: a flat 2px --borderFocus ring (1px border + 1px box-shadow, so it
+   doesn't reflow the layout the way growing border-width to 2px would). */
+#urlbar[focused] #urlbar-background {
+  border-color: var(--borderFocus) !important;
+  box-shadow: 0 0 0 1px var(--borderFocus) !important;
+}
+
+/* The bookmarks/history sidebar search box (#search-box) is a
+   <moz-input-search>: its real <input> lives inside a shadow root, so
+   putting the ring on the #search-box HOST left the shadow input's own
+   native focus outline still showing underneath, a second, offset ring
+   inside ours. A bare `input[type="search"]` selector still reaches
+   through the shadow boundary (this stylesheet is a user-origin sheet,
+   not a normal shadow-scoped author one, same as the checkbox fix in
+   userContent.css), so style the real input directly instead. */
+input[type="search"] {
+  outline: none !important;
+}
+
+input[type="search"]:focus {
+  border-color: var(--borderFocus) !important;
+  box-shadow: 0 0 0 1px var(--borderFocus) !important;
+}
+
+/* ===== Panels / menus ===== */
+panel,
+panelview,
+menupopup,
+#appMenu-popup,
+#downloadsPanel,
+#urlbar-results {
+  background-color: var(--overlay) !important;
+  color: var(--foreground) !important;
+}
+
+/* Hover states */
+toolbarbutton:hover,
+.menuitem:hover,
+.subviewbutton:hover {
+  background-color: var(--surfaceHover) !important;
+}
+
+/* ===== Sidebar ===== */
+#sidebar-box,
+#sidebar,
+#sidebar-header {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+.subviewbutton.panel-subview-footer {
+  border-top: 1px var(--border) !important;
+}

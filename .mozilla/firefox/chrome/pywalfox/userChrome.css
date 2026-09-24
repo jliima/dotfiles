@@ -36,12 +36,12 @@
   --color-accent-primary-active: var(--color16) !important;
   --focus-outline-color: var(--color4) !important;
   --focus-outline-width: 1px !important;
-  --global-font: "SF Pro Display" !important;
+  --global-font: "SF Pro" !important;
   font-family: var(--global-font) !important;
 }
 
 * {
-  --global-font: "SF Pro Display" !important;
+  --global-font: "SF Pro" !important;
   font-family: var(--global-font) !important;
 }
 

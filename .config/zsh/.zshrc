@@ -19,7 +19,7 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 export FZF_DEFAULT_OPTS="
   --color 16
-  --color hl:09,fg+:015,bg+:05,hl+:09
+  --color hl:09,fg+:015,hl+:09
   --color info:008,prompt:003,spinner:011,pointer:006,marker:002
   --cycle
   --prompt='❯ ' #❯
@@ -28,6 +28,12 @@ export FZF_DEFAULT_OPTS="
   --layout=reverse
   --bind=tab:down,shift-tab:up
 "
+# Selection background from pywal (template: colors-fzf.sh), falls back to terminal bright blue
+[[ -f "$HOME/.cache/wal/colors-fzf.sh" ]] && source "$HOME/.cache/wal/colors-fzf.sh"
+FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS ${FZF_PYWAL_COLORS:---color bg+:12}"
+# Syntax-highlighted file preview for Ctrl-T (bat), directory listing for Alt-C
+export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:200 {}' --preview-window=right,60%,border-left"
+export FZF_ALT_C_OPTS="--preview 'ls --color=always -A {}'"
 
 # PATH setup (order matters)
 export PATH="$JAVA_HOME/bin:$PATH"
@@ -103,6 +109,48 @@ _zsh_history_ignore() {
 }
 autoload -U add-zsh-hook
 add-zsh-hook zshaddhistory _zsh_history_ignore
+
+################################################################################
+# Skip typo'd commands
+################################################################################
+
+# Don't save commands that clearly failed because of a typo:
+#   - exit 127 (command not found)
+#   - ssh exiting 255 where the target hostname doesn't resolve
+# zshaddhistory runs before the command, so it stashes the line and blocks it.
+# precmd then saves it after the fact unless it was a typo.
+# Registered after _zsh_history_ignore, which short-circuits it for ignored lines.
+_zsh_history_defer() {
+  _ZSH_PENDING_HIST="${1%$'\n'}"
+  return 1
+}
+add-zsh-hook zshaddhistory _zsh_history_defer
+
+_zsh_ssh_host_unresolvable() {
+  local -a words
+  words=(${(Q)${(z)1}})
+  [[ "${words[1]}" == ssh ]] || return 1
+  local host
+  host=$(command ssh -G "${words[@]:1}" 2>/dev/null | awk '$1 == "hostname" { print $2; exit }')
+  [[ -n "$host" ]] && ! getent ahosts "$host" >/dev/null 2>&1
+}
+
+_zsh_history_commit() {
+  local st=$?
+  [[ -n "$_ZSH_PENDING_HIST" ]] || return $st
+  local line="$_ZSH_PENDING_HIST"
+  _ZSH_PENDING_HIST=
+
+  if (( st == 127 )); then
+    return $st
+  elif (( st == 255 )) && _zsh_ssh_host_unresolvable "$line"; then
+    return $st
+  fi
+  print -sr -- "$line"
+  return $st
+}
+# Must run first so $? is still the command's exit status
+precmd_functions=(_zsh_history_commit $precmd_functions)
 
 ################################################################################
 # Functions

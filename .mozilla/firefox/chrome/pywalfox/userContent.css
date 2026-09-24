@@ -1,7 +1,7 @@
 :root {
   --pywalfox-background: var(--newtab-background-color);
 
-  --global-font: "SF Pro Display" !important;
+  --global-font: "SF Pro" !important;
   font-family: var(--global-font) !important;
 
 

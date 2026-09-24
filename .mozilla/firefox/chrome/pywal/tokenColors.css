@@ -1,19 +1,66 @@
+/* Firefox's internal "Acorn" design tokens (--color-gray-*, --color-blue-*, …), also
+   used by chrome UI built from moz-* custom elements (the sidebar, moz-button, etc).
+
+   This file is safe to @import unscoped into userChrome.css, since chrome documents
+   never leak into web content. It must NOT be @imported unscoped into userContent.css:
+   these token names are generic enough that doing so would redefine the same custom
+   properties on arbitrary websites that happen to use the same naming convention for
+   their own theming. content-colors.css instead inlines this same block inside its
+   @-moz-document guard, so if you change the mappings here, update that copy too. */
 @layer tokens-foundation {
   :root,
   :host(.anonymous-content-host) {
     /** Color **/
     --text-color: var(--foreground) !important;
 
-    --color-gray-05:  var(--accent) !important; /* accent color */
+    --color-gray-0:   var(--foreground) !important;
     --color-gray-20:  var(--background) !important;
     --color-gray-30:  var(--backgroundAlt) !important;
     --color-gray-50:  var(--surface) !important;
     --color-gray-60:  var(--warning) !important;
     --color-gray-70:  var(--textDisabled) !important;
-    --color-gray-80:  var(--surfaceHover) !important; /* Second most important */
-    --color-gray-90:  var(--background) !important; /* This is the most important color */
-    --color-gray-100: var(--accent) !important;
-    
+    --color-gray-80:  var(--surfaceHover) !important; /* --background-color-box (used by cards, boxes, panels) */
+    --color-gray-90:  var(--background) !important;
+    --color-gray-100: var(--background) !important;
+
+    /* Firefox's own accent-primary defaults to a cyan/blue that is not part of the
+       wal palette; without this override things like table zebra striping and
+       selected-item highlights show that Firefox default instead of our accent. */
+    --color-accent-primary: var(--accent) !important;
+    --color-accent-primary-hover: var(--accentHover) !important;
+    --color-accent-primary-active: var(--accent) !important;
+    --color-accent-primary-selected: var(--accent) !important;
+    --color-accent-attention: var(--accent) !important;
+
+    /* Firefox's design-system tokens (used by about:support, about:networking, …)
+       default this to a hardcoded rgb(35, 34, 43), unrelated to any --color-gray-*
+       token above, so it needs its own override or content boxes/tables show that
+       fixed dark-grey instead of our theme. */
+    --table-background-color: var(--surface) !important;
+    --table-border-color: var(--border) !important;
+
+    /* Same story for the newer moz-* panel/popup/sidebar/toolbar tokens: they
+       default to hardcoded rgb() greys (e.g. rgb(66, 65, 77), rgb(28, 27, 34))
+       instead of routing through --color-gray-*, so panels built from these
+       (site permission popups, the sidebar revamp, print preview, PDF.js
+       toolbar, …) show Firefox's stock grey instead of the theme. */
+    --panel-background-color: var(--overlay) !important;
+    --panel-border-color: var(--border) !important;
+    --panel-text-color: var(--foreground) !important;
+    --popup-border-color: var(--border) !important;
+    --sidebar-background-color: var(--background) !important;
+    --sidebar-text-color: var(--foreground) !important;
+    --toolbar-background-color: var(--background) !important;
+    --toolbar-field-background-color-focus: var(--surface) !important;
+
+    /* --input-text-background-color/-color default to the system colors
+       Field/FieldText (not routed through --color-gray-* at all), which on
+       this GTK/native-theme setup resolve to Firefox's own stock grey, so
+       moz-input-text/-search fields (e.g. "Find in Settings") keep showing
+       that instead of the theme no matter what else here is overridden. */
+    --input-text-background-color: var(--surface) !important;
+    --input-text-color: var(--foreground) !important;
+
     --color-black: #000000 !important;
     --color-black-alpha-10: oklch(0 0 0 / 10%);
     --color-black-alpha-20: oklch(0 0 0 / 20%);

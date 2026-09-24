@@ -16,7 +16,7 @@ scripts/*
 .mozilla/*
 !.mozilla/user.js
 !.mozilla/chrome/*
+!.mozilla/firefox/chrome/*
 
-.config/zsh/.zcompdump*
-.config/zsh/.zsh_history_ignore
-.config/zsh/.zsh_aliases*
+.config/zsh/*
+!.config/zsh/.zshrc
