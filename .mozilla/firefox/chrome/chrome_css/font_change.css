@@ -18,9 +18,7 @@ menuitem > .menu-text, menuitem > .menu-iconic-text,
 #search-box {
   -moz-appearance: none !important;
   font-family: "SF Pro" !important;
-  /* Was 10pt (~13px), scaled up to match this display's pixel density (about
-     140dpi vs the 96dpi CSS reference), since the OS-level display scale is
-     left at 100% on purpose. */
-  font-size: 12pt !important;
+  /* Per-machine size, set --env-ui-font-size in chrome/env.css. */
+  font-size: var(--env-ui-font-size, 10pt) !important;
   font-weight: 500 !important;
 }

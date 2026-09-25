@@ -15,6 +15,10 @@ Switch to Last-Used Keyboard Layout=none,Meta+Alt+L,Switch to Last-Used Keyboard
 Switch to Next Keyboard Layout=none,Meta+Alt+K,Switch to Next Keyboard Layout
 _k_friendly_name=Keyboard Layout Switcher
 
+[com.anthropic.Claude]
+AB6F88D2B9FE510439CBE6A5273BC4AC-Ctrl+Alt+Space=Meta+Space,Ctrl+Alt+Space,Claude shortcut: Ctrl+Alt+Space
+_k_friendly_name=Claude
+
 [kaccess]
 Toggle Screen Reader On and Off=Meta+Alt+S,Meta+Alt+S,Toggle Screen Reader On and Off
 _k_friendly_name=Accessibility
@@ -297,13 +301,11 @@ MikaflixSofaMode=Tools
 _launch=Meta+/
 
 [services][firefox.desktop]
-_launch=Meta+F
 new-private-window=Meta+Ctrl+Shift+F
 new-window-default-profile=Meta+Shift+F
 
 [services][github-copilot.desktop]
-InvertActivity=Meta+Shift+Space
-_launch=Meta+Space
+_launch=Ctrl+Alt+Space
 
 [services][jellyfin-couch-mode-exit.sh.desktop]
 _launch=Home Page
@@ -333,8 +335,14 @@ _launch=Meta+R
 [services][dolphin-toggle.desktop]
 _launch=Meta+D
 
+[services][firefox-toggle.desktop]
+_launch=Meta+F
+
 [services][kate-toggle.desktop]
 _launch=Meta+E
+
+[services][keepassxc-toggle.desktop]
+_launch=Meta+X
 
 [services][konsole-toggle.desktop]
 _launch=Meta+T
@@ -365,9 +373,6 @@ RectangularRegionScreenShot=Ctrl+$
 
 [services][org.kde.touchpadshortcuts.desktop]
 ToggleTouchpad=Touchpad Toggle\tMeta+Ctrl+Zenkaku Hankaku
-
-[services][org.keepassxc.KeePassXC.desktop]
-_launch=Meta+X
 
 [services][systemsettings.desktop]
 _launch=Meta+Ctrl+;

@@ -2,8 +2,8 @@
 Type=Application
 Version=1.0
 Name=Dolphin (focus or launch)
-Comment=Focus existing Dolphin window, or launch a new one
-Exec=/home/hieroja/dotfiles/scripts/kde/open-program/focus-or-launch.sh org.kde.dolphin -- dolphin
+Comment=New tab in the Dolphin window on this desktop, or a new window
+Exec=/home/hieroja/dotfiles/scripts/kde/open-program/focus-or-launch.py dolphin
 Icon=system-file-manager
 Categories=System;FileTools;FileManager;
 NoDisplay=true

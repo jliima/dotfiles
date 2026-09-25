@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Firefox (focus or launch)
+Comment=New tab in the Firefox window on this desktop, or a new window
+Exec=/home/hieroja/dotfiles/scripts/kde/open-program/focus-or-launch.py firefox
+Icon=firefox-symbolic
+Categories=Network;WebBrowser;
+NoDisplay=true
+StartupNotify=false
+Terminal=false

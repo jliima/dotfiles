@@ -17,9 +17,11 @@ TerminalMargin=5
 TerminalRows=33
 
 [Interaction Options]
+OpenLinksByDirectClickEnabled=true
 TrimLeadingSpacesInSelectedText=false
-TrimTrailingSpacesInSelectedText=false
+TrimTrailingSpacesInSelectedText=true
+UnderlineFilesEnabled=true
 
 [Scrolling]
-HistorySize=2000
+HistorySize=10000
 ScrollBarPosition=2

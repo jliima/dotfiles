@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=KeePassXC (bring to this desktop)
+Comment=Move the KeePassXC window to the current desktop and focus it, or show it from the tray
+Exec=/home/hieroja/dotfiles/scripts/kde/open-program/focus-or-launch.py keepassxc
+Icon=org.keepassxc.KeePassXC
+Categories=Utility;Security;
+NoDisplay=true
+StartupNotify=false
+Terminal=false

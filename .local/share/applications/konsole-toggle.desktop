@@ -2,8 +2,8 @@
 Type=Application
 Version=1.0
 Name=Konsole (focus or launch)
-Comment=Focus existing Konsole window, or launch a new one
-Exec=/home/hieroja/dotfiles/scripts/kde/open-program/focus-or-launch.sh org.kde.konsole -- konsole
+Comment=New tab in the Konsole window on this desktop (new window if it runs Claude Code), or a new window
+Exec=/home/hieroja/dotfiles/scripts/kde/open-program/focus-or-launch.py konsole
 Icon=utilities-terminal
 Categories=System;TerminalEmulator;
 NoDisplay=true
