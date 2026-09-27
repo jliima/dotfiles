@@ -320,6 +320,47 @@ mjx-container {{
   cursor: help !important;
 }}
 
+/* Per-language fenced code block highlighting, matching IntelliJ's colors
+ * for these languages (see parecolors.json's syntax<Lang><Category> keys).
+ * These beat the generic .token rules above on specificity, since Prism
+ * scopes each fenced code block with a .language-xxx class on its wrapper. */
+.language-java .token.keyword {{ color: {syntaxJavaKeyword} !important; }}
+.language-java .token.class-name {{ color: {syntaxJavaClass} !important; }}
+.language-java .token.string {{ color: {syntaxJavaString} !important; }}
+.language-java .token.comment {{ color: {syntaxJavaComment} !important; }}
+.language-java .token.annotation {{ color: {syntaxJavaAnnotation} !important; }}
+.language-java .token.number {{ color: {syntaxJavaNumber} !important; }}
+.language-java .token.function {{ color: {syntaxJavaFunction} !important; }}
+
+.language-bash .token.keyword, .language-shell .token.keyword {{ color: {syntaxShellKeyword} !important; }}
+.language-bash .token.function, .language-shell .token.function {{ color: {syntaxShellExternalCommand} !important; }}
+.language-bash .token.variable, .language-shell .token.variable {{ color: {syntaxShellVariable} !important; }}
+.language-bash .token.string, .language-shell .token.string {{ color: {syntaxShellString} !important; }}
+.language-bash .token.comment, .language-shell .token.comment {{ color: {syntaxShellComment} !important; }}
+
+.language-python .token.keyword {{ color: {syntaxPythonKeyword} !important; }}
+.language-python .token.decorator {{ color: {syntaxPythonDecorator} !important; }}
+.language-python .token.builtin {{ color: {syntaxPythonBuiltin} !important; }}
+.language-python .token.string {{ color: {syntaxPythonString} !important; }}
+.language-python .token.comment {{ color: {syntaxPythonComment} !important; }}
+.language-python .token.function {{ color: {syntaxPythonFunction} !important; }}
+
+.language-css .token.property {{ color: {syntaxCssPropertyName} !important; }}
+.language-css .token.selector {{ color: {syntaxCssSelector} !important; }}
+.language-css .token.function {{ color: {syntaxCssFunction} !important; }}
+.language-css .token.important {{ color: {syntaxCssImportant} !important; }}
+.language-css .token.comment {{ color: {syntaxCssComment} !important; }}
+.language-css .token.url {{ color: {syntaxCssUrl} !important; }}
+
+.language-xml .token.tag {{ color: {syntaxXmlTagName} !important; }}
+.language-xml .token.attr-name {{ color: {syntaxXmlAttributeName} !important; }}
+.language-xml .token.attr-value {{ color: {syntaxXmlAttributeValue} !important; }}
+.language-xml .token.comment {{ color: {syntaxXmlComment} !important; }}
+.language-xml .token.entity {{ color: {syntaxXmlEntityReference} !important; }}
+.language-html .token.tag {{ color: {syntaxXmlTagName} !important; }}
+.language-html .token.attr-name {{ color: {syntaxXmlAttributeName} !important; }}
+.language-html .token.attr-value {{ color: {syntaxXmlAttributeValue} !important; }}
+
 
 /* markdown heading colours */
 .cm-header-1,

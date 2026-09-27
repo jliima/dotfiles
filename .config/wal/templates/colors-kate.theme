@@ -210,10 +210,52 @@
         "text-color": "{yellow5}"
       }}
     }},
+    "Bash": {{
+      "Variable": {{
+        "selected-text-color": "{syntaxShellVariable}",
+        "text-color": "{syntaxShellVariable}"
+      }}
+    }},
+    "CSS": {{
+      "Property": {{
+        "selected-text-color": "{syntaxCssPropertyName}",
+        "text-color": "{syntaxCssPropertyName}"
+      }},
+      "Value": {{
+        "selected-text-color": "{syntaxCssPropertyValue}",
+        "text-color": "{syntaxCssPropertyValue}"
+      }},
+      "Selector Tag": {{
+        "selected-text-color": "{syntaxCssSelector}",
+        "text-color": "{syntaxCssSelector}"
+      }},
+      "Selector Class": {{
+        "selected-text-color": "{syntaxCssSelector}",
+        "text-color": "{syntaxCssSelector}"
+      }},
+      "Selector Id": {{
+        "selected-text-color": "{syntaxCssSelector}",
+        "text-color": "{syntaxCssSelector}"
+      }}
+    }},
+    "Java": {{
+      "Modifier": {{
+        "selected-text-color": "{syntaxJavaModifier}",
+        "text-color": "{syntaxJavaModifier}"
+      }},
+      "Annotation": {{
+        "selected-text-color": "{syntaxJavaAnnotation}",
+        "text-color": "{syntaxJavaAnnotation}"
+      }}
+    }},
     "Python": {{
       "Builtin Function": {{
-        "selected-text-color": "{blue5}",
-        "text-color": "{blue5}"
+        "selected-text-color": "{syntaxPythonBuiltin}",
+        "text-color": "{syntaxPythonBuiltin}"
+      }},
+      "Decorator": {{
+        "selected-text-color": "{syntaxPythonDecorator}",
+        "text-color": "{syntaxPythonDecorator}"
       }},
       "String Substitution": {{
         "selected-text-color": "{yellow5}",
@@ -266,12 +308,16 @@
     }},
     "XML": {{
       "Attribute": {{
-        "selected-text-color": "{yellow5}",
-        "text-color": "{yellow5}"
+        "selected-text-color": "{syntaxXmlAttributeName}",
+        "text-color": "{syntaxXmlAttributeName}"
       }},
       "Element": {{
-        "selected-text-color": "{green5}",
-        "text-color": "{green5}"
+        "selected-text-color": "{syntaxXmlTagName}",
+        "text-color": "{syntaxXmlTagName}"
+      }},
+      "Entity": {{
+        "selected-text-color": "{syntaxXmlEntityReference}",
+        "text-color": "{syntaxXmlEntityReference}"
       }}
     }}
   }},

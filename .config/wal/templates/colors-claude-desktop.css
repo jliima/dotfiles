@@ -1,0 +1,104 @@
+/* Pywal theme for the Claude desktop app.
+ *
+ * Rendered by scripts/pywal/applications/claude-desktop.sh into
+ * ~/.config/claude-desktop-theme/theme.css, then injected into the app's
+ * webContents via insertCSS() by a one-time patch (see
+ * scripts/pywal/claude-desktop-patch.sh). The app's own design system (CDS)
+ * derives almost everything else (backgrounds, text, borders, role colors)
+ * from the --cds-gray-* and --cds-blue-* primitive ramps below, so
+ * overriding just those two ramps re-themes the whole app through CDS's own
+ * var() chains.
+ */
+
+:root,
+html.cds-root {{
+  --cds-gray-0: {foreground} !important;
+  --cds-gray-10: color-mix(in srgb, {black1} 1.1%, {foreground}) !important;
+  --cds-gray-20: color-mix(in srgb, {black1} 2.2%, {foreground}) !important;
+  --cds-gray-30: color-mix(in srgb, {black1} 3.3%, {foreground}) !important;
+  --cds-gray-40: color-mix(in srgb, {black1} 4.4%, {foreground}) !important;
+  --cds-gray-50: color-mix(in srgb, {black1} 5.6%, {foreground}) !important;
+  --cds-gray-60: color-mix(in srgb, {black1} 6.7%, {foreground}) !important;
+  --cds-gray-70: color-mix(in srgb, {black1} 7.8%, {foreground}) !important;
+  --cds-gray-80: color-mix(in srgb, {black1} 8.9%, {foreground}) !important;
+  --cds-gray-90: color-mix(in srgb, {black1} 10%, {foreground}) !important;
+  --cds-gray-100: color-mix(in srgb, {black1} 11.1%, {foreground}) !important;
+  --cds-gray-150: color-mix(in srgb, {black1} 16.7%, {foreground}) !important;
+  --cds-gray-200: color-mix(in srgb, {black1} 22.2%, {foreground}) !important;
+  --cds-gray-250: color-mix(in srgb, {black1} 27.8%, {foreground}) !important;
+  --cds-gray-300: color-mix(in srgb, {black1} 33.3%, {foreground}) !important;
+  --cds-gray-350: color-mix(in srgb, {black1} 38.9%, {foreground}) !important;
+  --cds-gray-400: color-mix(in srgb, {black1} 44.4%, {foreground}) !important;
+  --cds-gray-450: color-mix(in srgb, {black1} 50%, {foreground}) !important;
+  --cds-gray-500: color-mix(in srgb, {black1} 55.6%, {foreground}) !important;
+  --cds-gray-550: color-mix(in srgb, {black1} 61.1%, {foreground}) !important;
+  --cds-gray-600: color-mix(in srgb, {black1} 66.7%, {foreground}) !important;
+  --cds-gray-650: color-mix(in srgb, {black1} 72.2%, {foreground}) !important;
+  --cds-gray-700: color-mix(in srgb, {black1} 77.8%, {foreground}) !important;
+  --cds-gray-750: color-mix(in srgb, {black1} 83.3%, {foreground}) !important;
+  --cds-gray-800: color-mix(in srgb, {black1} 88.9%, {foreground}) !important;
+  --cds-gray-810: color-mix(in srgb, {black1} 90%, {foreground}) !important;
+  --cds-gray-820: color-mix(in srgb, {black1} 91.1%, {foreground}) !important;
+  --cds-gray-830: color-mix(in srgb, {black1} 92.2%, {foreground}) !important;
+  --cds-gray-840: color-mix(in srgb, {black1} 93.3%, {foreground}) !important;
+  --cds-gray-850: color-mix(in srgb, {black1} 94.4%, {foreground}) !important;
+  --cds-gray-860: color-mix(in srgb, {black1} 95.6%, {foreground}) !important;
+  --cds-gray-870: color-mix(in srgb, {black1} 96.7%, {foreground}) !important;
+  --cds-gray-880: color-mix(in srgb, {black1} 97.8%, {foreground}) !important;
+  --cds-gray-890: color-mix(in srgb, {black1} 98.9%, {foreground}) !important;
+  --cds-gray-900: {black1} !important;
+
+  --cds-blue-0: {blue5} !important;
+  --cds-blue-10: color-mix(in srgb, {blue1} 1.1%, {blue5}) !important;
+  --cds-blue-20: color-mix(in srgb, {blue1} 2.2%, {blue5}) !important;
+  --cds-blue-30: color-mix(in srgb, {blue1} 3.3%, {blue5}) !important;
+  --cds-blue-40: color-mix(in srgb, {blue1} 4.4%, {blue5}) !important;
+  --cds-blue-50: color-mix(in srgb, {blue1} 5.6%, {blue5}) !important;
+  --cds-blue-60: color-mix(in srgb, {blue1} 6.7%, {blue5}) !important;
+  --cds-blue-70: color-mix(in srgb, {blue1} 7.8%, {blue5}) !important;
+  --cds-blue-80: color-mix(in srgb, {blue1} 8.9%, {blue5}) !important;
+  --cds-blue-90: color-mix(in srgb, {blue1} 10%, {blue5}) !important;
+  --cds-blue-100: color-mix(in srgb, {blue1} 11.1%, {blue5}) !important;
+  --cds-blue-150: color-mix(in srgb, {blue1} 16.7%, {blue5}) !important;
+  --cds-blue-200: color-mix(in srgb, {blue1} 22.2%, {blue5}) !important;
+  --cds-blue-250: color-mix(in srgb, {blue1} 27.8%, {blue5}) !important;
+  --cds-blue-300: color-mix(in srgb, {blue1} 33.3%, {blue5}) !important;
+  --cds-blue-350: color-mix(in srgb, {blue1} 38.9%, {blue5}) !important;
+  --cds-blue-400: color-mix(in srgb, {blue1} 44.4%, {blue5}) !important;
+  --cds-blue-450: color-mix(in srgb, {blue1} 50%, {blue5}) !important;
+  --cds-blue-500: color-mix(in srgb, {blue1} 55.6%, {blue5}) !important;
+  --cds-blue-550: color-mix(in srgb, {blue1} 61.1%, {blue5}) !important;
+  --cds-blue-600: color-mix(in srgb, {blue1} 66.7%, {blue5}) !important;
+  --cds-blue-650: color-mix(in srgb, {blue1} 72.2%, {blue5}) !important;
+  --cds-blue-700: color-mix(in srgb, {blue1} 77.8%, {blue5}) !important;
+  --cds-blue-750: color-mix(in srgb, {blue1} 83.3%, {blue5}) !important;
+  --cds-blue-800: color-mix(in srgb, {blue1} 88.9%, {blue5}) !important;
+  --cds-blue-810: color-mix(in srgb, {blue1} 90%, {blue5}) !important;
+  --cds-blue-820: color-mix(in srgb, {blue1} 91.1%, {blue5}) !important;
+  --cds-blue-830: color-mix(in srgb, {blue1} 92.2%, {blue5}) !important;
+  --cds-blue-840: color-mix(in srgb, {blue1} 93.3%, {blue5}) !important;
+  --cds-blue-850: color-mix(in srgb, {blue1} 94.4%, {blue5}) !important;
+  --cds-blue-860: color-mix(in srgb, {blue1} 95.6%, {blue5}) !important;
+  --cds-blue-870: color-mix(in srgb, {blue1} 96.7%, {blue5}) !important;
+  --cds-blue-880: color-mix(in srgb, {blue1} 97.8%, {blue5}) !important;
+  --cds-blue-890: color-mix(in srgb, {blue1} 98.9%, {blue5}) !important;
+  --cds-blue-900: {blue1} !important;
+
+  --cds-accent-brand: {{accent}} !important;
+}}
+
+/* First-frame shell (before CDS/Tailwind load): match the boot placeholder
+ * and title bar to the same background so there is no flash of default
+ * colors while the real page loads. */
+html,
+body,
+html[data-boot-placeholder] body {{
+  background-color: {background} !important;
+  --boot-placeholder-sidebar: {backgroundAlt} !important;
+  --boot-placeholder-seam: {border} !important;
+  --boot-placeholder-row: {surface} !important;
+}}
+body,
+body.darkTheme {{
+  color: {foreground} !important;
+}}
