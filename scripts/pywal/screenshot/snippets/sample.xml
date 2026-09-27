@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sample exercising every pywal xml syntax color: comment, tag,
+     attribute name, attribute value and entity reference. -->
+<sample retries="3">
+  <greeting lang="en">Hello, pywal &amp; friends!</greeting>
+</sample>

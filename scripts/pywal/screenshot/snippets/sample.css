@@ -1,0 +1,12 @@
+/* Sample exercising every pywal css syntax color: comment, url, selector,
+   property name, hash color and !important. */
+
+.pywal-sample {
+  background: url(./background.png);
+  color: #556072;
+  font-size: 14px !important;
+}
+
+#header .title::before {
+  content: "pywal";
+}

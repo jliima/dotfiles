@@ -3,46 +3,55 @@
 # syntax<Lang><Category> keys). Reuses the standard syntax names (java, sh,
 # python, css, xml) so, included after the system nanorc's includes, it
 # takes over highlighting for those file types.
+#
+# nanorc only paints truecolor terminals by approximating a 3-digit hex
+# value to the nearest palette entry, which for these muted colors snaps
+# to plain grey instead of the intended hue. Every syntax<Lang><Category>
+# color in parecolors.json is set equal to one of the wal color0-15
+# values on purpose, so naming the matching ANSI color here (which the
+# terminal profile sets from that same color0-15 value) reproduces the
+# theme exactly instead of approximating it. This only works for the
+# parecolors theme; other colorschemes do not define these keys.
 
 syntax "java" "\.java$"
-color {syntaxJavaComment} "//.*"
-color {syntaxJavaComment} start="/\*" end="\*/"
-color {syntaxJavaDocTag} "@[A-Za-z]+"
-color {syntaxJavaString} "\"([^\"]|\\\")*\""
-color {syntaxJavaNumber} "\<[0-9]+(\.[0-9]+)?[fFdDlL]?\>"
-color {syntaxJavaModifier} "\<(public|private|protected|static|final|abstract|synchronized|volatile|transient)\>"
-color {syntaxJavaKeyword} "\<(class|interface|enum|extends|implements|new|return|if|else|for|while|do|switch|case|break|continue|try|catch|finally|throw|throws|import|package|void|this|super|instanceof)\>"
-color {syntaxJavaType} "\<(int|long|short|byte|char|boolean|float|double|String|Object)\>"
+color grey "//.*"
+color grey start="/\*" end="\*/"
+color yellow "@[A-Za-z]+"
+color magenta "\"([^\"]|\\\")*\""
+color red "\<[0-9]+(\.[0-9]+)?[fFdDlL]?\>"
+color green "\<(public|private|protected|static|final|abstract|synchronized|volatile|transient)\>"
+color green "\<(class|interface|enum|extends|implements|new|return|if|else|for|while|do|switch|case|break|continue|try|catch|finally|throw|throws|import|package|void|this|super|instanceof)\>"
+color cyan "\<(int|long|short|byte|char|boolean|float|double|String|Object)\>"
 
 syntax "sh" "\.sh$|\.bash$|bashrc$|bash_profile$|zshrc$"
-color {syntaxShellComment} "#.*"
-color {syntaxShellString} "\"([^\"]|\\\")*\""
-color {syntaxShellString} "'[^']*'"
-color {syntaxShellVariable} "\\$[A-Za-z_][A-Za-z0-9_]*|\\$\{{[^}}]*\}}"
-color {syntaxShellKeyword} "\<(if|then|else|elif|fi|for|while|until|do|done|case|esac|function|in|return|local|export)\>"
-color {syntaxShellExternalCommand} "\<(echo|printf|cd|ls|grep|sed|awk|cat|rm|cp|mv|mkdir|curl|wget|git|ssh|sudo)\>"
+color grey "#.*"
+color magenta "\"([^\"]|\\\")*\""
+color magenta "'[^']*'"
+color lightwhite "\\$[A-Za-z_][A-Za-z0-9_]*|\\$\{{[^}}]*\}}"
+color green "\<(if|then|else|elif|fi|for|while|until|do|done|case|esac|function|in|return|local|export)\>"
+color blue "\<(echo|printf|cd|ls|grep|sed|awk|cat|rm|cp|mv|mkdir|curl|wget|git|ssh|sudo)\>"
 
 syntax "python" "\.py$"
-color {syntaxPythonComment} "#.*"
-color {syntaxPythonString} "\"([^\"]|\\\")*\""
-color {syntaxPythonString} "'[^']*'"
-color {syntaxPythonDecorator} "^\s*@[A-Za-z_.]+"
-color {syntaxPythonNumber} "\<[0-9]+(\.[0-9]+)?\>"
-color {syntaxPythonKeyword} "\<(def|class|import|from|as|return|if|elif|else|for|while|try|except|finally|raise|with|lambda|yield|pass|break|continue|and|or|not|in|is|None|True|False)\>"
-color {syntaxPythonBuiltin} "\<(self|cls|print|len|range|str|int|float|list|dict|set|tuple|isinstance|super)\>"
+color grey "#.*"
+color blue "\"([^\"]|\\\")*\""
+color blue "'[^']*'"
+color green "^\s*@[A-Za-z_.]+"
+color red "\<[0-9]+(\.[0-9]+)?\>"
+color yellow "\<(def|class|import|from|as|return|if|elif|else|for|while|try|except|finally|raise|with|lambda|yield|pass|break|continue|and|or|not|in|is|None|True|False)\>"
+color green "\<(self|cls|print|len|range|str|int|float|list|dict|set|tuple|isinstance|super)\>"
 
 syntax "css" "\.css$|\.scss$|\.less$"
-color {syntaxCssComment} start="/\*" end="\*/"
-color {syntaxCssUrl} "url\([^)]*\)"
-color {syntaxCssSelector} "^[ \t]*[.#]?[A-Za-z0-9_-]+(::?[A-Za-z-]+)?[ \t]*\{{"
-color {syntaxCssPropertyName} "\<[a-z-]+\>[ \t]*:"
-color {syntaxCssHash} "#[0-9A-Fa-f]{{3,8}}\>"
-color {syntaxCssImportant} "!important"
+color grey start="/\*" end="\*/"
+color magenta "url\([^)]*\)"
+color green "^[ \t]*[.#]?[A-Za-z0-9_-]+(::?[A-Za-z-]+)?[ \t]*\{{"
+color cyan "\<[a-z-]+\>[ \t]*:"
+color yellow "#[0-9A-Fa-f]{{3,8}}\>"
+color yellow "!important"
 
 syntax "xml" "\.xml$|\.xsd$|\.xsl$|\.svg$"
-color {syntaxXmlComment} start="<!--" end="-->"
-color {syntaxXmlTag} "</?"
-color {syntaxXmlTagName} "</?[A-Za-z_:][A-Za-z0-9_:.-]*"
-color {syntaxXmlAttributeName} "[A-Za-z_:][A-Za-z0-9_:.-]*(?==)"
-color {syntaxXmlAttributeValue} "\"[^\"]*\""
-color {syntaxXmlEntityReference} "&[A-Za-z0-9#]+;"
+color grey start="<!--" end="-->"
+color grey "</?"
+color green "</?[A-Za-z_:][A-Za-z0-9_:.-]*"
+color yellow "[A-Za-z_:][A-Za-z0-9_:.-]*(?==)"
+color magenta "\"[^\"]*\""
+color blue "&[A-Za-z0-9#]+;"

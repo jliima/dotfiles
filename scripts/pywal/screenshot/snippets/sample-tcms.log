@@ -1,0 +1,6 @@
+2026-09-27 10:15:00.123 | main | INFO | pywal.sample.Sample | starting up
+2026-09-27 10:15:00.456 | main | DEBUG | pywal.sample.Sample | loaded config from disk
+2026-09-27 10:15:01.789 | worker-1 | TRACE | pywal.sample.Worker | polling queue
+2026-09-27 10:15:02.012 | worker-1 | WARN | pywal.sample.Worker | queue latency above threshold
+2026-09-27 10:15:03.345 | worker-1 | ERROR | pywal.sample.Worker | failed to process item 42
+2026-09-27 10:15:04.678 | main | INFO | pywal.sample.Sample | shutting down
