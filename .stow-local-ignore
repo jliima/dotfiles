@@ -26,3 +26,4 @@ _darcs
 .stfolder
 .github
 .env
+^/CLAUDE\.md

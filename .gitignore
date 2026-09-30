@@ -20,3 +20,5 @@ scripts/*
 
 .config/zsh/*
 !.config/zsh/.zshrc
+
+CLAUDE.md
