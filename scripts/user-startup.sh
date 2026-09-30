@@ -28,3 +28,6 @@ fi
 #fi
 
 "$SCRIPT_DIR/kde/set-wallpaper.sh" >/dev/null 2>&1
+
+# CIFS credentials for the Teleste fstab mounts, read from KeePassXC into /run/user
+"$SCRIPT_DIR/mount/teleste-credentials.sh" &
