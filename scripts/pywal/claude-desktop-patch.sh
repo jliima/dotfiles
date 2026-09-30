@@ -12,6 +12,7 @@
 #   claude-desktop-patch.sh install   # (re)patch, safe to run repeatedly
 #   claude-desktop-patch.sh revert    # restore the pristine app.asar
 #   claude-desktop-patch.sh status    # report current state, no changes
+#   claude-desktop-patch.sh check     # exit 0 if the installed version is patched, no sudo
 set -euo pipefail
 
 RESOURCES_DIR="/usr/lib/claude-desktop/resources"
@@ -27,6 +28,20 @@ installed_version() {
 
 backup_version() {
   [[ -f "$VERSION_FILE" ]] && cat "$VERSION_FILE" || echo ""
+}
+
+# sudo when needed; plain when already root (e.g. launched through pkexec).
+as_root() {
+  if [[ $EUID -eq 0 ]]; then
+    "$@"
+  else
+    sudo "$@"
+  fi
+}
+
+# Patched for the installed version: the backup was taken from this version and app.asar differs from it.
+is_patched() {
+  [[ -f "$BACKUP" && "$(backup_version)" == "$(installed_version)" ]] && ! cmp -s "$ASAR" "$BACKUP"
 }
 
 require_asar() {
@@ -51,6 +66,16 @@ cmd_status() {
   fi
 }
 
+cmd_check() {
+  require_asar
+  if is_patched; then
+    echo "patched ($(installed_version))"
+  else
+    echo "not patched for installed version $(installed_version)"
+    exit 1
+  fi
+}
+
 cmd_revert() {
   require_asar
   if [[ ! -f "$BACKUP" ]]; then
@@ -58,7 +83,7 @@ cmd_revert() {
     exit 1
   fi
   echo "Restoring pristine app.asar from backup..."
-  sudo cp "$BACKUP" "$ASAR"
+  as_root cp "$BACKUP" "$ASAR"
   echo "Done. Restart claude-desktop to pick it up."
 }
 
@@ -80,21 +105,22 @@ cmd_install() {
     else
       echo "No backup yet; treating the currently installed app.asar as pristine and backing it up."
     fi
-    sudo cp "$ASAR" "$BACKUP"
-    echo "$current_version" | sudo tee "$VERSION_FILE" >/dev/null
+    as_root cp "$ASAR" "$BACKUP"
+    echo "$current_version" | as_root tee "$VERSION_FILE" >/dev/null
   else
     echo "Backup already matches installed version $current_version; patching from it."
   fi
 
   local tmp_out
   tmp_out="$(mktemp --suffix=.asar)"
-  trap 'rm -f "$tmp_out"' EXIT
+  # Expand now: tmp_out is local and gone by the time the EXIT trap runs.
+  trap "rm -f '$tmp_out'" EXIT
 
   echo "Building patched asar from the pristine backup..."
   node "$PATCHER" "$BACKUP" "$tmp_out"
 
   echo "Installing patched asar..."
-  sudo cp "$tmp_out" "$ASAR"
+  as_root cp "$tmp_out" "$ASAR"
   echo ""
   echo "Installed. Restart claude-desktop to pick it up."
   echo "If anything looks broken, run: $0 revert"
@@ -104,8 +130,9 @@ case "${1:-install}" in
   install) cmd_install ;;
   revert) cmd_revert ;;
   status) cmd_status ;;
+  check) cmd_check ;;
   *)
-    echo "usage: $0 {install|revert|status}" >&2
+    echo "usage: $0 {install|revert|status|check}" >&2
     exit 2
     ;;
 esac
