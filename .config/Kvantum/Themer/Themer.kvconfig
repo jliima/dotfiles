@@ -73,17 +73,17 @@ middle_click_scroll=false
 opaque=kaffeine,kmplayer,subtitlecomposer,kdenlive,vlc,smplayer,smplayer2,avidemux,kamoso,QtCreator,VirtualBox,VirtualBoxVM,trojita,dragon,digikam,lyx
 
 [GeneralColors]
-window.color=#f4f7fa
-base.color=#e9edf2
-alt.base.color=#f4f7fa
+window.color=#e9edf2
+base.color=#f4f7fa
+alt.base.color=#f7f9fc
 button.color=#e4eaf0
 light.color=#d9e1e8
 mid.light.color=#ffffff
 dark.color=#dee4e9
 mid.color=#d7dde3
 shadow.color=#dee4e9
-highlight.color=#bad8f4
-inactive.highlight.color=#bad8f4
+highlight.color=#dbeeff
+inactive.highlight.color=#dbeeff
 tooltip.base.color=#ffffff
 text.color=#1a2530
 window.text.color=#1a2530
