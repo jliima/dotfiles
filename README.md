@@ -60,7 +60,7 @@ The KWin decoration is built from a Themer clone: `~/Git/themer/decoration/build
 small extension in the same clone, which reloads the window when a theme changes:
 
 ```bash
-~/Git/themer/vscode/install.sh          # add --profile "Name" for every other VS Code profile you use
+~/Git/themer/plugins/vscode/install.sh          # add --profile "Name" for every other VS Code profile you use
 ```
 
 ### ZSH & CLI Programs
