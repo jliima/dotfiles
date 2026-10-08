@@ -1,0 +1,25 @@
+# Read on top of the shipped themer/targets.toml: a target with a shipped name replaces it, new names are added.
+
+# Apps Themer has no template for yet (VS Code, Obsidian, IntelliJ, Spicetify, lnav, nano, vim, ...) still render
+# from pywal templates. This file only changes when the theme or variant does; then run-pywal.py runs wal with the
+# matching ~/.config/wal/colorschemes/<variant>/<theme>.json and every script in scripts/pywal/applications.
+[[target]]
+name = "pywal apps"
+group = "pywal"
+format = "pywal"
+output = "~/.cache/themer/pywal-apps.json"
+reload = "~/dotfiles/scripts/pywal/run-pywal.py"
+
+# wal writes ~/.cache/wal itself (from the same pare.json, through the templates in ~/.config/wal/templates), so
+# Themer's copies would only fight it on every apply.
+[[target]]
+name = "pywal colors.json"
+enabled = false
+
+[[target]]
+name = "pywal colors.sh"
+enabled = false
+
+[[target]]
+name = "pywal colors.css"
+enabled = false

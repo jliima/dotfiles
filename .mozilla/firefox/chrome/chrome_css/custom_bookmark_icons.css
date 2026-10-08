@@ -63,7 +63,7 @@
   width:0 !important;
   height:0 !important;
   padding:0 0 16px 16px !important;
-  background: url("file:///home/hieroja/dotfiles/.mozilla/firefox/chrome/pywal/favicons/moodle-favicon-32.webp") !important;
+  background: url("file:///home/hieroja/dotfiles/.mozilla/firefox/chrome/favicons/moodle-favicon-32.webp") !important;
   background-size: 16px 16px !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
@@ -73,7 +73,7 @@
   width:0 !important;
   height:0 !important;
   padding:0 0 16px 16px !important;
-  background: url("file:///home/hieroja/dotfiles/.mozilla/firefox/chrome/pywal/favicons/gitlab-favicon-32.png") !important;
+  background: url("file:///home/hieroja/dotfiles/.mozilla/firefox/chrome/favicons/gitlab-favicon-32.png") !important;
   background-size: 16px 16px !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
@@ -93,7 +93,7 @@
   width:0 !important;
   height:0 !important;
   padding:0 0 16px 16px !important;
-  background: url("file:///home/hieroja/dotfiles/.mozilla/firefox/chrome/pywal/favicons/toas-booking-favicon-48.ico") !important;
+  background: url("file:///home/hieroja/dotfiles/.mozilla/firefox/chrome/favicons/toas-booking-favicon-48.ico") !important;
   background-size: 16px 16px !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
@@ -103,7 +103,7 @@
   width:0 !important;
   height:0 !important;
   padding:0 0 16px 16px !important;
-  background: url("file:///home/hieroja/dotfiles/.mozilla/firefox/chrome/pywal/favicons/github-favicon-100.webp") !important;
+  background: url("file:///home/hieroja/dotfiles/.mozilla/firefox/chrome/favicons/github-favicon-100.webp") !important;
   background-size: 16px 16px !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
@@ -135,7 +135,7 @@
 .tabbrowser-tab[image*="moodle.tuni.fi"] .favicon-stack,
 .tabbrowser-tab[label*="Moodle"] .favicon-stack,
 .tabbrowser-tab[tooltiptext*="moodle.tuni.fi"] .favicon-stack {
-  background: url("file:///home/hieroja/dotfiles/.mozilla/firefox/chrome/pywal/favicons/moodle-favicon-32.webp") center/16px 16px no-repeat !important;
+  background: url("file:///home/hieroja/dotfiles/.mozilla/firefox/chrome/favicons/moodle-favicon-32.webp") center/16px 16px no-repeat !important;
   width: var(--custom-tab-favicon-size) !important;
   height: var(--custom-tab-favicon-size) !important;
   min-width: var(--custom-tab-favicon-size) !important;

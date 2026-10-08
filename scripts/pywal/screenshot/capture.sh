@@ -113,12 +113,12 @@ capture_app() {
     nano)
       require_cmd nano || { log_warn "  nano not installed, skipping"; return 1; }
       capture "$app ($lang)" "$SIZE" "$DELAY" "$outfile" -- \
-        konsole --profile konsole-zsh -e nano "$snippet"
+        konsole --profile Themer -e nano "$snippet"
       ;;
     vim)
       require_cmd vim || { log_warn "  vim not installed, skipping"; return 1; }
       capture "$app ($lang)" "$SIZE" "$DELAY" "$outfile" -- \
-        konsole --profile konsole-zsh -e vim -u NONE -N \
+        konsole --profile Themer -e vim -u NONE -N \
         -c "syntax on" -c "colorscheme pywal" "$snippet"
       ;;
     kate)
@@ -133,7 +133,7 @@ capture_app() {
       ;;
     konsole)
       require_cmd konsole || { log_warn "  konsole not installed, skipping"; return 1; }
-      capture "$app" "$SIZE" "$DELAY" "$outfile" -- konsole --profile konsole-zsh
+      capture "$app" "$SIZE" "$DELAY" "$outfile" -- konsole --profile Themer
       ;;
     dolphin)
       require_cmd dolphin || { log_warn "  dolphin not installed, skipping"; return 1; }
@@ -176,7 +176,7 @@ capture_app() {
     lnav)
       require_cmd lnav || { log_warn "  lnav not installed, skipping"; return 1; }
       capture "$app" "$SIZE" "$DELAY" "$outfile" -- \
-        konsole --profile konsole-zsh -e lnav "$snippet"
+        konsole --profile Themer -e lnav "$snippet"
       ;;
     qtcreator|intellij|obs|telegram)
       log_warn "  $app is not installed on this machine, skipping"

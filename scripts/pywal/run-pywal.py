@@ -28,7 +28,8 @@ class Colors:
   CYAN = "\033[96m"
 
 
-DEFAULT_THEME = "parecolors"
+FALLBACK_THEME = "pare"
+THEMER_STATE = Path.home() / ".local/state/themer/current.json"
 
 WAL_COLORSCHEMES_DIR = Path.home() / ".config/wal/colorschemes"
 WALLPAPER_SETTER_SCRIPT = Path.home() / "scripts/kde/set-wallpaper-for-activity.py"
@@ -288,6 +289,22 @@ def find_theme(theme_name: str) -> tuple[Path | None, bool]:
   return None, False
 
 
+def default_theme() -> str:
+  """The theme Themer applied last, as its pywal export (~/.config/wal/colorschemes/<variant>/<theme>.json).
+
+  Themer themes KDE, Konsole, Kate, GTK and Firefox itself; pywal only covers the apps it has no template for,
+  so both follow the same palette.
+  """
+  try:
+    state = json.loads(THEMER_STATE.read_text())
+    path = WAL_COLORSCHEMES_DIR / state["variant"] / f"{state['theme']}.json"
+    if path.exists():
+      return str(path)
+  except (OSError, ValueError, KeyError):
+    pass
+  return FALLBACK_THEME
+
+
 def resolve_wal_args(wal_args: list[str]) -> tuple[list[str], Path | None]:
   """Auto-detect light themes and add -l flag when needed.
 
@@ -445,7 +462,7 @@ def parse_args(args: list[str]) -> tuple[argparse.Namespace, list[str], Path | N
   has_theme = any(arg in theme_flags for arg in wal_args)
 
   if not has_theme:
-    wal_args = ["--theme", DEFAULT_THEME] + wal_args
+    wal_args = ["--theme", default_theme()] + wal_args
 
   # Resolve theme path and auto-add -l for light themes
   wal_args, theme_path = resolve_wal_args(wal_args)
