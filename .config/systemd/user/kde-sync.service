@@ -1,0 +1,13 @@
+# Syncs katerc, the global shortcuts and the Plasma panels with the dotfiles (scripts/kde/kde-sync). Started at login,
+# by kde-sync.path when one of the files changes, and by the git hooks in .githooks after a pull.
+[Unit]
+Description=Sync KDE settings with the dotfiles
+After=plasma-plasmashell.service plasma-kglobalaccel.service
+PartOf=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/scripts/kde/kde-sync/kde-sync.py --quiet sync
+
+[Install]
+WantedBy=graphical-session.target

@@ -61,6 +61,8 @@ PANELS_FILE = "plasma/panels.json"
 # Applet and panel config that only records window sizes; left out of panels.json.
 PANEL_NOISE_GROUPS = ("/ConfigDialog",)
 PANEL_NOISE_KEYS = ("popupHeight", "popupWidth")
+# Seconds after plasmashell starts before its panels are read: it is still loading them before that.
+PLASMASHELL_SETTLE_S = 30
 # How a panel is shown, which the dump leaves out: properties of the scripting API's Panel object.
 PANEL_VIEW_KEYS = ("screen", "floating", "lengthMode", "opacity")
 # panelOpacity in plasmashellrc; the scripting API can read a panel's opacity but not set it.
@@ -663,9 +665,28 @@ def panels_text(data):
   return json.dumps(data, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
 
 
+def plasmashell_age():
+  """Seconds since plasmashell started, None when it is not running."""
+  res = subprocess.run(["pgrep", "-xo", "plasmashell"], capture_output=True, text=True)
+  if not res.stdout.strip():
+    return None
+  try:
+    stat = Path(f"/proc/{res.stdout.split()[0]}/stat").read_text()
+    started = int(stat.rsplit(")", 1)[1].split()[19]) / os.sysconf("SC_CLK_TCK")
+    return float(Path("/proc/uptime").read_text().split()[0]) - started
+  except (OSError, ValueError, IndexError):
+    return None
+
+
 def sync_panels(dry_run):
   path = repo_dir() / PANELS_FILE
   state = STATE_DIR / "panels.json"
+  age = plasmashell_age()
+  if age is None or age < PLASMASHELL_SETTLE_S:
+    # While plasmashell starts, it writes its files with only some panels loaded; a dump then would look like panels
+    # were removed.
+    print_info("panels skipped: plasmashell is not running or just started")
+    return False
   try:
     live = panels_text(dump_panels())
   except (RuntimeError, ValueError) as e:

@@ -1,0 +1,13 @@
+# Themer screen profiles (settings.toml): switches the font sizes and Firefox zoom when the 32" is plugged in or out.
+[Unit]
+Description=Themer screen profiles
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+ExecStart=%h/.local/bin/themer screens --watch
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=graphical-session.target

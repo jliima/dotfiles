@@ -36,3 +36,6 @@ _darcs
 ^/\.config/kglobalshortcutsrc
 ^/\.config/spicetify/config-xpui\.ini
 ^/\.local/share/konsole/Themer\.profile
+
+# Git hooks of this repo (git config core.hooksPath .githooks)
+^/\.githooks

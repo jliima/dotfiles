@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# After a pull: link new files into ~ and let kde-sync apply what changed (katerc, shortcuts, panels).
+# Enabled with `git config core.hooksPath .githooks` in this clone.
+repo="$(git rev-parse --show-toplevel)"
+stow --dir="$repo" --target="$HOME" . || echo "post-merge: stow reported conflicts, run it by hand" >&2
+systemctl --user start --no-block kde-sync.service 2>/dev/null || true

@@ -1,0 +1,14 @@
+# Runs kde-sync.service when an app saves one of the synced files.
+[Unit]
+Description=Watch the KDE settings kde-sync keeps in the dotfiles
+PartOf=graphical-session.target
+
+[Path]
+PathChanged=%h/.config/katerc
+PathChanged=%h/.config/kglobalshortcutsrc
+PathChanged=%h/.config/plasma-org.kde.plasma.desktop-appletsrc
+PathChanged=%h/.config/plasmashellrc
+Unit=kde-sync.service
+
+[Install]
+WantedBy=graphical-session.target
