@@ -15,3 +15,14 @@ enabled = true
 path = "~/dotfiles"
 # {dotfiles} and {home} are filled in. Leave empty ("") to skip stowing and run stow yourself.
 stow = "stow --no-folding --dir={dotfiles} --target={home} ."
+
+# Non-color settings that win over every theme on this machine, by table and key as in a theme.toml.
+[overrides.kde]
+# The Themer KWin decoration, built from themer/decoration (build.sh).
+decoration-library = "themer"
+decoration-theme = "Themer"
+buttons-left = "M"
+
+[overrides.window]
+# KDE-Rounded-Corners draws the ring around every window here, so the decoration does not.
+decoration-outline-width = 0

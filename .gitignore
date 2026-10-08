@@ -22,3 +22,7 @@ scripts/*
 !.config/zsh/.zshrc
 
 CLAUDE.md
+
+# Built by themer/decoration/build.sh
+themer/decoration/build/
+.local/lib/qt6/plugins/org.kde.kdecoration3/themer.so
