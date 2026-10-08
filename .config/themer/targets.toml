@@ -100,3 +100,13 @@ group = "nano"
 template = "nano/include.nanorc"
 output = "~/.nanorc"
 mode = "ensure-lines"
+
+# ---- Vim and Neovim --------------------------------------------------------------------------------------------------
+
+# Only adds the colorscheme; run `:colorscheme themer` to use it. Neovim's folder is its own repo, so nothing is
+# stowed. For plain Vim add a target with the same template and output ~/.vim/colors/themer.vim.
+[[target]]
+name = "Neovim colorscheme"
+group = "vim"
+template = "vim/themer.vim"
+output = "~/.config/nvim/colors/themer.vim"
