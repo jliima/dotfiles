@@ -7,6 +7,7 @@
  *   play      accent fill with on-accent text, no shadow
  */
 :root {
+  --themer-radius-xs: 4px;
   --themer-radius-sm: 6px;
   --themer-radius-md: 10px;
   --themer-radius-lg: 14px;
@@ -18,29 +19,64 @@
   --themer-font-mono: "Liga SFMono Nerd Font", monospace;
 }
 
+/* Encore (Spotify's design system) takes its shapes from these tokens: everything round becomes radius-sm,
+   panels and cards radius-md. Avatars and artist images stay circular (they use 50%). */
 body,
 .encore-dark-theme,
-.encore-light-theme {
+.encore-light-theme,
+.encore-layout-themes {
+  --encore-border-radius-rounded: var(--themer-radius-sm);
+  --encore-corner-radius-smaller: var(--themer-radius-xs);
+  --encore-corner-radius-base: var(--themer-radius-sm);
+  --encore-corner-radius-larger: var(--themer-radius-sm);
+  --encore-corner-radius-larger-2: var(--themer-radius-md);
+  --encore-corner-radius-larger-3: var(--themer-radius-md);
+  --encore-list-row-border-radius: var(--themer-radius-sm);
+  --os-handle-border-radius: var(--themer-radius-xs);
+  --progress-bar-radius: var(--themer-radius-xs);
   font-family: var(--themer-font);
 }
 
-/* Sidebar and content are flat panels on the window ground */
+/* Window ground is bg-sunken: global nav, library and right sidebar sit on it, only the content is bg.
+   Panels are flat and separated by hairlines. */
 .Root__top-container {
   background-color: var(--spice-sidebar);
   gap: 0;
   padding: 0;
 }
 
+.Root__globalNav {
+  border-bottom: 1px solid var(--themer-line);
+}
+
 .Root__nav-bar,
 .Root__main-view,
 .Root__right-sidebar,
+.Root__right-sidebar > div,
+.main-yourLibraryX-entryPoints,
+.main-yourLibraryX-libraryContainer,
 .main-view-container,
 .main-view-container__scroll-node-child {
   border-radius: 0;
 }
 
+.Root__nav-bar,
+.Root__right-sidebar {
+  background-color: var(--spice-sidebar);
+}
+
+.main-yourLibraryX-entryPoints,
+.main-yourLibraryX-libraryContainer,
+.Root__right-sidebar > div {
+  background-color: var(--spice-sidebar);
+}
+
 .Root__nav-bar {
   border-right: 1px solid var(--themer-line);
+}
+
+.Root__right-sidebar {
+  border-left: 1px solid var(--themer-line);
 }
 
 .Root__main-view {
@@ -50,6 +86,24 @@ body,
 .main-topBar-background,
 .main-topBar-overlay {
   background-color: var(--spice-main);
+}
+
+/* Global nav: home, search and the other round buttons become small-radius squares */
+.Root__globalNav button,
+.Root__globalNav .main-globalNav-navLink,
+.Root__globalNav .spicetify-sc-chevronBtn {
+  border-radius: var(--themer-radius-sm) !important;
+}
+
+.Root__globalNav .main-globalNav-navLink,
+.Root__globalNav .main-globalNav-searchContainer > button {
+  background-color: var(--spice-card);
+  border: 1px solid var(--themer-line);
+}
+
+.Root__globalNav .main-globalNav-navLink:hover,
+.Root__globalNav .main-globalNav-searchContainer > button:hover {
+  background-color: var(--spice-highlight);
 }
 
 /* Now playing bar */
@@ -100,7 +154,11 @@ body,
   border-radius: var(--themer-radius-sm);
 }
 
-/* Inputs */
+/* Inputs (the global search box has a hard-coded pill radius) */
+.Root__globalNav input.x-searchInput-searchInputInput {
+  border-radius: var(--themer-radius-sm) !important;
+}
+
 .x-searchInput-searchInputInput,
 input[type="search"],
 input[type="text"] {
@@ -118,27 +176,41 @@ input[type="text"]:focus {
   outline: none;
 }
 
-/* Buttons */
+/* Buttons: round icon buttons (library add/expand, chip chevrons, ...) become small-radius squares, and the
+   transport play/pause is an accent fill like the card play buttons */
+.main-useDropTarget-base,
+.search-searchCategory-carouselButton,
+.spicetify-sc-chevronBtn,
+.x-filterBox-expandButton,
+.x-filterBox-filterInput,
+button[class*="legacy-button"],
+button[data-encore-id="buttonSecondary"],
+button[data-encore-id="buttonTertiary"] {
+  border-radius: var(--themer-radius-sm);
+}
+
 .main-playButton-PlayButton,
-.main-playPauseButton-button {
+.main-playPauseButton-button,
+[data-testid="control-button-playpause"] {
   box-shadow: none;
 }
 
-.main-playButton-PlayButton > button,
-.main-playButton-PlayButton button {
+.main-nowPlayingBar-center button[data-testid="control-button-playpause"] {
   background-color: var(--spice-button);
   color: var(--themer-on-accent);
 }
 
-.main-playButton-PlayButton button:hover {
-  background-color: var(--spice-button-active);
-}
-
+.main-playButton-PlayButton > button,
+.main-playButton-PlayButton button,
+[data-testid="control-button-playpause"],
 .main-playPauseButton-button {
   background-color: var(--spice-button);
+  border-radius: var(--themer-radius-sm);
   color: var(--themer-on-accent);
 }
 
+.main-playButton-PlayButton button:hover,
+[data-testid="control-button-playpause"]:hover,
 .main-playPauseButton-button:hover {
   background-color: var(--spice-button-active);
   transform: none;
