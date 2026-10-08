@@ -52,14 +52,14 @@
           "wallpaperplugin": "org.kde.image"
         }
       },
-      "height": 2.5,
       "hiding": "normal",
       "location": "top",
       "view": {
         "floating": false,
         "lengthMode": "fit",
         "opacity": "opaque",
-        "screen": 0
+        "screen": 0,
+        "thickness": 40
       }
     },
     {
@@ -103,14 +103,14 @@
           "wallpaperplugin": "org.kde.image"
         }
       },
-      "height": 2.5,
       "hiding": "normal",
       "location": "top",
       "view": {
         "floating": false,
         "lengthMode": "fit",
         "opacity": "opaque",
-        "screen": 0
+        "screen": 0,
+        "thickness": 40
       }
     },
     {
@@ -128,14 +128,14 @@
           "wallpaperplugin": "org.kde.image"
         }
       },
-      "height": 3.125,
       "hiding": "autohide",
       "location": "bottom",
       "view": {
         "floating": false,
         "lengthMode": "fit",
         "opacity": "opaque",
-        "screen": 0
+        "screen": 0,
+        "thickness": 50
       }
     }
   ],

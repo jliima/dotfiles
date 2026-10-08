@@ -66,7 +66,7 @@ THEMER_PANELS_JS = Path(os.environ.get("XDG_CACHE_HOME", HOME / ".cache")) / "th
 # Seconds after plasmashell starts before its panels are read: it is still loading them before that.
 PLASMASHELL_SETTLE_S = 30
 # How a panel is shown, which the dump leaves out: properties of the scripting API's Panel object.
-PANEL_VIEW_KEYS = ("screen", "floating", "lengthMode", "opacity")
+PANEL_VIEW_KEYS = ("screen", "thickness", "floating", "lengthMode", "opacity")
 # panelOpacity in plasmashellrc; the scripting API can read a panel's opacity but not set it.
 PANEL_OPACITY = {"adaptive": 0, "opaque": 1, "translucent": 2}
 # The systray's own settings, which plasmashell's layout dump leaves out.
@@ -558,7 +558,7 @@ def dump_panels():
   # with its margins; those come from the panels themselves, matched by where they sit.
   views = json.loads(plasma_script("""
     print(JSON.stringify(panels().map(function (p) {
-      return { location: p.location, alignment: p.alignment, height: p.height / gridUnit, screen: p.screen,
+      return { location: p.location, alignment: p.alignment, thickness: p.height, screen: p.screen,
                floating: p.floating, lengthMode: p.lengthMode, opacity: p.opacity };
     })));
   """) or "[]")
@@ -567,7 +567,8 @@ def dump_panels():
                 None)
     if view:
       views.remove(view)
-      panel["height"] = view["height"]
+      # In pixels: the dump's grid units grow with the font, which differs between screen profiles.
+      panel.pop("height", None)
       panel["view"] = {k: view[k] for k in PANEL_VIEW_KEYS}
       panel.get("config", {}).get("/", {}).pop("lastScreen", None)
       if view["lengthMode"] != "custom":
@@ -648,14 +649,14 @@ def load_panels(data):
     print(JSON.stringify(ids));
   """ % (json.dumps(panels), json.dumps(data.get("systray", {})))) or "[]")
   # Then how each is shown. In a separate run: a screen set in the run that created the panel does not stick.
-  views = [{"id": pid, "view": {k: v for k, v in p.get("view", {}).items() if k != "opacity"}, "height": p["height"]}
-           for pid, p in zip(created, panels) if pid >= 0]
+  views = [{"id": pid, "view": {k: v for k, v in p.get("view", {}).items() if k not in ("opacity", "thickness")},
+            "thickness": p.get("view", {}).get("thickness")} for pid, p in zip(created, panels) if pid >= 0]
   current = json.loads(plasma_script("""
     var views = %s;
     views.forEach(function (v) {
       var p = panelById(v.id);
       for (var k in v.view) { p[k] = v.view[k]; }
-      p.height = Math.round(v.height * gridUnit);
+      if (v.thickness) { p.height = v.thickness; }
     });
     print(JSON.stringify(views.map(function (v) { return panelById(v.id).opacity; })));
   """ % json.dumps(views)) or "[]")
