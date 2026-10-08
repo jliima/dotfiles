@@ -18,25 +18,6 @@
           "plugin": "org.kde.plasma.pager"
         },
         {
-          "config": {
-            "/": {
-              "CurrentPreset": "org.kde.plasma.systemmonitor"
-            },
-            "/Appearance": {
-              "chartFace": "org.kde.ksysguard.barchart",
-              "showTitle": "false",
-              "title": "CPU cores"
-            },
-            "/SensorColors": {
-              "cpu/cpu.*/usage": "95,175,241"
-            },
-            "/Sensors": {
-              "highPrioritySensorIds": "[\"cpu/cpu.*/usage\"]"
-            }
-          },
-          "plugin": "org.kde.plasma.systemmonitor"
-        },
-        {
           "config": {},
           "plugin": "com.jliima.cpupercent"
         },
