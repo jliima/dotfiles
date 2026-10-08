@@ -1,0 +1,194 @@
+/*
+ * Themer theme for Spotify (Spicetify).
+ *
+ *   grounds   sidebar bg-sunken, content bg, now playing bar bg-deep with a hairline on top
+ *   rows      hover surface-hover, selected accent-soft
+ *   cards     surface with a line ring, radius-md; controls radius-sm
+ *   play      accent fill with on-accent text, no shadow
+ */
+:root {
+  --themer-radius-sm: 6px;
+  --themer-radius-md: 10px;
+  --themer-radius-lg: 14px;
+  --themer-line: #222b35;
+  --themer-line-strong: #5d6b79;
+  --themer-accent-soft: #0f283d;
+  --themer-on-accent: #05090e;
+  --themer-font: "SF Pro", sans-serif;
+  --themer-font-mono: "Liga SFMono Nerd Font", monospace;
+}
+
+body,
+.encore-dark-theme,
+.encore-light-theme {
+  font-family: var(--themer-font);
+}
+
+/* Sidebar and content are flat panels on the window ground */
+.Root__top-container {
+  background-color: var(--spice-sidebar);
+  gap: 0;
+  padding: 0;
+}
+
+.Root__nav-bar,
+.Root__main-view,
+.Root__right-sidebar,
+.main-view-container,
+.main-view-container__scroll-node-child {
+  border-radius: 0;
+}
+
+.Root__nav-bar {
+  border-right: 1px solid var(--themer-line);
+}
+
+.Root__main-view {
+  background-color: var(--spice-main);
+}
+
+.main-topBar-background,
+.main-topBar-overlay {
+  background-color: var(--spice-main);
+}
+
+/* Now playing bar */
+.Root__now-playing-bar {
+  border-top: 1px solid var(--themer-line);
+}
+
+.main-nowPlayingBar-container,
+.main-nowPlayingBar-nowPlayingBar {
+  background-color: var(--spice-player);
+}
+
+/* Rows */
+.main-trackList-trackListRow {
+  border-radius: var(--themer-radius-sm);
+}
+
+.main-trackList-trackListRow:hover {
+  background-color: var(--spice-highlight);
+}
+
+.main-trackList-trackListRow[aria-selected="true"],
+.main-trackList-selected {
+  background-color: var(--themer-accent-soft);
+}
+
+.main-yourLibraryX-listItem a,
+.main-rootlist-rootlistItem {
+  border-radius: var(--themer-radius-sm);
+}
+
+/* Cards */
+.main-card-card,
+.main-shelf-shelf .main-card-card {
+  background-color: var(--spice-card);
+  border: 1px solid var(--themer-line);
+  border-radius: var(--themer-radius-md);
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.main-card-card:hover {
+  background-color: var(--spice-highlight);
+  border-color: var(--themer-line-strong);
+}
+
+.main-card-imageContainer img,
+.main-image-image.main-card-image {
+  border-radius: var(--themer-radius-sm);
+}
+
+/* Inputs */
+.x-searchInput-searchInputInput,
+input[type="search"],
+input[type="text"] {
+  background-color: var(--spice-sidebar);
+  border: 1px solid var(--themer-line-strong);
+  border-radius: var(--themer-radius-sm);
+  box-shadow: none;
+  color: var(--spice-text);
+}
+
+.x-searchInput-searchInputInput:focus,
+input[type="search"]:focus,
+input[type="text"]:focus {
+  border-color: var(--spice-button);
+  outline: none;
+}
+
+/* Buttons */
+.main-playButton-PlayButton,
+.main-playPauseButton-button {
+  box-shadow: none;
+}
+
+.main-playButton-PlayButton > button,
+.main-playButton-PlayButton button {
+  background-color: var(--spice-button);
+  color: var(--themer-on-accent);
+}
+
+.main-playButton-PlayButton button:hover {
+  background-color: var(--spice-button-active);
+}
+
+.main-playPauseButton-button {
+  background-color: var(--spice-button);
+  color: var(--themer-on-accent);
+}
+
+.main-playPauseButton-button:hover {
+  background-color: var(--spice-button-active);
+  transform: none;
+}
+
+/* Filter chips */
+.main-pillFilter-pill,
+.x-filterChip-chip,
+[class*="Chip"] {
+  border-radius: var(--themer-radius-sm);
+}
+
+/* Popups and context menus */
+.main-contextMenu-menu,
+.main-contextMenu-tippy,
+.encore-layout-themes .main-contextMenu-menu {
+  background-color: var(--spice-main-elevated);
+  border: 1px solid var(--themer-line-strong);
+  border-radius: var(--themer-radius-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.main-contextMenu-menuItemButton {
+  border-radius: var(--themer-radius-sm);
+}
+
+.main-contextMenu-menuItemButton:hover {
+  background-color: var(--spice-highlight);
+}
+
+/* Scrollbars */
+::-webkit-scrollbar-thumb {
+  background-color: var(--spice-misc);
+  border-radius: var(--themer-radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--spice-button-disabled);
+}
+
+/* Progress and volume bars */
+.progress-bar,
+.x-progressBar-progressBarBg {
+  --fg-color: var(--spice-button);
+  --bg-color: var(--spice-button-disabled);
+  border-radius: var(--themer-radius-sm);
+}
+
+/* Code-ish text */
+code,
+pre {
+  font-family: var(--themer-font-mono);
+}

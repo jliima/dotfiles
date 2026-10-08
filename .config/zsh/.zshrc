@@ -28,9 +28,9 @@ export FZF_DEFAULT_OPTS="
   --layout=reverse
   --bind=tab:down,shift-tab:up
 "
-# Selection background from pywal (template: colors-fzf.sh), falls back to terminal bright blue
-[[ -f "$HOME/.cache/wal/colors-fzf.sh" ]] && source "$HOME/.cache/wal/colors-fzf.sh"
-FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS ${FZF_PYWAL_COLORS:---color bg+:12}"
+# Colors from Themer (template: fzf/colors.sh), falls back to terminal bright blue
+[[ -f "$HOME/.cache/themer/fzf.sh" ]] && source "$HOME/.cache/themer/fzf.sh"
+FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS ${FZF_THEMER_COLORS:---color bg+:12}"
 # Syntax-highlighted file preview for Ctrl-T (bat), directory listing for Alt-C
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:200 {}' --preview-window=right,60%,border-left"
 export FZF_ALT_C_OPTS="--preview 'ls --color=always -A {}'"

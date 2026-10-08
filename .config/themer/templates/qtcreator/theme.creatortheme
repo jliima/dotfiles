@@ -1,32 +1,32 @@
 [General]
-Includes=pywal-theme.figmatokens
-ThemeName=Pywal theme
+Includes=themer.figmatokens
+ThemeName=Themer
 PreferredStyles=Fusion
-DefaultTextEditorColorScheme=pywal-colors.xml
+DefaultTextEditorColorScheme=themer.xml
 
 [Palette]
-shadowBackground={background}
-text={foreground}
-textDisabled={grey5}
-textHighlighted={foreground}
-toolBarItem={foreground}
-toolBarItemDisabled={grey5}
-fancyBarsNormalTextColor={foreground}
-fancyBarsBoldTextColor={foreground}
-hoverBackground={grey5}
-selectedBackground={grey5}
-selectedBackgroundText={foreground}
-normalBackground={background}
-alternateBackground={background}
-error={red4}
-warning={yellow5}
-success={green5}
-message={magenta5}
-splitter={grey5}
-textColorLink={magenta5}
-textColorLinkVisited={magenta5}
-backgroundColorDisabled={grey5}
-scrollHandle={green5}
+shadowBackground={{ bg }}
+text={{ text }}
+textDisabled={{ line-strong }}
+textHighlighted={{ text }}
+toolBarItem={{ text }}
+toolBarItemDisabled={{ line-strong }}
+fancyBarsNormalTextColor={{ text }}
+fancyBarsBoldTextColor={{ text }}
+hoverBackground={{ line-strong }}
+selectedBackground={{ line-strong }}
+selectedBackgroundText={{ text }}
+normalBackground={{ bg }}
+alternateBackground={{ bg }}
+error={{ red-dim | mix(red, 0.5) }}
+warning={{ yellow }}
+success={{ green }}
+message={{ magenta }}
+splitter={{ line-strong }}
+textColorLink={{ magenta }}
+textColorLinkVisited={{ magenta }}
+backgroundColorDisabled={{ line-strong }}
+scrollHandle={{ green }}
 
 [Colors]
 ;DS controls theme START
@@ -391,26 +391,26 @@ PaletteTextDisabled=textDisabled
 PaletteMid=text
 PalettePlaceholderText=textDisabled
 
-TerminalForeground={foreground}
-TerminalBackground={background}
-TerminalSelection={grey5}
-TerminalFindMatch={green5}
-TerminalAnsi0={black5}
-TerminalAnsi1={red4}
-TerminalAnsi2={green5}
-TerminalAnsi3={yellow5}
-TerminalAnsi4={blue4}
-TerminalAnsi5={grey5}
-TerminalAnsi6={cyan5}
-TerminalAnsi7={white4}
-TerminalAnsi8={grey5}
-TerminalAnsi9={red5}
-TerminalAnsi10={green5}
-TerminalAnsi11={yellow5}
-TerminalAnsi12={blue5}
-TerminalAnsi13={magenta5}
-TerminalAnsi14={cyan5}
-TerminalAnsi15={white5}
+TerminalForeground={{ text }}
+TerminalBackground={{ bg }}
+TerminalSelection={{ line-strong }}
+TerminalFindMatch={{ green }}
+TerminalAnsi0={{ surface-raised }}
+TerminalAnsi1={{ red-dim | mix(red, 0.5) }}
+TerminalAnsi2={{ green }}
+TerminalAnsi3={{ yellow }}
+TerminalAnsi4={{ blue-dim | mix(blue, 0.5) }}
+TerminalAnsi5={{ line-strong }}
+TerminalAnsi6={{ cyan }}
+TerminalAnsi7={{ text }}
+TerminalAnsi8={{ line-strong }}
+TerminalAnsi9={{ red }}
+TerminalAnsi10={{ green }}
+TerminalAnsi11={{ yellow }}
+TerminalAnsi12={{ blue }}
+TerminalAnsi13={{ magenta }}
+TerminalAnsi14={{ cyan }}
+TerminalAnsi15={{ text-bright }}
 
 [Flags]
 ComboBoxDrawTextShadow=false

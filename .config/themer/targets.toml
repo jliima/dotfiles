@@ -1,29 +1,5 @@
 # Read on top of the shipped themer/targets.toml: a target with a shipped name replaces it, new names are added.
 
-# Apps Themer has no template for yet (VS Code, Obsidian, IntelliJ, Spicetify, lnav, nano, vim, ...) still render
-# from pywal templates. This file only changes when the theme or variant does; then run-pywal.py runs wal with the
-# matching ~/.config/wal/colorschemes/<variant>/<theme>.json and every script in scripts/pywal/applications.
-[[target]]
-name = "pywal apps"
-group = "pywal"
-format = "pywal"
-output = "~/.cache/themer/pywal-apps.json"
-reload = "~/dotfiles/scripts/pywal/run-pywal.py"
-
-# wal writes ~/.cache/wal itself (from the same pare.json, through the templates in ~/.config/wal/templates), so
-# Themer's copies would only fight it on every apply.
-[[target]]
-name = "pywal colors.json"
-enabled = false
-
-[[target]]
-name = "pywal colors.sh"
-enabled = false
-
-[[target]]
-name = "pywal colors.css"
-enabled = false
-
 # JetBrains IDEs: ~/JetBrainsProjects/jetbrains-pywal-theme builds its UI theme and editor scheme from this
 # pywal-format palette (dark or light follows the variant) and live reloads running IDEs.
 [[target]]
@@ -162,3 +138,74 @@ name = "Obsidian PDF export snippet"
 group = "obsidian"
 template = "obsidian/pdf-export-darkmode.css"
 output = "~/Obsidian/.config/.obsidian-desktop/snippets/PDF-Export-Darkmode.css"
+
+# ---- Spotify (Spicetify) ---------------------------------------------------------------------------------------------
+
+# `current_theme = Themer` is set in spicetify/config-xpui.ini. The reload re-applies the theme to Spotify without
+# restarting it; restart Spotify to see a change.
+[[target]]
+name = "Spicetify colors"
+dotfiles = true
+group = "spicetify"
+template = "spicetify/color.ini"
+output = "~/.config/spicetify/Themes/Themer/color.ini"
+reload = "spicetify apply --no-restart"
+
+[[target]]
+name = "Spicetify styles"
+dotfiles = true
+group = "spicetify"
+template = "spicetify/user.css"
+output = "~/.config/spicetify/Themes/Themer/user.css"
+
+# ---- Discord (Vencord) -----------------------------------------------------------------------------------------------
+
+# Enable "themer.theme.css" once in Vencord > Themes; Vencord reloads it when the file changes. Written against the
+# current Discord class and variable names, not tested against every client version.
+[[target]]
+name = "Discord theme"
+group = "discord"
+template = "discord/theme.css"
+output = "~/.config/Vencord/themes/themer.theme.css"
+
+# ---- Telegram --------------------------------------------------------------------------------------------------------
+
+# The reload zips the colors into Themer.tdesktop-theme. Apply it once in Telegram (open the file from a chat, or
+# Settings > Chat Settings > Choose from file); re-applying it after a theme or mode change picks up the new colors.
+[[target]]
+name = "Telegram colors"
+group = "telegram"
+template = "telegram/colors.tdesktop-theme"
+output = "~/.cache/themer/telegram/colors.tdesktop-theme"
+reload = "cd ~/.cache/themer/telegram && rm -f Themer.tdesktop-theme && zip -q Themer.tdesktop-theme colors.tdesktop-theme"
+
+# ---- fzf -------------------------------------------------------------------------------------------------------------
+
+# Sourced by .config/zsh/.zshrc; new shells pick up a change.
+[[target]]
+name = "fzf colors"
+group = "fzf"
+template = "fzf/colors.sh"
+output = "~/.cache/themer/fzf.sh"
+
+# ---- Qt Creator ------------------------------------------------------------------------------------------------------
+
+# A first guess, not tested: select "Themer" in Qt Creator > Preferences > Environment > Interface (theme) and
+# "themer" under Text Editor > Font & Colors. Restart Qt Creator after a change.
+[[target]]
+name = "Qt Creator theme"
+group = "qtcreator"
+template = "qtcreator/theme.creatortheme"
+output = "~/.config/QtProject/qtcreator/themes/themer.creatortheme"
+
+[[target]]
+name = "Qt Creator design tokens"
+group = "qtcreator"
+template = "qtcreator/theme.figmatokens"
+output = "~/.config/QtProject/qtcreator/themes/themer.figmatokens"
+
+[[target]]
+name = "Qt Creator editor colors"
+group = "qtcreator"
+template = "qtcreator/colors.xml"
+output = "~/.config/QtProject/qtcreator/styles/themer.xml"

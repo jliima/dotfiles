@@ -1,0 +1,32 @@
+; Qt Creator Color Tokens - dark mode
+
+[Colors]
+
+Token_Basic_Black={{ bg }}
+Token_Basic_White={{ text }}
+
+Token_Accent_Default={{ accent }}
+Token_Accent_Muted={{ accent }}
+Token_Accent_Subtle={{ accent }}
+
+Token_Background_Default={{ bg }}
+Token_Background_Muted={{ bg }}
+Token_Background_Subtle={{ bg }}
+
+Token_Foreground_Default={{ text }}
+Token_Foreground_Muted={{ line-strong }}
+Token_Foreground_Subtle={{ line-strong }}
+
+Token_Text_Default={{ text }}
+Token_Text_Muted={{ line-strong }}
+Token_Text_Subtle={{ line-strong }}
+Token_Text_Accent={{ green }}
+
+Token_Stroke_Strong={{ text }}
+Token_Stroke_Muted={{ bg }}
+Token_Stroke_Subtle={{ bg }}
+
+Token_Notification_Alert={{ yellow }}
+Token_Notification_Success={{ green }}
+Token_Notification_Neutral={{ text }}
+Token_Notification_Danger={{ red }}

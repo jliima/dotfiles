@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style-scheme version="1.0" name="Themer">
+  <style name="Text" foreground="{{ text }}" background="{{ bg }}"/>
+  <style name="Link" underlineStyle="SingleUnderline"/>
+  <style name="Selection" background="{{ surface-active | mix(line-strong, 0.7) }}"/>
+  <style name="LineNumber" foreground="{{ line-strong }}"/>
+  <style name="SearchResult" background="#324365"/>
+  <style name="SearchResultAlt1" foreground="#000033" background="{{ green }}"/>
+  <style name="SearchResultAlt2" foreground="#330000" background="{{ yellow }}"/>
+  <style name="SearchResultContainingFunction" background="{{ line-strong }}"/>
+  <style name="SearchScope" background="{{ line-strong }}"/>
+  <style name="Parentheses" foreground="{{ text }}" background="{{ bg }}" underlineColor="{{ blue-dim | mix(blue, 0.5) }}" underlineStyle="SingleUnderline"/>
+  <style name="ParenthesesMismatch" foreground="{{ bg }}" background="{{ magenta }}"/>
+  <style name="AutoComplete" background="{{ line-strong }}"/>
+  <style name="CurrentLine" background="{{ line-strong }}"/>
+  <style name="CurrentLineNumber" foreground="{{ text-bright }}"/>
+  <style name="Occurrences" background="#324365"/>
+  <style name="Occurrences.Unused" underlineColor="{{ yellow }}" underlineStyle="DashUnderline"/>
+  <style name="Occurrences.Rename" background="{{ red-dim | mix(red, 0.5) }}"/>
+  <style name="Number" foreground="{{ red-dim | mix(red, 0.5) }}"/>
+  <style name="String" foreground="{{ magenta }}"/>
+  <style name="Type" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="Concept" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="Namespace" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="Local"/>
+  <style name="Parameter"/>
+  <style name="Global"/>
+  <style name="Field" foreground="{{ text }}"/>
+  <style name="Static" foreground="{{ blue-dim | mix(blue, 0.5) }}" italic="false"/>
+  <style name="VirtualMethod" foreground="{{ blue-dim | mix(blue, 0.5) }}" italic="false"/>
+  <style name="Function" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="Keyword" foreground="{{ green }}"/>
+  <style name="PrimitiveType" foreground="{{ green }}"/>
+  <style name="Operator" foreground="{{ yellow }}"/>
+  <style name="Overloaded Operator" foreground="{{ yellow }}"/>
+  <style name="Punctuation"/>
+  <style name="Preprocessor" foreground="{{ yellow }}"/>
+  <style name="Macro" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="Label" foreground="{{ red-dim | mix(red, 0.5) }}" bold="true"/>
+  <style name="Comment" foreground="{{ line-strong }}" italic="false"/>
+  <style name="Doxygen.Comment" foreground="{{ line-strong }}" italic="false"/>
+  <style name="Doxygen.Tag" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="VisualWhitespace" foreground="{{ line-strong }}"/>
+  <style name="QmlLocalId" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="QmlExternalId"/>
+  <style name="QmlTypeId" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="QmlRootObjectProperty" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="QmlScopeObjectProperty" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="QmlExternalObjectProperty"/>
+  <style name="JsScopeVar"/>
+  <style name="JsImportVar" foreground="{{ yellow }}"/>
+  <style name="JsGlobalVar" foreground="{{ yellow }}"/>
+  <style name="QmlStateName" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="Binding" foreground="{{ magenta }}"/>
+  <style name="DisabledCode" foreground="{{ line-strong }}"/>
+  <style name="AddedLine" foreground="{{ green }}"/>
+  <style name="RemovedLine" foreground="{{ red-dim | mix(red, 0.5) }}"/>
+  <style name="DiffFile" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="DiffLocation" foreground="{{ yellow }}"/>
+  <style name="DiffFileLine" foreground="{{ bg }}" background="{{ yellow }}"/>
+  <style name="DiffContextLine" foreground="{{ bg }}" background="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="DiffSourceLine" foreground="{{ bg }}" background="{{ red-dim | mix(red, 0.5) }}"/>
+  <style name="DiffSourceChar" foreground="{{ bg }}" background="{{ red-dim | mix(red, 0.5) }}"/>
+  <style name="DiffDestLine" foreground="{{ bg }}" background="{{ green }}"/>
+  <style name="DiffDestChar" foreground="{{ bg }}" background="{{ green }}"/>
+  <style name="LogChangeLine" foreground="{{ red-dim | mix(red, 0.5) }}"/>
+  <style name="LogAuthorName" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="LogCommitDate" foreground="{{ green }}"/>
+  <style name="LogCommitHash" foreground="{{ red-dim | mix(red, 0.5) }}"/>
+  <style name="LogCommitSubject"/>
+  <style name="LogDecoration" foreground="{{ magenta }}"/>
+  <style name="Warning" underlineColor="{{ yellow }}" underlineStyle="WaveUnderline"/>
+  <style name="WarningContext" underlineColor="{{ yellow }}" underlineStyle="WaveUnderline"/>
+  <style name="Error" underlineColor="{{ red-dim | mix(red, 0.5) }}" underlineStyle="WaveUnderline"/>
+  <style name="ErrorContext" underlineColor="{{ red-dim | mix(red, 0.5) }}" underlineStyle="WaveUnderline"/>
+  <style name="Declaration"/>
+  <style name="FunctionDefinition"/>
+  <style name="OutputArgument" italic="false"/>
+  <style name="StaticMember"/>
+  <style name="CocoCodeAdded"/>
+  <style name="CocoPartiallyCovered" foreground="{{ yellow }}"/>
+  <style name="CocoNotCovered" foreground="{{ red-dim | mix(red, 0.5) }}"/>
+  <style name="CocoFullyCovered" foreground="{{ green }}"/>
+  <style name="CocoManuallyValidated" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="CocoDeadCode" foreground="{{ magenta }}"/>
+  <style name="CocoExecutionCountTooLow" foreground="{{ red-dim | mix(red, 0.5) }}"/>
+  <style name="CocoNotCoveredInfo" foreground="{{ red-dim | mix(red, 0.5) }}"/>
+  <style name="CocoCoveredInfo" foreground="{{ green }}"/>
+  <style name="CocoManuallyValidatedInfo" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="LastStyleSentinel"/>
+</style-scheme>
