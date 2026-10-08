@@ -1,7 +1,7 @@
 [Appearance]
 ColorScheme=PareDark
 Font=Liga SFMono Nerd Font,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-BoldIntense=true
+BoldIntense=false
 LineSpacing=2
 BorderWhenActive=false
 UseFontLineChararacters=false

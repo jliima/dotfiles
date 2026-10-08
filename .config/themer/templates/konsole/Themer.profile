@@ -1,7 +1,7 @@
 [Appearance]
 ColorScheme={{ scheme }}
 Font={{ fonts.mono }},{{ fonts.mono-size }},-1,5,{{ fonts.mono-weight }},0,0,0,0,0,0,0,0,0,0,1
-BoldIntense=true
+BoldIntense=false
 LineSpacing={{ konsole.line-spacing }}
 BorderWhenActive=false
 UseFontLineChararacters=false
