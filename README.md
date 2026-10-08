@@ -29,7 +29,7 @@ Works on my my machine running [Kubuntu 26.04](https://kubuntu.org/)
 - [Darkly (v0.5.16)](https://github.com/Bali10050/Darkly/releases/tag/v0.5.16)
 - [KDE Rounded corners](https://github.com/matinlotfali/KDE-Rounded-Corners)
 - [Themer](themer/README.md) (in this repo), Python 3.11+
-- [Intellij Idea](https://github.com/jliima/jetbrains-pywal-theme)
+- [JetBrains Themer](https://github.com/jliima/jetbrains-pywal-theme) (cloned as `~/JetBrainsProjects/jetbrains-themer`)
 
 ### Theming
 
@@ -44,9 +44,10 @@ themer apply --theme pare              # or: themer mode toggle
 My settings, Konsole profile, Firefox snippets and extra targets are in `.config/themer/`. The extra targets run
 when the theme or variant changes:
 
-- "JetBrains IDEs" writes `~/.cache/themer/jetbrains.json` and runs `apply.sh` from
-  [jetbrains-pywal-theme](https://github.com/jliima/jetbrains-pywal-theme) (cloned to `~/JetBrainsProjects/`, branch
-  `themer`), which themes every JetBrains IDE, dark or light.
+- "JetBrains IDEs" writes the editor scheme, the UI theme plugin and `~/.cache/themer/jetbrains/themer.theme.json`,
+  then runs `apply.sh` from [jetbrains-themer](https://github.com/jliima/jetbrains-pywal-theme) (cloned to
+  `~/JetBrainsProjects/jetbrains-themer`, branch `master`), which installs a live reload plugin and reloads every
+  running JetBrains IDE, dark or light. The GitHub repo is still named `jetbrains-pywal-theme`.
 
 ### ZSH & CLI Programs
 
