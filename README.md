@@ -28,26 +28,35 @@ Works on my my machine running [Kubuntu 26.04](https://kubuntu.org/)
 
 - [Darkly (v0.5.16)](https://github.com/Bali10050/Darkly/releases/tag/v0.5.16)
 - [KDE Rounded corners](https://github.com/matinlotfali/KDE-Rounded-Corners)
-- [Themer](themer/README.md) (in this repo), Python 3.11+
-- [JetBrains Themer](https://github.com/jliima/jetbrains-pywal-theme) (cloned as `~/JetBrainsProjects/jetbrains-themer`)
+- [Themer](https://github.com/jliima/themer), Python 3.11+ (the theming tool, not part of this repo)
+- [JetBrains Themer](https://github.com/jliima/jetbrains-pywal-theme) (live reload for JetBrains IDEs, optional; the
+  GitHub repo is still named `jetbrains-pywal-theme`)
 
 ### Theming
 
-[Themer](themer/README.md) applies the Pare design system to Plasma, Darkly, KWin, Konsole, Kate, GTK 4 and
-Firefox:
+[Themer](https://github.com/jliima/themer) applies the Pare design system to Plasma, Darkly, KWin, Konsole, Kate,
+GTK 4 and Firefox. This repo holds only my side of it in `.config/themer/`: settings, the themes (`pare`, `cyan`,
+`pink`), the Konsole profile, Firefox snippets and extra targets and templates for apps Themer has no template for.
+Themer and the JetBrains plugin are cloned and installed separately, anywhere you like:
 
 ```bash
-cd ~/dotfiles/themer && ./install.sh   # once per machine: links ~/.local/bin/themer and stows
-themer apply --theme pare              # or: themer mode toggle
+git clone git@github.com:jliima/themer.git ~/Git/themer
+~/Git/themer/install.sh --dotfiles ~/dotfiles   # links ~/.local/bin/themer, runs stow
+themer apply --theme pare                       # or: themer mode toggle
 ```
 
-My settings, Konsole profile, Firefox snippets and extra targets are in `.config/themer/`. The extra targets run
-when the theme or variant changes:
+The extra targets run when the theme or variant changes. "JetBrains IDEs" writes the editor scheme, the UI theme
+plugin and `~/.cache/themer/jetbrains/themer.theme.json`, then runs `jetbrains-themer-apply` if it is installed:
 
-- "JetBrains IDEs" writes the editor scheme, the UI theme plugin and `~/.cache/themer/jetbrains/themer.theme.json`,
-  then runs `apply.sh` from [jetbrains-themer](https://github.com/jliima/jetbrains-pywal-theme) (cloned to
-  `~/JetBrainsProjects/jetbrains-themer`, branch `master`), which installs a live reload plugin and reloads every
-  running JetBrains IDE, dark or light. The GitHub repo is still named `jetbrains-pywal-theme`.
+```bash
+git clone git@github.com:jliima/jetbrains-pywal-theme.git ~/Git/jetbrains-themer
+~/Git/jetbrains-themer/install.sh               # builds the reload plugin, puts jetbrains-themer-apply on PATH
+themer apply --only jetbrains --force
+```
+
+The plugin reloads every running JetBrains IDE, dark or light, without a restart.
+
+The KWin decoration is built from a Themer clone: `~/Git/themer/decoration/build.sh`.
 
 ### ZSH & CLI Programs
 

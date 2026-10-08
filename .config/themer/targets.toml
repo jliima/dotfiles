@@ -3,8 +3,8 @@
 # ---- JetBrains IDEs --------------------------------------------------------------------------------------------------
 
 # Every installed IDE version gets the editor scheme "Themer" and a small theme plugin ("Themer", UI colors). A
-# reload plugin (~/JetBrainsProjects/jetbrains-themer) restyles running IDEs live; apply.sh installs it and
-# calls it. Without it an IDE shows a change after a restart.
+# reload plugin (the jetbrains-themer repo, installed with its install.sh) restyles running IDEs live;
+# jetbrains-themer-apply installs it and calls it. Without it an IDE shows a change after a restart.
 [[target]]
 name = "JetBrains editor scheme"
 group = "jetbrains"
@@ -24,7 +24,7 @@ name = "JetBrains UI theme"
 group = "jetbrains"
 template = "jetbrains/plugin/theme/themer.theme.json"
 output = "~/.cache/themer/jetbrains/themer.theme.json"
-reload = "~/JetBrainsProjects/jetbrains-themer/apply.sh"
+reload = "PATH=$HOME/.local/bin:$PATH; command -v jetbrains-themer-apply >/dev/null && jetbrains-themer-apply"
 
 # ---- Chromium --------------------------------------------------------------------------------------------------------
 
