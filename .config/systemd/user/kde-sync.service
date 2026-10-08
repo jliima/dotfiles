@@ -4,9 +4,13 @@
 Description=Sync KDE settings with the dotfiles
 After=plasma-plasmashell.service plasma-kglobalaccel.service
 PartOf=graphical-session.target
+# plasmashell writes its files in bursts (several a second while it starts); the wait below folds a burst into one run,
+# and the default start limit would stop the path unit after a few of them.
+StartLimitIntervalSec=0
 
 [Service]
 Type=oneshot
+ExecStartPre=/bin/sleep 2
 ExecStart=%h/scripts/kde/kde-sync/kde-sync.py --quiet sync
 
 [Install]
