@@ -208,18 +208,3 @@ name = "Qt Creator editor colors"
 group = "qtcreator"
 template = "qtcreator/colors.xml"
 output = "~/.config/QtProject/qtcreator/styles/themer.xml"
-
-# ---- Shipped pywal exports -------------------------------------------------------------------------------------------
-# Nothing reads ~/.cache/wal any more. The theme files in .config/wal/colorschemes stay.
-
-[[target]]
-name = "pywal colors.json"
-enabled = false
-
-[[target]]
-name = "pywal colors.sh"
-enabled = false
-
-[[target]]
-name = "pywal colors.css"
-enabled = false

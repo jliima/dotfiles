@@ -8,7 +8,6 @@ description = "Everything in cyan, light only."
 version = "1.0.0"
 variants = ["light"]
 default-variant = "light"
-wallpaper = "~/dotfiles/wallpapers/colors/cyan_4k.png"
 
 [fonts]
 sans = "SF Pro"
