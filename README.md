@@ -34,9 +34,11 @@ Works on my my machine running [Kubuntu 26.04](https://kubuntu.org/)
 
 ### Theming
 
-[Themer](https://github.com/jliima/themer) applies the Pare design system to Plasma, Darkly, KWin, Konsole, Kate,
-GTK 4 and Firefox. This repo holds only my side of it in `.config/themer/`: settings, the themes (`pare`, `cyan`,
-`pink`), the Konsole profile, the Firefox templates and extra targets and templates for apps Themer has no template for.
+[Themer](https://github.com/jliima/themer) is a generic tool that renders a color scheme into Plasma, Darkly, KWin,
+Konsole, Kate, GTK 4, Firefox and more. This repo is what I think a good configuration for it looks like, all in
+`.config/themer/`: my settings (screen scales, KDE overrides), the templates for every app, extra targets, and my color
+schemes in `themes/`. `pare` is the one I like and use; `cyan` and `pink` are playful extras. None of them is built
+into Themer.
 Themer and the JetBrains plugin are cloned and installed separately, anywhere you like:
 
 ```bash
