@@ -34,10 +34,38 @@ title-size = 13
 [overrides.fonts]
 title-weight = 500
 
-# Plasma scale per output, set by `themer screens --apply`: 27" 1440p at 100%, 32" 4K at 150% (both end up with a
-# 2560x1440 workspace), the 14" T14 at 125%.
+# IntelliJ and the other JetBrains IDEs (the reload plugin applies them): 0 keeps the IDE's own UI font.
+[overrides.jetbrains]
+editor-font-size = 15
+ui-font-size = 0
+
+# Plasma scale per output, set by `themer screens --apply` (the themer-screens service runs it after every hotplug):
+# everything at 100%, the desktop's 27" 1440p screens and the T14's 14" panel alike.
 [screens]
 DP-1 = 1.0
 DP-2 = 1.0
-HDMI-A-1 = 1.5
-eDP-1 = 1.25
+eDP-1 = 1.0
+
+# Screen profiles: overrides that apply while a matching screen is on, on top of the ones above. The first match wins;
+# with none, the values above apply. The themer-screens service switches them on hotplug; `themer profile` shows them.
+# The T14 docked to the 32" 4K at 100%: larger fonts everywhere, Firefox pages at 120%.
+[[profile]]
+name = "32-inch"
+inches = [30, 40]
+
+[profile.overrides.fonts]
+ui-size = 12
+small-size = 10
+mono-size = 13
+title-size = 12
+
+[profile.overrides.window]
+title-size = 16
+
+[profile.overrides.firefox]
+zoom = 1.2
+ui-scale = 1.2
+
+[profile.overrides.jetbrains]
+editor-font-size = 18
+ui-font-size = 16
