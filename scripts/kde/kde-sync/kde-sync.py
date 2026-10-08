@@ -475,7 +475,7 @@ def sync_file(name, cfg, dry_run):
       record[k] = L
     elif k not in base and D is None:
       record[k] = L
-    elif k in base and base[k] == L:
+    elif (k in base and base[k] == L) or (k not in base and L is None):
       apply[k] = D
     else:
       apply[k] = D
