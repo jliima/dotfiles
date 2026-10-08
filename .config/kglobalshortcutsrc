@@ -16,6 +16,7 @@ Switch to Next Keyboard Layout=none,Meta+Alt+K,Switch to Next Keyboard Layout
 _k_friendly_name=Keyboard Layout Switcher
 
 [com.anthropic.Claude]
+552F6994E277600CEBF23F965AAC8C18-Ctrl+Alt+Space=,Ctrl+Alt+Space,Claude shortcut: Ctrl+Alt+Space
 AB6F88D2B9FE510439CBE6A5273BC4AC-Ctrl+Alt+Space=Meta+Space,Ctrl+Alt+Space,Claude shortcut: Ctrl+Alt+Space
 _k_friendly_name=Claude
 
@@ -297,8 +298,14 @@ ExitSofaMode=Home Page
 JereFlixSofaMode=Launch Mail
 MikaflixSofaMode=Tools
 
+[services][dolphin-toggle.desktop]
+_launch=Meta+D
+
 [services][dotfiles.desktop]
 _launch=Meta+/
+
+[services][firefox-toggle.desktop]
+_launch=Meta+F
 
 [services][firefox.desktop]
 new-private-window=Meta+Ctrl+Shift+F
@@ -319,6 +326,15 @@ _launch=Meta+A
 [services][jetbrains-idea-ed171af8-af00-44b8-9b0c-54d54c8cef16.desktop]
 _launch=Meta+A
 
+[services][kate-toggle.desktop]
+_launch=Meta+E
+
+[services][keepassxc-toggle.desktop]
+_launch=Meta+X
+
+[services][konsole-toggle.desktop]
+_launch=Meta+T
+
 [services][monitor-layout.desktop]
 left-landscape=Meta+Ctrl+Left
 left-portrait=Meta+Ctrl+Shift+Left
@@ -331,21 +347,6 @@ open-default-vault=Meta+Shift+R
 
 [services][open-obsidian.sh.desktop]
 _launch=Meta+R
-
-[services][dolphin-toggle.desktop]
-_launch=Meta+D
-
-[services][firefox-toggle.desktop]
-_launch=Meta+F
-
-[services][kate-toggle.desktop]
-_launch=Meta+E
-
-[services][keepassxc-toggle.desktop]
-_launch=Meta+X
-
-[services][konsole-toggle.desktop]
-_launch=Meta+T
 
 [services][org.kde.dolphin.desktop]
 _launch=Meta+Shift+D
@@ -367,6 +368,8 @@ _launch=Meta+Ctrl+Alt+Shift+Space\tMeta+.\tMeta+:
 
 [services][org.kde.spectacle.desktop]
 ActiveWindowScreenShot=Meta+Print\tCtrl+#
+CurrentMonitorScreenShot=
+OpenWithoutScreenshot=
 RecordRegion=Ctrl+%
 RecordWindow=none
 RectangularRegionScreenShot=Ctrl+$

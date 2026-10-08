@@ -3,5 +3,6 @@
     "**/.config/wal/templates/*.json": "wal-json-template",
     "**/.config/wal/templates/*.css": "wal-css-template",
     "**/.config/wal/templates/*.js": "wal-js-template"
-  }
+  },
+  "cmake.sourceDirectory": "/home/hieroja/dotfiles/themer/decoration"
 }
