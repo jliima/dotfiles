@@ -29,8 +29,6 @@ Works on my my machine running [Kubuntu 26.04](https://kubuntu.org/)
 - [Darkly (v0.5.16)](https://github.com/Bali10050/Darkly/releases/tag/v0.5.16)
 - [KDE Rounded corners](https://github.com/matinlotfali/KDE-Rounded-Corners)
 - [Themer](themer/README.md) (in this repo), Python 3.11+
-- [Pywal](https://github.com/eylles/pywal16), for the apps Themer has no template for yet
-- [Walogram](https://codeberg.org/thirtysix/walogram)
 - [Intellij Idea](https://github.com/jliima/jetbrains-pywal-theme)
 
 ### Theming
@@ -49,9 +47,6 @@ when the theme or variant changes:
 - "JetBrains IDEs" writes `~/.cache/themer/jetbrains.json` and runs `apply.sh` from
   [jetbrains-pywal-theme](https://github.com/jliima/jetbrains-pywal-theme) (cloned to `~/JetBrainsProjects/`, branch
   `themer`), which themes every JetBrains IDE, dark or light.
-- "pywal apps" runs `scripts/pywal/run-pywal.py`. It feeds Themer's pywal export
-  (`.config/wal/colorschemes/<variant>/<theme>.json`) to `wal` and runs the scripts in `scripts/pywal/applications`
-  for the rest (VS Code, Obsidian, Spicetify, lnav, nano, vim, OBS, Telegram, Qt Creator, Claude).
 
 ### ZSH & CLI Programs
 
