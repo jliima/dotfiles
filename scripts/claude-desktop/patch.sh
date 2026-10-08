@@ -145,7 +145,8 @@ cmd_install() {
     tmp_version="$(mktemp)"
     echo "$current_version" > "$tmp_version"
     as_root cp "$ASAR" "$BACKUP"
-    as_root cp "$tmp_version" "$VERSION_FILE"
+    # mktemp files are 0600; check reads the version as a normal user, so install it world-readable.
+    as_root install -m 644 "$tmp_version" "$VERSION_FILE"
     rm -f "$tmp_version"
   else
     echo "Backup already matches installed version $current_version; patching from it."
