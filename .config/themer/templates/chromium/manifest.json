@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "version": "1.0",
+  "name": "Themer",
+  "theme": {
+    "colors": {
+      "frame": [{{ bg-deep | rgb }}],
+      "frame_inactive": [{{ bg-deep | rgb }}],
+      "frame_incognito": [{{ bg-deep | rgb }}],
+      "frame_incognito_inactive": [{{ bg-deep | rgb }}],
+      "toolbar": [{{ bg | rgb }}],
+      "toolbar_button_icon": [{{ text-muted | rgb }}],
+      "toolbar_text": [{{ text | rgb }}],
+      "tab_text": [{{ text | rgb }}],
+      "tab_background_text": [{{ text-subtle | rgb }}],
+      "tab_background_text_inactive": [{{ text-faint | rgb }}],
+      "bookmark_text": [{{ text-muted | rgb }}],
+      "omnibox_background": [{{ bg-sunken | rgb }}],
+      "omnibox_text": [{{ text | rgb }}],
+      "button_background": [{{ surface-hover | rgb }}],
+      "ntp_background": [{{ bg | rgb }}],
+      "ntp_text": [{{ text | rgb }}],
+      "ntp_link": [{{ link | rgb }}],
+      "ntp_section": [{{ surface | rgb }}],
+      "ntp_section_text": [{{ text | rgb }}],
+      "ntp_section_link": [{{ link | rgb }}],
+      "control_button_background": [{{ bg-deep | rgb }}]
+    },
+    "tints": {
+      "buttons": [-1, -1, -1]
+    }
+  }
+}

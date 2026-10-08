@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "version": "1.0",
+  "name": "Themer",
+  "theme": {
+    "colors": {
+      "frame": [5,9,14],
+      "frame_inactive": [5,9,14],
+      "frame_incognito": [5,9,14],
+      "frame_incognito_inactive": [5,9,14],
+      "toolbar": [9,16,23],
+      "toolbar_button_icon": [176,188,200],
+      "toolbar_text": [209,222,235],
+      "tab_text": [209,222,235],
+      "tab_background_text": [144,157,170],
+      "tab_background_text_inactive": [120,136,152],
+      "bookmark_text": [176,188,200],
+      "omnibox_background": [7,12,18],
+      "omnibox_text": [209,222,235],
+      "button_background": [30,41,51],
+      "ntp_background": [9,16,23],
+      "ntp_text": [209,222,235],
+      "ntp_link": [95,175,241],
+      "ntp_section": [18,26,35],
+      "ntp_section_text": [209,222,235],
+      "ntp_section_link": [95,175,241],
+      "control_button_background": [5,9,14]
+    },
+    "tints": {
+      "buttons": [-1, -1, -1]
+    }
+  }
+}

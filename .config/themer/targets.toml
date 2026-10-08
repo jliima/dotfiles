@@ -32,3 +32,15 @@ group = "jetbrains"
 format = "pywal"
 output = "~/.cache/themer/jetbrains.json"
 reload = "~/JetBrainsProjects/jetbrains-pywal-theme/apply.sh"
+
+# ---- Chromium --------------------------------------------------------------------------------------------------------
+
+# An unpacked theme extension: load ~/.config/chromium/themer-theme once from chrome://extensions. A change shows after
+# a Chromium restart (the cached theme pack is removed so it is rebuilt).
+[[target]]
+name = "Chromium"
+dotfiles = true
+group = "chromium"
+template = "chromium/manifest.json"
+output = "~/.config/chromium/themer-theme/manifest.json"
+reload = "rm -f ~/.config/chromium/themer-theme/'Cached Theme.pak'"
