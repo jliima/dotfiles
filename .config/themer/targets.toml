@@ -139,3 +139,26 @@ name = "OBS Studio"
 group = "obs"
 template = "obs/theme.ovt"
 output = "~/.var/app/com.obsproject.Studio/config/obs-studio/themes/Themer.ovt"
+
+# ---- Obsidian --------------------------------------------------------------------------------------------------------
+
+# Select the theme once in Settings > Appearance (or "cssTheme": "Themer" in appearance.json). Obsidian reloads the
+# CSS when the file changes. The vault config folder is synced by Syncthing, so nothing is stowed.
+[[target]]
+name = "Obsidian theme"
+group = "obsidian"
+template = "obsidian/theme.css"
+output = "~/Obsidian/.config/.obsidian-desktop/themes/Themer/theme.css"
+
+[[target]]
+name = "Obsidian theme manifest"
+group = "obsidian"
+template = "obsidian/manifest.json"
+output = "~/Obsidian/.config/.obsidian-desktop/themes/Themer/manifest.json"
+
+# Dark pages when exporting to PDF; enable the snippet in Settings > Appearance before exporting.
+[[target]]
+name = "Obsidian PDF export snippet"
+group = "obsidian"
+template = "obsidian/pdf-export-darkmode.css"
+output = "~/Obsidian/.config/.obsidian-desktop/snippets/PDF-Export-Darkmode.css"

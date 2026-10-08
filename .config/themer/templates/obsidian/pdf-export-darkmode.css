@@ -1,83 +1,83 @@
-/* PDF Export Darkmode - Pywal themed dark mode PDF export */
+/* PDF Export Darkmode - Themer themed dark mode PDF export */
 
-@media print {{
+@media print {
 
   /* ============================================================
-   * COLOR VARIABLES - Generated from pywal theme
+   * COLOR VARIABLES - Filled in from the Themer theme
    * ============================================================ */
-  body {{
+  body {
     /* Page */
-    --pdf-bg: {background};
-    --pdf-text: {foreground};
-    --pdf-text-muted: {textSecondary};
-    --pdf-text-faint: {textDisabled};
-    --pdf-accent: {accent};
-    --pdf-accent-hover: {accentHover};
-    --pdf-border: {border};
+    --pdf-bg: {{ bg }};
+    --pdf-text: {{ text }};
+    --pdf-text-muted: {{ text-muted }};
+    --pdf-text-faint: {{ text-faint }};
+    --pdf-accent: {{ accent }};
+    --pdf-accent-hover: {{ accent-hover }};
+    --pdf-border: {{ line }};
 
     /* Headings */
-    --pdf-h1: {foreground};
-    --pdf-h2: {foreground};
-    --pdf-h3: {foreground};
-    --pdf-h4: {foreground};
-    --pdf-h5: {foreground};
-    --pdf-h6: {foreground};
+    --pdf-h1: {{ text }};
+    --pdf-h2: {{ text }};
+    --pdf-h3: {{ text }};
+    --pdf-h4: {{ text }};
+    --pdf-h5: {{ text }};
+    --pdf-h6: {{ text }};
 
     /* Code blocks */
-    --pdf-code-bg: {surface};
-    --pdf-code-text: {foreground};
-    --pdf-code-border: {border};
+    --pdf-code-bg: {{ surface }};
+    --pdf-code-text: {{ text }};
+    --pdf-code-border: {{ line }};
 
     /* Tables */
-    --pdf-table-header-bg: {surface};
-    --pdf-table-border: {border};
-    --pdf-table-alt-row: {backgroundAlt};
+    --pdf-table-header-bg: {{ surface }};
+    --pdf-table-border: {{ line }};
+    --pdf-table-alt-row: {{ bg-sunken }};
 
     /* Mermaid - graph nodes */
-    --pdf-mermaid-node-bg: {surface};
-    --pdf-mermaid-node-text: {foreground};
-    --pdf-mermaid-node-border: {accent};
+    --pdf-mermaid-node-bg: {{ surface }};
+    --pdf-mermaid-node-text: {{ text }};
+    --pdf-mermaid-node-border: {{ accent }};
 
     /* Mermaid - subgraph/cluster */
-    --pdf-mermaid-cluster-bg: {backgroundAlt};
-    --pdf-mermaid-cluster-text: {textSecondary};
-    --pdf-mermaid-cluster-border: {accentSubtle};
+    --pdf-mermaid-cluster-bg: {{ bg-sunken }};
+    --pdf-mermaid-cluster-text: {{ text-muted }};
+    --pdf-mermaid-cluster-border: {{ accent-soft }};
 
     /* Mermaid - arrows and edge labels */
-    --pdf-mermaid-line: {textSecondary};
-    --pdf-mermaid-label-bg: {background};
-    --pdf-mermaid-label-text: {foreground};
+    --pdf-mermaid-line: {{ text-muted }};
+    --pdf-mermaid-label-bg: {{ bg }};
+    --pdf-mermaid-label-text: {{ text }};
 
     /* Mermaid - note blocks */
-    --pdf-mermaid-note-bg: {accentSubtle};
-    --pdf-mermaid-note-text: {foreground};
-    --pdf-mermaid-note-border: {accent};
+    --pdf-mermaid-note-bg: {{ accent-soft }};
+    --pdf-mermaid-note-text: {{ text }};
+    --pdf-mermaid-note-border: {{ accent }};
 
     /* Mermaid - sequence diagram actors */
-    --pdf-mermaid-actor-bg: {surface};
-    --pdf-mermaid-actor-text: {foreground};
-    --pdf-mermaid-actor-border: {accent};
+    --pdf-mermaid-actor-bg: {{ surface }};
+    --pdf-mermaid-actor-text: {{ text }};
+    --pdf-mermaid-actor-border: {{ accent }};
 
     /* Mermaid - sequence diagram messages */
-    --pdf-mermaid-message-line: {textSecondary};
-    --pdf-mermaid-message-text: {foreground};
+    --pdf-mermaid-message-line: {{ text-muted }};
+    --pdf-mermaid-message-text: {{ text }};
 
     /* Inline code */
-    --pdf-inline-code-bg: {surface};
-    --pdf-inline-code-text: {foreground};
+    --pdf-inline-code-bg: {{ surface }};
+    --pdf-inline-code-text: {{ text }};
 
     /* Metadata */
-    --pdf-metadata-bg: {surface};
-  }}
+    --pdf-metadata-bg: {{ surface }};
+  }
 
   /* ============================================================
    * FORCE BACKGROUNDS TO PRINT
    * ============================================================ */
-  * {{
+  * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color-adjust: exact !important;
-  }}
+  }
 
   /* ============================================================
    * BASE STYLES
@@ -86,18 +86,18 @@
   body .markdown-preview-view,
   body .markdown-preview-sizer,
   body .print,
-  body .print .markdown-preview-view {{
+  body .print .markdown-preview-view {
     background: var(--pdf-bg) !important;
     background-color: var(--pdf-bg) !important;
     color: var(--pdf-text) !important;
-  }}
+  }
 
-  @page {{
-    background: {background};
-    background-color: {background};
-  }}
+  @page {
+    background: {{ bg }};
+    background-color: {{ bg }};
+  }
 
-  .theme-dark {{
+  .theme-dark {
     --background-primary: var(--pdf-bg) !important;
     --background-secondary: var(--pdf-bg) !important;
     --background-modifier-form-field: var(--pdf-bg) !important;
@@ -113,7 +113,7 @@
     --text-title-h5: var(--pdf-h5) !important;
     --text-title-h6: var(--pdf-h6) !important;
     --code-background: var(--pdf-code-bg) !important;
-  }}
+  }
 
   /* Force all text to dark theme */
   .markdown-preview-view,
@@ -123,39 +123,39 @@
   .markdown-preview-view strong,
   .markdown-preview-view em,
   .markdown-preview-view blockquote,
-  .markdown-preview-view .list-bullet {{
+  .markdown-preview-view .list-bullet {
     color: var(--pdf-text) !important;
-  }}
+  }
 
   .markdown-preview-view a,
   .markdown-preview-view .internal-link,
-  .markdown-preview-view .external-link {{
+  .markdown-preview-view .external-link {
     color: var(--pdf-accent) !important;
-  }}
+  }
 
-  .markdown-preview-view h1 {{ color: var(--pdf-h1) !important; }}
-  .markdown-preview-view h2 {{ color: var(--pdf-h2) !important; }}
-  .markdown-preview-view h3 {{ color: var(--pdf-h3) !important; }}
-  .markdown-preview-view h4 {{ color: var(--pdf-h4) !important; }}
-  .markdown-preview-view h5 {{ color: var(--pdf-h5) !important; }}
-  .markdown-preview-view h6 {{ color: var(--pdf-h6) !important; }}
+  .markdown-preview-view h1 { color: var(--pdf-h1) !important; }
+  .markdown-preview-view h2 { color: var(--pdf-h2) !important; }
+  .markdown-preview-view h3 { color: var(--pdf-h3) !important; }
+  .markdown-preview-view h4 { color: var(--pdf-h4) !important; }
+  .markdown-preview-view h5 { color: var(--pdf-h5) !important; }
+  .markdown-preview-view h6 { color: var(--pdf-h6) !important; }
 
   /* ============================================================
    * CODE BLOCKS
    * ============================================================ */
   pre[class*="language-"],
   .markdown-preview-view pre,
-  .cm-s-obsidian .HyperMD-codeblock {{
+  .cm-s-obsidian .HyperMD-codeblock {
     background: var(--pdf-code-bg) !important;
     color: var(--pdf-code-text) !important;
     border: 1px solid var(--pdf-code-border) !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
-  }}
+  }
 
   .markdown-preview-view pre code,
   .markdown-preview-view pre code span,
-  .markdown-preview-view pre code .token {{
+  .markdown-preview-view pre code .token {
     color: var(--pdf-code-text) !important;
     background: transparent !important;
     background-color: transparent !important;
@@ -164,23 +164,23 @@
     outline: none !important;
     text-shadow: none !important;
     text-decoration: none !important;
-  }}
+  }
 
   .markdown-preview-view pre .code-block-flair,
   .markdown-preview-view pre .code-line,
   .markdown-preview-view pre div,
-  .markdown-preview-view pre br {{
+  .markdown-preview-view pre br {
     background: transparent !important;
     background-color: transparent !important;
     border: none !important;
     outline: none !important;
-  }}
+  }
 
-  .markdown-preview-view :not(pre) > code {{
+  .markdown-preview-view :not(pre) > code {
     background: var(--pdf-inline-code-bg) !important;
     background-color: var(--pdf-inline-code-bg) !important;
     color: var(--pdf-inline-code-text) !important;
-  }}
+  }
 
   /* ============================================================
    * MERMAID - SHARED
@@ -188,26 +188,26 @@
   .mermaid-source,
   .mermaid,
   pre:has(.mermaid),
-  div:has(> .mermaid) {{
+  div:has(> .mermaid) {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
     max-width: 100% !important;
     overflow: visible !important;
     background: var(--pdf-bg) !important;
-  }}
+  }
 
-  .mermaid svg {{
+  .mermaid svg {
     max-width: 100% !important;
     height: auto !important;
-  }}
+  }
 
   /* Graph nodes - background */
   .mermaid .node rect,
   .mermaid .node circle,
-  .mermaid .node polygon {{
+  .mermaid .node polygon {
     fill: var(--pdf-mermaid-node-bg) !important;
     stroke: var(--pdf-mermaid-node-border) !important;
-  }}
+  }
 
   /* Graph nodes - text */
   .mermaid .node .nodeLabel,
@@ -215,40 +215,40 @@
   .mermaid .node text,
   .mermaid .node foreignObject div,
   .mermaid .node foreignObject span,
-  .mermaid .node foreignObject p {{
+  .mermaid .node foreignObject p {
     color: var(--pdf-mermaid-node-text) !important;
     fill: var(--pdf-mermaid-node-text) !important;
-  }}
+  }
 
   /* Subgraph/cluster */
-  .mermaid .cluster rect {{
+  .mermaid .cluster rect {
     fill: var(--pdf-mermaid-cluster-bg) !important;
     stroke: var(--pdf-mermaid-cluster-border) !important;
-  }}
+  }
 
   .mermaid .cluster-label .nodeLabel,
   .mermaid .cluster-label text,
   .mermaid .cluster-label foreignObject div,
-  .mermaid .cluster-label foreignObject span {{
+  .mermaid .cluster-label foreignObject span {
     color: var(--pdf-mermaid-cluster-text) !important;
     fill: var(--pdf-mermaid-cluster-text) !important;
-  }}
+  }
 
   /* Arrows */
   .mermaid .edgePath .path,
-  .mermaid .flowchart-link {{
+  .mermaid .flowchart-link {
     stroke: var(--pdf-mermaid-line) !important;
-  }}
+  }
 
-  .mermaid marker path {{
+  .mermaid marker path {
     fill: var(--pdf-mermaid-line) !important;
-  }}
+  }
 
   /* Edge labels */
   .mermaid .edgeLabel rect,
-  .mermaid .edgeLabel .label rect {{
+  .mermaid .edgeLabel .label rect {
     fill: var(--pdf-mermaid-label-bg) !important;
-  }}
+  }
 
   .mermaid .edgeLabel,
   .mermaid .edgeLabel span,
@@ -258,122 +258,122 @@
   .mermaid .edgeLabel foreignObject span,
   .mermaid .edgeLabel .label,
   .mermaid .edgeLabel .label div,
-  .mermaid .edgeLabel .label span {{
+  .mermaid .edgeLabel .label span {
     background-color: var(--pdf-mermaid-label-bg) !important;
     color: var(--pdf-mermaid-label-text) !important;
     fill: var(--pdf-mermaid-label-text) !important;
-  }}
+  }
 
   /* ============================================================
    * MERMAID - SEQUENCE DIAGRAMS
    * ============================================================ */
-  .mermaid .actor {{
+  .mermaid .actor {
     fill: var(--pdf-mermaid-actor-bg) !important;
     stroke: var(--pdf-mermaid-actor-border) !important;
-  }}
+  }
 
-  .mermaid text.actor {{
+  .mermaid text.actor {
     fill: var(--pdf-mermaid-actor-text) !important;
-  }}
+  }
 
-  .mermaid .note {{
+  .mermaid .note {
     fill: var(--pdf-mermaid-note-bg) !important;
     stroke: var(--pdf-mermaid-note-border) !important;
-  }}
+  }
 
   .mermaid .noteText,
   .mermaid text.noteText,
-  .mermaid .noteText tspan {{
+  .mermaid .noteText tspan {
     fill: var(--pdf-mermaid-note-text) !important;
     color: var(--pdf-mermaid-note-text) !important;
-  }}
+  }
 
   .mermaid .messageLine0,
-  .mermaid .messageLine1 {{
+  .mermaid .messageLine1 {
     stroke: var(--pdf-mermaid-message-line) !important;
-  }}
+  }
 
   .mermaid .messageText,
-  .mermaid text.messageText {{
+  .mermaid text.messageText {
     fill: var(--pdf-mermaid-message-text) !important;
     color: var(--pdf-mermaid-message-text) !important;
-  }}
+  }
 
   .mermaid .activation0,
   .mermaid .activation1,
-  .mermaid .activation2 {{
+  .mermaid .activation2 {
     fill: var(--pdf-mermaid-node-bg) !important;
     stroke: var(--pdf-mermaid-node-border) !important;
-  }}
+  }
 
-  .mermaid line.loopLine {{
+  .mermaid line.loopLine {
     stroke: var(--pdf-mermaid-line) !important;
-  }}
+  }
 
   .mermaid .loopText,
-  .mermaid text.loopText {{
+  .mermaid text.loopText {
     fill: var(--pdf-mermaid-label-text) !important;
-  }}
+  }
 
   /* Catch-all for remaining SVG text */
   .mermaid text,
-  .mermaid tspan {{
+  .mermaid tspan {
     fill: var(--pdf-mermaid-node-text) !important;
-  }}
+  }
 
   /* Catch-all for remaining HTML text in foreignObject */
   .mermaid foreignObject div,
   .mermaid foreignObject span,
-  .mermaid foreignObject p {{
+  .mermaid foreignObject p {
     color: var(--pdf-mermaid-node-text) !important;
-  }}
+  }
 
   /* ============================================================
    * TABLES
    * ============================================================ */
-  .markdown-preview-view table {{
+  .markdown-preview-view table {
     border-collapse: collapse !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
     background: var(--pdf-bg) !important;
-  }}
+  }
 
-  .markdown-preview-view th {{
+  .markdown-preview-view th {
     background: var(--pdf-table-header-bg) !important;
     background-color: var(--pdf-table-header-bg) !important;
     color: var(--pdf-text) !important;
     border: 1px solid var(--pdf-table-border) !important;
-  }}
+  }
 
-  .markdown-preview-view td {{
+  .markdown-preview-view td {
     border: 1px solid var(--pdf-table-border) !important;
     color: var(--pdf-text) !important;
     background: var(--pdf-bg) !important;
-  }}
+  }
 
-  .markdown-preview-view tr:nth-child(even) td {{
+  .markdown-preview-view tr:nth-child(even) td {
     background: var(--pdf-table-alt-row) !important;
     background-color: var(--pdf-table-alt-row) !important;
-  }}
+  }
 
   /* ============================================================
    * MISC ELEMENTS
    * ============================================================ */
-  .inline-title {{
+  .inline-title {
     border-bottom: 1px solid var(--pdf-border) !important;
     color: var(--pdf-text) !important;
-  }}
+  }
 
-  .metadata-container {{
+  .metadata-container {
     background-color: var(--pdf-metadata-bg) !important;
-  }}
+  }
 
-  hr {{
+  hr {
     border-color: var(--pdf-border) !important;
-  }}
+  }
 
-  blockquote {{
+  blockquote {
     border-left-color: var(--pdf-accent) !important;
     background: var(--pdf-code-bg) !important;
-  }}
-}}
+  }
+}
