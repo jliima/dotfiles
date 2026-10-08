@@ -1,31 +1,5 @@
 # Read on top of the shipped themer/targets.toml: a target with a shipped name replaces it, new names are added.
 
-# ---- JetBrains IDEs --------------------------------------------------------------------------------------------------
-
-# Every installed IDE version gets the editor scheme "Themer" and a small theme plugin ("Themer", UI colors). A
-# reload plugin (the jetbrains-themer repo, installed with its install.sh) restyles running IDEs live;
-# jetbrains-themer-apply installs it and calls it. Without it an IDE shows a change after a restart.
-[[target]]
-name = "JetBrains editor scheme"
-group = "jetbrains"
-template = "jetbrains/themer.icls"
-output = "~/.config/JetBrains/*20[0-9][0-9].[0-9]*/colors/Themer.icls"
-
-[[target]]
-name = "JetBrains UI theme plugin"
-group = "jetbrains"
-template = "jetbrains/plugin"
-archive = true
-output = "~/.local/share/JetBrains/*20[0-9][0-9].[0-9]*/themer/lib/themer-theme.jar"
-
-# The same UI theme as plain JSON, which the reload plugin loads into a running IDE.
-[[target]]
-name = "JetBrains UI theme"
-group = "jetbrains"
-template = "jetbrains/plugin/theme/themer.theme.json"
-output = "~/.cache/themer/jetbrains/themer.theme.json"
-reload = "PATH=$HOME/.local/bin:$PATH; command -v jetbrains-themer-apply >/dev/null && jetbrains-themer-apply"
-
 # ---- Chromium --------------------------------------------------------------------------------------------------------
 
 # An unpacked theme extension: load ~/.config/chromium/themer-theme once from chrome://extensions. A change shows after

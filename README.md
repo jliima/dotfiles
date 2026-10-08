@@ -29,8 +29,6 @@ Works on my my machine running [Kubuntu 26.04](https://kubuntu.org/)
 - [Darkly (v0.5.16)](https://github.com/Bali10050/Darkly/releases/tag/v0.5.16)
 - [KDE Rounded corners](https://github.com/matinlotfali/KDE-Rounded-Corners)
 - [Themer](https://github.com/jliima/themer), Python 3.11+ (the theming tool, not part of this repo)
-- [JetBrains Themer](https://github.com/jliima/jetbrains-pywal-theme) (live reload for JetBrains IDEs, optional; the
-  GitHub repo is still named `jetbrains-pywal-theme`)
 
 ### Theming
 
@@ -39,7 +37,7 @@ Konsole, Kate, GTK 4, Firefox and more. This repo is what I think a good configu
 `.config/themer/`: my settings (screen scales, KDE overrides), the templates for every app, extra targets, and my color
 schemes in `themes/`. `pare` is the one I like and use; `cyan` and `pink` are playful extras. None of them is built
 into Themer.
-Themer and the JetBrains plugin are cloned and installed separately, anywhere you like:
+Themer is cloned and installed separately, anywhere you like, and so are its plugins:
 
 ```bash
 git clone git@github.com:jliima/themer.git ~/Git/themer
@@ -47,22 +45,13 @@ git clone git@github.com:jliima/themer.git ~/Git/themer
 themer apply --theme pare                       # or: themer mode toggle
 ```
 
-The extra targets run when the theme or variant changes. "JetBrains IDEs" writes the editor scheme, the UI theme
-plugin and `~/.cache/themer/jetbrains/themer.theme.json`, then runs `jetbrains-themer-apply` if it is installed:
+Plugins for the apps that need more than a rendered file, each with its own `install.sh` (the targets ship with
+Themer, the templates are in this repo):
 
 ```bash
-git clone git@github.com:jliima/jetbrains-pywal-theme.git ~/Git/jetbrains-themer
-~/Git/jetbrains-themer/install.sh               # builds the reload plugin, puts jetbrains-themer-apply on PATH
-themer apply --only jetbrains --force
-```
-
-The plugin reloads every running JetBrains IDE, dark or light, without a restart.
-
-The KWin decoration is built from a Themer clone: `~/Git/themer/decoration/build.sh`. VS Code gets its themes from a
-small extension in the same clone, which reloads the window when a theme changes:
-
-```bash
+~/Git/themer/plugins/jetbrains/install.sh       # builds the live reload plugin for the JetBrains IDEs
 ~/Git/themer/plugins/vscode/install.sh          # add --profile "Name" for every other VS Code profile you use
+~/Git/themer/decoration/build.sh                # the KWin window decoration
 ```
 
 ### ZSH & CLI Programs
