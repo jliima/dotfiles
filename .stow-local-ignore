@@ -27,3 +27,6 @@ _darcs
 .github
 .env
 ^/CLAUDE\.md
+
+# Themer itself; its config lives in .config/themer
+^/themer$
