@@ -63,7 +63,7 @@
             "bold": true
           },
           "cursor-line": {
-            "background-color": "$surfaceHover"
+            "background-color": "$selection"
           },
           "popup": {
             "color": "$text",
