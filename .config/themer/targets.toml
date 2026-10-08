@@ -33,6 +33,18 @@ template = "claude-desktop/theme.css"
 output = "~/.config/claude-desktop-theme/theme.css"
 reload = "~/scripts/claude-desktop/patch.sh ensure"
 
+# ---- Plasma panels ---------------------------------------------------------------------------------------------------
+
+# Panel sizes that follow the UI font (the clock), so the screen profile changes them too. plasmashell only takes a new
+# UI font when it starts, so the reload restarts it; that happens when the font size changed (a profile switch).
+[[target]]
+name = "Plasma panel fonts"
+group = "kde"
+template = "plasma/panels.js"
+output = "~/.cache/themer/plasma/panels.js"
+reload = """qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$(cat ~/.cache/themer/plasma/panels.js)" \
+  >/dev/null && systemctl --user restart plasma-plasmashell.service"""
+
 # ---- Konsole ---------------------------------------------------------------------------------------------------------
 
 # The shipped target, but written straight into ~/.local/share/konsole instead of the dotfiles: its font size follows

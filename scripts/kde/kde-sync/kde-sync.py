@@ -61,6 +61,8 @@ PANELS_FILE = "plasma/panels.json"
 # Applet and panel config that only records window sizes; left out of panels.json.
 PANEL_NOISE_GROUPS = ("/ConfigDialog",)
 PANEL_NOISE_KEYS = ("popupHeight", "popupWidth")
+# Panel settings Themer renders per machine (the clock size, from the screen profile); run after rebuilding panels.
+THEMER_PANELS_JS = Path(os.environ.get("XDG_CACHE_HOME", HOME / ".cache")) / "themer/plasma/panels.js"
 # Seconds after plasmashell starts before its panels are read: it is still loading them before that.
 PLASMASHELL_SETTLE_S = 30
 # How a panel is shown, which the dump leaves out: properties of the scripting API's Panel object.
@@ -538,6 +540,10 @@ def plasma_script(script):
   return res.stdout
 
 
+def panel_ignore():
+  return [tuple(x) for x in load_config().get("panels", {}).get("ignore", [])]
+
+
 def dump_panels():
   """The panels as plasmashell serializes them (dumpCurrentLayoutJS), without desktops and window sizes, plus the
   systray's shown and hidden items, which the dump leaves out."""
@@ -570,6 +576,9 @@ def dump_panels():
           panel.pop(k, None)
     for applet in panel.get("applets", []):
       conf = applet.get("config", {})
+      for plugin, group, key in panel_ignore():
+        if applet.get("plugin") == plugin:
+          conf.get(group, {}).pop(key, None)
       for g in PANEL_NOISE_GROUPS:
         conf.pop(g, None)
       for k in PANEL_NOISE_KEYS:
@@ -656,6 +665,8 @@ def load_panels(data):
     subprocess.run(["kwriteconfig6", "--file", "plasmashellrc", "--group", "PlasmaViews", "--group", f"Panel {v['id']}",
                     "--key", "panelOpacity", str(PANEL_OPACITY.get(wanted, 0))], check=False)
     restart |= wanted != now
+  if THEMER_PANELS_JS.exists():
+    plasma_script(THEMER_PANELS_JS.read_text())
   if restart:
     # Panels read their opacity only when plasmashell starts.
     subprocess.run(["systemctl", "--user", "restart", "plasma-plasmashell.service"], check=False)

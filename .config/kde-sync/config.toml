@@ -21,6 +21,11 @@ ignore = [
   ["com.anthropic.Claude", "*"],
 ]
 
-# The panels and their widgets, as plasmashell dumps them (plasma/panels.json).
+# The panels and their widgets, as plasmashell dumps them (plasma/panels.json). `ignore` lists [widget, group, key]
+# that stay per machine; Themer sets them from the screen profile (~/.cache/themer/plasma/panels.js, which kde-sync
+# runs again after rebuilding the panels).
 [panels]
 enabled = true
+ignore = [
+  ["org.kde.plasma.digitalclock", "/Appearance", "fontSize"],
+]
