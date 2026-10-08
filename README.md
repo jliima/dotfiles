@@ -56,7 +56,12 @@ themer apply --only jetbrains --force
 
 The plugin reloads every running JetBrains IDE, dark or light, without a restart.
 
-The KWin decoration is built from a Themer clone: `~/Git/themer/decoration/build.sh`.
+The KWin decoration is built from a Themer clone: `~/Git/themer/decoration/build.sh`. VS Code gets its themes from a
+small extension in the same clone, which reloads the window when a theme changes:
+
+```bash
+~/Git/themer/vscode/install.sh          # add --profile "Name" for every other VS Code profile you use
+```
 
 ### ZSH & CLI Programs
 
