@@ -1,0 +1,44 @@
+/* ==UserStyle==
+@name        chat.deepseek.com
+@namespace   themer
+@version     2.0.0
+@description Converted from the classic Stylus style "chat.deepseek.com" to Themer variables.
+==/UserStyle== */
+
+@-moz-document domain("chat.deepseek.com") {
+body {
+  background-color: var(--themer-bg) !important;
+  color: var(--themer-text) !important;
+}
+
+main {
+  background-color: var(--themer-bg) !important;
+}
+
+.sidebar {
+  background-color: var(--themer-bg-sunken) !important;
+}
+
+a {
+  color: var(--themer-link) !important;
+}
+
+input, textarea {
+  background-color: var(--themer-surface) !important;
+  border-color: var(--themer-line) !important;
+  color: var(--themer-text) !important;
+}
+
+button[type="submit"] {
+  background-color: var(--themer-accent) !important;
+  color: var(--themer-text-inverse) !important;
+}
+
+pre, code {
+  background-color: var(--themer-surface) !important;
+}
+
+.message-content {
+  color: var(--themer-text) !important;
+}
+}

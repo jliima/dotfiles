@@ -1,0 +1,166 @@
+/* ==UserStyle==
+@name        Proxmox
+@namespace   themer
+@version     2.0.0
+@description Converted from the classic Stylus style "Proxmox" to Themer variables.
+==/UserStyle== */
+
+@-moz-document url-prefix("https://192.168.1.2:8006"), url-prefix("https://proxmox.jliima.fi/"), url-prefix("http://proxmox.jliima.fi/") {
+#panel-1151 {
+  display: none;
+}
+
+.x-component-default {
+  font-family: "SF Mono" !important;
+  font-weight: 500 !important;
+  font-size: 10pt !important;
+  line-height: 20px !important;
+}
+
+:root {
+  --pwt-panel-background: var(--themer-bg);
+  --pwt-text-color: var(--themer-text);
+  --pwt-gauge-default: var(--themer-accent);
+  --pwt-gauge-back: var(--themer-surface);
+  --pwt-gauge-warn: var(--themer-warning);
+  --pwt-gauge-crit: var(--themer-danger);
+  --pwt-chart-primary: var(--themer-accent);
+  --pwt-chart-grid-stroke: var(--themer-line);
+}
+
+.x-legend-container {
+  background-color: var(--themer-surface);
+}
+
+.x-legend-horizontal .x-legend-item {
+  background-color: var(--themer-surface);
+  color: var(--themer-text);
+  border: solid 1px var(--themer-line);
+}
+
+.x-legend-horizontal .x-legend-item:first-child {
+  border-left: solid 1px var(--themer-line);
+}
+
+.x-tool .x-mask {
+  backdrop-filter: none;
+  background-color: var(--themer-surface);
+  opacity: 0.6;
+}
+
+.x-grid-icon-custom.running,
+.x-tree-icon-custom.running,
+.x-tree-icon-custom,
+.fa-database::before,
+.fa-tags::before,
+.fa-file-o::before,
+.fa-building::before,
+.x-action-col-icon::before,
+.fa-shield::before,
+.fa-file-text-o::before,
+.fa-clock-o::before,
+.x-tab-icon-el-default {
+  color: var(--themer-text);
+}
+
+.fa-ceph::before,
+.fa-sdn::before,
+.fa-network-wired::before,
+.pve-itype-treelist-item-icon-cdrom,
+.fa-chevron-right::before,
+.x-grid-row-console,
+.x-box-scroller-toolbar-default.x-box-scroller,
+.x-tree-elbow-img,
+.pve-itype-icon-qemu,
+.x-tree-node-computer,
+.x-grid-tree-node-expanded .x-tree-node-computer,
+.pbs-icon-tape,
+.pbs-icon-tape-drive {
+  filter: invert(90%);
+}
+
+.pve-itype-icon-cpu,
+.pve-itype-icon-cdrom,
+.pve-itype-icon-memory,
+.pve-itype-icon-pci,
+.pve-itype-icon-serial,
+.pve-itype-icon-die,
+.pmx-itype-icon-processor,
+.pmx-itype-icon-memory,
+.pve-itype-icon-storage,
+.x-tree-node-harddisk,
+.x-grid-tree-node-expanded .x-tree-node-harddisk {
+  filter: invert(90%);
+}
+
+body {
+  background-color: var(--themer-bg) !important;
+}
+
+.x-panel-body-default {
+  background-color: var(--themer-bg) !important;
+}
+
+.x-grid-row {
+  background-color: var(--themer-bg) !important;
+}
+
+.x-grid-row-alt {
+  background-color: var(--themer-surface) !important;
+}
+
+.x-grid-row-selected {
+  background-color: var(--themer-selection) !important;
+}
+
+.x-toolbar-default {
+  background-color: var(--themer-surface) !important;
+}
+
+.x-btn-default-toolbar-small {
+  background-color: var(--themer-surface) !important;
+}
+
+.x-btn-default-toolbar-small-over {
+  background-color: var(--themer-surface-hover) !important;
+}
+
+.x-window-default {
+  background-color: var(--themer-surface) !important;
+}
+
+.x-window-header-default {
+  background-color: var(--themer-surface) !important;
+}
+
+.x-form-text {
+  background-color: var(--themer-surface) !important;
+  color: var(--themer-text) !important;
+}
+
+.x-form-trigger-wrap {
+  background-color: var(--themer-surface) !important;
+}
+
+input, textarea, select {
+  background-color: var(--themer-surface) !important;
+  color: var(--themer-text) !important;
+  border-color: var(--themer-line) !important;
+}
+
+.x-tab-bar-default {
+  background-color: var(--themer-surface) !important;
+}
+
+.x-tab-default {
+  background-color: var(--themer-surface) !important;
+}
+
+.x-tab-active {
+  background-color: var(--themer-bg) !important;
+}
+
+a {
+  color: var(--themer-link) !important;
+}
+}

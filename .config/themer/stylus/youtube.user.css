@@ -1,0 +1,90 @@
+/* ==UserStyle==
+@name        Youtube
+@namespace   themer
+@version     2.0.0
+@description Converted from the classic Stylus style "Youtube" to Themer variables.
+==/UserStyle== */
+
+@-moz-document domain("youtube.com") {
+:root {
+  --main-color: var(--themer-accent) !important;
+  --main-background: var(--themer-bg) !important;
+  --second-background: var(--themer-bg-sunken) !important;
+  --hover-background: var(--themer-surface-hover) !important;
+  --main-text: var(--themer-text) !important;
+  --dimmer-text: var(--themer-text-muted) !important;
+  --shadow: black !important;
+  --yt-spec-additive-background: var(--themer-surface) !important;
+  --yt-sys-color-baseline--text-primary: var(--themer-text-bright) !important;
+  --yt-sys-color-baseline--text-secondary: var(--themer-text-muted) !important;
+  
+}
+
+#author-text {
+  color: var(--themer-accent) !important;
+}
+
+#style-scope {
+  font-family: "SF Pro Display";
+  font-weight: 500;
+  font-size: 20;
+}
+
+h4 {
+  color: var(--themer-danger) !important;
+}
+
+#search-icon-legacy.ytd-searchbox,
+.ytSearchboxComponentReportButton,
+.yt-spec-button-shape-next--icon-only-default {
+  display: none;
+}
+
+.ytd-rich-item-renderer-highlight {
+  background: var(--themer-surface) !important;
+  box-shadow: var(--themer-surface) 0px 0px 0px 10px !important;
+}
+
+#chip-container {
+  background-color: var(--themer-surface) !important;
+}
+
+#container.ytd-searchbox {
+  border-radius: 40px 40px 40px 40px;
+  background-color: var(--themer-surface) !important;
+}
+
+.ytSearchboxComponentInputBox,
+.ytSearchboxComponentSearchButton {
+  background-color: var(--themer-surface) !important;
+}
+
+.ytSearchboxComponentSearchButton {
+  border: none !important;
+}
+
+#yt-logo-updated_yt16 > g:nth-child(1) > path:nth-child(1) {
+  fill: var(--main-color) !important;
+}
+
+#yt-logo-updated-svg_yt16, #yt-logo-updated_yt16 > g:nth-child(1) > path:nth-child(2) {
+  fill: var(--main-text) !important;
+}
+
+.ytd-guide-entry-renderer.style-scope.guide-icon > .yt-spec-icon-shape.yt-icon-shape > div {
+  fill: var(--main-color) !important;
+}
+
+.ytSearchboxComponentInputBoxDark {
+  border-color: var(--themer-surface) !important;
+  box-shadow: none;
+}
+
+.ytSearchboxComponentSuggestionsContainer {
+  background-color: var(--themer-bg) !important;
+}
+
+div#footer.style-scope.ytd-guide-renderer {
+  display: none;
+}
+}

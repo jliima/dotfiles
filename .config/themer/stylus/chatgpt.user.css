@@ -1,0 +1,113 @@
+/* ==UserStyle==
+@name        ChatGPT
+@namespace   themer
+@version     2.0.0
+@description Converted from the classic Stylus style "ChatGPT" to Themer variables.
+==/UserStyle== */
+
+@-moz-document domain("chatgpt.com") {
+@import "colors.css";
+
+:root {
+  --chat-max-ch: 120ch;
+  --chat-side-padding: 1.5rem;
+
+  --main-surface-primary: var(--themer-surface);
+  --main-surface-secondary: var(--themer-surface-hover);
+  --bg-primary: var(--themer-bg);
+  --bg-secondary: var(--themer-surface);
+  --bg-tertiary: var(--themer-surface-hover);
+  --bg-elevated-primary: var(--themer-surface);
+  --bg-elevated-secondary: var(--themer-surface-hover);
+  --text-primary: var(--themer-text);
+  --text-secondary: var(--themer-text-muted);
+  --text-tertiary: var(--themer-text-subtle);
+  --border-primary: var(--themer-line);
+  --border-secondary: color-mix(in srgb, var(--themer-line) 60%, var(--themer-bg));
+  --accent-primary: var(--themer-accent);
+  --accent-secondary: var(--themer-accent-hover);
+  --theme-user-msg-bg: var(--themer-surface-hover)
+    
+}
+
+body {
+  background-color: var(--themer-bg);
+  color: var(--themer-text);
+}
+
+main {
+  background-color: var(--themer-bg);
+}
+
+.bg-token-main-surface-primary {
+  background-color: var(--themer-bg);
+}
+
+.bg-token-bg-secondary-surface {
+  background-color: var(--themer-bg-sunken);
+}
+
+.bg-token-main-surface-secondary {
+  background-color: var(--themer-surface);
+}
+
+.bg-token-sidebar-surface-secondary {
+  background-color: var(--themer-surface);
+}
+
+.bg-token-bg-elevated-secondary {
+  background-color: var(--themer-surface);
+}
+
+.bg-token-main-surface-tertiary {
+  background-color: var(--themer-surface-hover);
+}
+
+.bg-token-sidebar-surface-primary {
+  background-color: var(--themer-bg-sunken);
+}
+
+.text-token-text-primary {
+  color: var(--themer-text);
+}
+
+.text-token-text-secondary {
+  color: var(--themer-text-muted);
+}
+
+.text-token-text-tertiary {
+  color: var(--themer-text-subtle);
+}
+
+.border-token-border-light {
+  border-color: color-mix(in srgb, var(--themer-line) 60%, var(--themer-bg));
+}
+
+.border-token-border-medium {
+  border-color: var(--themer-line);
+}
+
+a {
+  color: var(--themer-link);
+}
+
+button[data-testid="send-button"] {
+  background-color: var(--themer-accent);
+}
+
+.hover\:bg-token-main-surface-secondary:hover {
+  background-color: var(--themer-surface-hover);
+}
+
+code {
+  color: var(--themer-syntax-keyword);
+}
+
+.prose code {
+  background-color: var(--themer-surface);
+}
+
+button[aria-label="Upgrade"] {
+  display: none !important;
+}
+}

@@ -1,0 +1,29 @@
+/* ==UserStyle==
+@name        duckduckgo.com
+@namespace   themer
+@version     2.0.0
+@description Converted from the classic Stylus style "duckduckgo.com" to Themer variables.
+==/UserStyle== */
+
+@-moz-document domain("duckduckgo.com") {
+:root {
+  --theme-border-color-home-searchbox: var(--themer-line) !important;
+  --theme-col-txt-snippet: var(--themer-text-muted) !important;
+  --theme-col-txt-title-visited: var(--themer-magenta) !important;
+  --theme-col-txt-url: var(--themer-text-subtle) !important;
+  --theme-shadow-home-searchbox: none !important;
+}
+
+body {
+  background-color: var(--themer-bg) !important;
+  color: var(--themer-text) !important;
+}
+
+a {
+  color: var(--themer-accent) !important;
+}
+
+a:visited {
+  color: var(--themer-magenta) !important;
+}
+}

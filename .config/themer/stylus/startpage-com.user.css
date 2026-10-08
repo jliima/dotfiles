@@ -1,0 +1,159 @@
+/* ==UserStyle==
+@name        startpage.com
+@namespace   themer
+@version     2.0.0
+@description Converted from the classic Stylus style "startpage.com" to Themer variables.
+==/UserStyle== */
+
+@-moz-document domain("startpage.com") {
+html {
+  background-color: var(--themer-bg);
+}
+
+/* https://www.startpage.com/ bg image */
+.css-1gq2x6d {
+  background-image: none !important;
+}
+
+/* Top nav bar */
+.css-102vh3c, .css-kc676n, .e1fgh61o0 {
+  background-color: var(--themer-bg-sunken);
+}
+
+/* Bottom bar */
+.css-ntpuhp,
+.footer-above-the-fold,
+.footer-above-the-fold .link-text {
+  background-color: var(--themer-bg-deep);
+  color: var(--themer-link);
+}
+
+/* Search result titles */
+.w-gl__result-title,
+.result-title,
+.result-title h2 {
+  color: var(--themer-accent) !important;
+}
+
+/* URLs */
+.w-gl__result-url,
+#main .result a:has(span.link-text),
+.display-url {
+  color: var(--themer-accent) !important;
+	span {
+	  color: inherit;
+	}
+}
+
+/* Visited search result titles */
+.w-gl__result-title:visited,
+.result-title:visited,
+.result-title:visited h2 {
+  color: var(--themer-accent-hover) !important;
+}
+
+/* Visited URLs */
+.w-gl__result-url:visited,
+#main .result a:visited:has(span.link-text),
+.display-url:visited {
+  color: var(--themer-link) !important;
+	span {
+	  color: inherit;
+	}
+}
+
+/* Rounded Background Hover */
+.result {
+	padding-left: 4px;
+	border-radius: 6px;
+}
+
+.w-gl__result:hover,
+.result:hover {
+	background-color: var(--themer-surface-hover);
+}
+
+/* Search result description text */
+.css-168de86 {
+  color: var(--themer-text);
+}
+
+.search-form-container,
+.search-form-form,
+.search-suggest {
+  background: var(--themer-surface);
+}
+
+
+/* Current search result page indicator */
+.css-dahwu9 button,
+.css-13qqj8c button {
+  background: var(--themer-accent);
+  color: var(--themer-text-inverse);
+  border: none;
+}
+
+.css-dahwu9 button:hover,
+.css-13qqj8c button:hover {
+  background: var(--themer-accent-hover);
+  color: var(--themer-text-inverse);
+  border: none;
+}
+
+.css-ajy4fa button {
+  background: var(--themer-surface);
+  border: none;
+}
+
+.css-ajy4fa button:hover {
+  background: var(--themer-surface-hover);
+}
+
+.css-ajy4fa:hover button {
+  background: var(--themer-surface-hover);
+}
+
+.anonymous-view-link,
+.feedback-button-container {
+  display: none;
+}
+
+.search-form-relative-container,
+.css-1alnko2 .search-form-container,
+.css-1tsjpy4, .css-zi37be
+{
+  color: var(--themer-text) !important;
+  border-color: var(--themer-accent);
+}
+
+.search-form-container:target,
+.search-form-form:target,
+.search-suggest:target {
+  border-color: red;
+}
+
+.css-703foi:hover {
+  background: var(--themer-surface-hover);
+}
+
+.css-1n6ya15,
+.css-yeai43 button {
+  color: var(--themer-accent);
+  border-bottom: 2px solid var(--themer-accent);
+}
+
+.css-1n6ya15:hover,
+.css-yeai43 button:hover {
+  color: var(--themer-accent-hover);
+  border-bottom: 2px solid var(--themer-accent-hover);
+}
+
+.css-cg4v78 button,
+.css-ddakpz {
+  color: var(--themer-text-muted);
+}
+
+.css-cg4v78:hover button {
+  color: var(--themer-text);
+}
+}

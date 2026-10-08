@@ -1,0 +1,321 @@
+/* ==UserStyle==
+@name        Stylus - Pare Colors
+@namespace   themer
+@version     2.0.0
+@description Converted from the classic Stylus style "Stylus - Pare Colors" to Themer variables.
+==/UserStyle== */
+
+@-moz-document regexp("chrome-extension://.*"), regexp("moz-extension://.*") {
+:root {
+  --global-font: var(--themer-font-mono);
+  --global-font-w: var(--themer-font-mono-weight);
+  
+  --ui-font: var(--themer-font-sans);
+  --ui-font-weight: var(--themer-font-ui-weight);
+  --cursor-color: var(--themer-accent);
+
+  /* Map to semantic vars */
+  --bg0: var(--themer-surface);
+  --bg1: var(--themer-bg);
+  --bg2: var(--themer-bg);
+  --bg3: var(--themer-surface);
+  --bg4: var(--themer-surface-hover);
+  --fg0: var(--themer-text);
+  --fg1: var(--themer-text);
+  --text: var(--themer-text);
+  --comment: var(--themer-text-subtle);
+  --red: var(--themer-danger);
+  --fg: var(--themer-text);
+  --bg: var(--themer-bg);
+
+  /* Grey scale mapping */
+  --c00: var(--themer-text);
+  --c10: var(--themer-text-subtle);
+  --c20: var(--themer-text-subtle);
+  --c30: var(--themer-text-subtle);
+  --c40: var(--themer-text-subtle);
+  --c45: var(--themer-text-subtle);
+  --c50: var(--themer-text-muted);
+  --c60: var(--themer-text-subtle);
+  --c65: var(--themer-line);
+  --c70: var(--themer-text-subtle);
+  --c75: var(--themer-text-subtle);
+  --c80: var(--themer-text-subtle);
+  --c85: var(--themer-text-subtle);
+  --c90: var(--themer-surface);
+  --c95: var(--themer-surface);
+  --c97: var(--themer-surface);
+  --c98: var(--themer-surface);
+  --c99: var(--themer-surface);
+  --c100: var(--themer-surface-hover);
+  --cmin: #fff;
+  --cmax: #000;
+  --accent-1: var(--themer-accent);
+  --accent-2: var(--themer-accent-hover);
+  --accent-3: color-mix(in srgb, var(--themer-accent) 30%, var(--themer-bg));
+  --input-bg: var(--themer-surface);
+  --gold1: var(--themer-warning);
+}
+
+/* CODE AREA */
+.CodeMirror {
+  background: var(--themer-bg);
+  font-family: var(--global-font), Consolas, monospace;
+  font-weight: var(--global-font-w) !important;
+  font-size: 16px;
+}
+
+/* GLOBAL */
+body, html {
+  background: var(--themer-bg-sunken);
+  font-family: var(--ui-font);
+  font-weight: var(--ui-font-weight);
+  font-size: 1rem !important;
+}
+
+.CodeMirror-activeline-background {
+  background: var(--themer-surface);
+}
+
+.cm-s-default .cm-qualifier,
+.cm-s-default .cm-number {
+  color: var(--themer-syntax-number);
+}
+
+.cm-s-default .cm-builtin {
+  color: var(--themer-syntax-function);
+}
+
+.cm-s-default .cm-comment {
+  color: var(--themer-syntax-comment);
+}
+
+.CodeMirror-wrap pre,
+.cm-s-default .cm-attribute {
+  color: var(--themer-text);
+}
+
+.cm-s-default .cm-variable-2,
+.cm-s-default .cm-tag {
+  color: var(--themer-danger);
+}
+
+.cm-s-default .cm-variable-3,
+.cm-s-default .cm-type {
+  color: var(--themer-syntax-type);
+}
+
+.cm-s-default .cm-atom {
+  color: var(--themer-syntax-constant);
+}
+
+.cm-s-default .cm-string {
+  color: var(--themer-syntax-string);
+}
+
+.CodeMirror-gutters {
+  background: var(--themer-bg);
+  border-color: var(--themer-bg);
+}
+
+.CodeMirror,
+.CodeMirror-focused {
+  border: none !important;
+  outline-width: 0;
+}
+
+.cm-s-default .cm-keyword,
+.cm-s-default .cm-def {
+  color: var(--themer-syntax-keyword);
+}
+
+.resize-grip {
+  border-color: var(--themer-line);
+}
+
+.resize-grip::after {
+  border-color: var(--themer-line);
+}
+
+.colorview-swatch::after {
+  border-color: #000000;
+}
+
+.CodeMirror-cursor {
+  border-left: 1px solid var(--themer-accent) !important;
+}
+
+.cm-fat-cursor .CodeMirror-cursor {
+  background: var(--themer-accent) !important;
+}
+
+div.CodeMirror-selected {
+  background: var(--themer-selection) !important;
+}
+
+.section {
+  background: var(--themer-bg);
+}
+
+#sections > div > label,
+#sections h2 {
+  color: var(--themer-text);
+  font-family: var(--ui-font);
+}
+
+/* HEADER */
+#header {
+  border-right: 1px solid transparent;
+  background: var(--themer-bg);
+  box-shadow: 0 0 15px rgba(0, 0, 0, .6);
+}
+
+#header h1, #header h2, #header h3, #header p, #header span, #header a,
+.applies-to li {
+  color: var(--themer-text);
+  font-family: var(--ui-font);
+}
+
+#header label {
+  color: var(--themer-text);
+}
+
+#header select,
+input[type='number'],
+#header input[type='checkbox']:not(.slider),
+#header input:not([type]) {
+  border: 1px solid var(--themer-surface);
+  background: var(--themer-surface);
+  color: var(--themer-text) !important;
+  font-family: var(--ui-font);
+}
+
+#header button {
+  background: var(--themer-surface);
+  border-color: var(--themer-surface);
+  color: var(--themer-text);
+  border-radius: var(--themer-radius-sm);
+  cursor: pointer;
+  padding: 8px;
+  font-family: var(--ui-font);
+}
+
+#header button:hover {
+  background: var(--themer-surface-hover);
+  border-color: var(--themer-surface-hover);
+}
+
+.svg-icon {
+  fill: var(--themer-text-subtle);
+}
+
+/* MANAGE */
+.style-name a,
+.style-edit-link,
+.newUI .target {
+  color: var(--themer-text);
+}
+
+.newUI .entry.enabled .style-name:hover .style-name-link {
+  color: var(--themer-accent);
+}
+
+.newUI .entry.odd {
+  background: var(--themer-bg);
+}
+
+#search,
+#manage\.newUI\.sort {
+  background: var(--themer-surface);
+  border-color: var(--themer-surface);
+  padding: 15px;
+  color: var(--themer-text);
+}
+
+/* APPLIES TO */
+.edit-actions button {
+  background: var(--themer-surface);
+  border-color: var(--themer-surface);
+  color: var(--themer-text);
+  border-radius: var(--themer-radius-sm);
+}
+
+.edit-actions button:hover {
+  background: var(--themer-surface-hover);
+  border-color: var(--themer-surface-hover);
+}
+
+.applies-to select,
+.applies-to li .applies-value {
+  background: var(--themer-surface);
+  border-color: var(--themer-surface);
+  color: var(--themer-text);
+}
+
+#sections > div:not(:first-of-type) {
+  background: var(--themer-bg);
+  border-color: transparent;
+}
+
+/* POP UP */
+.style-name {
+  color: var(--themer-text);
+}
+
+#stylus-popup {
+  background: var(--themer-bg);
+}
+
+#installed .style-name .checker,
+#installed .style-name .svg-icon.checked,
+input[type='checkbox']:not(.slider):checked + .svg-icon.checked {
+  background: var(--themer-surface);
+  border-color: var(--themer-surface);
+  fill: var(--themer-text) !important;
+}
+
+#stylus-popup .actions,
+#stylus-popup .actions a {
+  color: var(--themer-text) !important;
+}
+
+#popup-options button {
+  background: var(--themer-surface);
+  border-color: var(--themer-surface);
+  color: var(--themer-text);
+  padding: 5px;
+  border-radius: var(--themer-radius-sm);
+}
+
+#popup-options button:hover {
+  background: var(--themer-surface-hover);
+}
+
+#stylus-popup .search-result {
+  background: var(--themer-bg);
+  border-color: var(--themer-bg);
+  box-shadow: none;
+}
+
+.search-result-title {
+  color: var(--themer-text);
+}
+
+.search-result-description {
+  color: var(--themer-text-muted);
+}
+
+.search-result-meta {
+  background: var(--themer-bg) !important;
+  color: var(--themer-text) !important;
+}
+
+#no-styles {
+  color: var(--themer-text);
+}
+
+#search-replace-dialog textarea,
+.blocked-info {
+  color: var(--themer-text);
+}
+}

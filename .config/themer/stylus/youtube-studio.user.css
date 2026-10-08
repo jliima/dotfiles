@@ -1,0 +1,12 @@
+/* ==UserStyle==
+@name        Youtube Studio
+@namespace   themer
+@version     2.0.0
+@description Converted from the classic Stylus style "Youtube Studio" to Themer variables.
+==/UserStyle== */
+
+@-moz-document domain("studio.youtube.com") {
+:root {
+  --ytcp-brand-background-solid: var(--themer-accent) !important;
+}
+}

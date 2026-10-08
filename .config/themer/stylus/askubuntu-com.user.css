@@ -1,0 +1,13 @@
+/* ==UserStyle==
+@name        askubuntu.com
+@namespace   themer
+@version     2.0.0
+@description Converted from the classic Stylus style "askubuntu.com" to Themer variables.
+==/UserStyle== */
+
+@-moz-document domain("askubuntu.com") {
+body {
+  background-color: var(--themer-bg) !important;
+  color: var(--themer-text) !important;
+}
+}

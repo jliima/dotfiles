@@ -1,0 +1,80 @@
+/* ==UserStyle==
+@name        Reddit
+@namespace   themer
+@version     2.0.0
+@description Converted from the classic Stylus style "Reddit" to Themer variables.
+==/UserStyle== */
+
+@-moz-document domain("www.reddit.com") {
+:root {
+  --color-neutral-background: var(--themer-bg) !important;
+  --color-neutral-background-weak: var(--themer-bg-sunken) !important;
+  --color-neutral-background-strong: var(--themer-surface) !important;
+  
+  --global-font: "SF Mono" !important;
+  --og-font: var(--global-font) !important;
+  --font-sans: var(--global-font) !important;
+  --font-10: var(--global-font) !important;
+  --font-12: var(--global-font) !important;
+  --font-14: var(--global-font) !important;
+  --font-16: var(--global-font) !important;
+  --font-18: var(--global-font) !important;
+  --font-20: var(--global-font) !important;
+  --font-24: var(--global-font) !important;
+  --font-32: var(--global-font) !important;
+  --font-48: var(--global-font) !important;
+  --font-64: var(--global-font) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  * {
+    --color-neutral-background: var(--themer-bg) !important;
+    --color-neutral-background-hover: var(--themer-surface-hover) !important;
+    --color-neutral-background-strong: var(--themer-surface) !important;
+    --color-neutral-background-weak: var(--themer-bg-sunken) !important;
+    --color-neutral-border: var(--themer-line) !important;
+    --color-neutral-border-weak: color-mix(in srgb, var(--themer-line) 60%, var(--themer-bg)) !important;
+    --color-neutral-border-medium: var(--themer-line) !important;
+    --color-neutral-border-strong: var(--themer-line) !important;
+    --color-button-secondary-background: var(--themer-surface) !important;
+    --color-button-primary-background: var(--themer-accent) !important;
+    --color-neutral-background-selected: var(--themer-selection) !important;
+    --color-neutral-content: var(--themer-text-muted) !important;
+    --color-neutral-content-strong: var(--themer-text) !important;
+    --color-neutral-content-weak: var(--themer-text-subtle) !important;
+    --color-primary: var(--themer-accent) !important;
+    --color-primary-background: var(--themer-accent) !important;
+    --color-primary-plain: var(--themer-accent) !important;
+    --color-secondary-background: var(--themer-surface) !important;
+    --color-secondary-plain: var(--themer-text-muted) !important;
+    --color-secondary: var(--themer-text-muted) !important;
+  }
+}
+
+
+
+.legal-links, advertise-button {
+  display: none !important;
+}
+
+.button-secondary {
+  --button-color-background: var(--themer-surface) !important;
+}
+
+* {
+  font-family: "SF Pro Display" !important;
+}
+
+hr.border-0 {
+  border-bottom-width: 0px !important;
+}
+
+.text-14 {
+  font-size: .950rem !important;
+  font-weight: 500 !important;
+}
+
+left-nav-community-item {
+  padding: 8px 8px 8px 8px !important;
+}
+}

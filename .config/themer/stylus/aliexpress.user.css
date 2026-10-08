@@ -1,0 +1,12 @@
+/* ==UserStyle==
+@name        Aliexpress
+@namespace   themer
+@version     2.0.0
+@description Converted from the classic Stylus style "Aliexpress" to Themer variables.
+==/UserStyle== */
+
+@-moz-document domain("aliexpress.com") {
+body {
+  background-color: var(--themer-bg) !important;
+}
+}

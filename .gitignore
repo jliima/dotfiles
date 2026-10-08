@@ -21,6 +21,10 @@ scripts/*
 
 CLAUDE.md
 
+**/vault/
+# Styles deleted in the browser (Themer's Stylus host keeps them as a backup)
+.config/themer/stylus/.deleted/
+
 # App-owned files that used to be stowed (kde-sync and Themer handle them now). Apps that still hold the old link
 # target until they restart write here.
 /.config/katerc

@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "theme": {
+    "mode": {{ is-dark | pick(1, 0) }},
+    "engine": "dynamicTheme",
+    "brightness": 100,
+    "contrast": 100,
+    "grayscale": 0,
+    "sepia": 0,
+    "{{ is-dark | pick(darkScheme, lightScheme) }}BackgroundColor": "{{ bg }}",
+    "{{ is-dark | pick(darkScheme, lightScheme) }}TextColor": "{{ text }}",
+    "selectionColor": "{{ selection }}",
+    "scrollbarColor": "auto"
+  }
+}
