@@ -29,3 +29,8 @@ widget-style-dark = "kvantum-dark"
 [overrides.window]
 # KDE-Rounded-Corners draws the ring around every window here, so the decoration does not.
 decoration-outline-width = 0
+# Slightly larger window titles, one weight step below the themes' 600.
+title-size = 13
+
+[overrides.fonts]
+title-weight = 500
