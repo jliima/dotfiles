@@ -1,0 +1,52 @@
+@OBSThemeMeta {
+    name: 'Themer';
+    id: 'com.obsproject.Yami.Themer';
+    extends: 'com.obsproject.Yami';
+    author: 'Themer';
+    dark: '{{ dark-bool }}';
+}
+
+@OBSThemeVars {
+    /* Preview area background */
+    --bg_preview: {{ bg-deep }};
+
+    /* Grey scale, darkest (8) to lightest (1): the grounds, then surfaces, lines and text */
+    --grey8: {{ bg-deep }};
+    --grey7: {{ bg-sunken }};
+    --grey6: {{ bg }};
+    --grey5: {{ surface }};
+    --grey4: {{ surface-hover }};
+    --grey3: {{ surface-active }};
+    --grey2: {{ line-strong }};
+    --grey1: {{ text-subtle }};
+
+    /* Accent / primary */
+    --primary: {{ accent }};
+    --primary_light: {{ accent-hover }};
+    --primary_lighter: {{ accent-hover }};
+    --primary_dark: {{ accent }};
+    --primary_darker: {{ accent-soft }};
+
+    /* Semantic colours */
+    --warning: {{ warning }};
+    --danger: {{ danger }};
+
+    /* Text */
+    --text: {{ text }};
+    --text_light: {{ text-bright }};
+    --text_muted: {{ text-muted }};
+    --text_disabled: {{ text-disabled }};
+
+    /* Scrollbar accent */
+    --scrollbar_hover: {{ accent }};
+    --scrollbar_border: {{ accent }};
+
+    /* Palette links */
+    --palette_link: {{ link }};
+    --palette_linkVisited: {{ accent-hover }};
+
+    /* Record and stop buttons are always red */
+    --button_bg_red: {{ red-dim }};
+    --button_bg_red_hover: {{ red }};
+    --button_bg_red_down: {{ red-dim | darken(0.05) }};
+}

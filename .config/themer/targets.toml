@@ -130,3 +130,12 @@ group = "vscode"
 template = "vscode/theme.json"
 output = "~/.vscode/extensions/themer.themer-theme-1.0.0/themes/themer-{{ variant }}.json"
 variants = "all"
+
+# ---- OBS Studio ------------------------------------------------------------------------------------------------------
+
+# A Yami based theme (Settings > Appearance > Theme > Themer). Restart OBS after a theme or mode change.
+[[target]]
+name = "OBS Studio"
+group = "obs"
+template = "obs/theme.ovt"
+output = "~/.var/app/com.obsproject.Studio/config/obs-studio/themes/Themer.ovt"
