@@ -44,3 +44,13 @@ group = "chromium"
 template = "chromium/manifest.json"
 output = "~/.config/chromium/themer-theme/manifest.json"
 reload = "rm -f ~/.config/chromium/themer-theme/'Cached Theme.pak'"
+
+# ---- Claude Code -----------------------------------------------------------------------------------------------------
+
+# Select it once with /theme ("custom:themer", or "theme" in settings.json). Claude Code watches ~/.claude/themes and
+# restyles live. ~/.claude is synced by Syncthing, so the file is written there and not into the dotfiles.
+[[target]]
+name = "Claude Code"
+group = "claude"
+template = "claude-code/theme.json"
+output = "~/.claude/themes/themer.json"
