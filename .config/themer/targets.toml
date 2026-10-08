@@ -23,3 +23,12 @@ enabled = false
 [[target]]
 name = "pywal colors.css"
 enabled = false
+
+# JetBrains IDEs: ~/JetBrainsProjects/jetbrains-pywal-theme builds its UI theme and editor scheme from this
+# pywal-format palette (dark or light follows the variant) and live reloads running IDEs.
+[[target]]
+name = "JetBrains IDEs"
+group = "jetbrains"
+format = "pywal"
+output = "~/.cache/themer/jetbrains.json"
+reload = "~/JetBrainsProjects/jetbrains-pywal-theme/apply.sh"

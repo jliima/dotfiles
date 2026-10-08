@@ -43,10 +43,15 @@ cd ~/dotfiles/themer && ./install.sh   # once per machine: links ~/.local/bin/th
 themer apply --theme pare              # or: themer mode toggle
 ```
 
-My settings, Konsole profile, Firefox snippets and extra targets are in `.config/themer/`. One of those targets
-runs `scripts/pywal/run-pywal.py` whenever the theme or variant changes. It feeds Themer's pywal export
-(`.config/wal/colorschemes/<variant>/<theme>.json`) to `wal` and runs the scripts in `scripts/pywal/applications`
-for the rest (VS Code, Obsidian, IntelliJ, Spicetify, lnav, nano, vim, OBS, Telegram, Qt Creator, Claude).
+My settings, Konsole profile, Firefox snippets and extra targets are in `.config/themer/`. The extra targets run
+when the theme or variant changes:
+
+- "JetBrains IDEs" writes `~/.cache/themer/jetbrains.json` and runs `apply.sh` from
+  [jetbrains-pywal-theme](https://github.com/jliima/jetbrains-pywal-theme) (cloned to `~/JetBrainsProjects/`, branch
+  `themer`), which themes every JetBrains IDE, dark or light.
+- "pywal apps" runs `scripts/pywal/run-pywal.py`. It feeds Themer's pywal export
+  (`.config/wal/colorschemes/<variant>/<theme>.json`) to `wal` and runs the scripts in `scripts/pywal/applications`
+  for the rest (VS Code, Obsidian, Spicetify, lnav, nano, vim, OBS, Telegram, Qt Creator, Claude).
 
 ### ZSH & CLI Programs
 
