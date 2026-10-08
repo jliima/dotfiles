@@ -45,6 +45,9 @@ git clone git@github.com:jliima/themer.git ~/Git/themer
 themer apply --theme pare                       # or: themer mode toggle
 ```
 
+Firefox: Themer writes `userChrome.css` and `userContent.css` into `<profile>/chrome`. I keep one real folder,
+`~/.mozilla/firefox/chrome`, and link each profile's `chrome` to it (`ln -s ../chrome ~/.mozilla/firefox/<profile>/chrome`).
+
 `install.sh` also installs the plugins of the apps it finds (VS Code and the JetBrains IDEs); the targets ship with
 Themer, the templates are in this repo. Re-run `~/Git/themer/plugins/<app>/install.sh` after a `git pull` to rebuild one
 (add `--profile "Name"` to the VS Code one for each extra VS Code profile). The KWin window decoration is separate:
