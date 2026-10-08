@@ -1,0 +1,22 @@
+# kde-sync (scripts/kde/kde-sync/kde-sync.py): which KDE settings sync between machines. The apps' own files stay in
+# ~/.config; synced keys live in shared/<file>, keys one machine keeps for itself in hosts/<hostname>/<file>
+# (`kde-sync local FILE GROUP KEY` moves one there). `ignore` lists [group, key] globs that never sync: window sizes,
+# session state, and what Themer sets.
+
+[files.katerc]
+ignore = [
+  ["MainWindow", "*"],
+  ["General", "Last Session"],
+  ["General", "PinnedDocuments"],
+  ["General", "Config Revision"],
+  ["KTextEditor Renderer", "Color Theme"],
+  ["KTextEditor Renderer", "Auto Color Theme Selection"],
+]
+
+# Only shortcuts that differ from their default sync, and only for apps a machine has.
+[files.kglobalshortcutsrc]
+kind = "shortcuts"
+
+# The panels and their widgets, as plasmashell dumps them (plasma/panels.json).
+[panels]
+enabled = true

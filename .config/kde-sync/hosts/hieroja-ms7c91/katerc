@@ -1,0 +1,11 @@
+[ColorPicker]
+PreviewAfterColor=false
+
+[General]
+Enable Context ToolView=true
+Open New Tab To The Right Of Current=true
+Show Menu Bar=true
+Show Tab Bar=true
+
+[Konsole]
+AutoSyncronizeMode=2

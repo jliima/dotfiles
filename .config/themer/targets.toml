@@ -33,6 +33,16 @@ template = "claude-desktop/theme.css"
 output = "~/.config/claude-desktop-theme/theme.css"
 reload = "~/scripts/claude-desktop/patch.sh ensure"
 
+# ---- Konsole ---------------------------------------------------------------------------------------------------------
+
+# The shipped target, but written straight into ~/.local/share/konsole instead of the dotfiles: its font size follows
+# the screen profile (settings.toml), which would otherwise change a tracked file on every dock and undock.
+[[target]]
+name = "Konsole profile"
+group = "konsole"
+template = "konsole/Themer.profile"
+output = "~/.local/share/konsole/Themer.profile"
+
 # ---- lnav ------------------------------------------------------------------------------------------------------------
 
 # The theme is selected by "theme": "themer" in lnav/configs/installed/java-log-keymap.json; lnav reads it on start.
@@ -112,9 +122,11 @@ output = "~/Obsidian/.config/.obsidian-desktop/snippets/PDF-Export-Darkmode.css"
 
 # ---- Spotify (Spicetify) ---------------------------------------------------------------------------------------------
 
-# `current_theme = Themer` is set in spicetify/config-xpui.ini. The reload re-applies the theme to Spotify without
-# restarting it; restart Spotify to see a change. After a Spotify update Spicetify's backup no longer matches and
-# `spicetify apply` only warns; reinstall Spotify and run `spicetify backup apply` then.
+# spicetify/config-xpui.ini is Spicetify's own file and not in the dotfiles (it writes its version and Spotify's into
+# it on every run). The reload sets the settings this setup needs there, then re-applies the theme to Spotify without
+# restarting it; restart Spotify to see a change. On a new machine: `themer apply --only spicetify --force`.
+# After a Spotify update Spicetify's backup no longer matches and `spicetify apply` only warns; reinstall Spotify and
+# run `spicetify backup apply` then.
 # Spotify is launched as `spotify --disable-gpu-sandbox` (the GPU sandbox fails on kernel 7.0.0-38).
 [[target]]
 name = "Spicetify colors"
@@ -122,7 +134,8 @@ dotfiles = true
 group = "spicetify"
 template = "spicetify/color.ini"
 output = "~/.config/spicetify/Themes/Themer/color.ini"
-reload = "spicetify apply --no-restart"
+reload = """spicetify -q config current_theme Themer color_scheme '' inject_css 1 replace_colors 1 inject_theme_js 1 \
+  sidebar_config 0 custom_apps marketplace; spicetify apply --no-restart"""
 
 [[target]]
 name = "Spicetify styles"

@@ -1,0 +1,144 @@
+[KDE Keyboard Layout Switcher]
+Switch to Last-Used Keyboard Layout=none
+Switch to Next Keyboard Layout=none
+
+[com.anthropic.Claude]
+552F6994E277600CEBF23F965AAC8C18-Ctrl+Alt+Space=none
+AB6F88D2B9FE510439CBE6A5273BC4AC-Ctrl+Alt+Space=Meta+Space
+
+[ksmserver]
+Log Out=none
+
+[kwin]
+Cube=none
+Edit Tiles=none
+Expose=Ctrl+F9
+ExposeAll=Ctrl+F10\tLaunch (C)
+ExposeClass=Ctrl+F7
+Show Desktop=none
+Switch One Desktop Up=none
+Switch One Desktop to the Left=none
+Switch One Desktop to the Right=none
+Switch to Desktop 1=Meta+1
+Switch to Desktop 2=Meta+2
+Switch to Desktop 3=Meta+3
+Switch to Desktop 4=Meta+4
+Switch to Desktop 5=Meta+5
+Switch to Desktop 6=Meta+`
+Toggle Night Color=Meta+End
+Walk Through Windows=Alt+Tab
+Walk Through Windows (Reverse)=Alt+Shift+Tab
+Walk Through Windows of Current Application=Alt+`
+Walk Through Windows of Current Application (Reverse)=Alt+~
+Window Close=Meta+Q\tAlt+F4
+Window Custom Quick Tile Top=Meta+S
+Window One Desktop to the Left=none
+Window One Desktop to the Right=none
+Window to Desktop 1=Meta+!
+Window to Desktop 2=Meta+"
+Window to Desktop 3=Meta+#
+Window to Desktop 4=Meta+$
+Window to Desktop 5=Meta+%
+Window to Desktop 6=Meta+~
+
+[plasmashell]
+activate application launcher=Meta+Control\tAlt+F1
+activate task manager entry 1=none
+activate task manager entry 2=none
+activate task manager entry 3=none
+activate task manager entry 4=none
+activate task manager entry 5=none
+activate task manager entry 6=none
+manage activities=none
+next activity=Meta+Tab
+previous activity=Meta+Shift+A
+
+[services][chromium.desktop]
+_launch=Meta+C
+
+[services][chromium_chromium.desktop]
+Incognito=Meta+Shift+C
+
+[services][com.github.iwalton3.jellyfin-media-player.desktop]
+ExitSofaMode=Home Page
+JereFlixSofaMode=Launch Mail
+MikaflixSofaMode=Tools
+
+[services][dolphin-toggle.desktop]
+_launch=Meta+D
+
+[services][dotfiles.desktop]
+_launch=Meta+/
+
+[services][firefox-toggle.desktop]
+_launch=Meta+F
+
+[services][firefox.desktop]
+new-private-window=Meta+Ctrl+Shift+F
+new-window-default-profile=Meta+Shift+F
+
+[services][github-copilot.desktop]
+_launch=Ctrl+Alt+Space
+
+[services][jellyfin-couch-mode-exit.sh.desktop]
+_launch=Home Page
+
+[services][jellyfin-couch-mode-initiate.sh.desktop]
+_launch=Tools
+
+[services][jetbrains-idea-0c0706a7-ff76-4f56-8d07-4577f186a1ea.desktop]
+_launch=Meta+A
+
+[services][jetbrains-idea-ed171af8-af00-44b8-9b0c-54d54c8cef16.desktop]
+_launch=Meta+A
+
+[services][kate-toggle.desktop]
+_launch=Meta+E
+
+[services][keepassxc-toggle.desktop]
+_launch=Meta+X
+
+[services][konsole-toggle.desktop]
+_launch=Meta+T
+
+[services][monitor-layout.desktop]
+left-landscape=Meta+Ctrl+Left
+left-portrait=Meta+Ctrl+Shift+Left
+right-landscape=Meta+Ctrl+Right
+right-portrait=Meta+Ctrl+Shift+Right
+
+[services][obsidian.desktop]
+_launch=Meta+R
+open-default-vault=Meta+Shift+R
+
+[services][open-obsidian.sh.desktop]
+_launch=Meta+R
+
+[services][org.kde.dolphin.desktop]
+_launch=Meta+Shift+D
+
+[services][org.kde.kate.desktop]
+_launch=Meta+Shift+E
+
+[services][org.kde.konsole.desktop]
+_launch=Meta+Shift+T\tCtrl+Alt+T
+
+[services][org.kde.krunner.desktop]
+_launch=Alt+F2\tSearch\tMeta
+
+[services][org.kde.plasma-systemmonitor.desktop]
+_launch=Meta+Esc\tCtrl+Alt+Del
+
+[services][org.kde.plasma.emojier.desktop]
+_launch=Meta+Ctrl+Alt+Shift+Space\tMeta+.\tMeta+:
+
+[services][org.kde.spectacle.desktop]
+ActiveWindowScreenShot=Meta+Print\tCtrl+#
+RecordRegion=Ctrl+%
+RectangularRegionScreenShot=Ctrl+$
+
+[services][org.kde.touchpadshortcuts.desktop]
+ToggleTouchpad=Touchpad Toggle\tMeta+Ctrl+Zenkaku Hankaku
+
+[services][systemsettings.desktop]
+_launch=Meta+Ctrl+;

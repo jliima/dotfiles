@@ -20,3 +20,10 @@ scripts/*
 !.config/zsh/.zshrc
 
 CLAUDE.md
+
+# App-owned files that used to be stowed (kde-sync and Themer handle them now). Apps that still hold the old link
+# target until they restart write here.
+/.config/katerc
+/.config/kglobalshortcutsrc
+/.config/spicetify/config-xpui.ini
+/.local/share/konsole/Themer.profile

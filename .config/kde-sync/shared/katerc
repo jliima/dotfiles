@@ -3,12 +3,18 @@ HexLengths=3,6,9,12
 NamedColors=false
 PreviewAfterColor=true
 
+[ColoredBrackets]
+color1=#1275ef
+color2=#f83c1f
+color3=#9dba1e
+color4=#e219e2
+color5=#37d21c
+
 [General]
 Allow Tab Scrolling=true
 Auto Hide Tabs=true
 Close After Last=false
 Close documents with window=true
-Config Revision=10
 Cycle To First Tab=true
 Days Meta Infos=30
 Diagnostics Limit=12000
@@ -17,7 +23,6 @@ Elide Tab Text=false
 Enable Context ToolView=false
 Expand Tabs=false
 Icon size for left and right sidebar buttons=32
-Last Session=default
 Modified Notification=false
 Mouse back button action=0
 Mouse forward button action=0
@@ -95,8 +100,6 @@ Fallback Encoding=ISO 8859-15
 
 [KTextEditor Renderer]
 Animate Bracket Matching=true
-Auto Color Theme Selection=false
-Color Theme=Themer Dark
 Font=SF Mono,11,-1,5,50,0,0,0,0,0
 Line Height Multiplier=1
 Show Indentation Lines=true
@@ -166,6 +169,9 @@ Vi Relative Line Numbers=false
 Word Completion=true
 Word Completion Minimal Word Length=2
 Word Completion Remove Tail=true
+
+[Kate Plugins]
+ktexteditorpreviewplugin=true
 
 [Kate Print Settings][Margins]
 bottom=0
@@ -244,6 +250,7 @@ DiagnosticsMark=true
 DiagnosticsSize=1024
 FormatOnSave=false
 HighlightGoto=true
+HighlightSymbol=true
 IncrementalSync=false
 InlayHints=false
 Messages=true

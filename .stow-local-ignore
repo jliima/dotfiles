@@ -30,3 +30,9 @@ _darcs
 
 # zsh writes its completion cache here; it must stay a real file in ~/.config/zsh
 \.zcompdump.*
+
+# App-owned files that used to be stowed; see .gitignore
+^/\.config/katerc
+^/\.config/kglobalshortcutsrc
+^/\.config/spicetify/config-xpui\.ini
+^/\.local/share/konsole/Themer\.profile
