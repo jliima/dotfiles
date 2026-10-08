@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0 http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+  <kcfgfile name=""/>
+  <group name="General">
+    <!-- The widget is never shorter than this (logical px), so the bar is easy to hit with one icon in it. -->
+    <entry name="minimumLength" type="Int">
+      <default>300</default>
+    </entry>
+    <entry name="onlyCurrentDesktop" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="onlyCurrentActivity" type="Bool">
+      <default>true</default>
+    </entry>
+  </group>
+</kcfg>

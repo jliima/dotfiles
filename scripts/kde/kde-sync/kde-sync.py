@@ -43,6 +43,7 @@ import fcntl
 import fnmatch
 import json
 import os
+import re
 import socket
 import subprocess
 import sys
@@ -61,7 +62,9 @@ PANELS_FILE = "plasma/panels.json"
 PANEL_NOISE_GROUPS = ("/ConfigDialog",)
 PANEL_NOISE_KEYS = ("popupHeight", "popupWidth")
 # How a panel is shown, which the dump leaves out: properties of the scripting API's Panel object.
-PANEL_VIEW_KEYS = ("floating", "lengthMode", "opacity")
+PANEL_VIEW_KEYS = ("screen", "floating", "lengthMode", "opacity")
+# panelOpacity in plasmashellrc; the scripting API can read a panel's opacity but not set it.
+PANEL_OPACITY = {"adaptive": 0, "opaque": 1, "translucent": 2}
 # The systray's own settings, which plasmashell's layout dump leaves out.
 SYSTRAY_KEYS = ("extraItems", "hiddenItems", "shownItems")
 APP_DIRS = [HOME / ".local/share/applications"] + [
@@ -547,7 +550,7 @@ def dump_panels():
   # with its margins; those come from the panels themselves, matched by where they sit.
   views = json.loads(plasma_script("""
     print(JSON.stringify(panels().map(function (p) {
-      return { location: p.location, alignment: p.alignment, height: p.height / gridUnit,
+      return { location: p.location, alignment: p.alignment, height: p.height / gridUnit, screen: p.screen,
                floating: p.floating, lengthMode: p.lengthMode, opacity: p.opacity };
     })));
   """) or "[]")
@@ -558,6 +561,7 @@ def dump_panels():
       views.remove(view)
       panel["height"] = view["height"]
       panel["view"] = {k: view[k] for k in PANEL_VIEW_KEYS}
+      panel.get("config", {}).get("/", {}).pop("lastScreen", None)
       if view["lengthMode"] != "custom":
         # Fit and fill size themselves; a fixed length would only be right on a screen as wide as this one.
         for k in ("maximumLength", "minimumLength", "offset"):
@@ -570,6 +574,14 @@ def dump_panels():
         conf.get("/", {}).pop(k, None)
       if "/" in conf and not conf["/"]:
         del conf["/"]
+      colors = conf.get("/SensorColors")
+      if colors:
+        # System monitor widgets store a color per sensor a pattern matched (cpu/cpu0/usage for cpu/cpu.*/usage),
+        # and the sensors differ per machine; the pattern's own color is what syncs (see expand_sensor_colors).
+        patterns = [re.compile(k) for k in colors if any(c in k for c in "*+?[")]
+        for k in [k for k in colors if not any(c in k for c in "*+?[")]:
+          if any(pat.fullmatch(k) for pat in patterns):
+            del colors[k]
   tray = plasma_script("""
     var out = {};
     panels().forEach(function (p) {
@@ -584,24 +596,36 @@ def dump_panels():
   return {"panels": panels, "systray": {k: v for k, v in tray.items() if v}}
 
 
+def expand_sensor_colors(panels):
+  """Gives every CPU core of this machine the color of a cpu/cpu.*/... pattern, so all its bars share one color."""
+  for panel in panels:
+    for applet in panel.get("applets", []):
+      colors = applet.get("config", {}).get("/SensorColors")
+      for key, color in list((colors or {}).items()):
+        if key.startswith("cpu/cpu.*/"):
+          for i in range(os.cpu_count() or 1):
+            colors.setdefault(key.replace("cpu.*", f"cpu{i}", 1), color)
+
+
 def load_panels(data):
   """Replaces every panel with the ones in data (the format of dump_panels)."""
-  script = """
+  data = json.loads(json.dumps(data))
+  panels = data.get("panels", [])
+  expand_sensor_colors(panels)
+  # Create the panels and say which new panel is which (matched by where it sits).
+  created = json.loads(plasma_script("""
     panels().forEach(function (p) { p.remove(); });
     var data = %s;
     loadSerializedLayout({ "serializationFormatVersion": "1", "desktops": [], "panels": data });
     var tray = %s;
     var left = panels();
-    data.forEach(function (d) {
+    var ids = data.map(function (d) {
       for (var i = 0; i < left.length; i++) {
-        var p = left[i];
-        if (p.location === d.location && p.alignment === d.alignment) {
-          for (var k in (d.view || {})) { p[k] = d.view[k]; }
-          p.height = Math.round(d.height * gridUnit);
-          left.splice(i, 1);
-          return;
+        if (left[i].location === d.location && left[i].alignment === d.alignment) {
+          return left.splice(i, 1)[0].id;
         }
       }
+      return -1;
     });
     panels().forEach(function (p) {
       p.widgets("org.kde.plasma.systemtray").forEach(function (t) {
@@ -610,8 +634,29 @@ def load_panels(data):
         t.reloadConfig();
       });
     });
-  """ % (json.dumps(data.get("panels", [])), json.dumps(data.get("systray", {})))
-  plasma_script(script)
+    print(JSON.stringify(ids));
+  """ % (json.dumps(panels), json.dumps(data.get("systray", {})))) or "[]")
+  # Then how each is shown. In a separate run: a screen set in the run that created the panel does not stick.
+  views = [{"id": pid, "view": {k: v for k, v in p.get("view", {}).items() if k != "opacity"}, "height": p["height"]}
+           for pid, p in zip(created, panels) if pid >= 0]
+  current = json.loads(plasma_script("""
+    var views = %s;
+    views.forEach(function (v) {
+      var p = panelById(v.id);
+      for (var k in v.view) { p[k] = v.view[k]; }
+      p.height = Math.round(v.height * gridUnit);
+    });
+    print(JSON.stringify(views.map(function (v) { return panelById(v.id).opacity; })));
+  """ % json.dumps(views)) or "[]")
+  restart = False
+  for v, now, p in zip(views, current, (p for pid, p in zip(created, panels) if pid >= 0)):
+    wanted = p.get("view", {}).get("opacity", "adaptive")
+    subprocess.run(["kwriteconfig6", "--file", "plasmashellrc", "--group", "PlasmaViews", "--group", f"Panel {v['id']}",
+                    "--key", "panelOpacity", str(PANEL_OPACITY.get(wanted, 0))], check=False)
+    restart |= wanted != now
+  if restart:
+    # Panels read their opacity only when plasmashell starts.
+    subprocess.run(["systemctl", "--user", "restart", "plasma-plasmashell.service"], check=False)
 
 
 def panels_text(data):

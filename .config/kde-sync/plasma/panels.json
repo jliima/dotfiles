@@ -1,0 +1,148 @@
+{
+  "panels": [
+    {
+      "alignment": "left",
+      "applets": [
+        {
+          "config": {
+            "/General": {
+              "favoritesDisplay": "1",
+              "favoritesPortedToKAstats": "true",
+              "systemFavorites": "suspend\\,hibernate\\,reboot\\,shutdown"
+            }
+          },
+          "plugin": "org.kde.plasma.kickoff"
+        },
+        {
+          "config": {},
+          "plugin": "org.kde.plasma.pager"
+        },
+        {
+          "config": {
+            "/": {
+              "CurrentPreset": "org.kde.plasma.systemmonitor"
+            },
+            "/Appearance": {
+              "chartFace": "org.kde.ksysguard.barchart",
+              "showTitle": "false",
+              "title": "CPU cores"
+            },
+            "/SensorColors": {
+              "cpu/cpu.*/usage": "95,175,241"
+            },
+            "/Sensors": {
+              "highPrioritySensorIds": "[\"cpu/cpu.*/usage\"]"
+            }
+          },
+          "plugin": "org.kde.plasma.systemmonitor"
+        },
+        {
+          "config": {},
+          "plugin": "com.jliima.cpupercent"
+        },
+        {
+          "config": {},
+          "plugin": "org.kde.plasma.marginsseparator"
+        }
+      ],
+      "config": {
+        "/": {
+          "formfactor": "2",
+          "immutability": "1",
+          "wallpaperplugin": "org.kde.image"
+        }
+      },
+      "height": 2.5,
+      "hiding": "normal",
+      "location": "top",
+      "view": {
+        "floating": false,
+        "lengthMode": "fit",
+        "opacity": "opaque",
+        "screen": 0
+      }
+    },
+    {
+      "alignment": "right",
+      "applets": [
+        {
+          "config": {},
+          "plugin": "com.jliima.copilotusage"
+        },
+        {
+          "config": {},
+          "plugin": "com.jliima.separator"
+        },
+        {
+          "config": {},
+          "plugin": "com.jliima.claudeusage"
+        },
+        {
+          "config": {},
+          "plugin": "org.kde.plasma.systemtray"
+        },
+        {
+          "config": {
+            "/Appearance": {
+              "autoFontAndSize": "false",
+              "dateDisplayFormat": "2",
+              "fontFamily": "SF Pro Display",
+              "fontSize": "11",
+              "fontStyleName": "Regular",
+              "fontWeight": "400",
+              "showDate": "true",
+              "showWeekNumbers": "true"
+            }
+          },
+          "plugin": "org.kde.plasma.digitalclock"
+        }
+      ],
+      "config": {
+        "/": {
+          "formfactor": "2",
+          "immutability": "1",
+          "wallpaperplugin": "org.kde.image"
+        }
+      },
+      "height": 2.5,
+      "hiding": "normal",
+      "location": "top",
+      "view": {
+        "floating": false,
+        "lengthMode": "fit",
+        "opacity": "opaque",
+        "screen": 0
+      }
+    },
+    {
+      "alignment": "center",
+      "applets": [
+        {
+          "config": {},
+          "plugin": "com.jliima.minimizedtasks"
+        }
+      ],
+      "config": {
+        "/": {
+          "formfactor": "2",
+          "immutability": "1",
+          "wallpaperplugin": "org.kde.image"
+        }
+      },
+      "height": 3.125,
+      "hiding": "autohide",
+      "location": "bottom",
+      "view": {
+        "floating": false,
+        "lengthMode": "fit",
+        "opacity": "opaque",
+        "screen": 0
+      }
+    }
+  ],
+  "systray": {
+    "extraItems": "org.kde.plasma.vault,org.kde.kupapplet,org.kde.kdeconnect,org.kde.kscreen,org.kde.plasma.weather,org.kde.plasma.notifications,org.kde.plasma.volume,org.kde.plasma.cameraindicator,org.kde.plasma.bluetooth,org.kde.plasma.battery,org.kde.plasma.devicenotifier,org.kde.plasma.brightness,org.kde.plasma.manage-inputmethod,org.kde.plasma.printmanager,org.kde.plasma.keyboardindicator,org.kde.plasma.mediacontroller,org.kde.plasma.keyboardlayout,org.kde.plasma.networkmanagement,org.kde.plasma.clipboard",
+    "hiddenItems": "KeePassXC,toolbox,org.kde.plasma.clipboard",
+    "shownItems": "Wallet Manager"
+  }
+}

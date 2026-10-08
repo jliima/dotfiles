@@ -1,0 +1,16 @@
+{
+    "KPlugin": {
+        "Id": "com.jliima.separator",
+        "Name": "Separator Line",
+        "Description": "A thin line between panel widgets.",
+        "Authors": [
+            { "Name": "jliima" }
+        ],
+        "Category": "Utilities",
+        "Icon": "distribute-horizontal-x",
+        "License": "MIT",
+        "Version": "1.0"
+    },
+    "KPackageStructure": "Plasma/Applet",
+    "X-Plasma-API-Minimum-Version": "6.0"
+}

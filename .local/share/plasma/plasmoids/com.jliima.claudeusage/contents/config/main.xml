@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0 http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+  <kcfgfile name=""/>
+  <group name="General">
+    <entry name="showSession" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="showWeekly" type="Bool">
+      <default>true</default>
+    </entry>
+    <!-- 0: the time left (2h13m, 3d 4h), 1: the clock time of the reset (14:30, Thu 09:00) -->
+    <entry name="resetStyle" type="Int">
+      <default>0</default>
+    </entry>
+    <entry name="pollMinutes" type="Int">
+      <default>2</default>
+    </entry>
+  </group>
+</kcfg>

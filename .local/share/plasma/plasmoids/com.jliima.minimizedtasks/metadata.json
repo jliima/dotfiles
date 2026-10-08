@@ -1,0 +1,16 @@
+{
+    "KPlugin": {
+        "Id": "com.jliima.minimizedtasks",
+        "Name": "Minimized Windows",
+        "Description": "Icons of the minimized windows, centered in a bar of at least a set length. Click one to restore it.",
+        "Authors": [
+            { "Name": "jliima" }
+        ],
+        "Category": "Windows and Tasks",
+        "Icon": "window-minimize",
+        "License": "MIT",
+        "Version": "1.0"
+    },
+    "KPackageStructure": "Plasma/Applet",
+    "X-Plasma-API-Minimum-Version": "6.0"
+}

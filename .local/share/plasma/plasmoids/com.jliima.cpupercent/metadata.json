@@ -1,0 +1,16 @@
+{
+    "KPlugin": {
+        "Id": "com.jliima.cpupercent",
+        "Name": "CPU Percent",
+        "Description": "Total CPU usage as a plain percentage.",
+        "Authors": [
+            { "Name": "jliima" }
+        ],
+        "Category": "System Information",
+        "Icon": "cpu",
+        "License": "MIT",
+        "Version": "1.0"
+    },
+    "KPackageStructure": "Plasma/Applet",
+    "X-Plasma-API-Minimum-Version": "6.0"
+}
