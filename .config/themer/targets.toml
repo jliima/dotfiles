@@ -1,12 +1,29 @@
 # Read on top of the shipped themer/targets.toml: a target with a shipped name replaces it, new names are added.
 
-# JetBrains IDEs: ~/JetBrainsProjects/jetbrains-pywal-theme builds its UI theme and editor scheme from this
-# pywal-format palette (dark or light follows the variant) and live reloads running IDEs.
+# ---- JetBrains IDEs --------------------------------------------------------------------------------------------------
+
+# Every installed IDE version gets the editor scheme "Themer" and a small theme plugin ("Themer", UI colors). A
+# reload plugin (~/JetBrainsProjects/jetbrains-pywal-theme) restyles running IDEs live; apply.sh installs it, drops the
+# old Pywal files and calls it. Without it an IDE shows a change after a restart.
 [[target]]
-name = "JetBrains IDEs"
+name = "JetBrains editor scheme"
 group = "jetbrains"
-format = "pywal"
-output = "~/.cache/themer/jetbrains.json"
+template = "jetbrains/themer.icls"
+output = "~/.config/JetBrains/*20[0-9][0-9].[0-9]*/colors/Themer.icls"
+
+[[target]]
+name = "JetBrains UI theme plugin"
+group = "jetbrains"
+template = "jetbrains/plugin"
+archive = true
+output = "~/.local/share/JetBrains/*20[0-9][0-9].[0-9]*/themer/lib/themer-theme.jar"
+
+# The same UI theme as plain JSON, which the reload plugin loads into a running IDE.
+[[target]]
+name = "JetBrains UI theme"
+group = "jetbrains"
+template = "jetbrains/plugin/theme/themer.theme.json"
+output = "~/.cache/themer/jetbrains/themer.theme.json"
 reload = "~/JetBrainsProjects/jetbrains-pywal-theme/apply.sh"
 
 # ---- Chromium --------------------------------------------------------------------------------------------------------
