@@ -1,0 +1,15 @@
+[Desktop Entry]
+Categories=Audio;Music;Player;AudioVideo;
+Comment=
+Exec=/home/hieroja/scripts/kde/open-program/open-spotify.sh %U
+GenericName=Music Player
+Icon=spotify-client
+MimeType=
+Name=Spotify
+StartupNotify=true
+StartupWMClass=spotify
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=

@@ -159,7 +159,9 @@ output = "~/Obsidian/.config/.obsidian-desktop/snippets/PDF-Export-Darkmode.css"
 # ---- Spotify (Spicetify) ---------------------------------------------------------------------------------------------
 
 # `current_theme = Themer` is set in spicetify/config-xpui.ini. The reload re-applies the theme to Spotify without
-# restarting it; restart Spotify to see a change.
+# restarting it; restart Spotify to see a change. After a Spotify update Spicetify's backup no longer matches and
+# `spicetify apply` only warns; reinstall Spotify and run `spicetify backup apply` then.
+# Spotify is launched as `spotify --disable-gpu-sandbox` (the GPU sandbox fails on kernel 7.0.0-38).
 [[target]]
 name = "Spicetify colors"
 dotfiles = true
