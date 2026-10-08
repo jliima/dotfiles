@@ -82,3 +82,21 @@ dotfiles = true
 group = "lnav"
 template = "lnav/java-log-colors.json"
 output = "~/.config/lnav/formats/installed/java-log-colors.json"
+
+# ---- nano ------------------------------------------------------------------------------------------------------------
+
+# The syntax colors are ANSI names, so they follow the theme through the Konsole color scheme.
+[[target]]
+name = "nano syntax"
+dotfiles = true
+group = "nano"
+template = "nano/themer.nanorc"
+output = "~/.config/nano/themer.nanorc"
+
+# Included after the system defaults so it takes over highlighting for Java, Shell, Python, CSS and XML.
+[[target]]
+name = "nano include"
+group = "nano"
+template = "nano/include.nanorc"
+output = "~/.nanorc"
+mode = "ensure-lines"

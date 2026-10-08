@@ -1,17 +1,11 @@
-# Pywal per-language syntax highlighting for nano, matching IntelliJ's
-# colors for Java, Shell, Python, CSS and XML (see parecolors.json's
-# syntax<Lang><Category> keys). Reuses the standard syntax names (java, sh,
-# python, css, xml) so, included after the system nanorc's includes, it
+# Themer syntax highlighting for nano: Java, Shell, Python, CSS and XML, matching the other editors' syntax colors.
+# Reuses the standard syntax names (java, sh, python, css, xml) so, included after the system nanorc's includes, it
 # takes over highlighting for those file types.
 #
-# nanorc only paints truecolor terminals by approximating a 3-digit hex
-# value to the nearest palette entry, which for these muted colors snaps
-# to plain grey instead of the intended hue. Every syntax<Lang><Category>
-# color in parecolors.json is set equal to one of the wal color0-15
-# values on purpose, so naming the matching ANSI color here (which the
-# terminal profile sets from that same color0-15 value) reproduces the
-# theme exactly instead of approximating it. This only works for the
-# parecolors theme; other colorschemes do not define these keys.
+# nanorc only paints truecolor terminals by approximating a 3-digit hex value to the nearest palette entry, which for
+# muted colors snaps to plain grey instead of the intended hue. So colors are the ANSI names: the terminal profile
+# (Themer's Konsole scheme) sets them from the theme's terminal colors (ansi-0 to ansi-15), which reproduces the
+# theme exactly. The colors follow the active theme with the terminal, with nothing to render here.
 
 syntax "java" "\.java$"
 color grey "//.*"
@@ -27,7 +21,7 @@ syntax "sh" "\.sh$|\.bash$|bashrc$|bash_profile$|zshrc$"
 color grey "#.*"
 color magenta "\"([^\"]|\\\")*\""
 color magenta "'[^']*'"
-color lightwhite "\\$[A-Za-z_][A-Za-z0-9_]*|\\$\{{[^}}]*\}}"
+color lightwhite "\\$[A-Za-z_][A-Za-z0-9_]*|\\$\{[^}]*\}"
 color green "\<(if|then|else|elif|fi|for|while|until|do|done|case|esac|function|in|return|local|export)\>"
 color blue "\<(echo|printf|cd|ls|grep|sed|awk|cat|rm|cp|mv|mkdir|curl|wget|git|ssh|sudo)\>"
 
@@ -43,9 +37,9 @@ color green "\<(self|cls|print|len|range|str|int|float|list|dict|set|tuple|isins
 syntax "css" "\.css$|\.scss$|\.less$"
 color grey start="/\*" end="\*/"
 color magenta "url\([^)]*\)"
-color green "^[ \t]*[.#]?[A-Za-z0-9_-]+(::?[A-Za-z-]+)?[ \t]*\{{"
+color green "^[ \t]*[.#]?[A-Za-z0-9_-]+(::?[A-Za-z-]+)?[ \t]*\{"
 color cyan "\<[a-z-]+\>[ \t]*:"
-color yellow "#[0-9A-Fa-f]{{3,8}}\>"
+color yellow "#[0-9A-Fa-f]{3,8}\>"
 color yellow "!important"
 
 syntax "xml" "\.xml$|\.xsd$|\.xsl$|\.svg$"

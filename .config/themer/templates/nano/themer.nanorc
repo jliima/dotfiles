@@ -1,0 +1,51 @@
+# Themer syntax highlighting for nano: Java, Shell, Python, CSS and XML, matching the other editors' syntax colors.
+# Reuses the standard syntax names (java, sh, python, css, xml) so, included after the system nanorc's includes, it
+# takes over highlighting for those file types.
+#
+# nanorc only paints truecolor terminals by approximating a 3-digit hex value to the nearest palette entry, which for
+# muted colors snaps to plain grey instead of the intended hue. So colors are the ANSI names: the terminal profile
+# (Themer's Konsole scheme) sets them from the theme's terminal colors (ansi-0 to ansi-15), which reproduces the
+# theme exactly. The colors follow the active theme with the terminal, with nothing to render here.
+
+syntax "java" "\.java$"
+color grey "//.*"
+color grey start="/\*" end="\*/"
+color yellow "@[A-Za-z]+"
+color magenta "\"([^\"]|\\\")*\""
+color red "\<[0-9]+(\.[0-9]+)?[fFdDlL]?\>"
+color green "\<(public|private|protected|static|final|abstract|synchronized|volatile|transient)\>"
+color green "\<(class|interface|enum|extends|implements|new|return|if|else|for|while|do|switch|case|break|continue|try|catch|finally|throw|throws|import|package|void|this|super|instanceof)\>"
+color cyan "\<(int|long|short|byte|char|boolean|float|double|String|Object)\>"
+
+syntax "sh" "\.sh$|\.bash$|bashrc$|bash_profile$|zshrc$"
+color grey "#.*"
+color magenta "\"([^\"]|\\\")*\""
+color magenta "'[^']*'"
+color lightwhite "\\$[A-Za-z_][A-Za-z0-9_]*|\\$\{[^}]*\}"
+color green "\<(if|then|else|elif|fi|for|while|until|do|done|case|esac|function|in|return|local|export)\>"
+color blue "\<(echo|printf|cd|ls|grep|sed|awk|cat|rm|cp|mv|mkdir|curl|wget|git|ssh|sudo)\>"
+
+syntax "python" "\.py$"
+color grey "#.*"
+color blue "\"([^\"]|\\\")*\""
+color blue "'[^']*'"
+color green "^\s*@[A-Za-z_.]+"
+color red "\<[0-9]+(\.[0-9]+)?\>"
+color yellow "\<(def|class|import|from|as|return|if|elif|else|for|while|try|except|finally|raise|with|lambda|yield|pass|break|continue|and|or|not|in|is|None|True|False)\>"
+color green "\<(self|cls|print|len|range|str|int|float|list|dict|set|tuple|isinstance|super)\>"
+
+syntax "css" "\.css$|\.scss$|\.less$"
+color grey start="/\*" end="\*/"
+color magenta "url\([^)]*\)"
+color green "^[ \t]*[.#]?[A-Za-z0-9_-]+(::?[A-Za-z-]+)?[ \t]*\{"
+color cyan "\<[a-z-]+\>[ \t]*:"
+color yellow "#[0-9A-Fa-f]{3,8}\>"
+color yellow "!important"
+
+syntax "xml" "\.xml$|\.xsd$|\.xsl$|\.svg$"
+color grey start="<!--" end="-->"
+color grey "</?"
+color green "</?[A-Za-z_:][A-Za-z0-9_:.-]*"
+color yellow "[A-Za-z_:][A-Za-z0-9_:.-]*(?==)"
+color magenta "\"[^\"]*\""
+color blue "&[A-Za-z0-9#]+;"
