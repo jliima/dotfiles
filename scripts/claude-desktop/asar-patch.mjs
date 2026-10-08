@@ -3,7 +3,7 @@
 // creates insertCSS()s an external, user-writable theme file once its page
 // is ready.
 //
-// Usage: node claude-desktop-asar-patch.mjs <input-asar> <output-asar>
+// Usage: node asar-patch.mjs <input-asar> <output-asar>
 //
 // Approach: register a single Electron `app.on('web-contents-created', ...)`
 // listener that attaches a 'dom-ready' handler to every webContents the app
@@ -22,7 +22,7 @@ import { readAsar, listFiles, extractFileBuffer, repackWithReplacements } from '
 
 const [, , inPath, outPath] = process.argv;
 if (!inPath || !outPath) {
-  console.error('usage: claude-desktop-asar-patch.mjs <input-asar> <output-asar>');
+  console.error('usage: asar-patch.mjs <input-asar> <output-asar>');
   process.exit(2);
 }
 

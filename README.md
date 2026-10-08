@@ -14,7 +14,7 @@
 > [!WARNING]
 > Currently work in progress. Can break stuff.
 
-Works on my my machine running [Kubuntu 26.04](https://kubuntu.org/)
+Works on my machine running [Kubuntu 26.04](https://kubuntu.org/)
 
 ## Requirements
 
@@ -61,17 +61,12 @@ Themer, the templates are in this repo. Re-run `~/Git/themer/plugins/<app>/insta
 
 ## Apply dotfiles
 
-Clone:
+The repository root is one [stow](https://www.gnu.org/software/stow/) package, so there is no package name:
 
 ```bash
 git clone git@github.com:jliima/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-```
-
-Apply with stow (example package):
-
-```bash
-stow -t "$HOME" <package-name>
+stow --no-folding .          # links everything into $HOME; --no-folding links files, not whole folders
 ```
 
 Re-apply after updates:
@@ -79,13 +74,10 @@ Re-apply after updates:
 ```bash
 cd ~/dotfiles
 git pull
-stow -R -t "$HOME" <package-name>
+stow --no-folding -R .
 ```
 
-Remove links for a package:
+Remove the links: `stow -D .`. What must not be linked (this README, `.git`, ...) is listed in `.stow-local-ignore`.
 
-```bash
-stow -D -t "$HOME" <package-name>
-```
-
-Tip: run from `~/dotfiles` and apply only the package(s) you want.
+Then install Themer and its plugins (see Theming above). The plugins need `npm` (VS Code) and a JDK (JetBrains IDEs)
+on the machine that builds them.

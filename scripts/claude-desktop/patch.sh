@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 # Installs, reverts, or reports on the claude-desktop app.asar theme patch.
 #
-# The patch (see claude-desktop-asar-patch.mjs) makes the app insertCSS() an
-# external, user-writable theme file into every page it loads. This script
-# owns the sudo side of that: keeping a pristine backup of app.asar before
-# ever touching it, re-baselining that backup whenever apt has replaced
-# app.asar with a newer version, and making a bad patch trivially
-# reversible.
+# The patch (see asar-patch.mjs) makes the app insertCSS() an external,
+# user-writable theme file (~/.config/claude-desktop-theme/theme.css) into
+# every page it loads. This script owns the root side of that: keeping a
+# pristine backup of app.asar before ever touching it, re-baselining that
+# backup whenever apt has replaced app.asar with a newer version, and making a
+# bad patch trivially reversible. Only the copies into /usr/lib run as root;
+# the patched file is built as you, so node from nvm works too.
 #
 # Themer runs `ensure` after writing ~/.config/claude-desktop-theme/theme.css. Every apt upgrade of claude-desktop
 # replaces app.asar with an unpatched copy, so `ensure` checks the patch and reinstalls it when missing.
@@ -17,20 +18,19 @@
 #   patch.sh status    # report current state, no changes
 #   patch.sh check     # exit 0 if the installed version is patched, no sudo
 #   patch.sh ensure    # check, and install when missing (asks for the password through polkit when there is no tty)
+#
+# Needs: node (also found through nvm), sudo or pkexec. A backup left by an earlier version of this patch
+# (app.asar.*-orig) must be renamed to app.asar.themer-orig, with its .version file, once; install explains it.
 set -euo pipefail
 
 RESOURCES_DIR="/usr/lib/claude-desktop/resources"
 ASAR="$RESOURCES_DIR/app.asar"
 BACKUP="$RESOURCES_DIR/app.asar.themer-orig"
 VERSION_FILE="$BACKUP.version"
-# The backup from before the patch was called after Themer: still honored until the next install renames it.
-LEGACY_BACKUP="$RESOURCES_DIR/app.asar.pywal-orig"
-if [[ ! -f "$BACKUP" && -f "$LEGACY_BACKUP" ]]; then
-  BACKUP="$LEGACY_BACKUP"
-  VERSION_FILE="$BACKUP.version"
-fi
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PATCHER="$SCRIPT_DIR/claude-desktop-asar-patch.mjs"
+# Present in app.asar only once it is patched (the theme file the patch reads).
+MARKER="claude-desktop-theme"
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
+PATCHER="$SCRIPT_DIR/asar-patch.mjs"
 
 installed_version() {
   dpkg-query -W -f='${Version}' claude-desktop 2>/dev/null || echo "unknown"
@@ -40,13 +40,28 @@ backup_version() {
   [[ -f "$VERSION_FILE" ]] && cat "$VERSION_FILE" || echo ""
 }
 
-# sudo when needed; plain when already root (e.g. launched through pkexec).
+# Runs a command as root: directly when already root, with sudo on a terminal or when sudo needs no password, else
+# through pkexec (a graphical password prompt), so Themer can ask when it runs from a keyboard shortcut.
 as_root() {
   if [[ $EUID -eq 0 ]]; then
     "$@"
-  else
+  elif [[ -t 0 ]] || sudo -n true 2>/dev/null; then
     sudo "$@"
+  elif [[ -n "${WAYLAND_DISPLAY:-}${DISPLAY:-}" ]] && command -v pkexec >/dev/null; then
+    pkexec "$@"
+  else
+    echo "Error: cannot ask for a password here. Run in a terminal: $0 install" >&2
+    return 1
   fi
+}
+
+# node for building the patch; nvm is often loaded lazily by the shell profile, so source it when node is missing.
+find_node() {
+  if ! command -v node >/dev/null && [[ -s "${NVM_DIR:-$HOME/.nvm}/nvm.sh" ]]; then
+    # shellcheck disable=SC1091
+    . "${NVM_DIR:-$HOME/.nvm}/nvm.sh"
+  fi
+  command -v node >/dev/null
 }
 
 # Patched for the installed version: the backup was taken from this version and app.asar differs from it.
@@ -99,16 +114,13 @@ cmd_revert() {
 
 cmd_install() {
   require_asar
-  if [[ ! -x "$(command -v node)" ]]; then
+  if ! find_node; then
     echo "Error: node is required to build the patch." >&2
     exit 1
   fi
-
-  if [[ "$BACKUP" == "$LEGACY_BACKUP" ]]; then
-    as_root mv "$LEGACY_BACKUP" "$RESOURCES_DIR/app.asar.themer-orig"
-    as_root mv "$LEGACY_BACKUP.version" "$RESOURCES_DIR/app.asar.themer-orig.version"
-    BACKUP="$RESOURCES_DIR/app.asar.themer-orig"
-    VERSION_FILE="$BACKUP.version"
+  if [[ $EUID -eq 0 ]]; then
+    echo "Error: run this as your own user; it asks for root only where it must." >&2
+    exit 1
   fi
 
   local current_version backed_up_version
@@ -116,14 +128,25 @@ cmd_install() {
   backed_up_version="$(backup_version)"
 
   if [[ ! -f "$BACKUP" || "$backed_up_version" != "$current_version" ]]; then
+    if grep -qa "$MARKER" "$ASAR"; then
+      echo "Error: app.asar is already patched but there is no pristine backup for version $current_version." >&2
+      echo "If an earlier patch left a backup (ls $RESOURCES_DIR/app.asar.*-orig), rename it and its .version file" >&2
+      echo "to app.asar.themer-orig and app.asar.themer-orig.version with sudo mv; otherwise run:" >&2
+      echo "sudo apt reinstall claude-desktop" >&2
+      exit 1
+    fi
     if [[ -f "$BACKUP" ]]; then
       echo "claude-desktop was updated ($backed_up_version -> $current_version)."
       echo "The installed app.asar is a fresh, unpatched copy from that update; re-baselining the backup from it."
     else
-      echo "No backup yet; treating the currently installed app.asar as pristine and backing it up."
+      echo "No backup yet; backing up the installed app.asar as the pristine copy."
     fi
+    local tmp_version
+    tmp_version="$(mktemp)"
+    echo "$current_version" > "$tmp_version"
     as_root cp "$ASAR" "$BACKUP"
-    echo "$current_version" | as_root tee "$VERSION_FILE" >/dev/null
+    as_root cp "$tmp_version" "$VERSION_FILE"
+    rm -f "$tmp_version"
   else
     echo "Backup already matches installed version $current_version; patching from it."
   fi
@@ -160,15 +183,8 @@ cmd_ensure() {
   fi
 
   echo "Installing the app.asar theme patch..."
-  if sudo -n true 2>/dev/null; then
-    cmd_install
-  elif [[ -n "${WAYLAND_DISPLAY:-}${DISPLAY:-}" ]] && command -v pkexec >/dev/null; then
-    pkexec "$(readlink -f "${BASH_SOURCE[0]}")" install
-  elif [[ -t 0 ]]; then
-    cmd_install
-  else
-    notify "app.asar is not patched. Run $0 install"
-    echo "Error: cannot ask for a password here. Run: $0 install" >&2
+  if ! cmd_install; then
+    notify "app.asar is not patched. Run $0 install in a terminal"
     exit 1
   fi
 

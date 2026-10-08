@@ -96,7 +96,7 @@ Fallback Encoding=ISO 8859-15
 [KTextEditor Renderer]
 Animate Bracket Matching=true
 Auto Color Theme Selection=false
-Color Theme=pywal-colors
+Color Theme=Themer Dark
 Font=SF Mono,11,-1,5,50,0,0,0,0,0
 Line Height Multiplier=1
 Show Indentation Lines=true
