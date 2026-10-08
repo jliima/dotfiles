@@ -10,6 +10,7 @@ __pycache__
 
 scripts/*
 !scripts/pywal
+!scripts/claude-desktop
 !scripts/kde
 !scripts/applications
 

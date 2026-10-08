@@ -1,0 +1,103 @@
+/* Themer theme for the Claude desktop app.
+ *
+ * Written to ~/.config/claude-desktop-theme/theme.css and injected into the app's webContents with insertCSS() by a
+ * one-time patch of its app.asar (scripts/claude-desktop/patch.sh). The app's own design system (CDS) derives almost
+ * everything else (backgrounds, text, borders, role colors) from the --cds-gray-* and --cds-blue-* primitive ramps
+ * below, so overriding just those two ramps re-themes the whole app through CDS's own var() chains.
+ *
+ * In dark mode CDS draws the window on gray-810 and recesses further with 820 to 890, with cards on 800 and raised
+ * parts on 750 and 700. The gray ramp is anchored on those: text at 0, then the surfaces, bg at 810, bg-sunken at 820
+ * and bg-deep at 900, with the steps in between mixed. Blue runs from the accent to its soft ground.
+ */
+
+:root,
+html.cds-root {
+  --cds-gray-0: {{ text }} !important;
+  --cds-gray-10: {{ text | mix(surface-active, 0.014) }} !important;
+  --cds-gray-20: {{ text | mix(surface-active, 0.029) }} !important;
+  --cds-gray-30: {{ text | mix(surface-active, 0.043) }} !important;
+  --cds-gray-40: {{ text | mix(surface-active, 0.057) }} !important;
+  --cds-gray-50: {{ text | mix(surface-active, 0.071) }} !important;
+  --cds-gray-60: {{ text | mix(surface-active, 0.086) }} !important;
+  --cds-gray-70: {{ text | mix(surface-active, 0.100) }} !important;
+  --cds-gray-80: {{ text | mix(surface-active, 0.114) }} !important;
+  --cds-gray-90: {{ text | mix(surface-active, 0.129) }} !important;
+  --cds-gray-100: {{ text | mix(surface-active, 0.143) }} !important;
+  --cds-gray-150: {{ text | mix(surface-active, 0.214) }} !important;
+  --cds-gray-200: {{ text | mix(surface-active, 0.286) }} !important;
+  --cds-gray-250: {{ text | mix(surface-active, 0.357) }} !important;
+  --cds-gray-300: {{ text | mix(surface-active, 0.429) }} !important;
+  --cds-gray-350: {{ text | mix(surface-active, 0.500) }} !important;
+  --cds-gray-400: {{ text | mix(surface-active, 0.571) }} !important;
+  --cds-gray-450: {{ text | mix(surface-active, 0.643) }} !important;
+  --cds-gray-500: {{ text | mix(surface-active, 0.714) }} !important;
+  --cds-gray-550: {{ text | mix(surface-active, 0.786) }} !important;
+  --cds-gray-600: {{ text | mix(surface-active, 0.857) }} !important;
+  --cds-gray-650: {{ text | mix(surface-active, 0.929) }} !important;
+  --cds-gray-700: {{ surface-active }} !important;
+  --cds-gray-750: {{ surface-hover }} !important;
+  --cds-gray-800: {{ surface }} !important;
+  --cds-gray-810: {{ bg }} !important;
+  --cds-gray-820: {{ bg-sunken }} !important;
+  --cds-gray-830: {{ bg-sunken | mix(bg-deep, 0.125) }} !important;
+  --cds-gray-840: {{ bg-sunken | mix(bg-deep, 0.250) }} !important;
+  --cds-gray-850: {{ bg-sunken | mix(bg-deep, 0.375) }} !important;
+  --cds-gray-860: {{ bg-sunken | mix(bg-deep, 0.500) }} !important;
+  --cds-gray-870: {{ bg-sunken | mix(bg-deep, 0.625) }} !important;
+  --cds-gray-880: {{ bg-sunken | mix(bg-deep, 0.750) }} !important;
+  --cds-gray-890: {{ bg-sunken | mix(bg-deep, 0.875) }} !important;
+  --cds-gray-900: {{ bg-deep }} !important;
+
+  --cds-blue-0: {{ blue }} !important;
+  --cds-blue-10: {{ blue | mix(blue-soft, 0.011) }} !important;
+  --cds-blue-20: {{ blue | mix(blue-soft, 0.022) }} !important;
+  --cds-blue-30: {{ blue | mix(blue-soft, 0.033) }} !important;
+  --cds-blue-40: {{ blue | mix(blue-soft, 0.044) }} !important;
+  --cds-blue-50: {{ blue | mix(blue-soft, 0.056) }} !important;
+  --cds-blue-60: {{ blue | mix(blue-soft, 0.067) }} !important;
+  --cds-blue-70: {{ blue | mix(blue-soft, 0.078) }} !important;
+  --cds-blue-80: {{ blue | mix(blue-soft, 0.089) }} !important;
+  --cds-blue-90: {{ blue | mix(blue-soft, 0.100) }} !important;
+  --cds-blue-100: {{ blue | mix(blue-soft, 0.111) }} !important;
+  --cds-blue-150: {{ blue | mix(blue-soft, 0.167) }} !important;
+  --cds-blue-200: {{ blue | mix(blue-soft, 0.222) }} !important;
+  --cds-blue-250: {{ blue | mix(blue-soft, 0.278) }} !important;
+  --cds-blue-300: {{ blue | mix(blue-soft, 0.333) }} !important;
+  --cds-blue-350: {{ blue | mix(blue-soft, 0.389) }} !important;
+  --cds-blue-400: {{ blue | mix(blue-soft, 0.444) }} !important;
+  --cds-blue-450: {{ blue | mix(blue-soft, 0.500) }} !important;
+  --cds-blue-500: {{ blue | mix(blue-soft, 0.556) }} !important;
+  --cds-blue-550: {{ blue | mix(blue-soft, 0.611) }} !important;
+  --cds-blue-600: {{ blue | mix(blue-soft, 0.667) }} !important;
+  --cds-blue-650: {{ blue | mix(blue-soft, 0.722) }} !important;
+  --cds-blue-700: {{ blue | mix(blue-soft, 0.778) }} !important;
+  --cds-blue-750: {{ blue | mix(blue-soft, 0.833) }} !important;
+  --cds-blue-800: {{ blue | mix(blue-soft, 0.889) }} !important;
+  --cds-blue-810: {{ blue | mix(blue-soft, 0.900) }} !important;
+  --cds-blue-820: {{ blue | mix(blue-soft, 0.911) }} !important;
+  --cds-blue-830: {{ blue | mix(blue-soft, 0.922) }} !important;
+  --cds-blue-840: {{ blue | mix(blue-soft, 0.933) }} !important;
+  --cds-blue-850: {{ blue | mix(blue-soft, 0.944) }} !important;
+  --cds-blue-860: {{ blue | mix(blue-soft, 0.956) }} !important;
+  --cds-blue-870: {{ blue | mix(blue-soft, 0.967) }} !important;
+  --cds-blue-880: {{ blue | mix(blue-soft, 0.978) }} !important;
+  --cds-blue-890: {{ blue | mix(blue-soft, 0.989) }} !important;
+  --cds-blue-900: {{ blue-soft }} !important;
+
+  --cds-accent-brand: {{ accent }} !important;
+}
+
+/* First-frame shell (before CDS/Tailwind load): match the boot placeholder and title bar to the same background so
+ * there is no flash of default colors while the real page loads. */
+html,
+body,
+html[data-boot-placeholder] body {
+  background-color: {{ bg }} !important;
+  --boot-placeholder-sidebar: {{ bg-sunken }} !important;
+  --boot-placeholder-seam: {{ line }} !important;
+  --boot-placeholder-row: {{ surface }} !important;
+}
+body,
+body.darkTheme {
+  color: {{ text }} !important;
+}

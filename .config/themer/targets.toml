@@ -54,3 +54,14 @@ name = "Claude Code"
 group = "claude"
 template = "claude-code/theme.json"
 output = "~/.claude/themes/themer.json"
+
+# ---- Claude desktop --------------------------------------------------------------------------------------------------
+
+# The app reads theme.css through an app.asar patch (scripts/claude-desktop/patch.sh), which the reload checks and
+# reinstalls after an apt upgrade replaced app.asar. Reload the Claude window (Ctrl+R) to see a change.
+[[target]]
+name = "Claude desktop"
+group = "claude-desktop"
+template = "claude-desktop/theme.css"
+output = "~/.config/claude-desktop-theme/theme.css"
+reload = "~/dotfiles/scripts/claude-desktop/patch.sh ensure"

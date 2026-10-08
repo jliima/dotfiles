@@ -39,8 +39,8 @@ const BOOTSTRAP =
   'var __apply=function(wc){' +
   'try{if(wc.isDestroyed())return;var __c=__load();if(__c==null)return;' +
   'wc.insertCSS(__c,{cssOrigin:"user"}).then((()=>{try{wc.invalidate()}catch(__e2){}}))' +
-  '.catch((__e3)=>console.error("[pywal-theme] insertCSS failed",__e3))' +
-  '}catch(__e){console.error("[pywal-theme] apply failed",__e)}};' +
+  '.catch((__e3)=>console.error("[themer] insertCSS failed",__e3))' +
+  '}catch(__e){console.error("[themer] apply failed",__e)}};' +
   'var __electron=require("electron");' +
   '__electron.app.on("web-contents-created",((__ev,__wc)=>{' +
   '__wc.on("dom-ready",(()=>__apply(__wc)));' +
@@ -70,7 +70,7 @@ if (!targetFile) {
 }
 
 const original = extractFileBuffer(data, dataOffset, targetFile).toString('utf8');
-if (original.includes('__PYWAL_THEME_BOOTSTRAP__')) {
+if (original.includes('__THEMER_THEME_BOOTSTRAP__')) {
   throw new Error(`${targetFile.path} already looks patched (marker found); refusing to double-patch`);
 }
 const prologue = '"use strict";';
@@ -78,7 +78,7 @@ const prologueIdx = original.indexOf(prologue);
 if (prologueIdx !== 0) {
   throw new Error(`expected "use strict" prologue at offset 0 of ${targetFile.path}, found at ${prologueIdx}`);
 }
-const marker = '/*__PYWAL_THEME_BOOTSTRAP__*/';
+const marker = '/*__THEMER_THEME_BOOTSTRAP__*/';
 const patched = prologue + marker + BOOTSTRAP + original.slice(prologue.length);
 
 console.log(`patched ${targetFile.path}: inserted web-contents-created theme bootstrap after prologue`);

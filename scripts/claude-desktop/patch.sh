@@ -8,17 +8,27 @@
 # app.asar with a newer version, and making a bad patch trivially
 # reversible.
 #
+# Themer runs `ensure` after writing ~/.config/claude-desktop-theme/theme.css. Every apt upgrade of claude-desktop
+# replaces app.asar with an unpatched copy, so `ensure` checks the patch and reinstalls it when missing.
+#
 # Usage:
-#   claude-desktop-patch.sh install   # (re)patch, safe to run repeatedly
-#   claude-desktop-patch.sh revert    # restore the pristine app.asar
-#   claude-desktop-patch.sh status    # report current state, no changes
-#   claude-desktop-patch.sh check     # exit 0 if the installed version is patched, no sudo
+#   patch.sh install   # (re)patch, safe to run repeatedly
+#   patch.sh revert    # restore the pristine app.asar
+#   patch.sh status    # report current state, no changes
+#   patch.sh check     # exit 0 if the installed version is patched, no sudo
+#   patch.sh ensure    # check, and install when missing (asks for the password through polkit when there is no tty)
 set -euo pipefail
 
 RESOURCES_DIR="/usr/lib/claude-desktop/resources"
 ASAR="$RESOURCES_DIR/app.asar"
-BACKUP="$RESOURCES_DIR/app.asar.pywal-orig"
-VERSION_FILE="$RESOURCES_DIR/app.asar.pywal-orig.version"
+BACKUP="$RESOURCES_DIR/app.asar.themer-orig"
+VERSION_FILE="$BACKUP.version"
+# The backup from before the patch was called after Themer: still honored until the next install renames it.
+LEGACY_BACKUP="$RESOURCES_DIR/app.asar.pywal-orig"
+if [[ ! -f "$BACKUP" && -f "$LEGACY_BACKUP" ]]; then
+  BACKUP="$LEGACY_BACKUP"
+  VERSION_FILE="$BACKUP.version"
+fi
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PATCHER="$SCRIPT_DIR/claude-desktop-asar-patch.mjs"
 
@@ -94,6 +104,13 @@ cmd_install() {
     exit 1
   fi
 
+  if [[ "$BACKUP" == "$LEGACY_BACKUP" ]]; then
+    as_root mv "$LEGACY_BACKUP" "$RESOURCES_DIR/app.asar.themer-orig"
+    as_root mv "$LEGACY_BACKUP.version" "$RESOURCES_DIR/app.asar.themer-orig.version"
+    BACKUP="$RESOURCES_DIR/app.asar.themer-orig"
+    VERSION_FILE="$BACKUP.version"
+  fi
+
   local current_version backed_up_version
   current_version="$(installed_version)"
   backed_up_version="$(backup_version)"
@@ -126,13 +143,46 @@ cmd_install() {
   echo "If anything looks broken, run: $0 revert"
 }
 
+notify() {
+  command -v notify-send >/dev/null && notify-send -a themer -i claude-desktop "Claude theme" "$1" || true
+}
+
+cmd_ensure() {
+  if ! dpkg-query -W claude-desktop >/dev/null 2>&1; then
+    echo "claude-desktop is not installed, skipping the app.asar patch."
+    exit 0
+  fi
+
+  require_asar
+  if is_patched; then
+    echo "Reload the Claude window (Ctrl+R) or restart the app to see the new theme."
+    exit 0
+  fi
+
+  echo "Installing the app.asar theme patch..."
+  if sudo -n true 2>/dev/null; then
+    cmd_install
+  elif [[ -n "${WAYLAND_DISPLAY:-}${DISPLAY:-}" ]] && command -v pkexec >/dev/null; then
+    pkexec "$(readlink -f "${BASH_SOURCE[0]}")" install
+  elif [[ -t 0 ]]; then
+    cmd_install
+  else
+    notify "app.asar is not patched. Run $0 install"
+    echo "Error: cannot ask for a password here. Run: $0 install" >&2
+    exit 1
+  fi
+
+  notify "Theme patch installed. Restart Claude to apply it."
+}
+
 case "${1:-install}" in
   install) cmd_install ;;
+  ensure) cmd_ensure ;;
   revert) cmd_revert ;;
   status) cmd_status ;;
   check) cmd_check ;;
   *)
-    echo "usage: $0 {install|revert|status|check}" >&2
+    echo "usage: $0 {install|revert|status|check|ensure}" >&2
     exit 2
     ;;
 esac
