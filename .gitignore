@@ -15,8 +15,6 @@ scripts/*
 
 .mozilla/*
 !.mozilla/user.js
-!.mozilla/chrome/*
-!.mozilla/firefox/chrome/*
 
 .config/zsh/*
 !.config/zsh/.zshrc
