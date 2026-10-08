@@ -45,14 +45,10 @@ git clone git@github.com:jliima/themer.git ~/Git/themer
 themer apply --theme pare                       # or: themer mode toggle
 ```
 
-Plugins for the apps that need more than a rendered file, each with its own `install.sh` (the targets ship with
-Themer, the templates are in this repo):
-
-```bash
-~/Git/themer/plugins/jetbrains/install.sh       # builds the live reload plugin for the JetBrains IDEs
-~/Git/themer/plugins/vscode/install.sh          # add --profile "Name" for every other VS Code profile you use
-~/Git/themer/decoration/build.sh                # the KWin window decoration
-```
+`install.sh` also installs the plugins of the apps it finds (VS Code and the JetBrains IDEs); the targets ship with
+Themer, the templates are in this repo. Re-run `~/Git/themer/plugins/<app>/install.sh` after a `git pull` to rebuild one
+(add `--profile "Name"` to the VS Code one for each extra VS Code profile). The KWin window decoration is separate:
+`~/Git/themer/decoration/build.sh`.
 
 ### ZSH & CLI Programs
 
