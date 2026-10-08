@@ -2,10 +2,6 @@
 Switch to Last-Used Keyboard Layout=none
 Switch to Next Keyboard Layout=none
 
-[com.anthropic.Claude]
-552F6994E277600CEBF23F965AAC8C18-Ctrl+Alt+Space=none
-AB6F88D2B9FE510439CBE6A5273BC4AC-Ctrl+Alt+Space=Meta+Space
-
 [ksmserver]
 Log Out=none
 

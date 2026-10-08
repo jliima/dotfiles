@@ -13,9 +13,13 @@ ignore = [
   ["KTextEditor Renderer", "Auto Color Theme Selection"],
 ]
 
-# Only shortcuts that differ from their default sync, and only for apps a machine has.
+# Only shortcuts that differ from their default sync, and only for apps a machine has. The Claude desktop app
+# registers its shortcut through the portal under an id that differs on every install, so it is set per machine.
 [files.kglobalshortcutsrc]
 kind = "shortcuts"
+ignore = [
+  ["com.anthropic.Claude", "*"],
+]
 
 # The panels and their widgets, as plasmashell dumps them (plasma/panels.json).
 [panels]
