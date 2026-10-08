@@ -22,6 +22,9 @@ stow = "stow --no-folding --dir={dotfiles} --target={home} ."
 decoration-library = "themer"
 decoration-theme = "Themer"
 buttons-left = "M"
+# The Themer Kvantum theme; its dark twin loads as kvantum-dark, so a mode toggle restyles running apps.
+widget-style = "kvantum"
+widget-style-dark = "kvantum-dark"
 
 [overrides.window]
 # KDE-Rounded-Corners draws the ring around every window here, so the decoration does not.
