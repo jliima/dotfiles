@@ -31,6 +31,7 @@ class Colors:
 FALLBACK_THEME = "pare"
 THEMER_STATE = Path.home() / ".local/state/themer/current.json"
 
+WAL_HANDS_OFF = ["-s", "-t", "-e", "-n"]
 WAL_COLORSCHEMES_DIR = Path.home() / ".config/wal/colorschemes"
 WALLPAPER_SETTER_SCRIPT = Path.home() / "scripts/kde/set-wallpaper-for-activity.py"
 
@@ -463,6 +464,10 @@ def parse_args(args: list[str]) -> tuple[argparse.Namespace, list[str], Path | N
 
   if not has_theme:
     wal_args = ["--theme", default_theme()] + wal_args
+
+  # Themer owns the desktop: Konsole, ttys, GTK and X resources keep its colors, so wal only renders its templates
+  # (-s terminals, -t ttys, -e gtk/xrdb reloads, -n wallpaper; the wallpaper is set below for the activity).
+  wal_args += [flag for flag in WAL_HANDS_OFF if flag not in wal_args]
 
   # Resolve theme path and auto-add -l for light themes
   wal_args, theme_path = resolve_wal_args(wal_args)
