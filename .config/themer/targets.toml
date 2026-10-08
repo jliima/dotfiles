@@ -110,3 +110,23 @@ name = "Neovim colorscheme"
 group = "vim"
 template = "vim/themer.vim"
 output = "~/.config/nvim/colors/themer.vim"
+
+# ---- VS Code ---------------------------------------------------------------------------------------------------------
+
+# A small theme extension with a dark and a light theme ("Themer Dark" and "Themer Light"). VS Code reloads the active
+# theme when its file changes, and with window.autoDetectColorScheme it follows the Plasma mode, so a theme or mode
+# change shows without a restart.
+[[target]]
+name = "VS Code extension"
+dotfiles = true
+group = "vscode"
+template = "vscode/package.json"
+output = "~/.vscode/extensions/themer.themer-theme-1.0.0/package.json"
+
+[[target]]
+name = "VS Code themes"
+dotfiles = true
+group = "vscode"
+template = "vscode/theme.json"
+output = "~/.vscode/extensions/themer.themer-theme-1.0.0/themes/themer-{{ variant }}.json"
+variants = "all"
