@@ -4,7 +4,6 @@
  * Web pages and Reader View are left alone.
  */
 @import url("themer-colors.css");
-{{ firefox-content-imports }}
 
 @-moz-document url-prefix("about:preferences"),
   url-prefix("about:settings"),
@@ -212,10 +211,3 @@
     background-color: var(--themer-bg) !important;
   }
 }
-
-/* ------------------------------------------------------------------------------------------------------------------
- * Snippets: every .css file in ~/.config/themer/firefox/content/ (and the theme's firefox/content/), by file name,
- * added last so they win over the rules above. They may use double-brace tokens or var(--themer-*);
- * their @import lines are moved to the top.
- * ------------------------------------------------------------------------------------------------------------------ */
-{{ firefox-content-snippets }}

@@ -10,7 +10,6 @@
  *   popups       surface-raised, radius-md, a line ring and shadow; rows radius-sm, hover accent-soft
  */
 @import url("themer-colors.css");
-{{ firefox-chrome-imports }}
 
 :root {
   --themer-font: "{{ fonts.sans }}", sans-serif;
@@ -632,9 +631,9 @@ findbar {
   background-color: var(--themer-bg) !important;
 }
 
-/* ------------------------------------------------------------------------------------------------------------------
- * Snippets: every .css file in ~/.config/themer/firefox/chrome/ (and the theme's firefox/chrome/), in file name order,
- * added last so they win over the rules above. They may use double-brace tokens or var(--themer-*);
- * their @import lines are moved to the top.
- * ------------------------------------------------------------------------------------------------------------------ */
-{{ firefox-chrome-snippets }}
+/* ---- Bookmarks toolbar: icon only --------------------------------------------------------------------------------- */
+
+/* A bookmark whose name starts with * shows just its icon: rename it to "*GitHub". The name still works in search. */
+#PlacesToolbarItems > .bookmark-item[label^="*"] > .toolbarbutton-text {
+  display: none !important;
+}
