@@ -9,7 +9,6 @@ __pycache__
 !.config/Code/User/keybindings.json
 
 scripts/*
-!scripts/pywal
 !scripts/claude-desktop
 !scripts/kde
 !scripts/applications

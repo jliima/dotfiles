@@ -198,7 +198,6 @@ source "$ZSH/oh-my-zsh.sh"
 ZSH_HIGHLIGHT_STYLES[path]=none
 ZSH_HIGHLIGHT_STYLES[path_prefix]=none
 
-source "$HOME/dotfiles/scripts/pywal/run-pywal-completion.bash"
 source <(fzf --zsh)
 eval "$(zoxide init zsh)"
 export _ZO_DOCTOR=0
@@ -278,10 +277,8 @@ if [[ "$CURRENT_ACTIVITY" == "Work" && -f "$ZDOTDIR/.zsh_aliases_work" ]]; then
   source "$ZDOTDIR/.zsh_aliases_work"
 fi
 
-alias run-pywal="$HOME/dotfiles/scripts/pywal/run-pywal.py"
 alias upp="$HOME/scripts/kde/update-packages.sh"
 alias kate="kate -n"
-alias colors-show="python3 $HOME/dotfiles/scripts/pywal/display-colors-cli.py"
 alias tg="python3 $HOME/scripts/telegram-video-converter.py"
 alias edit-video="$HOME/scripts/video/edit-video.py"
 
