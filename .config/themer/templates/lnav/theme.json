@@ -1,0 +1,201 @@
+{
+  "$schema": "https://lnav.org/schemas/config-v1.schema.json",
+  "ui": {
+    "default-colors": true,
+    "theme-defs": {
+      "themer": {
+        "vars": {
+          "bg": "{{ bg }}",
+          "bgSunken": "{{ bg-sunken }}",
+          "surface": "{{ surface }}",
+          "surfaceRaised": "{{ surface-raised }}",
+          "surfaceHover": "{{ surface-hover }}",
+          "text": "{{ text }}",
+          "textMuted": "{{ text-muted }}",
+          "textFaint": "{{ text-faint }}",
+          "textDisabled": "{{ text-disabled }}",
+          "line": "{{ line }}",
+          "accent": "{{ accent }}",
+          "link": "{{ link }}",
+          "selection": "{{ selection }}",
+          "success": "{{ success }}",
+          "warning": "{{ warning }}",
+          "danger": "{{ danger }}",
+          "syntaxKeyword": "{{ syntax-keyword }}",
+          "syntaxString": "{{ syntax-string }}",
+          "syntaxComment": "{{ syntax-comment }}",
+          "syntaxNumber": "{{ syntax-number }}",
+          "syntaxFunction": "{{ syntax-function }}",
+          "syntaxType": "{{ syntax-type }}",
+          "syntaxVariable": "{{ syntax-variable }}",
+          "syntaxAnnotation": "{{ syntax-annotation }}",
+          "syntaxDocTag": "{{ syntax-doc-tag }}",
+          "syntaxEscape": "{{ syntax-escape }}"
+        },
+        "styles": {
+          "identifier": {
+            "color": "$accent"
+          },
+          "text": {
+            "color": "$text",
+            "background-color": "$bg"
+          },
+          "selected-text": {
+            "background-color": "$selection"
+          },
+          "alt-text": {
+            "background-color": "$surface"
+          },
+          "ok": {
+            "color": "$success",
+            "bold": true
+          },
+          "warning": {
+            "color": "$warning",
+            "bold": true
+          },
+          "error": {
+            "color": "$danger",
+            "bold": true
+          },
+          "hidden": {
+            "color": "$textDisabled",
+            "bold": true
+          },
+          "cursor-line": {
+            "background-color": "$surfaceHover"
+          },
+          "popup": {
+            "color": "$text",
+            "background-color": "$surfaceRaised"
+          },
+          "focused": {
+            "color": "$text",
+            "background-color": "$surface"
+          },
+          "table-border": {
+            "color": "$line"
+          },
+          "breadcrumb": {
+            "color": "$textMuted",
+            "bold": true
+          },
+          "quote-border": {
+            "color": "$line",
+            "background-color": "$surface"
+          },
+          "quoted-text": {
+            "background-color": "$surface"
+          },
+          "hyperlink": {
+            "color": "$link",
+            "underline": true
+          },
+          "h1": {
+            "underline": true
+          },
+          "h2": {
+            "underline": true
+          }
+        },
+        "syntax-styles": {
+          "keyword": {
+            "color": "$syntaxKeyword"
+          },
+          "string": {
+            "color": "$syntaxString"
+          },
+          "comment": {
+            "color": "$syntaxComment"
+          },
+          "variable": {
+            "color": "$syntaxVariable"
+          },
+          "symbol": {
+            "color": "$syntaxType"
+          },
+          "re-special": {
+            "color": "$syntaxEscape"
+          },
+          "re-repeat": {
+            "color": "$syntaxDocTag"
+          },
+          "diff-delete": {
+            "color": "$danger"
+          },
+          "diff-add": {
+            "color": "$success"
+          },
+          "diff-section": {
+            "color": "$syntaxAnnotation"
+          },
+          "file": {
+            "color": "$syntaxFunction"
+          },
+          "number": {
+            "color": "$syntaxNumber"
+          }
+        },
+        "status-styles": {
+          "title": {
+            "color": "$text",
+            "background-color": "$surface",
+            "bold": true
+          },
+          "subtitle": {
+            "color": "$text",
+            "background-color": "$surfaceRaised",
+            "bold": true
+          },
+          "text": {
+            "color": "$text",
+            "background-color": "$bgSunken"
+          },
+          "warn": {
+            "color": "$warning",
+            "background-color": "$bgSunken"
+          },
+          "alert": {
+            "color": "$danger",
+            "background-color": "$bgSunken"
+          },
+          "active": {
+            "color": "$success",
+            "background-color": "$bgSunken"
+          },
+          "info": {
+            "color": "$textMuted",
+            "background-color": "$bgSunken"
+          },
+          "inactive": {
+            "color": "$textFaint",
+            "background-color": "$bgSunken"
+          }
+        },
+        "log-level-styles": {
+          "trace": {
+            "color": "$text"
+          },
+          "debug": {
+            "color": "$text"
+          },
+          "info": {
+            "color": "$text"
+          },
+          "warning": {
+            "color": "$text"
+          },
+          "error": {
+            "color": "$text"
+          },
+          "critical": {
+            "color": "$text"
+          },
+          "fatal": {
+            "color": "$text"
+          }
+        }
+      }
+    }
+  }
+}

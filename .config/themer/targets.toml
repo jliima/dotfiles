@@ -65,3 +65,20 @@ group = "claude-desktop"
 template = "claude-desktop/theme.css"
 output = "~/.config/claude-desktop-theme/theme.css"
 reload = "~/dotfiles/scripts/claude-desktop/patch.sh ensure"
+
+# ---- lnav ------------------------------------------------------------------------------------------------------------
+
+# The theme is selected by "theme": "themer" in lnav/configs/installed/java-log-keymap.json; lnav reads it on start.
+[[target]]
+name = "lnav theme"
+dotfiles = true
+group = "lnav"
+template = "lnav/theme.json"
+output = "~/.config/lnav/configs/installed/themer.json"
+
+[[target]]
+name = "lnav Java log colors"
+dotfiles = true
+group = "lnav"
+template = "lnav/java-log-colors.json"
+output = "~/.config/lnav/formats/installed/java-log-colors.json"

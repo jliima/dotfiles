@@ -1,0 +1,71 @@
+{
+  "$schema": "https://lnav.org/schemas/format-v1.schema.json",
+  "java_log": {
+    "highlights": {
+      "ts_field": {
+        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3}(?= \\| )",
+        "color": "{{ text-faint }}"
+      },
+      "thread_field": {
+        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| \\K[^|]+(?= \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| )",
+        "color": "{{ text-faint }}"
+      },
+      "logger_field": {
+        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| .{1,30} \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| \\K[^|]+(?= \\| )",
+        "color": "{{ text }}"
+      },
+      "logger_field_compact_level": {
+        "pattern": "^⋮+(?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| \\K[^|]+(?= \\| )",
+        "color": "{{ text }}"
+      },
+      "logger_field_compact": {
+        "pattern": "^⋮+(?!TRACE\\b|DEBUG\\b|INFO\\b|WARN\\b|ERROR\\b|FATAL\\b)\\K[^|]+(?= \\| )",
+        "color": "{{ text }}"
+      },
+      "logger_last_segment": {
+        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| [^|]+ \\| (?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| (?:[^|.]+\\.)*\\K[^|.]+(?= \\| )",
+        "color": "{{ blue }}"
+      },
+      "logger_last_segment_compact_level": {
+        "pattern": "^⋮+(?:TRACE|DEBUG|INFO|WARN|ERROR|FATAL) \\| (?:[^|.]+\\.)*\\K[^|.]+(?= \\| )",
+        "color": "{{ blue }}"
+      },
+      "logger_last_segment_compact": {
+        "pattern": "^⋮+(?!TRACE\\b|DEBUG\\b|INFO\\b|WARN\\b|ERROR\\b|FATAL\\b)(?:[^|.]+\\.)*\\K[^|.]+(?= \\| )",
+        "color": "{{ blue }}"
+      },
+      "level_trace": {
+        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| [^|]+ \\| \\KTRACE(?= \\| )",
+        "color": "{{ yellow }}"
+      },
+      "level_trace_compact": {
+        "pattern": "^⋮+\\KTRACE(?= \\| )",
+        "color": "{{ yellow }}"
+      },
+      "level_debug": {
+        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| [^|]+ \\| \\KDEBUG(?= \\| )",
+        "color": "{{ cyan }}"
+      },
+      "level_debug_compact": {
+        "pattern": "^⋮+\\KDEBUG(?= \\| )",
+        "color": "{{ cyan }}"
+      },
+      "level_info": {
+        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| [^|]+ \\| \\KINFO(?= \\| )",
+        "color": "{{ green }}"
+      },
+      "level_info_compact": {
+        "pattern": "^⋮+\\KINFO(?= \\| )",
+        "color": "{{ green }}"
+      },
+      "level_warn_error_fatal": {
+        "pattern": "^(?:\\d{4}-\\d{2}-\\d{2} )?\\d{2}:\\d{2}:\\d{2}[.:,]\\d{3} \\| [^|]+ \\| \\K(?:WARN|ERROR|FATAL)(?= \\| )",
+        "color": "{{ red }}"
+      },
+      "level_warn_error_fatal_compact": {
+        "pattern": "^⋮+\\K(?:WARN|ERROR|FATAL)(?= \\| )",
+        "color": "{{ red }}"
+      }
+    }
+  }
+}

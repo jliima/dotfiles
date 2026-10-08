@@ -1,7 +1,7 @@
 {
   "$schema": "https://lnav.org/schemas/config-v1.schema.json",
   "ui": {
-    "theme": "pywal-colors",
+    "theme": "themer",
     "views": {
       "log": {
         "time-column": "enabled"
