@@ -57,7 +57,7 @@ name = "Claude desktop"
 group = "claude-desktop"
 template = "claude-desktop/theme.css"
 output = "~/.config/claude-desktop-theme/theme.css"
-reload = "~/dotfiles/scripts/claude-desktop/patch.sh ensure"
+reload = "~/scripts/claude-desktop/patch.sh ensure"
 
 # ---- lnav ------------------------------------------------------------------------------------------------------------
 

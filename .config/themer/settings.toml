@@ -33,3 +33,11 @@ title-size = 13
 
 [overrides.fonts]
 title-weight = 500
+
+# Plasma scale per output, set by `themer screens --apply`: 27" 1440p at 100%, 32" 4K at 150% (both end up with a
+# 2560x1440 workspace), the 14" T14 at 125%.
+[screens]
+DP-1 = 1.0
+DP-2 = 1.0
+HDMI-A-1 = 1.5
+eDP-1 = 1.25
