@@ -32,6 +32,8 @@ export FZF_DEFAULT_OPTS="
 [[ -f "$HOME/.cache/themer/fzf.sh" ]] && source "$HOME/.cache/themer/fzf.sh"
 FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS ${FZF_THEMER_COLORS:---color bg+:12}"
 # Syntax-highlighted file preview for Ctrl-T (bat), directory listing for Alt-C
+# Ctrl-R history: red matches, Themer selection colour on the highlighted row
+export FZF_CTRL_R_OPTS="${FZF_THEMER_CTRL_R_COLORS}"
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:200 {}' --preview-window=right,60%,border-left"
 export FZF_ALT_C_OPTS="--preview 'ls --color=always -A {}'"
 
