@@ -82,5 +82,22 @@ stow --no-folding -R .
 
 Remove the links: `stow -D .`. What must not be linked (this README, `.git`, ...) is listed in `.stow-local-ignore`.
 
+### Between machines
+
+Files that apps rewrite all the time (Kate's `katerc`, the global shortcuts, the Plasma panels) are not stowed.
+`scripts/kde/kde-sync` syncs them key by key through `.config/kde-sync`, with per machine keys in
+`hosts/<hostname>/`; it runs when one of them changes and after every pull. Once per clone:
+
+```bash
+git config core.hooksPath .githooks      # after a pull: stow, then kde-sync
+git config pull.rebase true
+git config rebase.autoStash true
+systemctl --user enable --now kde-sync.path themer-screens.service
+systemctl --user enable kde-sync.service
+```
+
+`themer-screens.service` switches Themer's screen profile when a screen is plugged in or out (larger fonts on the 32"
+4K, see `[[profile]]` in `.config/themer/settings.toml`).
+
 Then install Themer and its plugins (see Theming above). The plugins need `npm` (VS Code) and a JDK (JetBrains IDEs)
 on the machine that builds them.
