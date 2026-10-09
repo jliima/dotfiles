@@ -11,18 +11,24 @@
   display: none;
 }
 
-/* ---------- fonts ---------- */
-.x-component-default {
-  font-size: calc(var(--themer-font-ui-size) * 1pt) !important;
-  line-height: 20px !important;
+/* ---------- fonts: sans everywhere, mono where stock Proxmox sets monospace inline (logs, text areas) ---------- */
+:root .x-component-default {
+  font-size: calc(var(--themer-font-ui-size) * 1pt);
+  line-height: 20px;
 }
 
-body, .x-body, .x-component, .x-component-default, .x-btn-inner, .x-form-text, .x-form-field, .x-grid-cell-inner,
-.x-tree-node-text, .x-column-header-text-inner, .x-menu-item-text, .x-tab-inner, .x-panel-header-text,
-.x-window-header-text, .x-toolbar-text, .x-treelist-item-text, .x-boundlist-item, .x-tip-body,
-.x-form-item-label-text, .x-form-display-field, .x-form-cb-label, .x-progress-text, .x-fieldset-header-text {
+:root :is(body, .x-body, .x-component, .x-component-default, .x-btn-inner, .x-form-text, .x-form-field,
+  .x-grid-cell-inner, .x-tree-node-text, .x-column-header-text-inner, .x-menu-item-text, .x-tab-inner,
+  .x-panel-header-text, .x-window-header-text, .x-toolbar-text, .x-treelist-item-text, .x-boundlist-item,
+  .x-tip-body, .x-form-item-label-text, .x-form-display-field, .x-form-cb-label, .x-progress-text,
+  .x-fieldset-header-text) {
+  font-family: var(--themer-font-sans), system-ui, sans-serif;
+  font-weight: var(--themer-font-ui-weight);
+}
+
+[style*="monospace"], [style*="monospace"] * {
   font-family: var(--themer-font-mono), monospace !important;
-  font-weight: var(--themer-font-ui-weight) !important;
+  font-weight: var(--themer-font-mono-weight) !important;
 }
 
 /* ---------- Proxmox's own tokens ---------- */
