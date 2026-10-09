@@ -2,15 +2,20 @@
 
 # ---- Chromium --------------------------------------------------------------------------------------------------------
 
-# An unpacked theme extension: load ~/.config/chromium/themer-theme once from chrome://extensions. A change shows after
-# a Chromium restart (the cached theme pack is removed so it is rebuilt).
+# An unpacked theme extension: "Load unpacked" ~/.config/chromium/themer-theme once from chrome://extensions. Chromium
+# applies a theme at start from a cached pack (<profile>/Cached Theme.pak), so the reload removes the packs of every
+# profile and a change shows after a Chromium restart. A profile that registered the theme under its old folder name
+# (~/.config/chromium/pywal-theme) picks it up again if a link of that name points at themer-theme.
+# A theme extension colors the frame, tabs, toolbar, address bar and new tab page only; the rest of Chromium's UI
+# (dialogs, menus, settings) is drawn from a palette it generates itself. The BrowserThemeColor policy would drive that
+# palette, but it replaces the extension theme altogether, so it is not used.
 [[target]]
 name = "Chromium"
 dotfiles = true
 group = "chromium"
 template = "chromium/manifest.json"
 output = "~/.config/chromium/themer-theme/manifest.json"
-reload = "rm -f ~/.config/chromium/themer-theme/'Cached Theme.pak'"
+reload = "rm -f ~/.config/chromium/*/'Cached Theme.pak'"
 
 # ---- Claude Code -----------------------------------------------------------------------------------------------------
 
