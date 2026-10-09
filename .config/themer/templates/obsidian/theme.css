@@ -165,8 +165,8 @@
   --code-function: {{ syntax-function }};
   --code-important: {{ syntax-doc-tag }};
   --code-keyword: {{ syntax-keyword }};
-  --code-operator: {{ syntax-operator }};
-  --code-property: {{ syntax-property }};
+  --code-operator: {{ syntax-variable }};
+  --code-property: {{ syntax-json-key }};
   --code-punctuation: {{ syntax-punctuation }};
   --code-string: {{ syntax-string }};
   --code-tag: {{ syntax-tag }};

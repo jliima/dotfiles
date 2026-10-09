@@ -17,42 +17,42 @@
   <style name="Occurrences" background="#324365"/>
   <style name="Occurrences.Unused" underlineColor="{{ yellow }}" underlineStyle="DashUnderline"/>
   <style name="Occurrences.Rename" background="{{ red-dim | mix(red, 0.5) }}"/>
-  <style name="Number" foreground="{{ red-dim | mix(red, 0.5) }}"/>
+  <style name="Number" foreground="{{ syntax-number }}"/>
   <style name="String" foreground="{{ magenta }}"/>
-  <style name="Type" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
-  <style name="Concept" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
-  <style name="Namespace" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="Type" foreground="{{ syntax-function }}"/>
+  <style name="Concept" foreground="{{ syntax-function }}"/>
+  <style name="Namespace" foreground="{{ syntax-function }}"/>
   <style name="Local"/>
   <style name="Parameter"/>
   <style name="Global"/>
   <style name="Field" foreground="{{ text }}"/>
-  <style name="Static" foreground="{{ blue-dim | mix(blue, 0.5) }}" italic="false"/>
-  <style name="VirtualMethod" foreground="{{ blue-dim | mix(blue, 0.5) }}" italic="false"/>
-  <style name="Function" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="Static" foreground="{{ syntax-function }}" italic="false"/>
+  <style name="VirtualMethod" foreground="{{ syntax-function }}" italic="false"/>
+  <style name="Function" foreground="{{ syntax-function }}"/>
   <style name="Keyword" foreground="{{ green }}"/>
   <style name="PrimitiveType" foreground="{{ green }}"/>
-  <style name="Operator" foreground="{{ yellow }}"/>
-  <style name="Overloaded Operator" foreground="{{ yellow }}"/>
+  <style name="Operator" foreground="{{ syntax-variable }}"/>
+  <style name="Overloaded Operator" foreground="{{ syntax-variable }}"/>
   <style name="Punctuation"/>
-  <style name="Preprocessor" foreground="{{ yellow }}"/>
-  <style name="Macro" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="Preprocessor" foreground="{{ syntax-keyword }}"/>
+  <style name="Macro" foreground="{{ syntax-function }}"/>
   <style name="Label" foreground="{{ red-dim | mix(red, 0.5) }}" bold="true"/>
-  <style name="Comment" foreground="{{ line-strong }}" italic="false"/>
-  <style name="Doxygen.Comment" foreground="{{ line-strong }}" italic="false"/>
-  <style name="Doxygen.Tag" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="Comment" foreground="{{ syntax-comment }}" italic="false"/>
+  <style name="Doxygen.Comment" foreground="{{ syntax-comment }}" italic="false"/>
+  <style name="Doxygen.Tag" foreground="{{ syntax-function }}"/>
   <style name="VisualWhitespace" foreground="{{ line-strong }}"/>
-  <style name="QmlLocalId" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="QmlLocalId" foreground="{{ syntax-function }}"/>
   <style name="QmlExternalId"/>
-  <style name="QmlTypeId" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
-  <style name="QmlRootObjectProperty" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
-  <style name="QmlScopeObjectProperty" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="QmlTypeId" foreground="{{ syntax-function }}"/>
+  <style name="QmlRootObjectProperty" foreground="{{ syntax-function }}"/>
+  <style name="QmlScopeObjectProperty" foreground="{{ syntax-function }}"/>
   <style name="QmlExternalObjectProperty"/>
   <style name="JsScopeVar"/>
   <style name="JsImportVar" foreground="{{ yellow }}"/>
   <style name="JsGlobalVar" foreground="{{ yellow }}"/>
-  <style name="QmlStateName" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
+  <style name="QmlStateName" foreground="{{ syntax-function }}"/>
   <style name="Binding" foreground="{{ magenta }}"/>
-  <style name="DisabledCode" foreground="{{ line-strong }}"/>
+  <style name="DisabledCode" foreground="{{ syntax-comment }}"/>
   <style name="AddedLine" foreground="{{ green }}"/>
   <style name="RemovedLine" foreground="{{ red-dim | mix(red, 0.5) }}"/>
   <style name="DiffFile" foreground="{{ blue-dim | mix(blue, 0.5) }}"/>
