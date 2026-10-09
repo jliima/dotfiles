@@ -74,7 +74,42 @@
     --in-content-link-color: var(--themer-link) !important;
     --in-content-focus-outline-color: var(--themer-focus-ring) !important;
 
+    --icon-color: var(--themer-text-muted) !important;
+    --icon-color-hover: var(--themer-text) !important;
+    --icon-color-active: var(--themer-text) !important;
+    --icon-color-critical: var(--themer-danger) !important;
+    --icon-color-information: var(--themer-info) !important;
+    --icon-color-success: var(--themer-success) !important;
+    --icon-color-warning: var(--themer-warning) !important;
+    --background-color-box-info: var(--themer-surface) !important;
+    --background-color-critical: var(--themer-danger-soft) !important;
+    --background-color-information: var(--themer-info-soft) !important;
+    --background-color-success: var(--themer-success-soft) !important;
+    --background-color-warning: var(--themer-warning-soft) !important;
+    --table-background-color: var(--themer-surface) !important;
+    --table-row-background-color-alternate: var(--themer-surface-hover) !important;
+    --table-header-background-color: var(--themer-accent) !important;
+    --table-header-text-color: var(--themer-on-accent) !important;
+    --text-color-error: var(--themer-danger) !important;
+
     accent-color: var(--themer-accent) !important;
+  }
+
+  /* The text fields of Firefox's own components read Field and FieldText on the element itself, so the root
+     variables above do not reach them */
+  moz-input-text, moz-input-search, moz-input-password, moz-input-url, moz-input-email, moz-input-tel,
+  moz-input-number, moz-input-folder, moz-input-color {
+    --input-text-background-color: var(--themer-bg-sunken) !important;
+    --input-text-color: var(--themer-text) !important;
+    --input-text-border-color: var(--themer-line-strong) !important;
+    --input-text-background-color-disabled: var(--themer-surface) !important;
+  }
+
+  input:is([type="text"], [type="search"], [type="password"], [type="number"], [type="url"], [type="email"]),
+  textarea {
+    background-color: var(--themer-bg-sunken) !important;
+    color: var(--themer-text) !important;
+    border-color: var(--themer-line-strong) !important;
   }
 
   html, body {
@@ -86,6 +121,35 @@
   ::selection {
     background-color: var(--themer-selection);
     color: var(--themer-text);
+  }
+
+  /* Drop-down lists (menulist popups) of the settings pages: the same raised menu as in the browser chrome */
+  menupopup {
+    --panel-background-color: var(--themer-surface-raised) !important;
+    --panel-text-color: var(--themer-text) !important;
+    --panel-border-color: var(--themer-line) !important;
+    --panel-border-radius: var(--themer-radius-md) !important;
+    --menu-background-color: var(--themer-surface-raised) !important;
+    --menu-color: var(--themer-text) !important;
+    --menu-border-color: var(--themer-line) !important;
+    --menuitem-border-radius: var(--themer-radius-sm) !important;
+    --menuitem-hover-background-color: var(--themer-accent-soft) !important;
+    color: var(--themer-text) !important;
+  }
+
+  menupopup :is(menu, menuitem) {
+    color: var(--themer-text) !important;
+    fill: var(--themer-text-subtle) !important;
+    border-radius: var(--themer-radius-sm) !important;
+  }
+
+  menupopup :is(menu, menuitem)[_moz-menuactive]:not([disabled]) {
+    background-color: var(--themer-accent-soft) !important;
+    color: var(--themer-text) !important;
+  }
+
+  menupopup :is(menu, menuitem)[disabled] {
+    color: var(--themer-text-disabled) !important;
   }
 }
 
@@ -209,5 +273,249 @@
 @-moz-document url("about:blank") {
   html {
     background-color: var(--themer-bg) !important;
+  }
+}
+
+/* ---- Developer tools (the toolbox runs in the privileged about process, so userContent.css styles it) ---- */
+
+/* The toolbox and its panels (inspector, console, debugger, network, ...) draw everything from the --theme-* variables
+ * of devtools' variables.css, so those are set here, and the few colors that are hard-coded (syntax highlighting in
+ * the source views) are set per selector. Grounds like the browser: toolbars and tabs bg-sunken, panels bg, selected
+ * rows `selection`; syntax colors are the IntelliJ ones. */
+@-moz-document url-prefix("about:devtools-toolbox"), url-prefix("about:debugging"), url-prefix("chrome://devtools/"),
+  url-prefix("resource://devtools/") {
+  :root {
+    accent-color: var(--themer-accent) !important;
+    --theme-body-background: var(--themer-bg) !important;
+    --theme-body-emphasized-background: var(--themer-surface) !important;
+    --theme-body-alternate-emphasized-background: var(--themer-accent-soft) !important;
+    --theme-sidebar-background: var(--themer-bg) !important;
+    --theme-tab-toolbar-background: var(--themer-bg-sunken) !important;
+    --theme-toolbar-background: var(--themer-bg-sunken) !important;
+    --theme-toolbar-alternate-background: var(--themer-bg-sunken) !important;
+    --theme-toolbar-color: var(--themer-text-subtle) !important;
+    --theme-toolbar-selected-color: var(--themer-accent) !important;
+    --theme-toolbar-highlighted-color: var(--themer-success) !important;
+    --theme-toolbar-background-hover: var(--themer-surface-hover) !important;
+    --theme-toolbar-background-alt: var(--themer-bg-sunken) !important;
+    --theme-toolbar-background-highlighted: var(--themer-accent-soft) !important;
+    --theme-toolbar-error-background: var(--themer-danger-soft) !important;
+    --theme-toolbar-hover: var(--themer-surface-hover) !important;
+    --theme-toolbar-alternate-hover: var(--themer-surface-hover) !important;
+    --theme-toolbar-hover-active: var(--themer-surface-active) !important;
+    --theme-toolbar-separator: var(--themer-line) !important;
+    --toolbarbutton-background: var(--themer-surface-hover) !important;
+    --toolbarbutton-hover-background: var(--themer-surface-active) !important;
+    --toolbarbutton-hover-color: var(--themer-text) !important;
+    --theme-button-background: var(--themer-surface-hover) !important;
+    --theme-button-active-background: var(--themer-surface-active) !important;
+    --theme-toolbarbutton-color: var(--themer-text-subtle) !important;
+    --theme-toolbarbutton-hover-background: var(--themer-surface-hover) !important;
+    --theme-toolbarbutton-checked-color: var(--themer-accent) !important;
+    --theme-toolbarbutton-checked-background: var(--themer-accent-soft) !important;
+    --theme-toolbarbutton-checked-hover-background: var(--themer-accent-soft) !important;
+    --theme-toolbarbutton-active-background: var(--themer-accent-soft) !important;
+    --theme-selection-background: var(--themer-selection) !important;
+    --theme-selection-background-hover: var(--themer-surface-hover) !important;
+    --theme-selection-focus-background: var(--themer-surface-active) !important;
+    --theme-selection-color: var(--themer-text-bright) !important;
+    --theme-text-selection-background: var(--themer-selection) !important;
+    --theme-text-selection-unfocused-background: var(--themer-surface-active) !important;
+    --theme-splitter-color: var(--themer-line) !important;
+    --theme-emphasized-splitter-color: var(--themer-line-strong) !important;
+    --theme-emphasized-splitter-color-hover: var(--themer-accent) !important;
+    --theme-focus-outline-color: var(--themer-focus-ring) !important;
+    --theme-icon-color: var(--themer-text-subtle) !important;
+    --theme-icon-hover-color: var(--themer-text) !important;
+    --theme-icon-dimmed-color: var(--themer-text-faint) !important;
+    --theme-icon-disabled-color: var(--themer-text-disabled) !important;
+    --theme-icon-checked-color: var(--themer-accent) !important;
+    --theme-icon-error-color: var(--themer-danger) !important;
+    --theme-icon-warning-color: var(--themer-warning) !important;
+    --theme-icon-alternate-hover-color: var(--themer-accent) !important;
+    --theme-comment: var(--themer-syntax-comment) !important;
+    --theme-body-color: var(--themer-text) !important;
+    --theme-link-color: var(--themer-link) !important;
+    --theme-internal-link-color: var(--themer-link) !important;
+    --theme-text-color-alt: var(--themer-text-subtle) !important;
+    --theme-text-color-inactive: var(--themer-text-faint) !important;
+    --theme-text-color-error: var(--themer-danger) !important;
+    --theme-text-color-strong: var(--themer-text-bright) !important;
+    --theme-stack-trace-text: var(--themer-danger) !important;
+    --theme-highlight-green: var(--themer-green) !important;
+    --theme-highlight-blue: var(--themer-syntax-function) !important;
+    --theme-highlight-purple: var(--themer-syntax-annotation) !important;
+    --theme-highlight-red: var(--themer-syntax-string) !important;
+    --theme-highlight-yellow: var(--themer-yellow) !important;
+    --theme-highlight-bluegrey: var(--themer-cyan) !important;
+    --theme-highlight-lightorange: var(--themer-yellow) !important;
+    --theme-highlight-orange: var(--themer-orange) !important;
+    --theme-highlight-pink: var(--themer-magenta) !important;
+    --theme-highlight-gray: var(--themer-text-muted) !important;
+    --theme-breakpoint-logpoint: var(--themer-violet) !important;
+    --theme-breakpoint-conditional-background: var(--themer-yellow-dim) !important;
+    --theme-breakpoint-conditional-border-color: var(--themer-yellow) !important;
+    --theme-popup-background: var(--themer-surface-raised) !important;
+    --theme-popup-color: var(--themer-text) !important;
+    --theme-popup-border-color: var(--themer-line-strong) !important;
+    --theme-popup-dimmed: var(--themer-surface-hover) !important;
+    --theme-select-background: var(--themer-surface-hover) !important;
+    --theme-select-color: var(--themer-text) !important;
+    --theme-select-hover-border-color: var(--themer-line-strong) !important;
+    --theme-warning-background: var(--themer-warning-soft) !important;
+    --theme-warning-border: var(--themer-warning-soft) !important;
+    --theme-warning-color: var(--themer-warning) !important;
+    --theme-error-background: var(--themer-danger-soft) !important;
+    --theme-error-border: var(--themer-danger-soft) !important;
+    --theme-error-color: var(--themer-danger) !important;
+    --theme-contrast-background: var(--themer-yellow-soft) !important;
+    --theme-contrast-background-alpha: var(--themer-yellow-soft) !important;
+    --theme-contrast-color: var(--themer-yellow-bright) !important;
+    --theme-contrast-border: var(--themer-yellow) !important;
+    --table-zebra-background: var(--themer-surface) !important;
+    --rule-highlight-propertyname: var(--themer-syntax-css-property) !important;
+    --rule-highlight-propertyvalue: var(--themer-text) !important;
+    --number-color: var(--themer-syntax-number) !important;
+    --string-color: var(--themer-syntax-string) !important;
+    --object-color: var(--themer-syntax-function) !important;
+    --caption-color: var(--themer-syntax-type) !important;
+    --node-color: var(--themer-syntax-keyword) !important;
+    --reference-color: var(--themer-syntax-function) !important;
+  }
+
+  .theme-dark, .theme-light {
+    --number-color: var(--themer-syntax-number) !important;
+    --string-color: var(--themer-syntax-string) !important;
+    --object-color: var(--themer-syntax-function) !important;
+    --caption-color: var(--themer-syntax-type) !important;
+    --node-color: var(--themer-syntax-keyword) !important;
+    --reference-color: var(--themer-syntax-function) !important;
+  }
+
+  /* Inspector markup: green tags, orange attribute names, magenta values (IntelliJ's HTML) */
+  .tag, .pseudo { color: var(--themer-syntax-tag) !important; }
+  .attr-name { color: var(--themer-syntax-attribute) !important; }
+  .attr-value { color: var(--themer-syntax-string) !important; }
+  .editor.comment:not(.doctype) { color: var(--themer-syntax-comment) !important; }
+
+  /* Source views (debugger, style editor, inspector editors) */
+  .cm-s-mozilla .cm-keyword, .cm-s-mozilla .cm-builtin, .cm-s-mozilla .cm-atom, .cm-s-mozilla .cm-quote,
+  :is(.cm-editor, .cm-highlighted) :is(.tok-keyword, .tok-atom, .tok-bool, .tok-literal) {
+    color: var(--themer-syntax-keyword) !important;
+  }
+  .cm-s-mozilla .cm-string, .cm-s-mozilla .cm-string-2, :is(.cm-editor, .cm-highlighted) .tok-string,
+  .variable-or-property .token-string {
+    color: var(--themer-syntax-string) !important;
+  }
+  .cm-s-mozilla .cm-number, :is(.cm-editor, .cm-highlighted) .tok-number, .variable-or-property .token-number {
+    color: var(--themer-syntax-number) !important;
+  }
+  .cm-s-mozilla .cm-def, .cm-s-mozilla .cm-variable, .cm-s-mozilla .cm-variable-2,
+  :is(.cm-editor, .cm-highlighted) :is(.tok-variableName, .tok-variableName2) {
+    color: var(--themer-syntax-variable) !important;
+  }
+  .cm-s-mozilla .cm-property, :is(.cm-editor, .cm-highlighted) .tok-propertyName {
+    color: var(--themer-syntax-property) !important;
+  }
+  .cm-s-mozilla .cm-attribute, .cm-s-mozilla .cm-qualifier {
+    color: var(--themer-syntax-attribute) !important;
+  }
+  .cm-s-mozilla .cm-tag, .cm-s-mozilla .cm-header, .cm-s-mozilla .cm-bracket,
+  :is(.cm-editor, .cm-highlighted) .tok-heading {
+    color: var(--themer-syntax-tag) !important;
+  }
+  .cm-editor .tok-typeName, .cm-editor .tok-className {
+    color: var(--themer-syntax-class) !important;
+  }
+  .cm-s-mozilla .cm-operator, :is(.cm-editor, .cm-highlighted) :is(.tok-punctuation, .tok-operator) {
+    color: var(--themer-syntax-operator) !important;
+  }
+  .cm-s-mozilla .cm-comment, .cm-s-mozilla .cm-meta, :is(.cm-editor, .cm-highlighted) :is(.tok-comment, .tok-meta) {
+    color: var(--themer-syntax-comment) !important;
+  }
+  .cm-s-mozilla .CodeMirror-activeline-background { background: var(--themer-surface-active) !important; }
+  .cm-s-mozilla .CodeMirror-lines .CodeMirror-cursor, .cm-editor .cm-cursor {
+    border-left-color: var(--themer-text) !important;
+  }
+  .cm-s-mozilla .cm-executed-line { background-color: var(--themer-success-soft) !important; }
+  div.CodeMirror div.error-line { background: var(--themer-danger-soft) !important; }
+  div.CodeMirror span.eval-text { background-color: var(--themer-accent-soft) !important; }
+}
+
+/* about:downloads: the selected download was the system highlight (cyan) with a dotted focus ring */
+@-moz-document url-prefix("about:downloads") {
+  richlistitem.download {
+    color: var(--themer-text) !important;
+    background-color: transparent !important;
+  }
+
+  richlistitem.download:hover {
+    background-color: var(--themer-surface-hover) !important;
+  }
+
+  richlistitem.download[selected], richlistbox:focus-within > richlistitem.download[selected] {
+    background-color: var(--themer-selection) !important;
+    color: var(--themer-text-bright) !important;
+    outline: none !important;
+  }
+
+  .downloadDetails, .downloadTarget {
+    color: inherit !important;
+  }
+}
+
+/* about:debugging has its own variables for the page, buttons and fields */
+@-moz-document url-prefix("about:debugging") {
+  :root {
+    --in-content-background-color: var(--themer-bg) !important;
+    --bg-color: var(--themer-bg) !important;
+    --text-color: var(--themer-text) !important;
+    --secondary-text-color: var(--themer-text-subtle) !important;
+    --box-background: var(--themer-surface) !important;
+    --box-border-color: var(--themer-line) !important;
+    --card-background-color: var(--themer-surface) !important;
+    --card-separator-color: var(--themer-line) !important;
+    --button-background-color: var(--themer-surface-hover) !important;
+    --button-color: var(--themer-text) !important;
+    --button-hover-background-color: var(--themer-surface-active) !important;
+    --button-active-background-color: var(--themer-surface-active) !important;
+    --primary-button-background-color: var(--themer-accent) !important;
+    --primary-button-color: var(--themer-on-accent) !important;
+    --primary-button-hover-background-color: var(--themer-accent-hover) !important;
+    --primary-button-active-background-color: var(--themer-accent-hover) !important;
+    --category-text: var(--themer-text) !important;
+    --category-text-selected: var(--themer-accent) !important;
+    --category-background-hover: var(--themer-surface-hover) !important;
+    --sidebar-text-color: var(--themer-text) !important;
+    --sidebar-selected-color: var(--themer-accent) !important;
+    --sidebar-background-hover: var(--themer-surface-hover) !important;
+    --fieldpair-text-color: var(--themer-text) !important;
+    --icon-ok-color: var(--themer-success) !important;
+    --icon-info-color: var(--themer-text-muted) !important;
+    --highlight-50: var(--themer-accent) !important;
+  }
+
+  .default-input {
+    background-color: var(--themer-bg-sunken) !important;
+    color: var(--themer-text) !important;
+    border-color: var(--themer-line-strong) !important;
+  }
+}
+
+/* about:support: the media codec table */
+@-moz-document url-prefix("about:support") {
+  th.codec-table-name, th.codec-table-sw, th.codec-table-hw {
+    background-color: var(--themer-surface-active) !important;
+    color: var(--themer-text) !important;
+  }
+
+  td.supported {
+    background-color: var(--themer-success-soft) !important;
+    color: var(--themer-success) !important;
+  }
+
+  td.unsupported {
+    background-color: var(--themer-danger-soft) !important;
+    color: var(--themer-danger) !important;
   }
 }
