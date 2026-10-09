@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name        Stylus - Pare Colors
 @namespace   themer
-@version     2.0.0
+@version     3.0.0
 @description Converted from the classic Stylus style "Stylus - Pare Colors" to Themer variables.
 ==/UserStyle== */
 
@@ -60,17 +60,34 @@
 /* CODE AREA */
 .CodeMirror {
   background: var(--themer-bg);
+  color: var(--themer-text);
   font-family: var(--global-font), Consolas, monospace;
   font-weight: var(--global-font-w) !important;
-  font-size: 16px;
+  font-size: calc(var(--themer-font-mono-size) * 1pt);
+  line-height: 1.5;
 }
 
-/* GLOBAL */
+/* GLOBAL: one UI size everywhere; Stylus lays out in rem, so the root carries it */
+html {
+  font-size: calc(var(--themer-font-ui-size) * 1pt) !important;
+}
+
 body, html {
   background: var(--themer-bg-sunken);
   font-family: var(--ui-font);
   font-weight: var(--ui-font-weight);
+}
+
+body {
   font-size: 1rem !important;
+}
+
+input, select, textarea, button {
+  font: inherit;
+}
+
+:root {
+  --header-bg: var(--themer-bg-sunken);
 }
 
 .CodeMirror-activeline-background {
@@ -115,7 +132,28 @@ body, html {
 
 .CodeMirror-gutters {
   background: var(--themer-bg);
-  border-color: var(--themer-bg);
+  border: none;
+}
+
+.CodeMirror-linenumber {
+  color: var(--themer-text-faint);
+  font-family: var(--global-font), Consolas, monospace;
+  font-size: inherit;
+  font-weight: var(--global-font-w);
+  padding: 0 .6em 0 .4em;
+  text-align: right;
+}
+
+.CodeMirror-activeline .CodeMirror-linenumber, .CodeMirror-activeline-gutter .CodeMirror-linenumber {
+  color: var(--themer-text-muted);
+}
+
+.CodeMirror-activeline-gutter {
+  background: var(--themer-surface);
+}
+
+.CodeMirror-foldgutter-open::after, .CodeMirror-foldgutter-folded::after {
+  color: var(--themer-text-faint);
 }
 
 .CodeMirror,
@@ -163,11 +201,11 @@ div.CodeMirror-selected {
   font-family: var(--ui-font);
 }
 
-/* HEADER */
+/* HEADER (the editor sidebar) */
 #header {
-  border-right: 1px solid transparent;
-  background: var(--themer-bg);
-  box-shadow: 0 0 15px rgba(0, 0, 0, .6);
+  border-right: 1px solid var(--themer-line);
+  background: var(--themer-bg-sunken);
+  box-shadow: none;
 }
 
 #header h1, #header h2, #header h3, #header p, #header span, #header a,
@@ -180,29 +218,77 @@ div.CodeMirror-selected {
   color: var(--themer-text);
 }
 
-#header select,
-input[type='number'],
-#header input[type='checkbox']:not(.slider),
-#header input:not([type]) {
-  border: 1px solid var(--themer-surface);
-  background: var(--themer-surface);
+#header h2 {
+  color: var(--themer-text-subtle);
+  font-size: .85rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+/* One scrollbar for the whole sidebar instead of one per open section */
+#details-wrapper {
+  overflow-y: auto !important;
+}
+
+#details-wrapper > details[open] {
+  flex: 0 0 auto !important;
+  overflow-y: visible !important;
+}
+
+#details-wrapper > details > summary {
+  background: var(--themer-bg-sunken);
+  border-bottom: 1px solid var(--themer-line);
+  padding: .35rem 0;
+}
+
+#header input:not([type="checkbox"]):not([type="radio"]), #header select, input[type="number"] {
+  box-sizing: border-box;
+  height: 1.9rem;
+  padding: 0 .6rem;
+  border: 1px solid var(--themer-line-strong);
+  border-radius: var(--themer-radius-sm);
+  background: var(--themer-bg);
   color: var(--themer-text) !important;
   font-family: var(--ui-font);
 }
 
+#header input:focus, #header select:focus {
+  border-color: var(--themer-focus-ring);
+  outline: none;
+}
+
 #header button {
-  background: var(--themer-surface);
-  border-color: var(--themer-surface);
+  box-sizing: border-box;
+  height: 1.9rem;
+  padding: 0 .75rem;
+  background: var(--themer-surface-hover);
+  border: 1px solid var(--themer-line);
   color: var(--themer-text);
   border-radius: var(--themer-radius-sm);
   cursor: pointer;
-  padding: 8px;
   font-family: var(--ui-font);
+  line-height: 1;
 }
 
 #header button:hover {
-  background: var(--themer-surface-hover);
-  border-color: var(--themer-surface-hover);
+  background: var(--themer-surface-active);
+  border-color: var(--themer-line-strong);
+}
+
+#save-button, .dirty #save-button {
+  background: var(--themer-accent);
+  border-color: var(--themer-accent);
+  color: var(--themer-on-accent);
+}
+
+#save-button:hover, .dirty #save-button:hover {
+  background: var(--themer-accent-hover);
+  border-color: var(--themer-accent-hover);
+}
+
+.dirty #save-button + button, .dirty #save-button {
+  background-image: none;
 }
 
 .svg-icon {
@@ -250,6 +336,11 @@ input[type='number'],
   background: var(--themer-surface);
   border-color: var(--themer-surface);
   color: var(--themer-text);
+  box-sizing: border-box;
+  height: var(--input-height);
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 1;
 }
 
 #sections > div:not(:first-of-type) {
