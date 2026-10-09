@@ -1,159 +1,222 @@
 /* ==UserStyle==
 @name        startpage.com
 @namespace   themer
-@version     2.0.0
-@description Converted from the classic Stylus style "startpage.com" to Themer variables.
+@version     3.0.0
+@description Startpage search in Themer colors. Startpage hashes its Emotion class names (css-xxxx) on every release, so
+this style leans on tags, semantic classes and data-testid; the few hashed ones are marked and need a re-inspect after
+a Startpage update.
 ==/UserStyle== */
 
 @-moz-document domain("startpage.com") {
-html {
+/* Every rule starts with :root so it beats Startpage's single-class Emotion rules, whatever the injection order. */
+:root, :root body {
   background-color: var(--themer-bg);
+  color: var(--themer-text);
+  font-family: var(--themer-font-sans), Inter, sans-serif;
+  scrollbar-color: var(--themer-surface-active) var(--themer-bg-sunken);
 }
 
-/* https://www.startpage.com/ bg image */
-.css-1gq2x6d {
-  background-image: none !important;
-}
-
-/* Top nav bar */
-.css-102vh3c, .css-kc676n, .e1fgh61o0 {
-  background-color: var(--themer-bg-sunken);
-}
-
-/* Bottom bar */
-.css-ntpuhp,
-.footer-above-the-fold,
-.footer-above-the-fold .link-text {
-  background-color: var(--themer-bg-deep);
-  color: var(--themer-link);
-}
-
-/* Search result titles */
-.w-gl__result-title,
-.result-title,
-.result-title h2 {
-  color: var(--themer-accent) !important;
-}
-
-/* URLs */
-.w-gl__result-url,
-#main .result a:has(span.link-text),
-.display-url {
-  color: var(--themer-accent) !important;
-	span {
-	  color: inherit;
-	}
-}
-
-/* Visited search result titles */
-.w-gl__result-title:visited,
-.result-title:visited,
-.result-title:visited h2 {
-  color: var(--themer-accent-hover) !important;
-}
-
-/* Visited URLs */
-.w-gl__result-url:visited,
-#main .result a:visited:has(span.link-text),
-.display-url:visited {
-  color: var(--themer-link) !important;
-	span {
-	  color: inherit;
-	}
-}
-
-/* Rounded Background Hover */
-.result {
-	padding-left: 4px;
-	border-radius: 6px;
-}
-
-.w-gl__result:hover,
-.result:hover {
-	background-color: var(--themer-surface-hover);
-}
-
-/* Search result description text */
-.css-168de86 {
+:root ::selection {
+  background: var(--themer-selection);
   color: var(--themer-text);
 }
 
-.search-form-container,
-.search-form-form,
-.search-suggest {
+/* ---------- text: Startpage's lavender whites and greys become the Themer text ramp ----------
+   The general rule is :root:root with :where() inside, two classes' worth; the rules below it tie or win by order. */
+:root:root :where(body)
+  :where(p, span, b, h1, h2, h3, h4, li, label, button, div.description) {
+  color: var(--themer-text);
+}
+
+:root :is(.hamburger-subsection-title, .w-gl-attribution, .wiki-attr, .attributes, .description-source,
+  .css-21zop0) {
+  color: var(--themer-text-subtle);
+}
+
+:root .header-nav-item-text {
+  color: var(--themer-text-subtle);
+}
+
+:root .header-nav-item-button:hover .header-nav-item-text {
+  color: var(--themer-text);
+}
+
+/* ---------- grounds ---------- */
+:root header {
+  background-color: var(--themer-bg-sunken);
+  border-color: var(--themer-line);
+}
+
+:root footer, :root footer > div, :root .css-fgk5s, :root .css-h4jwkx {
+  background-color: var(--themer-bg-deep);
+}
+
+:root .hamburger-drawer, :root .dropdown-content {
+  background-color: var(--themer-surface-raised);
+  border-color: var(--themer-line-strong);
+}
+
+:root .hamburger-drawer div {
+  border-color: var(--themer-line);
+}
+
+:root .dropdown-content button {
+  background-color: transparent;
+}
+
+:root .dropdown-content button:hover {
+  background-color: var(--themer-surface-hover);
+}
+
+:root .dropdown-display {
+  background-color: var(--themer-surface);
+  border-color: var(--themer-line-strong);
+}
+
+:root .dropdown-button {
+  background-color: var(--themer-surface-hover);
+  color: var(--themer-text);
+}
+
+:root .search-form-container, :root .search-form-form, :root .search-suggest {
   background: var(--themer-surface);
+  border-color: var(--themer-line-strong);
 }
 
-
-/* Current search result page indicator */
-.css-dahwu9 button,
-.css-13qqj8c button {
-  background: var(--themer-accent);
-  color: var(--themer-text-inverse);
-  border: none;
+:root .search-form-relative-container, :root .search-form-container input {
+  color: var(--themer-text);
+  caret-color: var(--themer-accent);
 }
 
-.css-dahwu9 button:hover,
-.css-13qqj8c button:hover {
-  background: var(--themer-accent-hover);
-  color: var(--themer-text-inverse);
-  border: none;
+:root .search-form-container input::placeholder {
+  color: var(--themer-text-faint);
 }
 
-.css-ajy4fa button {
-  background: var(--themer-surface);
-  border: none;
+:root input[class*="css-"] {
+  background-color: var(--themer-bg-sunken);
+  border-color: var(--themer-line-strong);
+  color: var(--themer-text);
 }
 
-.css-ajy4fa button:hover {
-  background: var(--themer-surface-hover);
+/* The knowledge card on the right and its "See more" button */
+:root .result:has(.see-more-container) {
+  background-color: var(--themer-surface);
+  border-color: var(--themer-line);
 }
 
-.css-ajy4fa:hover button {
-  background: var(--themer-surface-hover);
+:root .see-more-btn {
+  background-color: var(--themer-surface-hover);
+  border-color: var(--themer-line-strong);
+  color: var(--themer-text);
 }
 
-.anonymous-view-link,
-.feedback-button-container {
-  display: none;
+:root .see-more-btn:hover {
+  background-color: var(--themer-surface-active);
 }
 
-.search-form-relative-container,
-.css-1alnko2 .search-form-container,
-.css-1tsjpy4, .css-zi37be
-{
-  color: var(--themer-text) !important;
-  border-color: var(--themer-accent);
+/* ---------- navigation tabs, pagination: the current one is a hashed form class ---------- */
+:root .header-nav-item-button {
+  border-bottom-color: transparent;
 }
 
-.search-form-container:target,
-.search-form-form:target,
-.search-suggest:target {
-  border-color: red;
-}
-
-.css-703foi:hover {
-  background: var(--themer-surface-hover);
-}
-
-.css-1n6ya15,
-.css-yeai43 button {
+/* hashed: the form of the current category */
+:root .css-h84vlf .header-nav-item-text {
   color: var(--themer-accent);
-  border-bottom: 2px solid var(--themer-accent);
 }
 
-.css-1n6ya15:hover,
-.css-yeai43 button:hover {
+:root .css-h84vlf .header-nav-item-button {
+  border-bottom-color: var(--themer-accent);
+}
+
+:root [data-testid="pagination-button"] {
+  background-color: var(--themer-surface);
+  border-color: var(--themer-bg);
+  color: var(--themer-text);
+}
+
+:root [data-testid="pagination-button"]:hover {
+  background-color: var(--themer-surface-hover);
+}
+
+/* hashed: the form of the current page */
+:root .css-1qup84p [data-testid="pagination-button"] {
+  background-color: var(--themer-accent);
+  color: var(--themer-on-accent);
+}
+
+/* hashed: the app and extension links in the drawer */
+:root a.css-1yjoyo7 {
+  background-color: var(--themer-accent);
+  color: var(--themer-on-accent);
+}
+
+/* ---------- ads notice (hashed cards) and the buttons in it ---------- */
+:root .css-q66hc5, :root .css-34zzm5 {
+  background-color: var(--themer-surface);
+}
+
+:root .css-1cjtjeh {
+  background-color: var(--themer-accent);
+  color: var(--themer-on-accent);
+}
+
+:root .css-1cjtjeh:hover {
+  background-color: var(--themer-accent-hover);
+}
+
+:root .css-1cjtjeh span, :root .css-1cjtjeh p {
+  color: inherit;
+}
+
+/* ---------- results ---------- */
+:root .result {
+  border-radius: var(--themer-radius-md);
+  padding-left: 4px;
+}
+
+:root .result:hover:not(:has(.see-more-container)) {
+  background-color: var(--themer-surface-hover);
+}
+
+:root #main .result-title, :root #main .result-title h2 {
+  color: var(--themer-accent);
+}
+
+:root #main .result-title:visited, :root #main .result-title:visited h2 {
   color: var(--themer-accent-hover);
-  border-bottom: 2px solid var(--themer-accent-hover);
 }
 
-.css-cg4v78 button,
-.css-ddakpz {
+:root #main .result a:has(span.link-text) span, :root #main .result .link-text {
   color: var(--themer-text-muted);
 }
 
-.css-cg4v78:hover button {
+:root #main .result a:has(span.link-text) {
+  color: var(--themer-accent);
+}
+
+:root #main .result a:visited:has(span.link-text) {
+  color: var(--themer-link);
+}
+
+:root #main a, :root #main a span {
+  color: var(--themer-link);
+}
+
+:root #main .result :is(.description, p.description, b) {
   color: var(--themer-text);
+}
+
+/* Favicons sit on white discs on purpose: many of them are dark artwork */
+:root .favicon-container {
+  border-color: var(--themer-line-strong);
+}
+
+:root .anonymous-view-link, :root .feedback-button-container {
+  display: none;
+}
+
+:root .skip-to-main-content-link {
+  background-color: var(--themer-accent);
+  color: var(--themer-on-accent);
 }
 }

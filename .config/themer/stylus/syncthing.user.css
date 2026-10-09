@@ -1,0 +1,622 @@
+/* ==UserStyle==
+@name        Syncthing
+@namespace   themer
+@version     1.0.0
+@description Syncthing web GUI (Bootstrap 3, AngularJS) in Themer colors and fonts. Replaces its dark and light themes.
+==/UserStyle== */
+
+@-moz-document url-prefix("https://syncthing.jliima.fi/"), url-prefix("https://127.0.0.1:8384/"),
+  url-prefix("http://127.0.0.1:8384/"), url-prefix("https://localhost:8384/"), url-prefix("http://localhost:8384/"),
+  url-prefix("https://192.168.1.4:8384/"), url-prefix("http://192.168.1.4:8384/") {
+:root {
+  scrollbar-color: var(--themer-surface-active) var(--themer-bg-sunken);
+  accent-color: var(--themer-accent);
+}
+
+/* ---------- base ---------- */
+body {
+  background-color: var(--themer-bg) !important;
+  color: var(--themer-text) !important;
+  font-family: var(--themer-font-sans), system-ui, sans-serif;
+  font-weight: var(--themer-font-ui-weight);
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--themer-font-sans), system-ui, sans-serif;
+  font-weight: var(--themer-font-title-weight);
+  color: var(--themer-text-bright);
+}
+
+code, pre, kbd, samp, .text-monospace {
+  font-family: var(--themer-font-mono), monospace;
+}
+
+::selection {
+  background: var(--themer-selection);
+  color: var(--themer-text);
+}
+
+a {
+  color: var(--themer-link);
+}
+
+a:hover, a:focus {
+  color: var(--themer-accent-hover);
+  outline: none;
+}
+
+hr, .divider {
+  border-color: var(--themer-line) !important;
+}
+
+.text-muted, .help-block, small, .small {
+  color: var(--themer-text-subtle) !important;
+}
+
+.text-success {
+  color: var(--themer-success) !important;
+}
+
+.text-danger {
+  color: var(--themer-danger) !important;
+}
+
+.text-warning {
+  color: var(--themer-warning) !important;
+}
+
+.text-info {
+  color: var(--themer-violet) !important;
+}
+
+.text-primary {
+  color: var(--themer-accent) !important;
+}
+
+/* ---------- navbar ---------- */
+.navbar, .navbar-default {
+  background-color: var(--themer-bg-sunken) !important;
+  border-color: var(--themer-line) !important;
+}
+
+.navbar-text, .navbar-link, .navbar-default .navbar-nav > li > a, .navbar-default .navbar-brand,
+.dropdown > a, .hidden-xs > a {
+  color: var(--themer-text-muted) !important;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus,
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus, li.hidden-xs:hover, .navbar-link:hover, .navbar-link:focus,
+.open > .dropdown-toggle, .dropdown-toggle:hover {
+  color: var(--themer-text-bright) !important;
+  background-color: var(--themer-surface-hover) !important;
+  border-color: transparent !important;
+}
+
+.navbar-default .navbar-toggle, .navbar-default .navbar-collapse {
+  border-color: var(--themer-line);
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  background-color: var(--themer-surface-hover);
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: var(--themer-text-muted);
+}
+
+.logo, .navbar-brand .logo {
+  filter: none;
+}
+
+/* ---------- panels ---------- */
+.panel, .panel-default {
+  background-color: var(--themer-surface) !important;
+  border-color: var(--themer-line) !important;
+  border-width: 1px !important;
+  box-shadow: none;
+}
+
+.panel-default > .panel-heading, .panel-heading, .panel-warning > .panel-heading {
+  color: var(--themer-text) !important;
+  background-color: var(--themer-surface-raised) !important;
+  border-color: var(--themer-line) !important;
+}
+
+.panel-heading:hover, .panel-heading:focus {
+  background-color: var(--themer-surface-hover) !important;
+}
+
+.panel-footer {
+  background-color: var(--themer-bg-sunken) !important;
+  border-color: var(--themer-line) !important;
+  border-width: 1px 0 0 !important;
+}
+
+.panel-progress {
+  background: var(--themer-accent);
+}
+
+.panel-group .panel-heading + .panel-collapse > .panel-body,
+.panel-group .panel-heading + .panel-collapse > .list-group {
+  border-top: 1px solid var(--themer-line) !important;
+}
+
+.identicon rect, .panel-warning .identicon rect {
+  fill: var(--themer-text-muted);
+}
+
+.well {
+  background-color: var(--themer-surface-raised) !important;
+  border-color: var(--themer-line) !important;
+  box-shadow: none;
+}
+
+/* ---------- tables, lists ---------- */
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td,
+.table > tbody > tr > td, .table > tfoot > tr > td, .table > thead > tr > th {
+  border-color: var(--themer-line) !important;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: var(--themer-surface-raised) !important;
+}
+
+.table-hover > tbody > tr:hover {
+  background-color: var(--themer-surface-hover) !important;
+}
+
+.list-group-item {
+  background-color: var(--themer-surface) !important;
+  border-color: var(--themer-line) !important;
+  color: var(--themer-text);
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  background-color: var(--themer-selection) !important;
+  border-color: var(--themer-selection) !important;
+  color: var(--themer-text-bright);
+}
+
+.fancytree-container tr:hover, .fancytree-focused {
+  background-color: var(--themer-surface-hover);
+}
+
+.fancytree-active, .fancytree-selected, .fancytree-container tr.fancytree-active {
+  background-color: var(--themer-selection);
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  border-radius: var(--themer-radius-sm) !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  box-shadow: none !important;
+  text-shadow: none;
+  font-family: inherit;
+  outline: none !important;
+}
+
+.btn-default {
+  color: var(--themer-text) !important;
+  background-color: var(--themer-surface-hover) !important;
+  border-color: var(--themer-line) !important;
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active,
+.open > .dropdown-toggle.btn-default {
+  color: var(--themer-text-bright) !important;
+  background-color: var(--themer-surface-active) !important;
+  border-color: var(--themer-line-strong) !important;
+}
+
+.btn-primary, .btn-success, .btn-info, .btn-warning, .btn-danger {
+  color: var(--themer-on-accent) !important;
+}
+
+.btn-primary {
+  background-color: var(--themer-accent) !important;
+  border-color: var(--themer-accent) !important;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary.focus, .btn-primary:active {
+  background-color: var(--themer-accent-hover) !important;
+  border-color: var(--themer-accent-hover) !important;
+}
+
+.btn-success {
+  background-color: var(--themer-success) !important;
+  border-color: var(--themer-success) !important;
+}
+
+.btn-success:hover, .btn-success:focus, .btn-success:active {
+  background-color: var(--themer-green-bright) !important;
+  border-color: var(--themer-green-bright) !important;
+}
+
+.btn-info {
+  background-color: var(--themer-info) !important;
+  border-color: var(--themer-info) !important;
+}
+
+.btn-info:hover, .btn-info:focus, .btn-info:active {
+  background-color: var(--themer-cyan-bright) !important;
+  border-color: var(--themer-cyan-bright) !important;
+}
+
+.btn-warning {
+  background-color: var(--themer-warning) !important;
+  border-color: var(--themer-warning) !important;
+}
+
+.btn-warning:hover, .btn-warning:focus, .btn-warning:active {
+  background-color: var(--themer-orange-bright) !important;
+  border-color: var(--themer-orange-bright) !important;
+}
+
+.btn-danger {
+  background-color: var(--themer-danger) !important;
+  border-color: var(--themer-danger) !important;
+}
+
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active {
+  background-color: var(--themer-red-bright) !important;
+  border-color: var(--themer-red-bright) !important;
+}
+
+.btn-link {
+  color: var(--themer-link) !important;
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+  opacity: 0.5;
+}
+
+.btn.panel-heading {
+  border-radius: 0 !important;
+  border-width: 0 0 1px !important;
+}
+
+.pagination > li > a, .pagination > li > span {
+  color: var(--themer-text) !important;
+  background-color: var(--themer-surface-hover) !important;
+  border-color: var(--themer-line) !important;
+}
+
+.pagination > li > a:hover, .pagination > li > a:focus, .pagination > .disabled > a {
+  background-color: var(--themer-surface-active) !important;
+}
+
+.pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > span {
+  color: var(--themer-on-accent) !important;
+  background-color: var(--themer-accent) !important;
+  border-color: var(--themer-accent) !important;
+}
+
+/* ---------- tabs, dropdowns ---------- */
+.nav-tabs {
+  border-bottom: 1px solid var(--themer-line) !important;
+}
+
+.nav-tabs > li > a {
+  color: var(--themer-text-muted) !important;
+  border-color: transparent !important;
+  border-radius: var(--themer-radius-sm) var(--themer-radius-sm) 0 0;
+}
+
+.nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
+  color: var(--themer-text-bright) !important;
+  background-color: var(--themer-surface-hover) !important;
+  border-color: transparent !important;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+  color: var(--themer-accent) !important;
+  background-color: var(--themer-surface) !important;
+  border: 1px solid var(--themer-line) !important;
+  border-bottom-color: transparent !important;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+  color: var(--themer-text-bright) !important;
+  background-color: var(--themer-selection) !important;
+}
+
+.dropdown-menu, .popover {
+  background-color: var(--themer-surface-raised) !important;
+  border: 1px solid var(--themer-line-strong) !important;
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--themer-window-shadow) 45%, transparent);
+  color: var(--themer-text);
+}
+
+.dropdown-menu > li > a {
+  color: var(--themer-text) !important;
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+  color: var(--themer-text-bright) !important;
+  background-color: var(--themer-surface-hover) !important;
+}
+
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+  color: var(--themer-text-bright) !important;
+  background-color: var(--themer-selection) !important;
+}
+
+.dropdown-menu > .disabled > a {
+  color: var(--themer-text-disabled) !important;
+}
+
+.dropdown-menu .divider {
+  background-color: var(--themer-line) !important;
+  height: 1px !important;
+}
+
+.dropdown-header {
+  color: var(--themer-text-subtle);
+}
+
+/* ---------- modals ---------- */
+.modal-backdrop {
+  background-color: var(--themer-bg-deep);
+}
+
+.modal-content {
+  background-color: var(--themer-surface-raised) !important;
+  border: 1px solid var(--themer-line-strong) !important;
+  border-radius: var(--themer-radius-md);
+  box-shadow: 0 16px 48px color-mix(in srgb, var(--themer-window-shadow) 60%, transparent);
+  color: var(--themer-text);
+}
+
+.modal-header {
+  border-color: var(--themer-line) !important;
+  border-radius: var(--themer-radius-md) var(--themer-radius-md) 0 0;
+}
+
+.modal-header:not(.alert) {
+  background-color: var(--themer-surface);
+}
+
+.modal-footer {
+  background-color: var(--themer-bg-sunken) !important;
+  border-color: var(--themer-line) !important;
+  border-radius: 0 0 var(--themer-radius-md) var(--themer-radius-md);
+}
+
+.close {
+  color: var(--themer-text);
+  text-shadow: none;
+  opacity: 0.6;
+}
+
+.close:hover, .close:focus {
+  color: var(--themer-text-bright);
+  opacity: 1;
+}
+
+/* ---------- alerts ---------- */
+.alert {
+  color: var(--themer-text-bright) !important;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.alert-success {
+  background-color: var(--themer-success-soft) !important;
+  border-color: var(--themer-green-dim) !important;
+}
+
+.alert-info {
+  background-color: var(--themer-info-soft) !important;
+  border-color: var(--themer-cyan-dim) !important;
+}
+
+.alert-warning {
+  background-color: var(--themer-warning-soft) !important;
+  border-color: var(--themer-orange-dim) !important;
+}
+
+.alert-danger {
+  background-color: var(--themer-danger-soft) !important;
+  border-color: var(--themer-red-dim) !important;
+}
+
+.alert a, .alert .alert-link {
+  color: var(--themer-accent);
+}
+
+/* ---------- forms ---------- */
+.form-control, input.form-control, select.form-control, textarea.form-control {
+  color: var(--themer-text) !important;
+  background-color: var(--themer-bg-sunken) !important;
+  border: 1px solid var(--themer-line-strong) !important;
+  border-radius: var(--themer-radius-sm);
+  box-shadow: none !important;
+}
+
+.form-control:focus {
+  border-color: var(--themer-focus-ring) !important;
+  box-shadow: 0 0 0 3px var(--themer-accent-soft) !important;
+}
+
+.form-control[readonly], .form-control[readonly="readonly"], .form-control[disabled], fieldset[disabled] .form-control {
+  background-color: var(--themer-surface) !important;
+  color: var(--themer-text-muted) !important;
+}
+
+.form-control::placeholder {
+  color: var(--themer-text-faint);
+}
+
+.input-group-addon {
+  color: var(--themer-text-muted);
+  background-color: var(--themer-surface-hover);
+  border-color: var(--themer-line-strong);
+}
+
+.checkbox[disabled] {
+  background-color: var(--themer-surface-hover);
+}
+
+.checkbox[disabled] *, .checkbox[disabled] .help-block {
+  color: var(--themer-text-disabled) !important;
+}
+
+.has-error .form-control {
+  border-color: var(--themer-danger) !important;
+}
+
+.has-error .help-block, .has-error .control-label {
+  color: var(--themer-danger) !important;
+}
+
+.has-success .form-control {
+  border-color: var(--themer-success) !important;
+}
+
+/* ---------- code, labels, badges, progress ---------- */
+code {
+  color: var(--themer-syntax-string);
+  background-color: var(--themer-surface-hover);
+  border-radius: var(--themer-radius-xs);
+}
+
+code.ng-binding {
+  color: var(--themer-red-bright) !important;
+  background-color: var(--themer-surface-hover) !important;
+}
+
+pre {
+  color: var(--themer-text);
+  background-color: var(--themer-bg-sunken);
+  border-color: var(--themer-line);
+}
+
+.label-default, .badge {
+  color: var(--themer-text);
+  background-color: var(--themer-surface-active);
+}
+
+.label-primary {
+  color: var(--themer-on-accent);
+  background-color: var(--themer-accent);
+}
+
+.label-success {
+  color: var(--themer-on-accent);
+  background-color: var(--themer-success);
+}
+
+.label-info {
+  color: var(--themer-on-accent);
+  background-color: var(--themer-info);
+}
+
+.label-warning {
+  color: var(--themer-on-accent);
+  background-color: var(--themer-warning);
+}
+
+.label-danger {
+  color: var(--themer-on-accent);
+  background-color: var(--themer-danger);
+}
+
+.progress {
+  background-color: var(--themer-bg-sunken) !important;
+  box-shadow: none;
+}
+
+.progress-bar {
+  background-color: var(--themer-accent) !important;
+  box-shadow: none;
+}
+
+.progress-bar-success {
+  background-color: var(--themer-success) !important;
+}
+
+.progress-bar-info {
+  background-color: var(--themer-violet) !important;
+}
+
+.progress-bar-warning {
+  background-color: var(--themer-warning) !important;
+}
+
+.progress-bar-danger {
+  background-color: var(--themer-danger) !important;
+}
+
+.progress .frontal {
+  color: var(--themer-text-bright);
+}
+
+/* ---------- tooltips and popovers ---------- */
+.tooltip-inner {
+  color: var(--themer-text-bright);
+  background-color: var(--themer-surface-active);
+  border-radius: var(--themer-radius-sm);
+}
+
+.tooltip.top .tooltip-arrow, .tooltip.top-left .tooltip-arrow, .tooltip.top-right .tooltip-arrow {
+  border-top-color: var(--themer-surface-active);
+}
+
+.tooltip.bottom .tooltip-arrow, .tooltip.bottom-left .tooltip-arrow, .tooltip.bottom-right .tooltip-arrow {
+  border-bottom-color: var(--themer-surface-active);
+}
+
+.tooltip.left .tooltip-arrow {
+  border-left-color: var(--themer-surface-active);
+}
+
+.tooltip.right .tooltip-arrow {
+  border-right-color: var(--themer-surface-active);
+}
+
+.tooltip.in {
+  opacity: 1;
+}
+
+.popover-title {
+  color: var(--themer-text-bright);
+  background-color: var(--themer-surface);
+  border-color: var(--themer-line);
+}
+
+.popover.top > .arrow, .popover.top > .arrow::after {
+  border-top-color: var(--themer-line-strong);
+}
+
+.popover.top > .arrow::after {
+  border-top-color: var(--themer-surface-raised);
+}
+
+.popover.bottom > .arrow {
+  border-bottom-color: var(--themer-line-strong);
+}
+
+.popover.bottom > .arrow::after {
+  border-bottom-color: var(--themer-surface-raised);
+}
+
+.popover.left > .arrow {
+  border-left-color: var(--themer-line-strong);
+}
+
+.popover.left > .arrow::after {
+  border-left-color: var(--themer-surface-raised);
+}
+
+.popover.right > .arrow {
+  border-right-color: var(--themer-line-strong);
+}
+
+.popover.right > .arrow::after {
+  border-right-color: var(--themer-surface-raised);
+}
+}
