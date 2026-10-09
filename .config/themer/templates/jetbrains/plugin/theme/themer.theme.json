@@ -21,6 +21,7 @@
     "focus-ring": "{{ focus-ring }}",
     "green": "{{ green }}",
     "green-dim": "{{ green-dim }}",
+    "green-mid": "{{ green-mid }}",
     "green-mix": "{{ green-dim | mix(green, 0.5) }}",
     "green-soft": "{{ green-soft }}",
     "line": "{{ line }}",
@@ -33,6 +34,7 @@
     "magenta-soft": "{{ magenta-soft }}",
     "on-accent": "{{ on-accent }}",
     "orange": "{{ orange }}",
+    "orange-mid": "{{ orange-mid }}",
     "orange-mix": "{{ orange-dim | mix(orange, 0.5) }}",
     "red": "{{ red }}",
     "red-dim": "{{ red-dim }}",
@@ -93,8 +95,8 @@
     "ActionButton": {
       "hoverBackground": "surface-hover",
       "hoverBorderColor": "surface-hover",
-      "pressedBackground": "accent-soft",
-      "pressedBorderColor": "accent-soft",
+      "pressedBackground": "blue-mid",
+      "pressedBorderColor": "blue-mid",
       "focusedBorderColor": "focus-ring"
     },
     "Button": {
@@ -503,10 +505,14 @@
       "Advertiser.foreground": "text-subtle"
     },
     "SearchMatch": {
-      "startBackground": "warning",
-      "endBackground": "warning"
+      "startBackground": "orange-mid",
+      "endBackground": "orange-mid"
     },
-    "SearchOption.selectedBackground": "accent-soft",
+    "SearchOption": {
+      "selectedBackground": "blue-mid",
+      "selectedHoveredBackground": "blue-dim",
+      "selectedPressedBackground": "blue-dim"
+    },
     "SegmentedButton": {
       "selectedButtonColor": "surface-active",
       "focusedSelectedButtonColor": "accent-hover",
@@ -628,7 +634,78 @@
       "RefLabel.foreground": "text",
       "FileHistory.Commit.selectedBranchBackground": "accent-soft"
     },
+    "MainWindow": {
+      "Tab.background": "bg-deep",
+      "Tab.borderColor": "bg-deep",
+      "Tab.foreground": "text-subtle",
+      "Tab.hoverBackground": "surface",
+      "Tab.hoverForeground": "text",
+      "Tab.selectedBackground": "surface-raised",
+      "Tab.selectedForeground": "text-bright",
+      "Tab.selectedInactiveBackground": "surface-raised",
+      "Tab.separatorColor": "bg-deep",
+      "FullScreeControl.Background": "surface-active"
+    },
+    "MainToolbar": {
+      "Dropdown.hoverBackground": "surface-hover",
+      "Dropdown.pressedBackground": "surface-active",
+      "Dropdown.transparentHoverBackground": "surface-hover",
+      "Icon.hoverBackground": "surface-hover",
+      "Icon.pressedBackground": "surface-active"
+    },
+    "StatusBar": {
+      "hoverBackground": "surface-hover",
+      "LightEditBackground": "accent-soft"
+    },
+    "Hyperlink.linkColor": "link",
+    "TextField.caretForeground": "text",
+    "TextArea.caretForeground": "text",
+    "TextPane.caretForeground": "text",
+    "EditorPane.caretForeground": "text",
+    "PasswordField.caretForeground": "text",
+    "FormattedTextField.caretForeground": "text",
+    "PopupMenu.translucentBackground": "surface-raised",
+    "OptionPane.messageForeground": "text",
+    "Label.selectedForeground": "text",
+    "ToolTip.backgroundInactive": "surface-raised",
+    "ToolTip.foregroundInactive": "text-subtle",
+    "Tree.textBackground": "bg",
+    "Tree.textForeground": "text",
+    "Tree.selectionBorderColor": "accent",
+    "Tree.dropLineColor": "accent",
+    "List.dropLineColor": "accent",
+    "Table.dropLineColor": "accent",
+    "Table.dropCellBackground": "accent-soft",
+    "List.dropCellBackground": "accent-soft",
+    "Tree.dropCellBackground": "accent-soft",
+    "DragAndDrop.rowBackground": "accent-soft",
+    "CombinedDiff": {
+      "BlockBorder.selectedActiveColor": "accent",
+      "BlockBorder.selectedInactiveColor": "line-strong"
+    },
+    "RunWidget": {
+      "runIconColor": "success",
+      "runningBackground": "green-mid",
+      "stopBackground": "red-mid"
+    },
+    "Code": {
+      "Inline.backgroundColor": "surface-active",
+      "Block.EditorPane.backgroundColor": "bg-sunken"
+    },
+    "GotItTooltip": {
+      "codeBackground": "surface-active",
+      "codeBorderColor": "line-strong"
+    },
+    "Recap": {
+      "cardBackground": "surface",
+      "cardBorderColor": "line",
+      "cardHeaderTitle": "text",
+      "cardHeaderSubtitle": "text-muted",
+      "cardFooterForeground": "text-muted",
+      "cardHeaderLinkBackground": "surface-hover"
+    },
     "WelcomeScreen.": {
+      "Projects.actions.selectionBorderColor": "accent",
       "Projects.selectionInactiveBackground": "accent-soft",
       "separatorColor": "line",
       "Details.background": "surface",

@@ -558,7 +558,7 @@
     </option>
     <option name="DEFAULT_KEYWORD">
       <value>
-        <option name="FOREGROUND" value="{{ yellow | strip }}"/>
+        <option name="FOREGROUND" value="{{ syntax-keyword | strip }}"/>
       </value>
     </option>
     <option name="DEFAULT_LABEL">
@@ -684,8 +684,8 @@
     </option>
     <option name="DIFF_MODIFIED">
       <value>
-        <option name="BACKGROUND" value="{{ cyan-soft | strip }}"/>
-        <option name="ERROR_STRIPE_COLOR" value="{{ cyan-mid | strip }}"/>
+        <option name="BACKGROUND" value="{{ blue-soft | mix(blue-mid, 0.45) | strip }}"/>
+        <option name="ERROR_STRIPE_COLOR" value="{{ blue-mid | strip }}"/>
       </value>
     </option>
     <option name="DUPLICATE_FROM_SERVER">
@@ -3624,6 +3624,113 @@
       <value>
         <option name="FOREGROUND" value="{{ syntax-doc-tag | strip }}"/>
         <option name="EFFECT_TYPE" value="5"/>
+      </value>
+    </option>
+    <option name="SQL_KEYWORD">
+      <value>
+        <option name="FOREGROUND" value="{{ syntax-keyword | strip }}"/>
+      </value>
+    </option>
+    <option name="SQL_TYPE">
+      <value>
+        <option name="FOREGROUND" value="{{ syntax-type | strip }}"/>
+      </value>
+    </option>
+    <option name="SQL_SYNTHETIC_ENTITY">
+      <value>
+        <option name="FOREGROUND" value="{{ syntax-doc-tag | strip }}"/>
+      </value>
+    </option>
+    <option name="SQL_OUTER_QUERY_COLUMN">
+      <value>
+        <option name="FOREGROUND" value="{{ syntax-variable | strip }}"/>
+        <option name="FONT_TYPE" value="2"/>
+      </value>
+    </option>
+    <option name="XML_CUSTOM_TAG_NAME">
+      <value>
+        <option name="FOREGROUND" value="{{ syntax-type | strip }}"/>
+      </value>
+    </option>
+    <option name="MARKDOWN_HEADER">
+      <value>
+        <option name="FOREGROUND" value="{{ accent | strip }}"/>
+      </value>
+    </option>
+    <option name="org.toml.KEY">
+      <value>
+        <option name="FOREGROUND" value="{{ syntax-yaml-key | strip }}"/>
+      </value>
+    </option>
+    <option name="MERMAID_DIAGRAM_NAME">
+      <value>
+        <option name="FOREGROUND" value="{{ syntax-keyword | strip }}"/>
+      </value>
+    </option>
+    <option name="MERMAID_KEYWORD">
+      <value>
+        <option name="FOREGROUND" value="{{ syntax-keyword | strip }}"/>
+      </value>
+    </option>
+    <option name="MERMAID_IDENTIFIER">
+      <value>
+        <option name="FOREGROUND" value="{{ syntax-variable | strip }}"/>
+      </value>
+    </option>
+    <option name="MERMAID_EDGE">
+      <value>
+        <option name="FOREGROUND" value="{{ syntax-operator | strip }}"/>
+      </value>
+    </option>
+    <option name="MERMAID_NOTE">
+      <value>
+        <option name="FOREGROUND" value="{{ syntax-comment | strip }}"/>
+        <option name="FONT_TYPE" value="2"/>
+      </value>
+    </option>
+    <option name="MERMAID_GENERIC">
+      <value>
+        <option name="FOREGROUND" value="{{ syntax-variable | strip }}"/>
+      </value>
+    </option>
+    <option name="MERMAID_TITLE">
+      <value>
+        <option name="FOREGROUND" value="{{ syntax-heading | strip }}"/>
+      </value>
+    </option>
+    <option name="MERMAID_FRONTMATTER_DELIMITER">
+      <value>
+        <option name="FOREGROUND" value="{{ syntax-punctuation | strip }}"/>
+      </value>
+    </option>
+    <option name="COMPOSE_SERVICE_STATUS_SUCCESS">
+      <value>
+        <option name="FOREGROUND" value="{{ success | strip }}"/>
+      </value>
+    </option>
+    <option name="COMPOSE_SERVICE_STATUS_ERROR">
+      <value>
+        <option name="FOREGROUND" value="{{ danger | strip }}"/>
+      </value>
+    </option>
+    <option name="COMPOSE_SERVICE_STATUS_NEUTRAL">
+      <value>
+        <option name="FOREGROUND" value="{{ text-subtle | strip }}"/>
+      </value>
+    </option>
+    <option name="KUBERNETES_POD_STATUS_SUCCESS">
+      <value>
+        <option name="FOREGROUND" value="{{ success | strip }}"/>
+      </value>
+    </option>
+    <option name="KUBERNETES_POD_STATUS_ERROR">
+      <value>
+        <option name="FOREGROUND" value="{{ danger | strip }}"/>
+      </value>
+    </option>
+    <option name="KUBERNETES_POD_STATUS_OTHER">
+      <value>
+        <option name="FOREGROUND" value="{{ text-subtle | strip }}"/>
       </value>
     </option>
   </attributes>
