@@ -1,113 +1,334 @@
 /* ==UserStyle==
 @name        ChatGPT
 @namespace   themer
-@version     2.0.0
-@description Converted from the classic Stylus style "ChatGPT" to Themer variables.
+@version     3.0.0
+@description ChatGPT in Themer colors, through its semantic tokens (html.dark / .light).
 ==/UserStyle== */
 
 @-moz-document domain("chatgpt.com") {
-@import "colors.css";
+/* Tokens are set on html and on subtrees (.dark, .light, Tailwind [--token:...] classes); claim them all */
+:root, .dark, .light, [class*="[--"] {
+  /* Grounds: thread on bg, sidebar on bg-sunken, cards and menus raised by steps */
+  --bg-primary: var(--themer-bg) !important;
+  --bg-secondary: var(--themer-surface) !important;
+  --bg-tertiary: var(--themer-surface-hover) !important;
+  --bg-elevated-primary: var(--themer-surface-raised) !important;
+  --bg-elevated-secondary: var(--themer-bg-sunken) !important;
+  --bg-secondary-surface: var(--themer-bg-sunken) !important;
+  --bg-primary-inverted: var(--themer-text-bright) !important;
+  --bg-scrim: color-mix(in srgb, var(--themer-window-shadow) 55%, transparent) !important;
+  --bg-tooltip: var(--themer-surface-raised) !important;
+  --bg-accent-static: var(--themer-accent) !important;
+  --bg-status-error: var(--themer-danger-soft) !important;
+  --bg-status-success: var(--themer-success-soft) !important;
+  --bg-status-warning: var(--themer-warning-soft) !important;
+  --main-surface-background: color-mix(in srgb, var(--themer-bg) 90%, transparent) !important;
+  --main-surface-primary: var(--themer-bg) !important;
+  --main-surface-primary-inverse: var(--themer-text-bright) !important;
+  --main-surface-secondary: var(--themer-surface) !important;
+  --main-surface-secondary-selected: var(--themer-accent-soft) !important;
+  --main-surface-tertiary: var(--themer-surface-hover) !important;
+  --component-sidebar-bg: var(--themer-bg-sunken) !important;
+  --sidebar-surface: var(--themer-bg-sunken) !important;
+  --sidebar-surface-primary: var(--themer-bg-sunken) !important;
+  --sidebar-surface-secondary: var(--themer-surface) !important;
+  --sidebar-surface-tertiary: var(--themer-surface-hover) !important;
+  --sidebar-body-primary: var(--themer-text) !important;
+  --sidebar-icon: var(--themer-text-subtle) !important;
+  --sidebar-title-primary: var(--themer-text-subtle) !important;
+  --surface-hover: var(--themer-surface-hover) !important;
+  --message-surface: var(--themer-surface) !important;
+  --composer-surface: var(--themer-surface) !important;
+  --composer-surface-primary: var(--themer-surface) !important;
+  --code-block-surface: var(--themer-bg-sunken) !important;
+  --keyboard-open-mask-bg: var(--themer-bg-sunken) !important;
+  /* Your own messages sit on the accent tint, whatever chat colour theme is picked */
+  --theme-user-msg-bg: var(--themer-accent-soft) !important;
+  --theme-user-msg-text: var(--themer-text) !important;
+  --default-theme-user-msg-bg: var(--themer-accent-soft) !important;
+  --default-theme-user-msg-text: var(--themer-text) !important;
+  --theme-submit-btn-bg: var(--themer-accent) !important;
+  --theme-submit-btn-text: var(--themer-on-accent) !important;
+  --default-theme-submit-btn-bg: var(--themer-accent) !important;
+  --default-theme-submit-btn-text: var(--themer-on-accent) !important;
+  --theme-secondary-btn-bg: var(--themer-surface-hover) !important;
+  --theme-secondary-btn-text: var(--themer-text) !important;
+  --default-theme-secondary-btn-bg: var(--themer-surface-hover) !important;
+  --default-theme-secondary-btn-text: var(--themer-text) !important;
+  --theme-user-selection-bg: var(--themer-selection) !important;
+  --default-theme-user-selection-bg: var(--themer-selection) !important;
+  --theme-accent-text: var(--themer-accent) !important;
+  --default-theme-accent-text: var(--themer-accent) !important;
+  --theme-entity-accent: var(--themer-accent) !important;
+  --default-theme-entity-accent: var(--themer-accent) !important;
+  --default-theme-attribution-highlight-bg: var(--themer-yellow-soft) !important;
 
-:root {
-  --chat-max-ch: 120ch;
-  --chat-side-padding: 1.5rem;
+  /* Text and icons */
+  --text-primary: var(--themer-text) !important;
+  --text-secondary: var(--themer-text-muted) !important;
+  --text-tertiary: var(--themer-text-subtle) !important;
+  --text-quaternary: var(--themer-text-faint) !important;
+  --text-placeholder: var(--themer-text-subtle) !important;
+  --text-inverted: var(--themer-text-inverse) !important;
+  --text-inverted-static: var(--themer-on-accent) !important;
+  --text-primary-inverse: var(--themer-text-inverse) !important;
+  --text-accent: var(--themer-accent) !important;
+  --text-danger: var(--themer-danger) !important;
+  --text-error: var(--themer-danger) !important;
+  --text-status-error: var(--themer-danger) !important;
+  --text-status-success: var(--themer-success) !important;
+  --text-status-warning: var(--themer-warning) !important;
+  --content-primary: var(--themer-text) !important;
+  --content-secondary: var(--themer-text-muted) !important;
+  --icon-primary: var(--themer-text) !important;
+  --icon-secondary: var(--themer-text-muted) !important;
+  --icon-tertiary: var(--themer-text-subtle) !important;
+  --icon-accent: var(--themer-accent) !important;
+  --icon-inverted: var(--themer-text-inverse) !important;
+  --icon-inverted-static: var(--themer-on-accent) !important;
+  --icon-status-error: var(--themer-danger) !important;
+  --icon-status-warning: var(--themer-warning) !important;
+  --link: var(--themer-link) !important;
+  --link-hover: var(--themer-accent-hover) !important;
+  --dot-color: var(--themer-text) !important;
+  --hint-bg: var(--themer-accent-soft) !important;
+  --hint-text: var(--themer-accent) !important;
+  --tag-blue: var(--themer-blue) !important;
+  --tag-blue-light: var(--themer-blue-bright) !important;
+  --selection: var(--themer-selection) !important;
+  --formatted-text-highlight-bg: var(--themer-accent-soft) !important;
+  --accent-default: var(--themer-text-subtle) !important;
+  --accent-blue: var(--themer-blue) !important;
+  --accent-green: var(--themer-green) !important;
+  --accent-orange: var(--themer-orange) !important;
+  --accent-pink: var(--themer-magenta) !important;
+  --accent-purple: var(--themer-violet) !important;
+  --accent-yellow: var(--themer-yellow) !important;
+  --accent-primary: var(--themer-accent) !important;
+  --accent-secondary: var(--themer-accent-hover) !important;
+  --composer-blue-bg: var(--themer-accent-soft) !important;
+  --composer-blue-hover: var(--themer-blue-mid) !important;
+  --composer-blue-hover-tint: var(--themer-accent-soft) !important;
+  --composer-blue-text: var(--themer-accent) !important;
 
-  --main-surface-primary: var(--themer-surface);
-  --main-surface-secondary: var(--themer-surface-hover);
-  --bg-primary: var(--themer-bg);
-  --bg-secondary: var(--themer-surface);
-  --bg-tertiary: var(--themer-surface-hover);
-  --bg-elevated-primary: var(--themer-surface);
-  --bg-elevated-secondary: var(--themer-surface-hover);
-  --text-primary: var(--themer-text);
-  --text-secondary: var(--themer-text-muted);
-  --text-tertiary: var(--themer-text-subtle);
-  --border-primary: var(--themer-line);
-  --border-secondary: color-mix(in srgb, var(--themer-line) 60%, var(--themer-bg));
-  --accent-primary: var(--themer-accent);
-  --accent-secondary: var(--themer-accent-hover);
-  --theme-user-msg-bg: var(--themer-surface-hover)
-    
+  /* Lines */
+  --border-default: var(--themer-line) !important;
+  --border-light: var(--themer-line) !important;
+  --border-xlight: var(--themer-line) !important;
+  --border-extra-light: var(--themer-line) !important;
+  --border-sharp: var(--themer-line) !important;
+  --border-medium: var(--themer-line) !important;
+  --border-heavy: var(--themer-line-strong) !important;
+  --border-xheavy: var(--themer-line-strong) !important;
+  --border-tooltip: var(--themer-line) !important;
+  --border-status-error: var(--themer-red-dim) !important;
+  --border-status-warning: var(--themer-orange-dim) !important;
+  --scrollbar-color: var(--themer-surface-active) !important;
+  --scrollbar-color-hover: var(--themer-line-strong) !important;
+  --utility-scrollbar: var(--themer-surface-active) !important;
+
+  /* Controls: primary is the accent (ChatGPT uses white in dark), secondary and tertiary are quiet */
+  --interactive-bg-primary-default: var(--themer-accent) !important;
+  --interactive-bg-primary-hover: var(--themer-accent-hover) !important;
+  --interactive-bg-primary-press: var(--themer-blue-dim) !important;
+  --interactive-bg-primary-selected: var(--themer-accent) !important;
+  --interactive-bg-primary-inactive: var(--themer-accent) !important;
+  --interactive-label-primary-default: var(--themer-on-accent) !important;
+  --interactive-label-primary-hover: var(--themer-on-accent) !important;
+  --interactive-label-primary-press: var(--themer-on-accent) !important;
+  --interactive-label-primary-selected: var(--themer-on-accent) !important;
+  --interactive-label-primary-inactive: var(--themer-on-accent) !important;
+  --interactive-icon-primary-default: var(--themer-on-accent) !important;
+  --interactive-icon-primary-hover: var(--themer-on-accent) !important;
+  --interactive-icon-primary-press: var(--themer-on-accent) !important;
+  --interactive-icon-primary-selected: var(--themer-on-accent) !important;
+  --interactive-icon-primary-inactive: var(--themer-on-accent) !important;
+  --interactive-bg-secondary-default: transparent !important;
+  --interactive-bg-secondary-inactive: transparent !important;
+  --interactive-bg-secondary-hover: var(--themer-surface-hover) !important;
+  --interactive-bg-secondary-press: var(--themer-surface-active) !important;
+  --interactive-bg-secondary-selected: var(--themer-accent-soft) !important;
+  --interactive-label-secondary-default: var(--themer-text) !important;
+  --interactive-label-secondary-hover: var(--themer-text) !important;
+  --interactive-label-secondary-press: var(--themer-text) !important;
+  --interactive-label-secondary-selected: var(--themer-text) !important;
+  --interactive-label-secondary-inactive: var(--themer-text-muted) !important;
+  --interactive-icon-secondary-default: var(--themer-text-muted) !important;
+  --interactive-icon-secondary-hover: var(--themer-text) !important;
+  --interactive-icon-secondary-press: var(--themer-text) !important;
+  --interactive-icon-secondary-selected: var(--themer-accent) !important;
+  --interactive-icon-secondary-inactive: var(--themer-text-subtle) !important;
+  --interactive-bg-tertiary-default: var(--themer-bg) !important;
+  --interactive-bg-tertiary-inactive: var(--themer-bg) !important;
+  --interactive-bg-tertiary-hover: var(--themer-surface-hover) !important;
+  --interactive-bg-tertiary-press: var(--themer-surface-active) !important;
+  --interactive-bg-tertiary-selected: var(--themer-accent-soft) !important;
+  --interactive-label-tertiary-default: var(--themer-text-muted) !important;
+  --interactive-label-tertiary-hover: var(--themer-text) !important;
+  --interactive-label-tertiary-press: var(--themer-text) !important;
+  --interactive-label-tertiary-selected: var(--themer-text) !important;
+  --interactive-label-tertiary-inactive: var(--themer-text-subtle) !important;
+  --interactive-icon-tertiary-default: var(--themer-text-subtle) !important;
+  --interactive-icon-tertiary-hover: var(--themer-text) !important;
+  --interactive-icon-tertiary-press: var(--themer-text) !important;
+  --interactive-icon-tertiary-selected: var(--themer-accent) !important;
+  --interactive-icon-tertiary-inactive: var(--themer-text-disabled) !important;
+  --interactive-bg-accent-default: transparent !important;
+  --interactive-bg-accent-inactive: transparent !important;
+  --interactive-bg-accent-hover: var(--themer-accent-soft) !important;
+  --interactive-bg-accent-press: var(--themer-blue-mid) !important;
+  --interactive-bg-accent-muted-context: var(--themer-accent-soft) !important;
+  --interactive-bg-accent-muted-hover: var(--themer-accent-soft) !important;
+  --interactive-bg-accent-muted-press: var(--themer-blue-mid) !important;
+  --interactive-bg-accent-secondary-default: var(--themer-accent) !important;
+  --interactive-bg-accent-secondary-hover: var(--themer-accent-hover) !important;
+  --interactive-bg-accent-secondary-press: var(--themer-blue-dim) !important;
+  --interactive-label-accent-default: var(--themer-accent) !important;
+  --interactive-label-accent-hover: var(--themer-accent-hover) !important;
+  --interactive-label-accent-press: var(--themer-accent-hover) !important;
+  --interactive-label-accent-selected: var(--themer-accent) !important;
+  --interactive-label-accent-inactive: var(--themer-text-disabled) !important;
+  --interactive-label-accent-accessible: var(--themer-accent) !important;
+  --interactive-icon-accent-default: var(--themer-accent) !important;
+  --interactive-icon-accent-hover: var(--themer-accent-hover) !important;
+  --interactive-icon-accent-press: var(--themer-accent-hover) !important;
+  --interactive-icon-accent-selected: var(--themer-accent) !important;
+  --interactive-icon-accent-inactive: var(--themer-text-disabled) !important;
+  --interactive-bg-control-default: var(--themer-line-strong) !important;
+  --interactive-border-secondary-default: var(--themer-line) !important;
+  --interactive-border-secondary-hover: var(--themer-line-strong) !important;
+  --interactive-border-secondary-press: var(--themer-line-strong) !important;
+  --interactive-border-secondary-inactive: var(--themer-line) !important;
+  --interactive-border-tertiary-default: var(--themer-line) !important;
+  --interactive-border-tertiary-hover: var(--themer-line-strong) !important;
+  --interactive-border-tertiary-press: var(--themer-line-strong) !important;
+  --interactive-border-tertiary-inactive: var(--themer-line) !important;
+  --interactive-border-focus: var(--themer-focus-ring) !important;
+  --interactive-focus-ring-primary: var(--themer-focus-ring) !important;
+  --interactive-focus-ring-secondary: var(--themer-focus-ring) !important;
+  --interactive-focus-ring-danger: var(--themer-danger) !important;
+
+  /* Danger and discovery */
+  --interactive-bg-danger-primary-default: var(--themer-danger) !important;
+  --interactive-bg-danger-primary-inactive: var(--themer-danger) !important;
+  --interactive-bg-danger-primary-hover: var(--themer-red-bright) !important;
+  --interactive-bg-danger-primary-press: var(--themer-red-dim) !important;
+  --interactive-bg-danger-primary-default-context: var(--themer-danger) !important;
+  --interactive-bg-danger-primary-hover-context: var(--themer-red-bright) !important;
+  --interactive-bg-danger-primary-press-context: var(--themer-red-dim) !important;
+  --interactive-bg-danger-primary-selected-context: var(--themer-danger) !important;
+  --interactive-bg-danger-primary-inactive-context: var(--themer-surface) !important;
+  --interactive-bg-danger-soft-default-context: var(--themer-danger-soft) !important;
+  --interactive-bg-danger-soft-hover-context: var(--themer-red-mid) !important;
+  --interactive-bg-danger-soft-press-context: var(--themer-red-mid) !important;
+  --interactive-bg-danger-soft-selected-context: var(--themer-danger-soft) !important;
+  --interactive-bg-danger-soft-inactive-context: var(--themer-surface) !important;
+  --interactive-bg-danger-ghost-hover-context: var(--themer-danger-soft) !important;
+  --interactive-bg-danger-ghost-press-context: var(--themer-red-mid) !important;
+  --interactive-bg-danger-ghost-selected-context: var(--themer-danger-soft) !important;
+  --interactive-label-danger-primary-default: var(--themer-on-accent) !important;
+  --interactive-label-danger-primary-hover: var(--themer-on-accent) !important;
+  --interactive-label-danger-primary-press: var(--themer-on-accent) !important;
+  --interactive-label-danger-primary-inactive: var(--themer-on-accent) !important;
+  --interactive-label-danger-primary-context: var(--themer-on-accent) !important;
+  --interactive-label-danger-primary-press-context: var(--themer-on-accent) !important;
+  --interactive-icon-danger-primary-default: var(--themer-on-accent) !important;
+  --interactive-icon-danger-primary-hover: var(--themer-on-accent) !important;
+  --interactive-icon-danger-primary-press: var(--themer-on-accent) !important;
+  --interactive-icon-danger-primary-inactive: var(--themer-on-accent) !important;
+  --interactive-icon-danger-primary-context: var(--themer-on-accent) !important;
+  --interactive-icon-danger-primary-press-context: var(--themer-on-accent) !important;
+  --interactive-label-danger-secondary-default: var(--themer-danger) !important;
+  --interactive-label-danger-secondary-hover: var(--themer-red-bright) !important;
+  --interactive-label-danger-secondary-press: var(--themer-red-bright) !important;
+  --interactive-label-danger-secondary-inactive: var(--themer-danger) !important;
+  --interactive-label-danger-soft-context: var(--themer-danger) !important;
+  --interactive-label-danger-soft-press-context: var(--themer-red-bright) !important;
+  --interactive-label-danger-ghost-context: var(--themer-danger) !important;
+  --interactive-label-danger-ghost-press-context: var(--themer-red-bright) !important;
+  --interactive-icon-danger-secondary-default: var(--themer-danger) !important;
+  --interactive-icon-danger-secondary-hover: var(--themer-red-bright) !important;
+  --interactive-icon-danger-secondary-press: var(--themer-red-bright) !important;
+  --interactive-icon-danger-secondary-inactive: var(--themer-danger) !important;
+  --interactive-icon-danger-soft-context: var(--themer-danger) !important;
+  --interactive-icon-danger-soft-press-context: var(--themer-red-bright) !important;
+  --interactive-icon-danger-ghost-context: var(--themer-danger) !important;
+  --interactive-icon-danger-ghost-press-context: var(--themer-red-bright) !important;
+  --interactive-border-danger-secondary-default: var(--themer-danger) !important;
+  --interactive-border-danger-secondary-hover: var(--themer-red-bright) !important;
+  --interactive-border-danger-secondary-press: var(--themer-red-dim) !important;
+  --interactive-border-danger-secondary-inactive: var(--themer-red-dim) !important;
+  --interactive-bg-discovery-soft-default: var(--themer-violet-soft) !important;
+  --interactive-bg-discovery-soft-inactive: var(--themer-violet-soft) !important;
+  --interactive-bg-discovery-soft-hover: var(--themer-violet-mid) !important;
+  --interactive-bg-discovery-soft-press: var(--themer-violet-mid) !important;
+  --interactive-label-discovery-soft-default: var(--themer-violet) !important;
+  --interactive-label-discovery-soft-hover: var(--themer-violet-bright) !important;
+  --interactive-label-discovery-soft-press: var(--themer-violet-bright) !important;
+  --interactive-label-discovery-soft-inactive: var(--themer-violet) !important;
 }
 
-body {
-  background-color: var(--themer-bg);
-  color: var(--themer-text);
+/* Fonts: SF Pro for the UI and prose, Liga SFMono for code */
+html, body, button, input, textarea, select {
+  font-family: var(--themer-font-sans), system-ui, sans-serif !important;
 }
-
-main {
-  background-color: var(--themer-bg);
+html, body { background-color: var(--themer-bg) !important; color: var(--themer-text); }
+body { -webkit-font-smoothing: antialiased; }
+code, pre, kbd, samp, .font-mono, pre *, code * {
+  font-family: var(--themer-font-mono), ui-monospace, monospace !important;
+  font-variant-ligatures: contextual;
 }
+::selection { background: var(--themer-selection); color: var(--themer-text); }
 
-.bg-token-main-surface-primary {
-  background-color: var(--themer-bg);
+/* Inline code and code blocks */
+:not(pre) > code {
+  background-color: var(--themer-surface) !important;
+  color: var(--themer-syntax-string) !important;
+  border-radius: var(--themer-radius-xs);
 }
-
-.bg-token-bg-secondary-surface {
-  background-color: var(--themer-bg-sunken);
+pre { background-color: var(--themer-bg-sunken) !important; border-radius: var(--themer-radius-md); }
+/* CodeMirror highlighting: its generated classes take palette variables, so remap those inside code blocks only.
+   Shell commands come out orange, so orange carries functions; numbers and constants are on red. */
+pre, .cm-editor {
+  --gray-950: var(--themer-bg-sunken) !important;
+  --gray-925: var(--themer-bg-sunken) !important;
+  --gray-900: var(--themer-surface) !important;
+  --gray-50: var(--themer-syntax-variable) !important;
+  --gray-250: var(--themer-syntax-comment) !important;
+  --purple-200: var(--themer-syntax-keyword) !important;
+  --green-200: var(--themer-syntax-string) !important;
+  --blue-200: var(--themer-syntax-type) !important;
+  --orange-200: var(--themer-syntax-function) !important;
+  --yellow-200: var(--themer-syntax-attribute) !important;
+  --red-200: var(--themer-syntax-number) !important;
+  --pink-200: var(--themer-syntax-operator) !important;
+  --blue-a75: var(--themer-selection) !important;
 }
-
-.bg-token-main-surface-secondary {
-  background-color: var(--themer-surface);
+.hljs, pre code { color: var(--themer-syntax-variable) !important; }
+.hljs-keyword, .hljs-selector-tag, .hljs-tag, .hljs-name, .hljs-bullet, .hljs-section {
+  color: var(--themer-syntax-keyword) !important;
 }
-
-.bg-token-sidebar-surface-secondary {
-  background-color: var(--themer-surface);
+.hljs-string, .hljs-template-variable, .hljs-char { color: var(--themer-syntax-string) !important; }
+.hljs-comment, .hljs-quote { color: var(--themer-syntax-comment) !important; font-style: italic; }
+.hljs-number, .hljs-literal { color: var(--themer-syntax-number) !important; }
+.hljs-title, .hljs-title.function_, .hljs-function .hljs-title { color: var(--themer-syntax-function) !important; }
+.hljs-title.class_, .hljs-class .hljs-title { color: var(--themer-syntax-class) !important; }
+.hljs-type, .hljs-built_in { color: var(--themer-syntax-type) !important; }
+.hljs-attr, .hljs-property, .hljs-variable.language_ { color: var(--themer-syntax-property) !important; }
+.hljs-attribute { color: var(--themer-syntax-attribute) !important; }
+.hljs-meta, .hljs-symbol, .hljs-selector-pseudo, .hljs-selector-class {
+  color: var(--themer-syntax-annotation) !important;
 }
+.hljs-doctag { color: var(--themer-syntax-doc-tag) !important; }
+.hljs-regexp { color: var(--themer-syntax-regex) !important; }
+.hljs-link { color: var(--themer-syntax-link) !important; }
+.hljs-params, .hljs-variable { color: var(--themer-syntax-variable) !important; }
+.hljs-punctuation { color: var(--themer-syntax-punctuation) !important; }
+.hljs-operator { color: var(--themer-syntax-operator) !important; }
+.hljs-addition { color: var(--themer-success) !important; background: var(--themer-green-soft) !important; }
+.hljs-deletion { color: var(--themer-danger) !important; background: var(--themer-red-soft) !important; }
 
-.bg-token-bg-elevated-secondary {
-  background-color: var(--themer-surface);
-}
-
-.bg-token-main-surface-tertiary {
-  background-color: var(--themer-surface-hover);
-}
-
-.bg-token-sidebar-surface-primary {
-  background-color: var(--themer-bg-sunken);
-}
-
-.text-token-text-primary {
-  color: var(--themer-text);
-}
-
-.text-token-text-secondary {
-  color: var(--themer-text-muted);
-}
-
-.text-token-text-tertiary {
-  color: var(--themer-text-subtle);
-}
-
-.border-token-border-light {
-  border-color: color-mix(in srgb, var(--themer-line) 60%, var(--themer-bg));
-}
-
-.border-token-border-medium {
-  border-color: var(--themer-line);
-}
-
-a {
-  color: var(--themer-link);
-}
-
-button[data-testid="send-button"] {
-  background-color: var(--themer-accent);
-}
-
-.hover\:bg-token-main-surface-secondary:hover {
-  background-color: var(--themer-surface-hover);
-}
-
-code {
-  color: var(--themer-syntax-keyword);
-}
-
-.prose code {
-  background-color: var(--themer-surface);
-}
-
-button[aria-label="Upgrade"] {
+button[aria-label="Upgrade"], [data-testid="upgrade-button"] {
   display: none !important;
 }
 }

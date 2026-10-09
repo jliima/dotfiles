@@ -1,79 +1,399 @@
 /* ==UserStyle==
 @name        Reddit
 @namespace   themer
-@version     2.0.0
-@description Converted from the classic Stylus style "Reddit" to Themer variables.
+@version     3.0.0
+@description Reddit (www.reddit.com, shreddit) in Themer colors, through its --color-* design tokens.
 ==/UserStyle== */
 
 @-moz-document domain("www.reddit.com") {
-:root {
+/* Reddit's tokens (light and dark) mapped to Pare */
+:root, :root.theme-dark, :root.theme-light, .theme-dark, .theme-light, .theme-beta, .theme-rpl {
   --color-neutral-background: var(--themer-bg) !important;
+  --color-neutral-background-hover: var(--themer-surface-hover) !important;
   --color-neutral-background-weak: var(--themer-bg-sunken) !important;
+  --color-neutral-background-weak-hover: var(--themer-surface) !important;
   --color-neutral-background-strong: var(--themer-surface) !important;
-  
-  --global-font: "SF Mono" !important;
-  --og-font: var(--global-font) !important;
-  --font-sans: var(--global-font) !important;
-  --font-10: var(--global-font) !important;
-  --font-12: var(--global-font) !important;
-  --font-14: var(--global-font) !important;
-  --font-16: var(--global-font) !important;
-  --font-18: var(--global-font) !important;
-  --font-20: var(--global-font) !important;
-  --font-24: var(--global-font) !important;
-  --font-32: var(--global-font) !important;
-  --font-48: var(--global-font) !important;
-  --font-64: var(--global-font) !important;
+  --color-neutral-background-strong-hover: var(--themer-surface-hover) !important;
+  --color-neutral-background-medium: var(--themer-surface) !important;
+  --color-neutral-background-canvas: var(--themer-bg) !important;
+  --color-neutral-background-container: var(--themer-surface) !important;
+  --color-neutral-background-container-hover: var(--themer-surface-hover) !important;
+  --color-neutral-background-container-strong: var(--themer-surface-raised) !important;
+  --color-neutral-background-container-strong-hover: var(--themer-surface-hover) !important;
+  --color-neutral-background-highlighted: var(--themer-surface) !important;
+  --color-neutral-background-highlighted-strong: var(--themer-surface-hover) !important;
+  --color-neutral-background-gilded: var(--themer-surface) !important;
+  --color-neutral-background-gilded-hover: var(--themer-surface-hover) !important;
+  --color-neutral-background-pinned: var(--themer-bg-sunken) !important;
+  --color-neutral-background-selected: var(--themer-accent-soft) !important;
+  --color-neutral-border: var(--themer-line) !important;
+  --color-neutral-border-weak: var(--themer-line) !important;
+  --color-neutral-border-medium: var(--themer-line) !important;
+  --color-neutral-border-strong: var(--themer-line-strong) !important;
+  --color-neutral-border-divider: var(--themer-line) !important;
+  --color-divider-default: var(--themer-line) !important;
+  --color-neutral-content: var(--themer-text-muted) !important;
+  --color-neutral-content-strong: var(--themer-text) !important;
+  --color-neutral-content-weak: var(--themer-text-subtle) !important;
+  --color-neutral-content-disabled: var(--themer-text-disabled) !important;
+  --color-label-default: var(--themer-text-subtle) !important;
+  --color-ui-canvas: var(--themer-bg-deep) !important;
+  --color-ui-modalbackground: var(--themer-surface-raised) !important;
+  --color-tone-1: var(--themer-text-bright) !important;
+  --color-tone-2: var(--themer-text-muted) !important;
+  --color-tone-3: var(--themer-line-strong) !important;
+  --color-tone-4: var(--themer-surface-active) !important;
+  --color-tone-5: var(--themer-surface) !important;
+  --color-tone-6: var(--themer-bg) !important;
+  --color-tone-7: var(--themer-bg-deep) !important;
+  --color-transparent-background-hover: var(--themer-surface-hover) !important;
+  --color-plain-onBackground: var(--themer-text) !important;
+  --color-plain-inverted-onBackground: var(--themer-text-inverse) !important;
+  --color-bordered-onBackground: var(--themer-text) !important;
+  --color-secondary-background: var(--themer-surface-hover) !important;
+  --color-secondary-background-hover: var(--themer-surface-active) !important;
+  --color-secondary-background-selected: var(--themer-accent-soft) !important;
+  --color-secondary: var(--themer-text-muted) !important;
+  --color-secondary-hover: var(--themer-text) !important;
+  --color-secondary-onBackground: var(--themer-text) !important;
+  --color-secondary-plain: var(--themer-text-muted) !important;
+  --color-secondary-plain-hover: var(--themer-text) !important;
+  --color-secondary-plain-weak: var(--themer-text-subtle) !important;
+  --color-secondary-weak: var(--themer-text-subtle) !important;
+  --color-primary: var(--themer-accent) !important;
+  --color-primary-hover: var(--themer-accent-hover) !important;
+  --color-primary-background: var(--themer-accent) !important;
+  --color-primary-background-hover: var(--themer-accent-hover) !important;
+  --color-primary-background-selected: var(--themer-blue-dim) !important;
+  --color-primary-background-highlighted: var(--themer-accent-soft) !important;
+  --color-primary-onBackground: var(--themer-on-accent) !important;
+  --color-primary-onBackground-selected: var(--themer-on-accent) !important;
+  --color-primary-plain: var(--themer-accent) !important;
+  --color-primary-plain-hover: var(--themer-accent-hover) !important;
+  --color-primary-plain-selected: var(--themer-text) !important;
+  --color-primary-plain-visited: var(--themer-link) !important;
+  --color-primary-visited: var(--themer-link) !important;
+  --color-primary-border: var(--themer-line-strong) !important;
+  --color-primary-border-hover: var(--themer-line-strong) !important;
+  --color-primary-switchBackground: var(--themer-surface-active) !important;
+  --color-primary-switchBackground-hover: var(--themer-line-strong) !important;
+  --color-primary-switchBackground-selected: var(--themer-accent) !important;
+  --color-primary-switchBackground-selected-hover: var(--themer-accent-hover) !important;
+  --color-primarynext-background: var(--themer-accent) !important;
+  --color-primarynext-background-hover: var(--themer-accent-hover) !important;
+  --color-primarynext-onBackground: var(--themer-on-accent) !important;
+  --color-primarynext-plain: var(--themer-accent) !important;
+  --color-primarynext-plain-hover: var(--themer-accent-hover) !important;
+  --color-primarynext-plain-selected: var(--themer-text) !important;
+  --color-primarynext-plain-visited: var(--themer-link) !important;
+  --color-primarynext-border: var(--themer-line-strong) !important;
+  --color-primarynext-border-hover: var(--themer-line-strong) !important;
+  --color-a-default: var(--themer-link) !important;
+  --color-a-hover: var(--themer-accent-hover) !important;
+  --color-a-visited: var(--themer-link) !important;
+  --color-action-primary: var(--themer-accent) !important;
+  --color-action-secondary: var(--themer-text) !important;
+  --color-action-upvote: var(--themer-orange) !important;
+  --color-action-downvote: var(--themer-violet) !important;
+  --color-interactive-focused: var(--themer-focus-ring) !important;
+  --color-interactive-pressed: var(--themer-surface-active) !important;
+  --color-interactive-background-disabled: var(--themer-surface) !important;
+  --color-interactive-content-disabled: var(--themer-text-disabled) !important;
+  --color-global-focus: var(--themer-focus-ring) !important;
+  --color-brand-background: var(--themer-accent) !important;
+  --color-brand-background-hover: var(--themer-accent-hover) !important;
+  --color-brand-onBackground: var(--themer-on-accent) !important;
+  --color-banner-brand: var(--themer-accent) !important;
+  --color-banner-brand-text: var(--themer-on-accent) !important;
+  --color-global-orangered: var(--themer-orange) !important;
+  --color-global-brand-orangered: var(--themer-orange) !important;
+  --color-global-alienblue: var(--themer-blue) !important;
+  --color-global-darkblue: var(--themer-surface-hover) !important;
+  --color-global-gold: var(--themer-yellow) !important;
+  --color-global-stars: var(--themer-yellow) !important;
+  --color-global-nsfw: var(--themer-magenta) !important;
+  --color-global-nsfw-content: var(--themer-magenta) !important;
+  --color-global-online: var(--themer-green) !important;
+  --color-global-offline: var(--themer-text-subtle) !important;
+  --color-global-moderator: var(--themer-green) !important;
+  --color-global-moderator-content: var(--themer-green) !important;
+  --color-global-admin: var(--themer-orange) !important;
+  --color-global-admin-content: var(--themer-orange-bright) !important;
+  --color-global-incognito: var(--themer-cyan) !important;
+  --color-online: var(--themer-green) !important;
+  --color-offline: var(--themer-text-subtle) !important;
+  --color-favorite: var(--themer-yellow) !important;
+  --color-identity-self: var(--themer-accent) !important;
+  --color-identity-moderator: var(--themer-green) !important;
+  --color-identity-admin: var(--themer-orange) !important;
+  --color-identity-coins: var(--themer-yellow) !important;
+  --color-category-nsfw: var(--themer-magenta) !important;
+  --color-category-live: var(--themer-red) !important;
+  --color-category-spoiler: var(--themer-text-muted) !important;
+  --color-ai-plain: var(--themer-cyan) !important;
+  --color-ai-plain-hover: var(--themer-cyan-bright) !important;
+  --color-ai-background-weaker: var(--themer-cyan-soft) !important;
+  --color-brand-gradient-default: linear-gradient(var(--themer-accent), var(--themer-accent)) !important;
+  --color-brand-gradient-default-highlight: linear-gradient(transparent, transparent) !important;
+  --color-brand-gradient-active: linear-gradient(var(--themer-accent), var(--themer-accent)) !important;
+  --color-brand-gradient-active-highlight: linear-gradient(transparent, transparent) !important;
+  --color-brand-gradient-hover: linear-gradient(var(--themer-accent-hover), var(--themer-accent-hover)) !important;
+  --color-brand-gradient-hover-highlight: linear-gradient(transparent, transparent) !important;
+  --color-upvote-background: var(--themer-orange) !important;
+  --color-upvote-background-hover: var(--themer-orange-bright) !important;
+  --color-upvote-onBackground: var(--themer-on-accent) !important;
+  --color-upvote-content: var(--themer-orange) !important;
+  --color-upvote-content-weak: var(--themer-orange) !important;
+  --color-upvote-plain: var(--themer-orange-bright) !important;
+  --color-upvote-plain-weaker: var(--themer-orange) !important;
+  --color-upvote-onStrongScrim: var(--themer-orange-bright) !important;
+  --color-upvote-onStrongScrim-weaker: var(--themer-orange) !important;
+  --color-upvote-background-disabled: color-mix(in srgb, var(--themer-orange) 35%, transparent) !important;
+  --color-upvote-disabled: color-mix(in srgb, var(--themer-orange) 35%, transparent) !important;
+  --color-upvote-plain-disabled: color-mix(in srgb, var(--themer-orange) 35%, transparent) !important;
+  --color-upvote-onStrongScrim-disabled: color-mix(in srgb, var(--themer-orange) 35%, transparent) !important;
+  --color-downvote-background: var(--themer-violet) !important;
+  --color-downvote-background-hover: var(--themer-violet-bright) !important;
+  --color-downvote-onBackground: var(--themer-on-accent) !important;
+  --color-downvote-content: var(--themer-violet) !important;
+  --color-downvote-content-weak: var(--themer-violet) !important;
+  --color-downvote-plain: var(--themer-violet-bright) !important;
+  --color-downvote-plain-weaker: var(--themer-violet) !important;
+  --color-downvote-onStrongScrim: var(--themer-violet-bright) !important;
+  --color-downvote-onStrongScrim-weaker: var(--themer-violet) !important;
+  --color-downvote-background-disabled: color-mix(in srgb, var(--themer-violet) 35%, transparent) !important;
+  --color-downvote-disabled: color-mix(in srgb, var(--themer-violet) 35%, transparent) !important;
+  --color-downvote-plain-disabled: color-mix(in srgb, var(--themer-violet) 35%, transparent) !important;
+  --color-downvote-onStrongScrim-disabled: color-mix(in srgb, var(--themer-violet) 35%, transparent) !important;
+  --color-danger-background: var(--themer-red) !important;
+  --color-danger-background-hover: var(--themer-red-bright) !important;
+  --color-danger-background-highlighted: var(--themer-red-soft) !important;
+  --color-danger-background-weaker: var(--themer-red-mid) !important;
+  --color-danger-background-disabled: var(--themer-red-soft) !important;
+  --color-danger-onBackground: var(--themer-on-accent) !important;
+  --color-danger-content: var(--themer-red) !important;
+  --color-danger-content-hover: var(--themer-red-bright) !important;
+  --color-danger-plain: var(--themer-red) !important;
+  --color-danger-plain-hover: var(--themer-red-bright) !important;
+  --color-danger-hover: var(--themer-red-bright) !important;
+  --color-danger-content-default: var(--themer-on-accent) !important;
+  --color-success-background: var(--themer-green) !important;
+  --color-success-background-hover: var(--themer-green-bright) !important;
+  --color-success-background-highlighted: var(--themer-green-soft) !important;
+  --color-success-background-weaker: var(--themer-green-mid) !important;
+  --color-success-background-disabled: var(--themer-green-soft) !important;
+  --color-success-onBackground: var(--themer-on-accent) !important;
+  --color-success-content: var(--themer-green) !important;
+  --color-success-content-hover: var(--themer-green-bright) !important;
+  --color-success-plain: var(--themer-green) !important;
+  --color-success-plain-hover: var(--themer-green-bright) !important;
+  --color-success-hover: var(--themer-green-bright) !important;
+  --color-success-content-default: var(--themer-on-accent) !important;
+  --color-caution-background: var(--themer-yellow) !important;
+  --color-caution-background-hover: var(--themer-yellow-bright) !important;
+  --color-caution-background-highlighted: var(--themer-yellow-soft) !important;
+  --color-caution-background-weaker: var(--themer-yellow-mid) !important;
+  --color-caution-background-disabled: var(--themer-yellow-soft) !important;
+  --color-caution-onBackground: var(--themer-on-accent) !important;
+  --color-caution-content: var(--themer-yellow) !important;
+  --color-caution-content-hover: var(--themer-yellow-bright) !important;
+  --color-caution-plain: var(--themer-yellow) !important;
+  --color-caution-plain-hover: var(--themer-yellow-bright) !important;
+  --color-caution-hover: var(--themer-yellow-bright) !important;
+  --color-caution-content-default: var(--themer-on-accent) !important;
+  --color-warning-background: var(--themer-orange) !important;
+  --color-warning-background-hover: var(--themer-orange-bright) !important;
+  --color-warning-background-highlighted: var(--themer-orange-soft) !important;
+  --color-warning-background-weaker: var(--themer-orange-mid) !important;
+  --color-warning-background-disabled: var(--themer-orange-soft) !important;
+  --color-warning-onBackground: var(--themer-on-accent) !important;
+  --color-warning-content: var(--themer-orange) !important;
+  --color-warning-content-hover: var(--themer-orange-bright) !important;
+  --color-warning-plain: var(--themer-orange) !important;
+  --color-warning-plain-hover: var(--themer-orange-bright) !important;
+  --color-warning-hover: var(--themer-orange-bright) !important;
+  --color-warning-content-default: var(--themer-on-accent) !important;
+  --color-alert-caution: var(--themer-warning) !important;
+  --color-alert-negative: var(--themer-danger) !important;
+  --color-alert-positive: var(--themer-success) !important;
+  --color-banner-caution: var(--themer-yellow-soft) !important;
+  --color-banner-caution-text: var(--themer-yellow) !important;
+  --color-banner-error: var(--themer-danger-soft) !important;
+  --color-banner-error-text: var(--themer-danger) !important;
+  --color-banner-success: var(--themer-success-soft) !important;
+  --color-banner-success-text: var(--themer-success) !important;
+  --color-banner-caution-hover: var(--themer-yellow-mid) !important;
+  --color-banner-plain: var(--themer-surface) !important;
+  --color-banner-plain-text: var(--themer-text-muted) !important;
+  --color-banner-plain-inverted: var(--themer-text) !important;
+  --color-banner-plain-inverted-text: var(--themer-text-inverse) !important;
+  --color-button-primary-background: var(--themer-accent) !important;
+  --color-button-primary-background-hover: var(--themer-accent-hover) !important;
+  --color-button-primary-background-activated: var(--themer-blue-dim) !important;
+  --color-button-primary-background-disabled: var(--themer-surface) !important;
+  --color-button-primary-border-hover: var(--themer-accent) !important;
+  --color-button-primary-border-active: var(--themer-focus-ring) !important;
+  --color-button-primary-text-activated: var(--themer-on-accent) !important;
+  --color-button-primary-text-disabled: var(--themer-text-disabled) !important;
+  --color-button-secondary-background: var(--themer-surface-hover) !important;
+  --color-button-secondary-background-hover: var(--themer-surface-active) !important;
+  --color-button-secondary-background-activated: var(--themer-surface-active) !important;
+  --color-button-secondary-background-focus: var(--themer-surface-hover) !important;
+  --color-button-secondary-background-disabled: var(--themer-surface) !important;
+  --color-button-secondary-border-hover: var(--themer-line) !important;
+  --color-button-secondary-border-active: var(--themer-line-strong) !important;
+  --color-button-secondary-text: var(--themer-text) !important;
+  --color-button-secondary-text-activated: var(--themer-text) !important;
+  --color-button-secondary-text-disabled: var(--themer-text-disabled) !important;
+  --color-button-tertiary-background-hover: var(--themer-surface-hover) !important;
+  --color-button-tertiary-background-activated: var(--themer-surface-active) !important;
+  --color-button-tertiary-border-hover: var(--themer-line) !important;
+  --color-button-tertiary-border-active: var(--themer-line-strong) !important;
+  --color-button-tertiary-text: var(--themer-text-muted) !important;
+  --color-button-tertiary-text-activated: var(--themer-text) !important;
+  --color-button-tertiary-text-disabled: var(--themer-text-disabled) !important;
+  --color-button-plain-text: var(--themer-text-muted) !important;
+  --color-button-plain-text-hover: var(--themer-text) !important;
+  --color-button-plain-text-activated: var(--themer-text) !important;
+  --color-button-plain-text-weak: var(--themer-text-subtle) !important;
+  --color-button-plain-text-disabled: var(--themer-text-disabled) !important;
+  --color-button-plain-background-hover: var(--themer-surface-hover) !important;
+  --color-button-plain-background-activated: var(--themer-surface-active) !important;
+  --color-button-plain-border-hover: var(--themer-line) !important;
+  --color-button-plain-border-active: var(--themer-line-strong) !important;
+  --color-button-plain-inverted-background-activated: var(--themer-accent-soft) !important;
+  --color-button-plain-inverted-text-activated: var(--themer-text) !important;
+  --color-button-plain-inverted-activated-text: var(--themer-text) !important;
+  --color-button-caution-background: var(--themer-yellow) !important;
+  --color-button-caution-background-hover: var(--themer-yellow-bright) !important;
+  --color-button-caution-text: var(--themer-on-accent) !important;
+  --color-button-caution-background-disabled: var(--themer-surface) !important;
+  --color-button-favorite-text: var(--themer-yellow) !important;
+  --color-button-media-border-color-activated: var(--themer-text) !important;
+  --color-input-default: var(--themer-bg-sunken) !important;
+  --color-input-hover: var(--themer-surface-hover) !important;
+  --color-input-pressed: var(--themer-surface-active) !important;
+  --color-input-border: var(--themer-line) !important;
+  --color-input-bordered: var(--themer-line-strong) !important;
+  --color-input-bordered-hover: var(--themer-text-subtle) !important;
+  --color-input-bordered-text: var(--themer-text) !important;
+  --color-input-text: var(--themer-text) !important;
+  --color-input-helper-text: var(--themer-text-subtle) !important;
+  --color-input-radio: var(--themer-line-strong) !important;
+  --color-input-radio-hover: var(--themer-text-subtle) !important;
+  --color-input-secondary: var(--themer-surface) !important;
+  --color-input-secondary-hover: var(--themer-surface-hover) !important;
+  --color-input-secondary-text: var(--themer-text) !important;
+  --color-switch-input-background-default: var(--themer-surface-active) !important;
+  --color-switch-input-background-default-hover: var(--themer-line-strong) !important;
+  --color-switch-input-background-checked: var(--themer-accent) !important;
+  --color-switch-input-background-checked-hover: var(--themer-accent-hover) !important;
+  --color-switch-input-background-handle: var(--themer-text) !important;
+  --color-switch-input-background-handle-disabled: var(--themer-surface) !important;
+  --color-switch-input-background-disabled: var(--themer-surface) !important;
+  --color-switch-input-background-hover: var(--themer-line-strong) !important;
+  --color-tooltip-bg-neutral: var(--themer-surface-raised) !important;
+  --color-tooltip-text-neutral: var(--themer-text) !important;
+  --color-tooltip-bg-inverted: var(--themer-surface-raised) !important;
+  --color-tooltip-text-inverted: var(--themer-text) !important;
+  --color-tooltip-bg-primary: var(--themer-accent) !important;
+  --color-tooltip-text-primary: var(--themer-on-accent) !important;
+  --color-inverted-neutral-background: var(--themer-surface-raised) !important;
+  --color-inverted-neutral-background-hover: var(--themer-surface-hover) !important;
+  --color-inverted-neutral-border: var(--themer-line) !important;
+  --color-inverted-neutral-content: var(--themer-text) !important;
+  --color-inverted-neutral-content-strong: var(--themer-text-bright) !important;
+  --color-inverted-secondary-background: var(--themer-surface-hover) !important;
+  --color-inverted-secondary-background-hover: var(--themer-surface-active) !important;
+  --color-inverted-secondary-background-selected: var(--themer-accent-soft) !important;
+  --color-inverted-secondary-onBackground: var(--themer-text) !important;
+  --color-inverted-secondary-plain: var(--themer-text) !important;
+  --color-inverted-secondary-plain-hover: var(--themer-text-bright) !important;
+  --color-tags-author-background: var(--themer-blue-soft) !important;
+  --color-tags-author-content: var(--themer-blue) !important;
+  --color-tags-author-content-weaker: var(--themer-blue) !important;
+  --color-tags-author-media-content-weaker: var(--themer-blue) !important;
+  --color-tags-admin-background: var(--themer-orange-soft) !important;
+  --color-tags-admin-content: var(--themer-orange) !important;
+  --color-tags-admin-content-weaker: var(--themer-orange) !important;
+  --color-tags-admin-media-content-weaker: var(--themer-orange) !important;
+  --color-tags-brand-background: var(--themer-orange-soft) !important;
+  --color-tags-brand-content: var(--themer-orange) !important;
+  --color-tags-brand-content-weaker: var(--themer-orange) !important;
+  --color-tags-brand-media-content-weaker: var(--themer-orange) !important;
+  --color-tags-caution-background: var(--themer-yellow-soft) !important;
+  --color-tags-caution-content: var(--themer-yellow) !important;
+  --color-tags-caution-content-weaker: var(--themer-yellow) !important;
+  --color-tags-caution-media-content-weaker: var(--themer-yellow) !important;
+  --color-tags-danger-background: var(--themer-red-soft) !important;
+  --color-tags-danger-content: var(--themer-red) !important;
+  --color-tags-danger-content-weaker: var(--themer-red) !important;
+  --color-tags-danger-media-content-weaker: var(--themer-red) !important;
+  --color-tags-moderator-background: var(--themer-green-soft) !important;
+  --color-tags-moderator-content: var(--themer-green) !important;
+  --color-tags-moderator-content-weaker: var(--themer-green) !important;
+  --color-tags-moderator-media-content-weaker: var(--themer-green) !important;
+  --color-tags-success-background: var(--themer-green-soft) !important;
+  --color-tags-success-content: var(--themer-green) !important;
+  --color-tags-success-content-weaker: var(--themer-green) !important;
+  --color-tags-success-media-content-weaker: var(--themer-green) !important;
+  --color-tags-nsfw-background: var(--themer-magenta-soft) !important;
+  --color-tags-nsfw-content: var(--themer-magenta) !important;
+  --color-tags-nsfw-content-weaker: var(--themer-magenta) !important;
+  --color-tags-nsfw-media-content-weaker: var(--themer-magenta) !important;
+  --color-tags-neutral-background: var(--themer-surface-hover) !important;
+  --color-tags-neutral-content: var(--themer-text-muted) !important;
+  --color-tags-neutral-content-weaker: var(--themer-text-muted) !important;
+  --color-tags-app-background: var(--themer-surface-hover) !important;
+  --color-tags-app-content: var(--themer-text-muted) !important;
+  --color-tags-app-content-weaker: var(--themer-text-muted) !important;
+  --color-tags-verified-background: var(--themer-surface-hover) !important;
+  --color-tags-verified-content: var(--themer-text-muted) !important;
+  --color-tags-verified-content-weaker: var(--themer-text-muted) !important;
+  --color-elevation-large1: color-mix(in srgb, var(--themer-window-shadow) 50%, transparent) !important;
+  --color-elevation-large2: color-mix(in srgb, var(--themer-window-shadow) 20%, transparent) !important;
+  --color-elevation-medium1: color-mix(in srgb, var(--themer-window-shadow) 50%, transparent) !important;
+  --color-elevation-medium2: color-mix(in srgb, var(--themer-window-shadow) 20%, transparent) !important;
+  --color-elevation-small: color-mix(in srgb, var(--themer-window-shadow) 33%, transparent) !important;
+  --color-elevation-xsmall: color-mix(in srgb, var(--themer-window-shadow) 60%, transparent) !important;
 }
 
-@media (prefers-color-scheme: dark) {
-  * {
-    --color-neutral-background: var(--themer-bg) !important;
-    --color-neutral-background-hover: var(--themer-surface-hover) !important;
-    --color-neutral-background-strong: var(--themer-surface) !important;
-    --color-neutral-background-weak: var(--themer-bg-sunken) !important;
-    --color-neutral-border: var(--themer-line) !important;
-    --color-neutral-border-weak: color-mix(in srgb, var(--themer-line) 60%, var(--themer-bg)) !important;
-    --color-neutral-border-medium: var(--themer-line) !important;
-    --color-neutral-border-strong: var(--themer-line) !important;
-    --color-button-secondary-background: var(--themer-surface) !important;
-    --color-button-primary-background: var(--themer-accent) !important;
-    --color-neutral-background-selected: var(--themer-selection) !important;
-    --color-neutral-content: var(--themer-text-muted) !important;
-    --color-neutral-content-strong: var(--themer-text) !important;
-    --color-neutral-content-weak: var(--themer-text-subtle) !important;
-    --color-primary: var(--themer-accent) !important;
-    --color-primary-background: var(--themer-accent) !important;
-    --color-primary-plain: var(--themer-accent) !important;
-    --color-secondary-background: var(--themer-surface) !important;
-    --color-secondary-plain: var(--themer-text-muted) !important;
-    --color-secondary: var(--themer-text-muted) !important;
-  }
+/* Left navigation on the sidebar ground */
+flex-left-nav-container.left-sidebar, .left-sidebar.theme-rpl, reddit-sidebar-nav, .left-sidebar reddit-sidebar-nav {
+  --color-neutral-background: var(--themer-bg-sunken) !important;
+  --color-neutral-background-hover: var(--themer-surface-hover) !important;
+  background-color: var(--themer-bg-sunken) !important;
 }
 
+/* Fonts: SF Pro for everything but code */
+:root {
+  --font-sans: var(--themer-font-sans), system-ui, sans-serif !important;
+  --font-mono: var(--themer-font-mono), ui-monospace, monospace !important;
+}
+body, body *:not(pre):not(code):not(kbd):not(samp) {
+  font-family: var(--themer-font-sans), system-ui, sans-serif !important;
+}
+pre, code, kbd, samp, pre * { font-family: var(--themer-font-mono), ui-monospace, monospace !important; }
+body { -webkit-font-smoothing: antialiased; }
+::selection { background: var(--themer-selection); color: var(--themer-text); }
+:not(pre) > code {
+  background: var(--themer-surface) !important;
+  color: var(--themer-syntax-string) !important;
+  border-radius: var(--themer-radius-xs);
+}
+pre { background: var(--themer-bg-sunken) !important; border-radius: var(--themer-radius-md); }
 
-
+/* Your own layout tweaks */
 .legal-links, advertise-button {
   display: none !important;
 }
-
-.button-secondary {
-  --button-color-background: var(--themer-surface) !important;
-}
-
-* {
-  font-family: "SF Pro Display" !important;
-}
-
 hr.border-0 {
   border-bottom-width: 0px !important;
 }
-
 .text-14 {
   font-size: .950rem !important;
   font-weight: 500 !important;
 }
-
 left-nav-community-item {
   padding: 8px 8px 8px 8px !important;
 }
