@@ -146,7 +146,7 @@
     </option>
     <option name="BASH.EXTERNAL_COMMAND">
       <value>
-        <option name="FOREGROUND" value="{{ syntax-function | strip }}"/>
+        <option name="FOREGROUND" value="{{ syntax-sh-command | strip }}"/>
       </value>
     </option>
     <option name="BASH.KEYWORD">
@@ -328,13 +328,13 @@
     </option>
     <option name="CSS.ATTRIBUTE_NAME">
       <value>
-        <option name="FOREGROUND" value="{{ syntax-function | strip }}"/>
+        <option name="FOREGROUND" value="{{ syntax-css-pseudo | strip }}"/>
         <option name="FONT_TYPE" value="2"/>
       </value>
     </option>
     <option name="CSS.CLASS_NAME">
       <value>
-        <option name="FOREGROUND" value="{{ syntax-keyword | strip }}"/>
+        <option name="FOREGROUND" value="{{ syntax-css-class | strip }}"/>
         <option name="FONT_TYPE" value="2"/>
       </value>
     </option>
@@ -346,27 +346,32 @@
     </option>
     <option name="CSS.COLOR">
       <value>
-        <option name="FOREGROUND" value="{{ syntax-annotation | strip }}"/>
+        <option name="FOREGROUND" value="{{ syntax-css-color | strip }}"/>
       </value>
     </option>
     <option name="CSS.FUNCTION">
       <value>
-        <option name="FOREGROUND" value="{{ syntax-function | strip }}"/>
+        <option name="FOREGROUND" value="{{ syntax-css-pseudo | strip }}"/>
       </value>
     </option>
     <option name="CSS.HASH">
       <value>
-        <option name="FOREGROUND" value="{{ syntax-doc-tag | strip }}"/>
+        <option name="FOREGROUND" value="{{ syntax-css-id | strip }}"/>
       </value>
     </option>
     <option name="CSS.IMPORTANT">
       <value>
-        <option name="FOREGROUND" value="{{ syntax-doc-tag | strip }}"/>
+        <option name="FOREGROUND" value="{{ syntax-css-id | strip }}"/>
+      </value>
+    </option>
+    <option name="CSS.KEYWORD">
+      <value>
+        <option name="FOREGROUND" value="{{ syntax-css-at | strip }}"/>
       </value>
     </option>
     <option name="CSS.PROPERTY_NAME">
       <value>
-        <option name="FOREGROUND" value="{{ syntax-type | strip }}"/>
+        <option name="FOREGROUND" value="{{ syntax-css-property | strip }}"/>
       </value>
     </option>
     <option name="CSS.PROPERTY_VALUE">
@@ -376,7 +381,7 @@
     </option>
     <option name="CSS.PSEUDO">
       <value>
-        <option name="FOREGROUND" value="{{ syntax-function | strip }}"/>
+        <option name="FOREGROUND" value="{{ syntax-css-pseudo | strip }}"/>
         <option name="FONT_TYPE" value="2"/>
       </value>
     </option>
@@ -1161,6 +1166,11 @@
       <value>
         <option name="FOREGROUND" value="{{ syntax-type | strip }}"/>
         <option name="FONT_TYPE" value="2"/>
+      </value>
+    </option>
+    <option name="JSON.PROPERTY_KEY">
+      <value>
+        <option name="FOREGROUND" value="{{ syntax-json-key | strip }}"/>
       </value>
     </option>
     <option name="JSON.KEYWORD">
@@ -2814,7 +2824,7 @@
     </option>
     <option name="PY.KEYWORD">
       <value>
-        <option name="FOREGROUND" value="{{ syntax-doc-tag | strip }}"/>
+        <option name="FOREGROUND" value="{{ syntax-py-keyword | strip }}"/>
       </value>
     </option>
     <option name="PY.PREDEFINED_DEFINITION">
@@ -2834,7 +2844,7 @@
     </option>
     <option name="PY.STRING.B">
       <value>
-        <option name="FOREGROUND" value="{{ syntax-keyword | strip }}"/>
+        <option name="FOREGROUND" value="{{ syntax-py-bytes | strip }}"/>
       </value>
     </option>
     <option name="RDOC_DIRECTIVE">
@@ -3564,7 +3574,7 @@
     </option>
     <option name="XML_ATTRIBUTE_NAME">
       <value>
-        <option name="FOREGROUND" value="{{ syntax-function | strip }}"/>
+        <option name="FOREGROUND" value="{{ syntax-xml-attribute | strip }}"/>
         <option name="EFFECT_TYPE" value="5"/>
       </value>
     </option>
@@ -3596,7 +3606,12 @@
     </option>
     <option name="YAML_ANCHOR">
       <value>
-        <option name="FOREGROUND" value="{{ syntax-function | strip }}"/>
+        <option name="FOREGROUND" value="{{ syntax-yaml-anchor | strip }}"/>
+      </value>
+    </option>
+    <option name="YAML_SCALAR_KEY">
+      <value>
+        <option name="FOREGROUND" value="{{ syntax-yaml-key | strip }}"/>
       </value>
     </option>
     <option name="YAML_SCALAR_LIST">
