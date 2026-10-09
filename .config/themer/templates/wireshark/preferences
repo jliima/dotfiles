@@ -1,0 +1,14 @@
+gui.marked_frame.fg: {{ on-accent | strip }}
+gui.marked_frame.bg: {{ violet | strip }}
+gui.ignored_frame.fg: {{ text-disabled | strip }}
+gui.ignored_frame.bg: {{ surface-active | strip }}
+gui.stream.client.fg: {{ red | strip }}
+gui.stream.client.bg: {{ red-soft | strip }}
+gui.stream.server.fg: {{ blue | strip }}
+gui.stream.server.bg: {{ blue-soft | strip }}
+gui.color_filter_fg.valid: {{ text-bright | strip }}
+gui.color_filter_bg.valid: {{ green-mid | strip }}
+gui.color_filter_fg.invalid: {{ text-bright | strip }}
+gui.color_filter_bg.invalid: {{ red-mid | strip }}
+gui.color_filter_fg.deprecated: {{ text-bright | strip }}
+gui.color_filter_bg.deprecated: {{ yellow-mid | strip }}

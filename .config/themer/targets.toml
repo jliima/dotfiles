@@ -207,3 +207,23 @@ name = "Qt Creator editor colors"
 group = "qtcreator"
 template = "qtcreator/colors.xml"
 output = "~/.config/QtProject/qtcreator/styles/themer.xml"
+
+# ---- Wireshark -------------------------------------------------------------------------------------------------------
+
+# The color rules (colorfilters) are a whole file Themer owns, so they are stowed. The rule list, filters and order
+# are the ones from Wireshark; only the colors come from the theme (Wireshark reads the file when it starts, or View >
+# Reload Color Rules). The preferences file also holds machine data (an sshdump command), so only the color keys are
+# merged into it: marked and ignored packets, Follow Stream and the display filter bar.
+[[target]]
+name = "Wireshark color rules"
+dotfiles = true
+group = "wireshark"
+template = "wireshark/colorfilters"
+output = "~/.config/wireshark/colorfilters"
+
+[[target]]
+name = "Wireshark preference colors"
+group = "wireshark"
+template = "wireshark/preferences"
+output = "~/.config/wireshark/preferences"
+mode = "ensure-lines"
