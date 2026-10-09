@@ -92,8 +92,9 @@ mode = "ensure-lines"
 
 # ---- Vim and Neovim --------------------------------------------------------------------------------------------------
 
-# Only adds the colorscheme; run `:colorscheme themer` to use it. Neovim's folder is its own repo, so nothing is
-# stowed. For plain Vim add a target with the same template and output ~/.vim/colors/themer.vim.
+# The colorscheme for Neovim: editor, plugins (Telescope, blink.cmp, ...), Treesitter, LSP and Vim syntax groups. It is
+# selected in init.lua (`colorscheme themer`). Neovim's folder is its own repo, so nothing is stowed. For plain Vim add
+# a target with the same template and output ~/.vim/colors/themer.vim.
 [[target]]
 name = "Neovim colorscheme"
 group = "vim"
