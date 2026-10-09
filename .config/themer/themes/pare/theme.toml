@@ -66,6 +66,20 @@ syntax-heading = "{blue-bright}"
 syntax-link = "{blue}"
 syntax-url = "{cyan}"
 syntax-regex = "{cyan}"
+# Language-specific roles, read from the IntelliJ scheme (the reference every other editor follows).
+syntax-json-key = "{syntax-function}"
+syntax-xml-attribute = "{syntax-function}"
+syntax-yaml-key = "{yellow}"
+syntax-yaml-anchor = "{syntax-function}"
+syntax-css-at = "{yellow}"
+syntax-css-property = "{syntax-type}"
+syntax-css-class = "{syntax-keyword}"
+syntax-css-id = "{syntax-doc-tag}"
+syntax-css-pseudo = "{syntax-function}"
+syntax-css-color = "{syntax-annotation}"
+syntax-sh-command = "{syntax-function}"
+syntax-py-keyword = "{syntax-doc-tag}"
+syntax-py-bytes = "{syntax-keyword}"
 
 [dark]
 # Grounds, deepest to highest
