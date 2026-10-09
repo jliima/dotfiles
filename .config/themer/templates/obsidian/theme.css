@@ -122,12 +122,19 @@
   --link-unresolved-color: {{ link }};
   --link-external-color: {{ link }};
   --link-external-color-hover: {{ accent-hover }};
-  --text-title-h1: {{ text-bright }};
-  --text-title-h2: {{ text-bright }};
-  --text-title-h3: {{ text-bright }};
-  --text-title-h4: {{ text-bright }};
-  --text-title-h5: {{ text-bright }};
+  --text-title-h1: {{ syntax-heading }};
+  --text-title-h2: {{ syntax-heading }};
+  --text-title-h3: {{ syntax-heading }};
+  --text-title-h4: {{ syntax-heading }};
+  --text-title-h5: {{ syntax-heading }};
   --text-title-h6: {{ text-muted }};
+  --h1-color: {{ syntax-heading }};
+  --h2-color: {{ syntax-heading }};
+  --h3-color: {{ syntax-heading }};
+  --h4-color: {{ syntax-heading }};
+  --h5-color: {{ syntax-heading }};
+  --h6-color: {{ text-muted }};
+  --inline-title-color: {{ syntax-heading }};
   --bold-color: {{ text-bright }};
   --italic-color: {{ text }};
   --blockquote-border-color: {{ accent }};
@@ -341,6 +348,7 @@ mjx-container {
 .markdown-preview-view :not(pre) > code,
 .cm-inline-code {
   --code-background: {{ surface-active }};
+  --code-normal: {{ syntax-annotation }};
   border-radius: var(--radius-s);
 }
 
@@ -390,6 +398,63 @@ pre[class*='language-'] {
 .token.entity {
   cursor: help !important;
 }
+
+/* Syntax colors per language, the ones IntelliJ draws (reading view; the editor has one palette for every language).
+   Prism marks a block with language-<name> on its <pre> and <code>. */
+.token.punctuation { color: var(--code-punctuation); }
+.token.operator { color: var(--code-operator); }
+.token.number, .token.boolean, .token.constant, .token.symbol { color: var(--code-value); }
+.token.class-name, .token.builtin, .token.namespace { color: {{ syntax-type }}; }
+.token.annotation, .token.decorator { color: {{ syntax-function }}; }
+.token.regex { color: {{ syntax-regex }}; }
+.token.entity, .token.url { color: {{ syntax-url }}; }
+.token.interpolation, .token.string-interpolation { color: {{ syntax-variable }}; }
+
+.language-java .token.annotation, .language-java .token.annotation .token.punctuation { color: {{ syntax-function }}; }
+.language-java .token.boolean, .language-java .token.constant { color: {{ syntax-keyword }}; }
+
+.language-json .token.property { color: {{ syntax-json-key }}; }
+.language-json .token.null, .language-json .token.keyword { color: {{ syntax-number }}; }
+.language-json .token.punctuation { color: {{ syntax-punctuation }}; }
+
+.language-xml .token.tag, .language-html .token.tag, .language-markup .token.tag { color: {{ syntax-keyword }}; }
+.language-xml .token.tag .token.punctuation, .language-xml .token.attr-equals,
+.language-xml .token.attr-value .token.punctuation { color: {{ syntax-variable }}; }
+.language-xml .token.attr-name { color: {{ syntax-xml-attribute }}; }
+.language-html .token.tag .token.punctuation, .language-markup .token.tag .token.punctuation { color: {{ syntax-comment }}; }
+.language-html .token.attr-name, .language-markup .token.attr-name { color: {{ syntax-doc-tag }}; }
+.language-xml .token.attr-value, .language-html .token.attr-value, .language-markup .token.attr-value { color: {{ syntax-string }}; }
+
+.language-bash .token.function, .language-shell .token.function, .language-sh .token.function,
+.language-zsh .token.function { color: {{ syntax-sh-command }}; }
+.language-bash .token.variable, .language-shell .token.variable, .language-sh .token.variable,
+.language-zsh .token.variable, .language-bash .token.environment { color: {{ syntax-variable }}; }
+.language-bash .token.shebang, .language-shell .token.shebang, .language-sh .token.shebang { color: {{ syntax-comment }}; font-weight: normal !important; }
+.language-bash .token.keyword, .language-shell .token.keyword, .language-sh .token.keyword { color: {{ syntax-keyword }}; }
+
+.language-python .token.keyword, .language-py .token.keyword { color: {{ syntax-py-keyword }}; }
+.language-python .token.function, .language-py .token.function { color: {{ syntax-function }}; }
+.language-python .token.builtin, .language-py .token.builtin { color: {{ syntax-variable }}; }
+.language-python .token.decorator, .language-python .token.decorator .token.punctuation { color: {{ syntax-keyword }}; }
+.language-python .token.class-name, .language-py .token.class-name { color: {{ syntax-function }}; }
+
+.language-yaml .token.key, .language-yml .token.key, .language-yaml .token.atrule { color: {{ syntax-yaml-key }}; }
+.language-yaml .token.important { color: {{ syntax-yaml-anchor }}; }
+.language-yaml .token.number, .language-yaml .token.boolean, .language-yaml .token.null { color: {{ syntax-variable }}; }
+
+.language-css .token.selector { color: {{ syntax-css-class }}; font-style: italic; }
+.language-css .token.selector .token.pseudo-class, .language-css .token.selector .token.pseudo-element,
+.language-css .token.selector .token.attribute, .language-css .token.function { color: {{ syntax-css-pseudo }}; }
+.language-css .token.selector .token.id, .language-css .token.important { color: {{ syntax-css-id }}; }
+.language-css .token.selector .token.combinator, .language-css .token.selector .token.punctuation { color: {{ syntax-variable }}; font-style: normal; }
+.language-css .token.property { color: {{ syntax-css-property }}; }
+.language-css .token.atrule, .language-css .token.atrule .token.rule { color: {{ syntax-css-at }}; }
+.language-css .token.hexcode, .language-css .token.color { color: {{ syntax-css-color }}; }
+.language-css .token.unit { color: {{ syntax-number }}; }
+
+.language-lua .token.keyword, .language-c .token.keyword, .language-cpp .token.keyword { color: {{ syntax-keyword }}; }
+.language-c .token.macro, .language-c .token.directive, .language-cpp .token.macro,
+.language-cpp .token.directive { color: {{ syntax-annotation }}; }
 
 /* Mermaid diagrams: layout only, centered and at their natural size */
 .mermaid svg {
