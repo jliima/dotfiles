@@ -1,51 +1,97 @@
-# Themer syntax highlighting for nano: Java, Shell, Python, CSS and XML, matching the other editors' syntax colors.
+# Themer syntax highlighting for nano: Java, Shell, Python, CSS, XML, JSON and YAML, following the IntelliJ scheme that
+# every Themer editor copies (the language tokens, syntax-json-key and friends, are in the theme).
 # Reuses the standard syntax names (java, sh, python, css, xml) so, included after the system nanorc's includes, it
 # takes over highlighting for those file types.
 #
-# nanorc only paints truecolor terminals by approximating a 3-digit hex value to the nearest palette entry, which for
-# muted colors snaps to plain grey instead of the intended hue. So colors are the ANSI names: the terminal profile
-# (Themer's Konsole scheme) sets them from the theme's terminal colors (ansi-0 to ansi-15), which reproduces the
-# theme exactly. The colors follow the active theme with the terminal, with nothing to render here.
+# nanorc has no lookaround (POSIX regexes): a rule colors its whole match, so a few rules also paint the character next
+# to a token (the "(" after a method name, the "=" after an attribute). Later rules win over earlier ones, so comments
+# come last in every syntax.
+#
+# The colors are the ANSI names: the terminal profile (Themer's Konsole scheme) sets them from the theme's terminal
+# colors (ansi-0 to ansi-15), so they follow the active theme. Orange and purple are not among them; nano takes them
+# from the 256-color palette, a fixed approximation of the theme's orange and violet.
+#   green = keywords, blue = functions, types, JSON keys, magenta = strings, red = numbers, cyan = escapes,
+#   yellow = YAML keys and CSS at-rules, orange = Python keywords and doc tags, grey = comments.
 
 syntax "java" "\.java$"
+color blue "\<[A-Z][A-Za-z0-9_]*\>"
+color blue "\<[a-z][A-Za-z0-9_]*\("
+color normal "[(){};,.]"
+color green "\<(public|private|protected|static|final|abstract|synchronized|volatile|transient|native|default)\>"
+color green "\<(class|interface|enum|record|extends|implements|new|return|if|else|for|while|do|switch|case|break|continue)\>"
+color green "\<(try|catch|finally|throw|throws|import|package|void|this|super|instanceof|assert|var|yield)\>"
+color green "\<(int|long|short|byte|char|boolean|float|double|null|true|false)\>"
+color red "\<[A-Z][A-Z0-9_]{2,}\>"
+color red "\<[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?[fFdDlL]?\>|\<0[xX][0-9a-fA-F]+\>"
+color blue "@[A-Za-z]+"
+color magenta "\"([^\"\\]|\\.)*\""
+color magenta "'([^'\\]|\\.)*'"
+color cyan "\\[nrtbf0\"'\\]"
 color grey "//.*"
 color grey start="/\*" end="\*/"
-color yellow "@[A-Za-z]+"
-color magenta "\"([^\"]|\\\")*\""
-color red "\<[0-9]+(\.[0-9]+)?[fFdDlL]?\>"
-color green "\<(public|private|protected|static|final|abstract|synchronized|volatile|transient)\>"
-color green "\<(class|interface|enum|extends|implements|new|return|if|else|for|while|do|switch|case|break|continue|try|catch|finally|throw|throws|import|package|void|this|super|instanceof)\>"
-color cyan "\<(int|long|short|byte|char|boolean|float|double|String|Object)\>"
+color bold,orange "^[ \t]*\*[ \t]*@[A-Za-z]+"
 
 syntax "sh" "\.sh$|\.bash$|bashrc$|bash_profile$|zshrc$"
-color grey "#.*"
-color magenta "\"([^\"]|\\\")*\""
+color blue "\<(echo|printf|cd|ls|grep|sed|awk|cat|rm|cp|mv|mkdir|curl|wget|git|ssh|scp|sudo|set|declare|local|export)\>"
+color blue "\<(return|exit|source|read|test|date|whoami|systemctl|trap|shift|unset|eval|exec|cut|sort|tr|find|xargs)\>"
+color green "\<(if|then|else|elif|fi|for|while|until|do|done|case|esac|function|in|select)\>"
+color red "\<[0-9]+\>"
+color magenta "\"([^\"\\]|\\.)*\""
 color magenta "'[^']*'"
-color lightwhite "\\$[A-Za-z_][A-Za-z0-9_]*|\\$\{[^}]*\}"
-color green "\<(if|then|else|elif|fi|for|while|until|do|done|case|esac|function|in|return|local|export)\>"
-color blue "\<(echo|printf|cd|ls|grep|sed|awk|cat|rm|cp|mv|mkdir|curl|wget|git|ssh|sudo)\>"
+color magenta "`[^`]*`"
+color grey "(^|[ \t])#.*"
 
 syntax "python" "\.py$"
-color grey "#.*"
-color blue "\"([^\"]|\\\")*\""
-color blue "'[^']*'"
-color green "^\s*@[A-Za-z_.]+"
-color red "\<[0-9]+(\.[0-9]+)?\>"
-color yellow "\<(def|class|import|from|as|return|if|elif|else|for|while|try|except|finally|raise|with|lambda|yield|pass|break|continue|and|or|not|in|is|None|True|False)\>"
-color green "\<(self|cls|print|len|range|str|int|float|list|dict|set|tuple|isinstance|super)\>"
+color blue "(def|class)[ ]+[A-Za-z_][A-Za-z0-9_]*"
+color orange "\<(def|class|return|if|elif|else|for|while|try|except|finally|raise|with|lambda|yield|pass|break)\>"
+color orange "\<(continue|and|or|not|in|is|None|True|False|import|from|as|global|nonlocal|assert|del|async|await)\>"
+color green "^[ \t]*@[A-Za-z_.]+"
+color green "\<__[a-z]+__\>"
+color red "\<[0-9]+(\.[0-9]+)?\>|\<0[xX][0-9a-fA-F]+\>"
+color magenta "\"([^\"\\]|\\.)*\""
+color magenta "'([^'\\]|\\.)*'"
+color green "\<b(\"([^\"\\]|\\.)*\"|'([^'\\]|\\.)*')"
+color cyan "\\[nrtbf0\"'\\]"
+color cyan "[{}]"
+color grey start="\"\"\"" end="\"\"\""
+color grey "(^|[ \t])#.*"
 
 syntax "css" "\.css$|\.scss$|\.less$"
+color green "\.[A-Za-z_-][A-Za-z0-9_-]*"
+color green "^[ \t]*[a-z][a-z0-9]*([ ,>+~{:.#\[]|$)"
+color green ">[ \t]*[a-z][a-z0-9]*"
+color orange "#[A-Za-z_][A-Za-z0-9_-]*"
+color purple "#[0-9a-fA-F]{3,8}\>"
+color blue "::?[a-z-]+"
+color blue "\[[a-z-]+"
+color cyan "^[ \t]+[a-z-]+[ \t]*:"
+color cyan "--[A-Za-z0-9-]+"
+color blue "[a-z-]+\("
+color red "\<[0-9]+(\.[0-9]+)?"
+color yellow "@[a-z-]+"
+color orange "!important"
+color grey ":"
+color magenta "\"([^\"\\]|\\.)*\""
+color magenta "'([^'\\]|\\.)*'"
 color grey start="/\*" end="\*/"
-color magenta "url\([^)]*\)"
-color green "^[ \t]*[.#]?[A-Za-z0-9_-]+(::?[A-Za-z-]+)?[ \t]*\{"
-color cyan "\<[a-z-]+\>[ \t]*:"
-color yellow "#[0-9A-Fa-f]{3,8}\>"
-color yellow "!important"
 
-syntax "xml" "\.xml$|\.xsd$|\.xsl$|\.svg$"
-color grey start="<!--" end="-->"
-color grey "</?"
+syntax "xml" "\.xml$|\.xsd$|\.xsl$|\.svg$|\.pom$"
 color green "</?[A-Za-z_:][A-Za-z0-9_:.-]*"
-color yellow "[A-Za-z_:][A-Za-z0-9_:.-]*(?==)"
+color normal "</?"
+color blue " [A-Za-z_:][A-Za-z0-9_:.-]*="
 color magenta "\"[^\"]*\""
-color blue "&[A-Za-z0-9#]+;"
+color grey start="<!--" end="-->"
+
+syntax "json" "\.json$"
+color magenta "\"([^\"\\]|\\.)*\""
+color blue "\"([^\"\\]|\\.)*\"[ \t]*:"
+color cyan "\\([nrtbf\"\\/]|u[0-9a-fA-F]{4})"
+color red "\<-?[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?\>"
+color red "\<(true|false|null)\>"
+
+syntax "yaml" "\.ya?ml$"
+color yellow "^[ \t-]*[A-Za-z_<][A-Za-z0-9_.<>-]*[ \t]*:"
+color magenta "\"([^\"\\]|\\.)*\""
+color magenta "'[^']*'"
+color blue "[&*][A-Za-z0-9_-]+"
+color grey "(^|[ \t])#.*"
