@@ -151,12 +151,12 @@
     "editorInlayHint.background": "{{ surface }}",
     "editorBracketMatch.background": "{{ accent | alpha(0.25) }}",
     "editorBracketMatch.border": "{{ accent }}",
-    "editorBracketHighlight.foreground1": "{{ yellow }}",
-    "editorBracketHighlight.foreground2": "{{ violet }}",
-    "editorBracketHighlight.foreground3": "{{ blue }}",
-    "editorBracketHighlight.foreground4": "{{ orange }}",
-    "editorBracketHighlight.foreground5": "{{ green }}",
-    "editorBracketHighlight.foreground6": "{{ magenta }}",
+    "editorBracketHighlight.foreground1": "{{ syntax-punctuation }}",
+    "editorBracketHighlight.foreground2": "{{ syntax-punctuation }}",
+    "editorBracketHighlight.foreground3": "{{ syntax-punctuation }}",
+    "editorBracketHighlight.foreground4": "{{ syntax-punctuation }}",
+    "editorBracketHighlight.foreground5": "{{ syntax-punctuation }}",
+    "editorBracketHighlight.foreground6": "{{ syntax-punctuation }}",
     "editorBracketHighlight.unexpectedBracket.foreground": "{{ danger }}",
     "editorOverviewRuler.border": "{{ line }}",
     "editorOverviewRuler.modifiedForeground": "{{ blue }}",
@@ -461,8 +461,7 @@
         "punctuation.definition.comment"
       ],
       "settings": {
-        "foreground": "{{ syntax-comment }}",
-        "fontStyle": "italic"
+        "foreground": "{{ syntax-comment }}"
       }
     },
     {
@@ -475,7 +474,8 @@
         "entity.name.type.instance.jsdoc"
       ],
       "settings": {
-        "foreground": "{{ syntax-doc-tag }}"
+        "foreground": "{{ syntax-doc-tag }}",
+        "fontStyle": "bold"
       }
     },
     {
@@ -500,7 +500,7 @@
         "punctuation.separator.key-value"
       ],
       "settings": {
-        "foreground": "{{ syntax-operator }}"
+        "foreground": "{{ syntax-variable }}"
       }
     },
     {
@@ -583,7 +583,7 @@
         "support.class"
       ],
       "settings": {
-        "foreground": "{{ syntax-class }}"
+        "foreground": "{{ syntax-function }}"
       }
     },
     {
@@ -865,27 +865,532 @@
       "settings": {
         "foreground": "{{ warning }}"
       }
+    },
+    {
+      "name": "Java types and annotations",
+      "scope": [
+        "variable.other.object.property.java",
+        "storage.type.java",
+        "storage.type.generic.java",
+        "storage.type.object.array.java",
+        "entity.name.type.class.java",
+        "entity.other.inherited-class.java",
+        "storage.modifier.package.java",
+        "storage.modifier.import.java",
+        "storage.type.annotation.java",
+        "punctuation.definition.annotation.java"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-function }}"
+      }
+    },
+    {
+      "name": "Java keyword-like",
+      "scope": [
+        "storage.type.primitive.java",
+        "constant.language.java",
+        "variable.language.class.java"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-keyword }}"
+      }
+    },
+    {
+      "name": "Java angle brackets and ternary",
+      "scope": [
+        "punctuation.bracket.angle.java",
+        "keyword.control.ternary.java"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-variable }}"
+      }
+    },
+    {
+      "name": "JSON keys",
+      "scope": [
+        "support.type.property-name.json",
+        "punctuation.support.type.property-name.begin.json",
+        "punctuation.support.type.property-name.end.json"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-json-key }}"
+      }
+    },
+    {
+      "name": "XML delimiters",
+      "scope": [
+        "punctuation.definition.tag.xml",
+        "punctuation.definition.tag.begin.xml",
+        "punctuation.definition.tag.end.xml",
+        "punctuation.separator.key-value.xml",
+        "meta.tag.preprocessor.xml punctuation.definition.tag.xml",
+        "entity.name.tag.localname.xml punctuation.separator.namespace.xml",
+        "punctuation.separator.namespace.xml"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-variable }}"
+      }
+    },
+    {
+      "name": "XML attributes",
+      "scope": [
+        "entity.other.attribute-name.xml",
+        "entity.other.attribute-name.localname.xml",
+        "entity.other.attribute-name.namespace.xml",
+        "meta.tag.preprocessor.xml entity.other.attribute-name"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-xml-attribute }}"
+      }
+    },
+    {
+      "name": "XML prolog and CDATA",
+      "scope": [
+        "meta.tag.preprocessor.xml entity.name.tag.xml",
+        "string.unquoted.cdata.xml",
+        "punctuation.definition.string.begin.xml",
+        "punctuation.definition.string.end.xml"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-variable }}"
+      }
+    },
+    {
+      "name": "XML entities",
+      "scope": [
+        "constant.character.entity.xml",
+        "punctuation.definition.constant.xml"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-variable }}"
+      }
+    },
+    {
+      "name": "Shell commands",
+      "scope": [
+        "support.function.builtin.shell",
+        "entity.name.command.shell",
+        "storage.modifier.declare.shell",
+        "storage.modifier.local.shell",
+        "storage.modifier.export.shell",
+        "storage.modifier.readonly.shell",
+        "storage.modifier.typeset.shell",
+        "storage.modifier.unset.shell"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-sh-command }}"
+      }
+    },
+    {
+      "name": "Shell variables",
+      "scope": [
+        "variable.other.normal.shell",
+        "variable.other.special.shell",
+        "variable.other.positional.shell",
+        "variable.other.bracket.shell",
+        "variable.other.positional.shell punctuation.definition.variable.shell",
+        "punctuation.definition.variable.shell",
+        "variable.parameter.positional.shell"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-variable }}"
+      }
+    },
+    {
+      "name": "Shell options and heredocs",
+      "scope": [
+        "constant.other.option.dash.shell",
+        "constant.other.option.shell",
+        "string.unquoted.heredoc.shell",
+        "string.unquoted.argument.shell",
+        "string.unquoted.shell",
+        "constant.other.option",
+        "string.unquoted.heredoc",
+        "punctuation.definition.string.heredoc.delimiter.shell"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-variable }}"
+      }
+    },
+    {
+      "name": "Shell numbers",
+      "scope": [
+        "constant.numeric.shell",
+        "constant.numeric.integer.shell"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-number }}"
+      }
+    },
+    {
+      "name": "CSS at-rules",
+      "scope": [
+        "keyword.control.at-rule.css",
+        "punctuation.definition.keyword.css",
+        "keyword.control.at-rule.import.css",
+        "keyword.control.at-rule.media.css"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-css-at }}"
+      }
+    },
+    {
+      "name": "CSS class and tag selectors",
+      "scope": [
+        "entity.other.attribute-name.class.css",
+        "entity.name.tag.css"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-css-class }}"
+      }
+    },
+    {
+      "name": "CSS class selectors italic",
+      "scope": [
+        "entity.other.attribute-name.class.css"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-css-class }}",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "name": "CSS id and important",
+      "scope": [
+        "entity.other.attribute-name.id.css",
+        "keyword.other.important.css",
+        "entity.other.attribute-name.id.css punctuation.definition.entity.css"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-css-id }}"
+      }
+    },
+    {
+      "name": "CSS pseudo and attribute selectors",
+      "scope": [
+        "entity.other.attribute-name.pseudo-class.css",
+        "entity.other.attribute-name.pseudo-element.css",
+        "entity.other.attribute-name.attribute.css",
+        "meta.attribute-selector.css entity.other.attribute-name.attribute.css",
+        "meta.attribute-selector.css entity.other.attribute-name.css"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-css-pseudo }}",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "name": "CSS properties",
+      "scope": [
+        "support.type.property-name.css",
+        "support.type.vendored.property-name.css",
+        "support.type.custom-property.name.css",
+        "support.type.property-name.media.css",
+        "meta.property-name.css",
+        "variable.css"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-css-property }}"
+      }
+    },
+    {
+      "name": "CSS functions",
+      "scope": [
+        "support.function.misc.css",
+        "support.function.calc.css",
+        "support.function.url.css",
+        "support.function.transform.css",
+        "support.function.gradient.css",
+        "meta.function.variable.css variable.argument.css",
+        "variable.argument.css",
+        "meta.function.url.css support.function.url.css"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-css-pseudo }}"
+      }
+    },
+    {
+      "name": "CSS colon and units",
+      "scope": [
+        "punctuation.separator.key-value.css"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-comment }}"
+      }
+    },
+    {
+      "name": "CSS units",
+      "scope": [
+        "keyword.other.unit.css",
+        "keyword.other.unit.px.css",
+        "keyword.other.unit.percentage.css"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-variable }}"
+      }
+    },
+    {
+      "name": "CSS colors",
+      "scope": [
+        "constant.other.color.rgb-value.hex.css",
+        "constant.other.color.rgb-value.css",
+        "punctuation.definition.constant.css"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-css-color }}"
+      }
+    },
+    {
+      "name": "Python keywords",
+      "scope": [
+        "keyword.control.flow.python",
+        "keyword.control.import.python",
+        "storage.type.function.python",
+        "storage.type.class.python",
+        "keyword.control.python",
+        "keyword.operator.logical.python",
+        "constant.language.python",
+        "keyword.control.flow.python",
+        "storage.modifier.declaration.python",
+        "keyword.control.conditional.python",
+        "keyword.control.loop.python",
+        "keyword.control.exception.python",
+        "keyword.control.return.python",
+        "keyword.control.async.python",
+        "storage.type.function.lambda.python",
+        "keyword.control.import.from.python",
+        "keyword.control.import.python"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-py-keyword }}"
+      }
+    },
+    {
+      "name": "Python decorators",
+      "scope": [
+        "entity.name.function.decorator.python",
+        "punctuation.definition.decorator.python",
+        "meta.function.decorator.python",
+        "support.variable.magic.python"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-keyword }}"
+      }
+    },
+    {
+      "name": "Python docstrings",
+      "scope": [
+        "string.quoted.docstring.multi.python",
+        "string.quoted.docstring.single.python",
+        "string.quoted.docstring.multi.python punctuation.definition.string.begin.python",
+        "string.quoted.docstring.multi.python punctuation.definition.string.end.python"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-comment }}"
+      }
+    },
+    {
+      "name": "Python bytes",
+      "scope": [
+        "string.quoted.binary.single.python",
+        "string.quoted.binary.multi.python"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-py-bytes }}"
+      }
+    },
+    {
+      "name": "Python builtins",
+      "scope": [
+        "support.function.builtin.python",
+        "variable.parameter.function.language.special.self.python",
+        "variable.language.special.self.python"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-variable }}"
+      }
+    },
+    {
+      "name": "Python exceptions and builtin types",
+      "scope": [
+        "support.type.exception.python",
+        "support.type.python"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-function }}"
+      }
+    },
+    {
+      "name": "Python f-string placeholders",
+      "scope": [
+        "constant.character.format.placeholder.other.python",
+        "meta.fstring.python constant.character.format.placeholder.other.python"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-escape }}"
+      }
+    },
+    {
+      "name": "YAML keys",
+      "scope": [
+        "entity.name.tag.yaml"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-yaml-key }}"
+      }
+    },
+    {
+      "name": "YAML plain values",
+      "scope": [
+        "string.unquoted.plain.out.yaml",
+        "string.unquoted.plain.in.yaml",
+        "constant.language.boolean.yaml",
+        "constant.language.null.yaml",
+        "constant.numeric.integer.yaml",
+        "constant.numeric.float.yaml",
+        "constant.numeric.yaml",
+        "string.unquoted.block.yaml",
+        "constant.language.merge.yaml",
+        "constant.numeric.integer.decimal.yaml",
+        "constant.numeric.float.yaml",
+        "constant.numeric.yaml"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-variable }}"
+      }
+    },
+    {
+      "name": "YAML anchors",
+      "scope": [
+        "variable.other.anchor.yaml",
+        "variable.other.alias.yaml"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-yaml-anchor }}"
+      }
+    },
+    {
+      "name": "YAML punctuation",
+      "scope": [
+        "punctuation.separator.key-value.mapping.yaml",
+        "punctuation.definition.sequence.item.yaml",
+        "punctuation.definition.anchor.yaml",
+        "punctuation.definition.alias.yaml",
+        "keyword.control.flow.block-scalar.literal.yaml",
+        "keyword.control.flow.block-scalar.folded.yaml",
+        "punctuation.definition.block.sequence.item.yaml",
+        "punctuation.separator.map.value.yaml",
+        "punctuation.definition.sequence.begin.yaml",
+        "punctuation.definition.sequence.end.yaml",
+        "punctuation.separator.sequence.yaml",
+        "keyword.control.flow.anchor.yaml",
+        "keyword.control.flow.alias.yaml",
+        "keyword.control.flow.block-scalar.literal.yaml",
+        "keyword.control.flow.block-scalar.folded.yaml"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-variable }}"
+      }
+    },
+    {
+      "name": "CSS pseudo colons",
+      "scope": [
+        "entity.other.attribute-name.pseudo-class.css punctuation.definition.entity.css",
+        "entity.other.attribute-name.pseudo-element.css punctuation.definition.entity.css"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-comment }}"
+      }
+    },
+    {
+      "name": "CSS values",
+      "scope": [
+        "support.constant.font-name.css",
+        "support.constant.property-value.css"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-variable }}"
+      }
+    },
+    {
+      "name": "CSS class dot",
+      "scope": [
+        "entity.other.attribute-name.class.css punctuation.definition.entity.css"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-punctuation }}"
+      }
+    },
+    {
+      "name": "Shell tests and backticks",
+      "scope": [
+        "punctuation.definition.logical-expression.shell"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-keyword }}"
+      }
+    },
+    {
+      "name": "Shell backquote",
+      "scope": [
+        "punctuation.definition.evaluation.backticks.shell",
+        "string.interpolated.backtick.shell"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-string }}"
+      }
+    },
+    {
+      "name": "Python number prefixes",
+      "scope": [
+        "storage.type.number.python"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-number }}"
+      }
+    },
+    {
+      "name": "Python string prefixes",
+      "scope": [
+        "storage.type.string.python"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-string }}"
+      }
+    },
+    {
+      "name": "Python bytes prefixes and quotes",
+      "scope": [
+        "string.quoted.binary storage.type.string.python",
+        "string.quoted.binary punctuation.definition.string"
+      ],
+      "settings": {
+        "foreground": "{{ syntax-py-bytes }}"
+      }
     }
   ],
   "semanticTokenColors": {
-    "class": "{{ syntax-class }}",
-    "interface": "{{ syntax-type }}",
-    "enum": "{{ syntax-type }}",
+    "class": "{{ syntax-function }}",
+    "interface": "{{ syntax-function }}",
+    "enum": "{{ syntax-function }}",
     "enumMember": "{{ syntax-constant }}",
-    "struct": "{{ syntax-class }}",
-    "type": "{{ syntax-type }}",
-    "typeParameter": "{{ syntax-type }}",
-    "namespace": "{{ syntax-type }}",
+    "struct": "{{ syntax-function }}",
+    "type": "{{ syntax-function }}",
+    "typeParameter": "{{ syntax-function }}",
+    "namespace": "{{ syntax-function }}",
     "function": "{{ syntax-function }}",
     "method": "{{ syntax-function }}",
-    "macro": "{{ syntax-annotation }}",
-    "decorator": "{{ syntax-annotation }}",
+    "macro": "{{ syntax-function }}",
+    "decorator": "{{ syntax-function }}",
     "property": "{{ syntax-property }}",
     "variable": "{{ syntax-variable }}",
     "parameter": "{{ syntax-variable }}",
     "variable.readonly": "{{ syntax-constant }}",
     "variable.defaultLibrary": "{{ syntax-type }}",
     "function.defaultLibrary": "{{ syntax-function }}",
-    "*.deprecated": {"foreground": "{{ warning }}", "strikethrough": true}
+    "*.deprecated": {
+      "foreground": "{{ warning }}",
+      "strikethrough": true
+    }
   }
 }
