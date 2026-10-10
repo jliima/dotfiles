@@ -9,7 +9,7 @@
 
 # Where the original icons come from, in this order (icon theme folder names, searched in the usual icon folders).
 # The same list is what the built themes inherit.
-source-themes = ["Breeze Chameleon Dark", "breeze-dark", "breeze", "hicolor"]
+source-themes = ["Breeze Chameleon Dark", "breeze-dark", "breeze", "hicolor", "pixmaps"]
 
 # The palette gowall maps every pixel to, as Themer token names (a * matches any text). Palette colors are the only
 # colors in a built icon.
@@ -169,3 +169,101 @@ sizes = [16, 22, 24, 32]
 glyph = true
 hue = "red"
 names = ["tools-report-bug*"]
+
+# ---- Tray items that are not part of Plasma ------------------------------------------------------------------------
+
+# KeePassXC's own tray glyphs (installed with its Flatpak): a white key in a shield, light and dark, locked or not
+[[group]]
+id = "keepassxc-tray"
+context = "status"
+sizes = [16, 22, 24, 32]
+glyph = true
+any-size = true
+hue = "green"
+names = ["org.keepassxc.KeePassXC-monochrome-*"]
+
+# ---- Applications ----------------------------------------------------------------------------------------------------
+
+# name is the icon name the desktop file (or the window) asks for; aliases are more names for the same icon. source
+# says where the picture comes from when that is another name, files names picture files, themes the source themes to
+# look in before the others (the official icon of an app is in hicolor or pixmaps, a Breeze style one in the first
+# theme). Sizes default to 16, 22, 24, 32, 48, 64, 128 and 256.
+
+[[app]]
+name = "firefox"
+aliases = ["firefox-symbolic", "org.mozilla.firefox", "firefox-esr"]
+themes = ["hicolor"]
+
+[[app]]
+name = "org.kde.dolphin"
+aliases = ["dolphin", "system-file-manager"]
+
+[[app]]
+name = "kate"
+aliases = ["org.kde.kate"]
+themes = ["hicolor"]
+
+[[app]]
+name = "utilities-terminal"
+aliases = ["konsole", "org.kde.konsole"]
+
+[[app]]
+name = "obsidian"
+
+[[app]]
+name = "libreoffice-calc"
+
+[[app]]
+name = "accessories-calculator"
+aliases = ["kcalc", "org.kde.kcalc"]
+
+[[app]]
+name = "okular"
+aliases = ["org.kde.okular"]
+themes = ["hicolor"]
+
+[[app]]
+name = "jetbrains-idea-ed171af8-af00-44b8-9b0c-54d54c8cef16"
+aliases = ["jetbrains-idea", "idea", "intellij-idea-ultimate-edition", "intellij-idea-community-edition"]
+
+[[app]]
+name = "org.keepassxc.KeePassXC"
+aliases = ["keepassxc"]
+
+[[app]]
+name = "vscode"
+aliases = ["code", "visual-studio-code", "com.visualstudio.code", "code-oss"]
+themes = ["pixmaps"]
+
+[[app]]
+name = "chromium"
+aliases = ["chromium-browser", "org.chromium.Chromium"]
+themes = ["hicolor"]
+
+[[app]]
+name = "slack"
+aliases = ["com.slack.Slack"]
+themes = ["Breeze Chameleon Dark"]
+
+[[app]]
+name = "spotify-client"
+aliases = ["spotify"]
+themes = ["hicolor"]
+
+[[app]]
+name = "org.wireshark.Wireshark"
+aliases = ["wireshark"]
+
+# The other items in the tray: TeamViewer and JetBrains Toolbox (whose tray picture is a file of its own).
+[[app]]
+name = "TeamViewer"
+aliases = ["teamviewer"]
+
+[[app]]
+name = "toolbox-tray-color"
+sizes = [16, 22, 24, 32]
+files = ["~/.local/share/JetBrains/Toolbox/bin/toolbox-tray-color.png"]
+
+[[app]]
+name = "jetbrains-toolbox"
+files = ["~/.local/share/JetBrains/Toolbox/toolbox.svg"]

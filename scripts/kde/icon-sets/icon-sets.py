@@ -52,7 +52,8 @@ SCRIPT_DIR = Path(__file__).parent.resolve()
 DOTFILES = SCRIPT_DIR.parents[2]
 DEFAULT_ICONS_DIR = DOTFILES / "Icons"
 ICON_ROOTS = [Path.home() / ".local/share/icons", Path.home() / ".icons", Path("/usr/local/share/icons"),
-              Path("/usr/share/icons")]
+              Path("/usr/share/icons"), Path.home() / ".local/share/flatpak/exports/share/icons",
+              Path("/var/lib/flatpak/exports/share/icons")]
 PIXMAP_DIR = Path("/usr/share/pixmaps")
 SETS = ("monochrome", "colorful")
 # Where an icon is written when several contexts of the source theme have it.
@@ -119,6 +120,7 @@ class Entry:
     """One file of a source icon theme."""
 
     theme_rank: int
+    theme: str
     context: str
     size: int  # 0 for scalable
     ext: str
@@ -133,6 +135,7 @@ class IconIndex:
 
     def __init__(self, themes: list[str]):
         self.by_name: dict[str, list[Entry]] = {}
+        self.themes = themes
         for rank, theme in enumerate(themes):
             roots = [r / theme for r in ICON_ROOTS if (r / theme).is_dir()]
             if theme == "pixmaps":
@@ -140,9 +143,9 @@ class IconIndex:
             if not roots:
                 print_warn(f"source theme {theme!r} not found")
             for root in roots:
-                self._scan(root, rank)
+                self._scan(root, rank, theme)
 
-    def _scan(self, root: Path, rank: int) -> None:
+    def _scan(self, root: Path, rank: int, theme: str) -> None:
         for dirpath, _dirs, files in os.walk(root, followlinks=True):
             rel = Path(dirpath).relative_to(root).parts
             if any("@" in part for part in rel):
@@ -159,7 +162,7 @@ class IconIndex:
                 if ext not in (".svg", ".png"):
                     continue
                 self.by_name.setdefault(stem, []).append(
-                    Entry(rank, context or "apps", size, ext[1:], Path(dirpath) / filename))
+                    Entry(rank, theme, context or "apps", size, ext[1:], Path(dirpath) / filename))
 
     def names(self) -> list[str]:
         return sorted(self.by_name)
@@ -172,17 +175,22 @@ class IconIndex:
                 return context
         return "apps"
 
-    def pick(self, name: str, size: int, extra: list[Path] | None = None,
-             glyph: bool = False) -> tuple[Path, str] | None:
+    def pick(self, name: str, size: int, extra: list[Path] | None = None, glyph: bool = False,
+             themes: list[str] | None = None) -> tuple[Path, str] | None:
         """The best source file to build `name` at `size`: (path, 'svg'|'png'). The first source theme that has the
-        icon wins; inside it an SVG (exact size, scalable, nearest size) before a PNG (exact, larger, smaller).
-        A glyph only comes from small sizes or symbolic folders: larger ones are full color app style icons."""
+        icon wins (`themes` are tried before the rest); inside it an SVG (exact size, scalable, nearest size) before a
+        PNG (exact, larger, smaller). A glyph only comes from small sizes or symbolic folders: larger ones are full
+        color app style icons."""
         entries = list(self.by_name.get(name, []))
+        if themes:
+            order = {theme: rank for rank, theme in enumerate(themes + [t for t in self.themes if t not in themes])}
+            entries = [Entry(order[e.theme], e.theme, e.context, e.size, e.ext, e.path)
+                       for e in entries if e.theme in order]
         if glyph:
             entries = [e for e in entries
                        if 0 < e.size <= GLYPH_MAX_SIZE or (e.size == 0 and "symbolic" in e.path.parts)]
         for path in extra or []:
-            entries.insert(0, Entry(-1, "apps", 0, path.suffix.lstrip("."), path))
+            entries.insert(0, Entry(-1, "", "apps", 0, path.suffix.lstrip("."), path))
         if not entries:
             return None
         best_rank = min(e.theme_rank for e in entries)
@@ -337,6 +345,13 @@ class Item:
     group: str
     sources: list[Path] = field(default_factory=list)
     aliases: list[str] = field(default_factory=list)
+    source_name: str = ""  # the icon name to look up when it is not the name
+    themes: list[str] = field(default_factory=list)  # source themes in order of preference, empty for the default
+    any_size: bool = False  # a glyph may come from any folder, not only small sizes and symbolic ones
+
+    def pick(self, index: IconIndex, size: int) -> tuple[Path, str] | None:
+        return index.pick(self.source_name or self.name, size, self.sources, self.glyph and not self.any_size,
+                          self.themes)
 
 
 def load_manifest(path: Path) -> dict:
@@ -362,13 +377,14 @@ def plan_items(manifest: dict, index: IconIndex, only: list[str]) -> list[Item]:
                     if fnmatch.fnmatchcase(name, glob):
                         hue = other
                 items[name] = Item(name, group.get("context") or index.context_of(name), sizes,
-                                   group.get("glyph", False), hue, group.get("id", "group"))
+                                   group.get("glyph", False), hue, group.get("id", "group"),
+                                   any_size=group.get("any-size", False))
     for app in manifest.get("app", []):
         name = app["name"]
         sources = [Path(os.path.expanduser(s)) for s in app.get("files", [])]
         items[name] = Item(name, app.get("context", "apps"), app.get("sizes", [16, 22, 24, 32, 48, 64, 128, 256]),
                            app.get("glyph", False), app.get("hue", "blue"), "apps", sources,
-                           app.get("aliases", []))
+                           app.get("aliases", []), app.get("source", name), app.get("themes", []))
     chosen = list(items.values())
     if only:
         chosen = [i for i in chosen if any(fnmatch.fnmatchcase(i.name, p) for p in only)]
@@ -412,7 +428,7 @@ def build_set(set_name: str, theme: str, variant: str, items: list[Item], index:
     skipped = 0
     for item in items:
         for size in item.sizes:
-            picked = index.pick(item.name, size, item.sources, item.glyph)
+            picked = item.pick(index, size)
             if not picked:
                 skipped += 1
                 continue
@@ -477,7 +493,7 @@ def write_index(theme_dir: Path, theme: str, set_name: str, light: bool, directo
         "[Icon Theme]",
         f"Name={title}",
         f"Comment={title} icons, recolored with gowall to the colors of the {theme_title(theme)} Themer theme",
-        f"Inherits={','.join(manifest['source-themes'])}",
+        f"Inherits={','.join(t for t in manifest['source-themes'] if t != 'pixmaps')}",
         "Directories=" + ",".join(f"{ctx}/{size}" for ctx, size in directories),
         "",
     ]
@@ -528,7 +544,7 @@ def cmd_list(args: argparse.Namespace) -> None:
     for group, members in by_group.items():
         print_header(f"{group}: {len(members)} icons")
         for item in members:
-            missing = [s for s in item.sizes if not index.pick(item.name, s, item.sources, item.glyph)]
+            missing = [s for s in item.sizes if not item.pick(index, s)]
             note = f"  (no source at {missing})" if missing else ""
             print(f"  {item.name}{note}")
     for group in manifest.get("group", []):
