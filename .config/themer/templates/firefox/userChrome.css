@@ -143,6 +143,8 @@
   /* Panels and menus */
   --panel-background-color: var(--themer-surface-raised) !important;
   --panel-text-color: var(--themer-text) !important;
+  --panel-background: var(--themer-surface-raised) !important;
+  --panel-color: var(--themer-text) !important;
   --panel-border-color: var(--themer-line) !important;
   --panel-border-radius: var(--themer-radius-md) !important;
   --panel-shadow: var(--themer-shadow-md) !important;
@@ -553,6 +555,8 @@
 menupopup, panel {
   --panel-background-color: var(--themer-surface-raised) !important;
   --panel-text-color: var(--themer-text) !important;
+  --panel-background: var(--themer-surface-raised) !important;
+  --panel-color: var(--themer-text) !important;
   --panel-border-color: var(--themer-line) !important;
   --panel-border-radius: var(--themer-radius-md) !important;
   --panel-padding: 4px !important;
