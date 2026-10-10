@@ -22,6 +22,12 @@ mono = "Liga SFMono Nerd Font"
 ui-weight = 500            # from the design system's body style
 title-weight = 600
 
+# Plasma icon themes built from this palette by scripts/kde/icon-sets (Icons/monochrome: two tones, the grounds and the
+# blue; Icons/colorful: every color of the theme), each with a -Light twin. Swap the two names to change the set.
+[icons]
+theme = "Pare-Colorful"
+theme-light = "Pare-Colorful-Light"
+
 [shape]
 radius-xs = 4
 radius-sm = 6

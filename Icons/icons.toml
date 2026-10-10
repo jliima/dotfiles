@@ -1,0 +1,171 @@
+# What scripts/kde/icon-sets/icon-sets.py builds: two icon themes per Themer theme and variant, recolored with gowall.
+#
+#   monochrome/<Theme>-Monochrome[-Light]/   two tones: the grounds (bg, surface, line) and the main blue
+#   colorful/<Theme>-Colorful[-Light]/       every color of the theme
+#
+# Each result is an XDG icon theme (index.theme plus <context>/<size>/<name>.png) that inherits the base themes, so only
+# the icons listed here change. Link it into ~/.local/share/icons (the dotfiles do, through .local/share/icons/) and
+# select it with Themer's [icons] table or in System Settings.
+
+# Where the original icons come from, in this order (icon theme folder names, searched in the usual icon folders).
+# The same list is what the built themes inherit.
+source-themes = ["Breeze Chameleon Dark", "breeze-dark", "breeze", "hicolor"]
+
+# The palette gowall maps every pixel to, as Themer token names (a * matches any text). Palette colors are the only
+# colors in a built icon.
+[palette.monochrome]
+tokens = ["bg-deep", "bg-sunken", "bg", "surface", "surface-raised", "surface-hover", "surface-active", "line",
+          "line-strong", "blue-soft", "blue-dim", "blue", "blue-bright"]
+
+[palette.colorful]
+tokens = ["bg-deep", "surface-raised", "surface-active", "line-strong", "text-faint", "text-muted", "text",
+          "text-bright", "*-soft", "*-dim", "red", "red-bright", "orange", "orange-bright", "yellow",
+          "yellow-bright", "green", "green-bright", "cyan", "cyan-bright", "blue", "blue-bright", "violet",
+          "violet-bright", "magenta", "magenta-bright"]
+
+# Breeze status and action icons are single glyphs colored by the color scheme through CSS classes. Before gowall maps
+# them, each class is painted with one of these tokens (a hue name stands for the group's hue below).
+[glyph.monochrome]
+Text = "blue"
+ButtonText = "blue"
+ViewText = "blue"
+Highlight = "blue-bright"
+ButtonFocus = "blue-bright"
+ViewFocus = "blue-bright"
+PositiveText = "blue-bright"
+NeutralText = "blue-bright"
+NegativeText = "blue-bright"
+Background = "surface-active"
+ButtonBackground = "surface-active"
+ViewBackground = "surface-active"
+
+[glyph.colorful]
+Text = "{hue}"
+ButtonText = "{hue}"
+ViewText = "{hue}"
+Highlight = "blue"
+ButtonFocus = "blue"
+ViewFocus = "blue"
+PositiveText = "green"
+NeutralText = "orange"
+NegativeText = "red"
+Background = "surface-active"
+ButtonBackground = "surface-active"
+ViewBackground = "surface-active"
+
+# ---- The right-hand panel: the system tray applets and the items in it ---------------------------------------------
+
+# glyph = true: Breeze style single-color icons. names are globs over the icon names of the source themes; an icon is
+# built at every size of the group the sources have (or can scale to). hue colors the group in the colorful set.
+
+[[group]]
+id = "audio"
+context = "status"
+sizes = [16, 22, 24, 32]
+glyph = true
+hue = "green"
+names = ["audio-volume-*", "audio-on*", "audio-off*", "audio-ready*", "mic-*", "microphone-*",
+         "audio-input-microphone*", "audio-headphones*", "audio-headset*", "audio-card*", "audio-speakers*"]
+
+[[group]]
+id = "network"
+context = "status"
+sizes = [16, 22, 24, 32]
+glyph = true
+hue = "cyan"
+names = ["network-wired*", "network-wireless*", "network-vpn*", "network-flightmode-*", "network-offline",
+         "network-unavailable", "network-limited", "network-connect*", "network-disconnect*", "network-error*",
+         "network-workgroup*", "network-server*", "nm-*", "flightmode-*", "preferences-system-network*"]
+
+[[group]]
+id = "bluetooth"
+context = "status"
+sizes = [16, 22, 24, 32]
+glyph = true
+hue = "blue"
+names = ["bluetooth*", "network-bluetooth*", "preferences-system-bluetooth*"]
+
+[[group]]
+id = "battery"
+context = "status"
+sizes = [16, 22, 24, 32]
+glyph = true
+hue = "green"
+names = ["battery-*", "battery", "ac-adapter*", "uninterruptible-power-supply*", "system-suspend-*"]
+
+[[group]]
+id = "brightness"
+context = "status"
+sizes = [16, 22, 24, 32]
+glyph = true
+hue = "yellow"
+names = ["brightness-*", "display-brightness*", "video-display-brightness*", "input-keyboard-brightness*",
+         "redshift-status-*", "video-card-inactive"]
+
+[[group]]
+id = "notifications"
+context = "status"
+sizes = [16, 22, 24, 32]
+glyph = true
+hue = "orange"
+names = ["notification*", "notifications*", "preferences-system-notifications*", "mail-unread*"]
+
+[[group]]
+id = "clipboard"
+context = "status"
+sizes = [16, 22, 24, 32]
+glyph = true
+hue = "violet"
+names = ["klipper*", "edit-paste", "edit-paste-symbolic", "edit-clear-history*"]
+
+[[group]]
+id = "devices"
+context = "status"
+sizes = [16, 22, 24, 32]
+glyph = true
+hue = "magenta"
+names = ["kdeconnect*", "smartphone*", "drive-removable-media*", "device-notifier*", "media-eject",
+         "media-eject-symbolic", "input-keyboard", "input-keyboard-symbolic", "input-caps-on*", "input-num-on*",
+         "input-touchpad-*", "touchpad_*", "printer", "printer-symbolic", "printer-error*", "camera-on*", "camera-off*",
+         "camera-ready*", "video-display", "video-display-symbolic", "rotation-*"]
+
+[[group]]
+id = "media"
+context = "status"
+sizes = [16, 22, 24, 32]
+glyph = true
+hue = "red"
+names = ["media-playback-*"]
+
+[[group]]
+id = "vault"
+context = "status"
+sizes = [16, 22, 24, 32]
+glyph = true
+hue = "violet"
+names = ["plasmavault*", "plasma-vault*", "folder-encrypted*", "folder-decrypted*", "wallet-*"]
+
+[[group]]
+id = "weather"
+context = "status"
+sizes = [16, 22, 24, 32]
+glyph = true
+hue = "yellow"
+names = ["weather-*", "temperature-*"]
+
+[[group]]
+id = "arrows"
+context = "status"
+sizes = [16, 22, 24, 32]
+glyph = true
+hue = "text-muted"
+names = ["arrow-up", "arrow-down", "arrow-left", "arrow-right", "arrow-up-symbolic", "arrow-down-symbolic",
+         "arrow-left-symbolic", "arrow-right-symbolic"]
+
+[[group]]
+id = "crash"
+context = "status"
+sizes = [16, 22, 24, 32]
+glyph = true
+hue = "red"
+names = ["tools-report-bug*"]
