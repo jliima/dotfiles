@@ -7,7 +7,7 @@ Terminal=false
 Categories=Development;
 StartupNotify=false
 Exec=$HOME/dotfiles/scripts/kde/open-program/open-copilot.sh
-Icon=/home/hieroja/dotfiles/Icons/github-copilot.svg
+Icon=github-copilot
 Actions=GPT53CodexHigh;Haiku45;Sonnet46High;Opus46High;
 
 [Desktop Action GPT53CodexHigh]
