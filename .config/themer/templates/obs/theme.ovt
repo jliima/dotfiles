@@ -20,12 +20,14 @@
     --grey2: {{ line-strong }};
     --grey1: {{ text-subtle }};
 
-    /* Accent / primary */
-    --primary: {{ accent }};
-    --primary_light: {{ accent-hover }};
-    --primary_lighter: {{ accent-hover }};
-    --primary_dark: {{ accent }};
-    --primary_darker: {{ accent-soft }};
+    /* Accent / primary. Yami fills selected rows, menu items and checked controls with --primary under the normal
+       text color, so it is the theme's selection (accent on the ground, readable under text), not the bright accent:
+       that one is for focus rings and borders, as in the other apps. */
+    --primary: {{ selection }};
+    --primary_light: {{ selection | mix(accent, 0.3) }};
+    --primary_lighter: {{ accent }};
+    --primary_dark: {{ accent-soft }};
+    --primary_darker: {{ bg }};
 
     /* Semantic colours */
     --warning: {{ warning }};
