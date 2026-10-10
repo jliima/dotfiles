@@ -1,0 +1,154 @@
+# Noire: a Themer theme.
+#
+#   themer apply --theme noire             apply it (themer apply --theme noire:light for the light variant)
+#   themer check --theme noire             contrast report
+#   themer validate --theme noire          check it fills the token contract (contract.toml)
+#
+# Values: "#rrggbb", "oklch(L C H)" (L 0..1, C about 0..0.37, H degrees), or "{other-token}".
+# Anything left out falls back to defaults.toml: roles, syntax colors, terminal colors, fonts, shapes.
+# Each hue may also define -bright, -dim and -soft; leave them out and Themer derives them from the base hue.
+
+[meta]
+id = "noire"
+name = "Noire"
+description = "GMK Noire: ink black and beige, brass accent, quiet earth hues. Dark first."
+version = "1.0.0"
+variants = ["dark", "light"]
+default-variant = "dark"
+
+[fonts]
+sans = "SF Pro"
+mono = "Liga SFMono Nerd Font"
+ui-weight = 500
+title-weight = 600
+
+[shape]
+radius-xs = 4
+radius-sm = 6
+radius-md = 10
+radius-lg = 14
+
+# Roles: what each color is for. A variant table can override any of them.
+[roles]
+accent = "{yellow}"
+accent-hover = "{yellow-bright}"
+accent-soft = "{yellow-soft}"
+focus-ring = "{yellow}"
+link = "{yellow}"
+success = "{green}"
+success-soft = "{green-soft}"
+warning = "{orange}"
+warning-soft = "{orange-soft}"
+danger = "{red}"
+danger-soft = "{red-soft}"
+info = "{cyan}"
+info-soft = "{cyan-soft}"
+kde-selection = "{accent-soft}"
+syntax-keyword = "{green}"
+syntax-string = "{magenta}"
+syntax-escape = "{cyan}"
+syntax-number = "{red}"
+syntax-constant = "{red}"
+syntax-function = "{blue}"
+syntax-class = "{blue-bright}"
+syntax-type = "{cyan}"
+syntax-annotation = "{violet}"
+syntax-doc-tag = "{orange}"
+syntax-property = "{cyan}"
+syntax-tag = "{green}"
+syntax-attribute = "{orange}"
+syntax-variable = "{text}"
+syntax-operator = "{text-muted}"
+syntax-punctuation = "{text-subtle}"
+syntax-comment = "{text-faint}"
+syntax-heading = "{yellow-bright}"
+syntax-link = "{yellow}"
+syntax-url = "{cyan}"
+syntax-regex = "{cyan}"
+syntax-json-key = "{syntax-function}"
+syntax-xml-attribute = "{syntax-function}"
+syntax-yaml-key = "{yellow}"
+syntax-yaml-anchor = "{syntax-function}"
+syntax-css-at = "{yellow}"
+syntax-css-property = "{syntax-type}"
+syntax-css-class = "{syntax-keyword}"
+syntax-css-id = "{syntax-doc-tag}"
+syntax-css-pseudo = "{syntax-function}"
+syntax-css-color = "{syntax-annotation}"
+syntax-sh-command = "{syntax-function}"
+syntax-py-keyword = "{syntax-doc-tag}"
+syntax-py-bytes = "{syntax-keyword}"
+
+# The grounds are the deskmat's ink black (#050706, a faint green in it), the text its beige (#e5dac6).
+# The hues borrow from the set's metals and what time does to them: brass, copper, verdigris.
+[dark]
+# Grounds, deepest to highest
+bg-deep = "#050706"
+bg-sunken = "oklch(0.145 0.0058 165)"
+bg = "oklch(0.168 0.006 163)"
+# Surfaces
+surface = "oklch(0.215 0.0068 160)"
+surface-raised = "oklch(0.25 0.007 158)"
+surface-hover = "oklch(0.285 0.0075 156)"
+surface-active = "oklch(0.335 0.008 150)"
+# Lines
+line = "oklch(0.3 0.008 140)"
+line-strong = "oklch(0.55 0.02 85)"
+# Text, brightest last
+text-bright = "oklch(0.965 0.018 85)"
+text = "#e5dac6"
+text-muted = "oklch(0.79 0.027 82)"
+text-subtle = "oklch(0.7 0.025 80)"
+text-faint = "oklch(0.63 0.022 80)"
+text-disabled = "oklch(0.46 0.018 80)"
+text-inverse = "{bg-deep}"
+# Hues
+red = "oklch(0.69 0.14 28)"
+orange = "oklch(0.77 0.125 58)"
+yellow = "oklch(0.84 0.12 92)"
+green = "oklch(0.78 0.1 135)"
+cyan = "oklch(0.78 0.075 190)"
+blue = "oklch(0.75 0.08 245)"
+violet = "oklch(0.74 0.09 305)"
+magenta = "oklch(0.74 0.1 355)"
+# Text on solid hue fills
+on-accent = "{bg-deep}"
+# Selection and the ground of selected rows: sand rather than the olive the yellow soft step derives
+selection = "oklch(0.34 0.05 85)"
+accent-soft = "oklch(0.285 0.04 85)"
+
+[light]
+# Grounds, deepest to highest: the beige of the mat at the bottom, paper above it
+bg-deep = "#e5dac6"
+bg-sunken = "oklch(0.915 0.025 83)"
+bg = "oklch(0.945 0.02 84)"
+# Surfaces
+surface = "oklch(0.97 0.014 85)"
+surface-raised = "oklch(0.985 0.01 85)"
+surface-hover = "oklch(0.925 0.022 84)"
+surface-active = "oklch(0.885 0.03 83)"
+# Lines
+line = "oklch(0.87 0.028 83)"
+line-strong = "oklch(0.58 0.03 80)"
+# Text, brightest last
+text-bright = "#050706"
+text = "oklch(0.2 0.008 150)"
+text-muted = "oklch(0.36 0.015 100)"
+text-subtle = "oklch(0.44 0.02 90)"
+text-faint = "oklch(0.5 0.02 85)"
+text-disabled = "oklch(0.66 0.02 85)"
+text-inverse = "{surface-raised}"
+# Hues
+red = "oklch(0.5 0.15 28)"
+orange = "oklch(0.5 0.12 58)"
+yellow = "oklch(0.5 0.09 92)"
+green = "oklch(0.48 0.1 140)"
+cyan = "oklch(0.5 0.07 190)"
+blue = "oklch(0.5 0.09 245)"
+violet = "oklch(0.5 0.11 305)"
+magenta = "oklch(0.5 0.13 355)"
+# Text on solid hue fills
+on-accent = "{surface-raised}"
+# Selection and the ground of selected rows
+selection = "oklch(0.84 0.06 85)"
+accent-soft = "oklch(0.895 0.045 88)"
