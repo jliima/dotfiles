@@ -1,90 +1,402 @@
 /* ==UserStyle==
-@name        Youtube
+@name        YouTube
 @namespace   themer
-@version     2.0.0
-@description Converted from the classic Stylus style "Youtube" to Themer variables.
+@version     3.0.0
+@description YouTube in the applied Themer theme, light or dark as the browser asks: YouTube's own design tokens are
+             remapped to Themer's, the rest (search box, player menus, comments, chips) is restyled where YouTube
+             hard-codes a color. Meant to replace Dark Reader on youtube.com.
 ==/UserStyle== */
 
 @-moz-document domain("youtube.com") {
-:root {
-  --main-color: var(--themer-accent) !important;
-  --main-background: var(--themer-bg) !important;
-  --second-background: var(--themer-bg-sunken) !important;
-  --hover-background: var(--themer-surface-hover) !important;
-  --main-text: var(--themer-text) !important;
-  --dimmer-text: var(--themer-text-muted) !important;
-  --shadow: black !important;
-  --yt-spec-additive-background: var(--themer-surface) !important;
+
+/* ---- Design tokens ---------------------------------------------------------------------------------------------
+ * YouTube builds every surface, text and icon from its color tokens. Its light and dark sets are both replaced by the
+ * theme's, so the page follows the Themer variant. It declares them on `html` and again on every `[dark]` or
+ * `[light]` element (the masthead, popups, ...), so those get them too, and its components read hashed copies of
+ * the tokens (--t3e41d7b17b187f69 is the base background): the block below is written by tools/youtube-tokens.py from
+ * YouTube's own stylesheet, which finds each copy by its colors. Run it again when YouTube ships and colors revert. */
+/* BEGIN generated tokens */
+/* 133 hashed variables in YouTube's CSS; tools/youtube-tokens.py regenerates this */
+[dark] {
+  --yt-sys-color-baseline--base-background: var(--themer-bg) !important;
+  --yt-sys-color-baseline--raised-background: var(--themer-surface) !important;
+  --yt-sys-color-baseline--surface-container: var(--themer-surface) !important;
+  --yt-sys-color-baseline--menu-background: var(--themer-surface-raised) !important;
+  --yt-sys-color-baseline--status-bar: var(--themer-bg) !important;
+  --yt-sys-color-baseline--system-bar: var(--themer-bg) !important;
+  --yt-sys-color-baseline--frosted-glass-desktop: rgb(from var(--themer-bg) r g b / 0.85) !important;
+  --yt-sys-color-baseline--frosted-glass-mobile: rgb(from var(--themer-bg) r g b / 0.85) !important;
   --yt-sys-color-baseline--text-primary: var(--themer-text-bright) !important;
   --yt-sys-color-baseline--text-secondary: var(--themer-text-muted) !important;
-  
+  --yt-sys-color-baseline--text-disabled: var(--themer-text-disabled) !important;
+  --yt-sys-color-baseline--text-primary-inverse: var(--themer-bg) !important;
+  --yt-sys-color-baseline--text-secondary-inverse: var(--themer-text-subtle) !important;
+  --yt-sys-color-baseline--text-disabled-inverse: var(--themer-text-subtle) !important;
+  --yt-sys-color-baseline--wordmark-text: var(--themer-text-bright) !important;
+  --yt-sys-color-baseline--inverted-background: var(--themer-text-bright) !important;
+  --yt-sys-color-baseline--inverted-background-hover: var(--themer-text) !important;
+  --yt-sys-color-baseline--solid-background: var(--themer-surface-hover) !important;
+  --yt-sys-color-baseline--solid-background-inverse: var(--themer-text-bright) !important;
+  --yt-sys-color-baseline--mono-filled-hover: var(--themer-text) !important;
+  --yt-sys-color-baseline--mono-filled-hover-inverse: var(--themer-surface-active) !important;
+  --yt-sys-color-baseline--filled-hover-light: var(--themer-text) !important;
+  --yt-sys-color-baseline--filled-touch-light: var(--themer-text-muted) !important;
+  --yt-sys-color-baseline--filled-state-layer: var(--themer-text-muted) !important;
+  --yt-sys-color-baseline--touch-response: var(--themer-text) !important;
+  --yt-sys-color-baseline--touch-response-inverse: var(--themer-bg) !important;
+  --yt-sys-color-baseline--additive-background: rgb(from var(--themer-text) r g b / 0.1) !important;
+  --yt-sys-color-baseline--tonal-background: rgb(from var(--themer-text) r g b / 0.1) !important;
+  --yt-sys-color-baseline--button-chip-background-hover: rgb(from var(--themer-text) r g b / 0.2) !important;
+  --yt-sys-color-baseline--mono-tonal-hover: rgb(from var(--themer-text) r g b / 0.2) !important;
+  --yt-sys-color-baseline--tonal-hover-light: rgb(from var(--themer-text) r g b / 0.15) !important;
+  --yt-sys-color-baseline--tonal-touch-light: rgb(from var(--themer-text) r g b / 0.25) !important;
+  --yt-sys-color-baseline--tonal-state-layer: rgb(from var(--themer-text) r g b / 0.1) !important;
+  --yt-sys-color-baseline--tonal-wash: rgb(from var(--themer-text) r g b / 0.05) !important;
+  --yt-sys-color-baseline--tonal-wash-inverse: rgb(from var(--themer-text) r g b / 0.2) !important;
+  --yt-sys-color-baseline--solid-wash: rgb(from var(--themer-text) r g b / 0.3) !important;
+  --yt-sys-color-baseline--solid-wash-inverse: rgb(from var(--themer-text) r g b / 0.15) !important;
+  --yt-sys-color-baseline--outline: rgb(from var(--themer-text) r g b / 0.2) !important;
+  --yt-sys-color-baseline--outline-opaque: var(--themer-line) !important;
+  --yt-sys-color-baseline--outline-inverse-opaque: var(--themer-line) !important;
+  --yt-sys-color-baseline--outline-rim: rgb(from var(--themer-text) r g b / 0.15) !important;
+  --yt-sys-color-baseline--outline-rim-inverse: rgb(from var(--themer-text) r g b / 0.3) !important;
+  --yt-sys-color-baseline--solid-rim: rgb(from var(--themer-text) r g b / 0.2) !important;
+  --yt-sys-color-baseline--solid-rim-inverse: rgb(from var(--themer-text) r g b / 0.2) !important;
+  --yt-sys-color-baseline--tonal-rim: rgb(from var(--themer-text) r g b / 0.1) !important;
+  --yt-sys-color-baseline--call-to-action: var(--themer-accent) !important;
+  --yt-sys-color-baseline--call-to-action-hover: var(--themer-accent-hover) !important;
+  --yt-sys-color-baseline--call-to-action-inverse: var(--themer-accent) !important;
+  --yt-sys-color-baseline--suggested-action: var(--themer-accent-soft) !important;
+  --yt-sys-color-baseline--suggested-action-hover: var(--themer-surface-hover) !important;
+  --yt-sys-color-baseline--suggested-action-inverse: var(--themer-accent-soft) !important;
+  --yt-sys-color-baseline--themed-green: var(--themer-success) !important;
+  --yt-sys-color-baseline--themed-green-inverse: var(--themer-success) !important;
+  --yt-sys-color-baseline--text-complete: var(--themer-success) !important;
+  --yt-sys-color-baseline--error-indicator: var(--themer-danger) !important;
+  --yt-sys-color-baseline--error-indicator-inverse: var(--themer-danger) !important;
+  --yt-sys-color-baseline--text-error: var(--themer-danger) !important;
+  --yt-sys-color-baseline--text-warning: var(--themer-warning) !important;
+  --yt-sys-color-baseline--icon-warning: var(--themer-warning) !important;
+  --yt-sys-color-baseline--brand-red-contrast: var(--themer-red) !important;
+  --yt-sys-color-baseline--static-brand-red: var(--themer-red) !important;
+  --yt-sys-color-baseline--red-3: var(--themer-red) !important;
+  --t02c0a2c868c14ce8: var(--themer-line) !important; /* outline-inverse-opaque */
+  --t08a7c6c176cbc5c2: var(--themer-surface-raised) !important; /* menu-background */
+  --t1405e70a39276293: var(--themer-text-bright) !important; /* inverted-background */
+  --t1aab759cd9ddbe39: rgb(from var(--themer-text) r g b / 0.05) !important; /* state-mono-standard-hovered */
+  --t20480717de80f555: rgb(from var(--themer-text) r g b / 0.2) !important; /* button-chip-background-hover */
+  --t296c7f81dd09a9c3: var(--themer-bg) !important; /* status-bar */
+  --t2c3bbff6c15a3eb2: var(--themer-success) !important; /* themed-green-inverse */
+  --t2d807bb79e75606d: var(--themer-accent) !important; /* call-to-action */
+  --t3e41d7b17b187f69: var(--themer-bg) !important; /* base-background */
+  --t3f3bdb4140d3ead7: var(--themer-warning) !important; /* text-warning */
+  --t416e5931fc464589: rgb(from var(--themer-text) r g b / 0.2) !important; /* mono-tonal-hover */
+  --t441a0e44e495381a: var(--themer-accent-soft) !important; /* suggested-action-inverse */
+  --t45b2a38314924357: var(--themer-text-bright) !important; /* solid-background-inverse */
+  --t4a6da19e16bf221a: var(--themer-text-muted) !important; /* text-secondary */
+  --t4d7776c28db21122: var(--themer-success) !important; /* text-complete */
+  --t4fb0f67b251e1a42: var(--themer-text) !important; /* touch-response */
+  --t518e925f61bdcb91: var(--themer-surface) !important; /* raised-background */
+  --t5208fd177a788cfa: var(--themer-danger) !important; /* text-error */
+  --t53991d599b1488f5: var(--themer-danger) !important; /* error-indicator-inverse */
+  --t53dda9125e8d1324: rgb(from var(--themer-text) r g b / 0.15) !important; /* outline-rim */
+  --t544e31714f63d53c: rgb(from var(--themer-text) r g b / 0.3) !important; /* outline-rim-inverse */
+  --t5978da8d584b8fe9: rgb(from var(--themer-bg) r g b / 0.85) !important; /* frosted-glass-mobile */
+  --t617db776af0de196: var(--themer-accent-hover) !important; /* call-to-action-hover */
+  --t6216186c28b3834b: var(--themer-bg) !important; /* text-primary-inverse */
+  --t6931aa1826b373b2: rgb(from var(--themer-text) r g b / 0.3) !important; /* solid-wash */
+  --t7c4965c11f8537c0: rgb(from var(--themer-text) r g b / 0.1) !important; /* tonal-rim */
+  --t7e34d5baa4ea6277: var(--themer-text-disabled) !important; /* text-disabled */
+  --t7f006a3165d45f92: rgb(from var(--themer-text) r g b / 0.1) !important; /* tonal-state-layer */
+  --t7f4f2c6d54836ce0: rgb(from var(--themer-text) r g b / 0.1) !important; /* additive-background */
+  --t7f9b7e1603e20b94: var(--themer-text-bright) !important; /* wordmark-text */
+  --t832f22ce6618e99e: var(--themer-surface-hover) !important; /* solid-background */
+  --t854c79338d8ca8a7: var(--themer-red) !important; /* brand-red-contrast */
+  --t8cdc9846a76caf1f: var(--themer-text) !important; /* mono-filled-hover */
+  --t904a88c623ca27ab: var(--themer-success) !important; /* themed-green */
+  --t93a9a9c8ff5bfbfc: var(--themer-text) !important; /* filled-hover-light */
+  --t9bc0b740242da017: var(--themer-surface-hover) !important; /* suggested-action-hover */
+  --t9d7bdcaefc975d44: rgb(from var(--themer-text) r g b / 0.2) !important; /* tonal-wash-inverse */
+  --ta08e036410c14538: var(--themer-bg) !important; /* touch-response-inverse */
+  --ta889dfda9605a358: rgb(from var(--themer-bg) r g b / 0.85) !important; /* frosted-glass-desktop */
+  --ta9b56aa666d71f06: rgb(from var(--themer-text) r g b / 0.15) !important; /* tonal-hover-light */
+  --tad8443faed66c111: var(--themer-text) !important; /* inverted-background-hover */
+  --taf1bdd961423c15f: rgb(from var(--themer-text) r g b / 0.05) !important; /* tonal-wash */
+  --tb315d8832c2ef6ef: var(--themer-text-muted) !important; /* filled-state-layer */
+  --tb628117fc164ad87: var(--themer-accent) !important; /* call-to-action-inverse */
+  --tb927f5c0149004c6: var(--themer-red) !important; /* red-3 */
+  --tbdeaf5bc17152abc: var(--themer-surface) !important; /* surface-container */
+  --tc4b26042d4cb141f: var(--themer-text-subtle) !important; /* text-disabled-inverse */
+  --tc87f6a7f05e65fc4: rgb(from var(--themer-text) r g b / 0.1) !important; /* tonal-background */
+  --td545df04e2c659d7: var(--themer-danger) !important; /* error-indicator */
+  --td8562cdc203bc683: var(--themer-line) !important; /* outline-opaque */
+  --td9c19f4f8cecd56e: var(--themer-text-subtle) !important; /* text-secondary-inverse */
+  --tde41338fc2bd4ba5: var(--themer-bg) !important; /* system-bar */
+  --te1b64e6971040396: var(--themer-surface-active) !important; /* mono-filled-hover-inverse */
+  --te9b0b5b330fb2a7b: var(--themer-text-muted) !important; /* filled-touch-light */
+  --tecbdf924b63b27fc: var(--themer-warning) !important; /* icon-warning */
+  --ted4236536899e4b3: rgb(from var(--themer-text) r g b / 0.15) !important; /* solid-wash-inverse */
+  --tf3fc031aaa66f63b: rgb(from var(--themer-text) r g b / 0.25) !important; /* tonal-touch-light */
+  --tf3fc855af2285f5f: rgb(from var(--themer-text) r g b / 0.2) !important; /* outline */
+  --tf5f050c65aebead5: rgb(from var(--themer-text) r g b / 0.1) !important; /* state-mono-standard-pressed */
+  --tfa3475c508f5dfef: var(--themer-accent-soft) !important; /* suggested-action */
+  --tffc2fd3a644f6275: var(--themer-text-bright) !important; /* text-primary */
+}
+:root:not([dark]), [light] {
+  --yt-sys-color-baseline--base-background: var(--themer-bg) !important;
+  --yt-sys-color-baseline--raised-background: var(--themer-surface) !important;
+  --yt-sys-color-baseline--surface-container: var(--themer-surface) !important;
+  --yt-sys-color-baseline--menu-background: var(--themer-surface-raised) !important;
+  --yt-sys-color-baseline--status-bar: rgb(from var(--themer-text) r g b / 0.6) !important;
+  --yt-sys-color-baseline--system-bar: var(--themer-bg) !important;
+  --yt-sys-color-baseline--frosted-glass-desktop: rgb(from var(--themer-bg) r g b / 0.85) !important;
+  --yt-sys-color-baseline--frosted-glass-mobile: rgb(from var(--themer-bg) r g b / 0.85) !important;
+  --yt-sys-color-baseline--text-primary: var(--themer-text-bright) !important;
+  --yt-sys-color-baseline--text-secondary: var(--themer-text-muted) !important;
+  --yt-sys-color-baseline--text-disabled: var(--themer-text-disabled) !important;
+  --yt-sys-color-baseline--text-primary-inverse: var(--themer-bg) !important;
+  --yt-sys-color-baseline--text-secondary-inverse: var(--themer-text-subtle) !important;
+  --yt-sys-color-baseline--text-disabled-inverse: var(--themer-text-subtle) !important;
+  --yt-sys-color-baseline--wordmark-text: var(--themer-text-bright) !important;
+  --yt-sys-color-baseline--inverted-background: var(--themer-text-bright) !important;
+  --yt-sys-color-baseline--inverted-background-hover: var(--themer-text) !important;
+  --yt-sys-color-baseline--solid-background: var(--themer-surface-hover) !important;
+  --yt-sys-color-baseline--solid-background-inverse: var(--themer-text-bright) !important;
+  --yt-sys-color-baseline--mono-filled-hover: var(--themer-text) !important;
+  --yt-sys-color-baseline--mono-filled-hover-inverse: var(--themer-surface-active) !important;
+  --yt-sys-color-baseline--filled-hover-light: var(--themer-text) !important;
+  --yt-sys-color-baseline--filled-touch-light: var(--themer-text-muted) !important;
+  --yt-sys-color-baseline--filled-state-layer: var(--themer-text-muted) !important;
+  --yt-sys-color-baseline--touch-response: var(--themer-text) !important;
+  --yt-sys-color-baseline--touch-response-inverse: var(--themer-bg) !important;
+  --yt-sys-color-baseline--additive-background: rgb(from var(--themer-text) r g b / 0.05) !important;
+  --yt-sys-color-baseline--tonal-background: rgb(from var(--themer-text) r g b / 0.1) !important;
+  --yt-sys-color-baseline--button-chip-background-hover: rgb(from var(--themer-text) r g b / 0.1) !important;
+  --yt-sys-color-baseline--mono-tonal-hover: rgb(from var(--themer-text) r g b / 0.1) !important;
+  --yt-sys-color-baseline--tonal-touch-light: var(--themer-surface-active) !important;
+  --yt-sys-color-baseline--tonal-state-layer: rgb(from var(--themer-text) r g b / 0.1) !important;
+  --yt-sys-color-baseline--outline: rgb(from var(--themer-text) r g b / 0.1) !important;
+  --yt-sys-color-baseline--outline-opaque: var(--themer-line) !important;
+  --yt-sys-color-baseline--outline-inverse-opaque: var(--themer-line) !important;
+  --yt-sys-color-baseline--outline-wash: rgb(from var(--themer-text) r g b / 0) !important;
+  --yt-sys-color-baseline--tonal-rim: rgb(from var(--themer-text) r g b / 0.05) !important;
+  --yt-sys-color-baseline--call-to-action: var(--themer-accent) !important;
+  --yt-sys-color-baseline--call-to-action-hover: var(--themer-accent-hover) !important;
+  --yt-sys-color-baseline--call-to-action-inverse: var(--themer-accent) !important;
+  --yt-sys-color-baseline--suggested-action: var(--themer-accent-soft) !important;
+  --yt-sys-color-baseline--suggested-action-hover: var(--themer-surface-hover) !important;
+  --yt-sys-color-baseline--suggested-action-inverse: var(--themer-accent-soft) !important;
+  --yt-sys-color-baseline--themed-green: var(--themer-success) !important;
+  --yt-sys-color-baseline--themed-green-inverse: var(--themer-success) !important;
+  --yt-sys-color-baseline--text-complete: var(--themer-success) !important;
+  --yt-sys-color-baseline--background-complete: var(--themer-success-soft) !important;
+  --yt-sys-color-baseline--error-indicator: var(--themer-danger) !important;
+  --yt-sys-color-baseline--error-indicator-inverse: var(--themer-danger) !important;
+  --yt-sys-color-baseline--text-error: var(--themer-danger) !important;
+  --yt-sys-color-baseline--text-warning: var(--themer-warning) !important;
+  --yt-sys-color-baseline--background-warning: var(--themer-warning-soft) !important;
+  --yt-sys-color-baseline--icon-warning: var(--themer-warning) !important;
+  --yt-sys-color-baseline--brand-red-contrast: var(--themer-red) !important;
+  --yt-sys-color-baseline--static-brand-red: var(--themer-red) !important;
+  --yt-sys-color-baseline--red-3: var(--themer-red) !important;
+  --t02c0a2c868c14ce8: var(--themer-line) !important; /* outline-inverse-opaque */
+  --t08a7c6c176cbc5c2: var(--themer-surface-raised) !important; /* menu-background */
+  --t1405e70a39276293: var(--themer-text-bright) !important; /* inverted-background */
+  --t1aab759cd9ddbe39: rgb(from var(--themer-text) r g b / 0.05) !important; /* state-mono-standard-hovered */
+  --t20480717de80f555: rgb(from var(--themer-text) r g b / 0.1) !important; /* button-chip-background-hover */
+  --t296c7f81dd09a9c3: rgb(from var(--themer-text) r g b / 0.6) !important; /* status-bar */
+  --t2c3bbff6c15a3eb2: var(--themer-success) !important; /* themed-green-inverse */
+  --t2d807bb79e75606d: var(--themer-accent) !important; /* call-to-action */
+  --t3e41d7b17b187f69: var(--themer-bg) !important; /* base-background */
+  --t3f3bdb4140d3ead7: var(--themer-warning) !important; /* text-warning */
+  --t416e5931fc464589: rgb(from var(--themer-text) r g b / 0.1) !important; /* mono-tonal-hover */
+  --t441a0e44e495381a: var(--themer-accent-soft) !important; /* suggested-action-inverse */
+  --t45b2a38314924357: var(--themer-text-bright) !important; /* solid-background-inverse */
+  --t4726c68ef6d7b08f: var(--themer-success-soft) !important; /* background-complete */
+  --t4a6da19e16bf221a: var(--themer-text-muted) !important; /* text-secondary */
+  --t4d7776c28db21122: var(--themer-success) !important; /* text-complete */
+  --t4fb0f67b251e1a42: var(--themer-text) !important; /* touch-response */
+  --t518e925f61bdcb91: var(--themer-surface) !important; /* raised-background */
+  --t5208fd177a788cfa: var(--themer-danger) !important; /* text-error */
+  --t53991d599b1488f5: var(--themer-danger) !important; /* error-indicator-inverse */
+  --t5978da8d584b8fe9: rgb(from var(--themer-bg) r g b / 0.85) !important; /* frosted-glass-mobile */
+  --t617db776af0de196: var(--themer-accent-hover) !important; /* call-to-action-hover */
+  --t6216186c28b3834b: var(--themer-bg) !important; /* text-primary-inverse */
+  --t7c4965c11f8537c0: rgb(from var(--themer-text) r g b / 0.05) !important; /* tonal-rim */
+  --t7e34d5baa4ea6277: var(--themer-text-disabled) !important; /* text-disabled */
+  --t7f006a3165d45f92: rgb(from var(--themer-text) r g b / 0.1) !important; /* tonal-state-layer */
+  --t7f4f2c6d54836ce0: rgb(from var(--themer-text) r g b / 0.05) !important; /* additive-background */
+  --t7f9b7e1603e20b94: var(--themer-text-bright) !important; /* wordmark-text */
+  --t832f22ce6618e99e: var(--themer-surface-hover) !important; /* solid-background */
+  --t854c79338d8ca8a7: var(--themer-red) !important; /* brand-red-contrast */
+  --t8cdc9846a76caf1f: var(--themer-text) !important; /* mono-filled-hover */
+  --t904a88c623ca27ab: var(--themer-success) !important; /* themed-green */
+  --t93a9a9c8ff5bfbfc: var(--themer-text) !important; /* filled-hover-light */
+  --t9bc0b740242da017: var(--themer-surface-hover) !important; /* suggested-action-hover */
+  --ta08e036410c14538: var(--themer-bg) !important; /* touch-response-inverse */
+  --ta889dfda9605a358: rgb(from var(--themer-bg) r g b / 0.85) !important; /* frosted-glass-desktop */
+  --tad8443faed66c111: var(--themer-text) !important; /* inverted-background-hover */
+  --tb315d8832c2ef6ef: var(--themer-text-muted) !important; /* filled-state-layer */
+  --tb628117fc164ad87: var(--themer-accent) !important; /* call-to-action-inverse */
+  --tb927f5c0149004c6: var(--themer-red) !important; /* red-3 */
+  --tbdeaf5bc17152abc: var(--themer-surface) !important; /* surface-container */
+  --tc4b26042d4cb141f: var(--themer-text-subtle) !important; /* text-disabled-inverse */
+  --tc87f6a7f05e65fc4: rgb(from var(--themer-text) r g b / 0.1) !important; /* tonal-background */
+  --td545df04e2c659d7: var(--themer-danger) !important; /* error-indicator */
+  --td8562cdc203bc683: var(--themer-line) !important; /* outline-opaque */
+  --td9c19f4f8cecd56e: var(--themer-text-subtle) !important; /* text-secondary-inverse */
+  --tde41338fc2bd4ba5: var(--themer-bg) !important; /* system-bar */
+  --te1b64e6971040396: var(--themer-surface-active) !important; /* mono-filled-hover-inverse */
+  --te9b0b5b330fb2a7b: var(--themer-text-muted) !important; /* filled-touch-light */
+  --tecbdf924b63b27fc: var(--themer-warning) !important; /* icon-warning */
+  --tf0a0d1154827847f: var(--themer-warning-soft) !important; /* background-warning */
+  --tf3fc031aaa66f63b: var(--themer-surface-active) !important; /* tonal-touch-light */
+  --tf3fc855af2285f5f: rgb(from var(--themer-text) r g b / 0.1) !important; /* outline */
+  --tf5f050c65aebead5: rgb(from var(--themer-text) r g b / 0.1) !important; /* state-mono-standard-pressed */
+  --tfa3475c508f5dfef: var(--themer-accent-soft) !important; /* suggested-action */
+  --tffc2fd3a644f6275: var(--themer-text-bright) !important; /* text-primary */
+}
+/* 76 variables keep YouTube's colors (player overlays, add-on hues, ...) */
+/* END generated tokens */
+
+/* Other variables, by hand */
+:root, [dark], [light] {
+  /* The old names */
+  --yt-spec-base-background: var(--themer-bg) !important;
+  --yt-spec-raised-background: var(--themer-surface) !important;
+  --yt-spec-menu-background: var(--themer-surface-raised) !important;
+  --yt-spec-general-background-a: var(--themer-bg) !important;
+  --yt-spec-general-background-b: var(--themer-bg) !important;
+  --yt-spec-general-background-c: var(--themer-bg) !important;
+  --yt-spec-additive-background: var(--themer-surface-hover) !important;
+  --yt-spec-text-primary: var(--themer-text-bright) !important;
+  --yt-spec-text-secondary: var(--themer-text-muted) !important;
+  --yt-spec-call-to-action: var(--themer-accent) !important;
+  --yt-spec-10-percent-layer: var(--themer-line) !important;
+  --yt-spec-badge-chip-background: var(--themer-surface-hover) !important;
+
+  /* Older components */
+  --yt-deprecated-general-background-a: var(--themer-bg) !important;
+  --yt-deprecated-general-background-b: var(--themer-bg) !important;
+  --yt-deprecated-general-background-c: var(--themer-bg) !important;
+  --yt-deprecated-light-blue: var(--themer-accent) !important;
+  --yt-deprecated-blue: var(--themer-accent) !important;
+  --yt-deprecated-brand-youtube-red: var(--themer-red) !important;
+  --yt-deprecated-black-1: var(--themer-surface-raised) !important;
+  --yt-deprecated-black-2: var(--themer-surface) !important;
+  --yt-deprecated-black-3: var(--themer-bg-sunken) !important;
+  --yt-deprecated-black-4: var(--themer-bg) !important;
+  --paper-dialog-background-color: var(--themer-surface-raised) !important;
+  --paper-listbox-background-color: var(--themer-surface-raised) !important;
+  --paper-menu-background-color: var(--themer-surface-raised) !important;
+  --paper-checkbox-checked-color: var(--themer-accent) !important;
+  --paper-checkbox-checkmark-color: var(--themer-on-accent) !important;
+  --paper-radio-button-checked-color: var(--themer-accent) !important;
+  --paper-input-container-focus-color: var(--themer-accent) !important;
+  --yt-pdg-paid-stickers-tab-selection-bar-color: var(--themer-accent) !important;
+
+  /* Search box */
+  --ytd-searchbox-background: var(--themer-bg-sunken) !important;
+  --ytd-searchbox-border-color: var(--themer-line-strong) !important;
+  --ytd-searchbox-legacy-border-color: var(--themer-line-strong) !important;
+  --ytd-searchbox-legacy-button-border-color: var(--themer-line-strong) !important;
+  --ytd-searchbox-legacy-button-hover-border-color: var(--themer-line-strong) !important;
+  --ytd-searchbox-legacy-button-color: var(--themer-surface-hover) !important;
+  --ytd-searchbox-legacy-button-hover-color: var(--themer-surface-active) !important;
+  --ytd-searchbox-legacy-button-focus-color: var(--themer-surface-active) !important;
+  --ytd-searchbox-legacy-button-icon-color: var(--themer-text-muted) !important;
+  --ytd-searchbox-text-color: var(--themer-text) !important;
+
+  /* Emoji picker */
+  --yt-emoji-picker-category-background-color: var(--themer-surface-raised) !important;
+  --yt-emoji-picker-search-background-color: var(--themer-bg-sunken) !important;
+  --yt-emoji-picker-search-color: var(--themer-text) !important;
+  --yt-emoji-picker-search-placeholder-color: var(--themer-text-subtle) !important;
+  --yt-emoji-picker-variant-selector-bg-color: var(--themer-surface-raised) !important;
+  --yt-emoji-picker-category-color: var(--themer-text-muted) !important;
+  --yt-emoji-picker-category-button-color: var(--themer-text-subtle) !important;
+  --yt-emoji-picker-base-with-variants-border: var(--themer-line) !important;
+
+  /* The theme's fonts */
+  --yt-ref-typography-values--font-family: var(--themer-font-sans), Roboto, Arial, sans-serif !important;
+  --yt-ref-typography-values--display-font-family: var(--themer-font-sans), Roboto, Arial, sans-serif !important;
+  accent-color: var(--themer-accent);
 }
 
-#author-text {
-  color: var(--themer-accent) !important;
+/* ---- Grounds ---------------------------------------------------------------------------------------------------- */
+html, html[dark], html[light], html:root, body {
+  background-color: var(--themer-bg) !important;
 }
 
-#style-scope {
-  font-family: "SF Pro Display";
-  font-weight: 500;
-  font-size: 20;
+/* ---- Masthead and search ---------------------------------------------------------------------------------------- */
+.ytSearchboxComponentInputBox {
+  background-color: var(--themer-bg-sunken) !important;
+  border-color: var(--themer-line-strong) !important;
+  box-shadow: none !important;
 }
 
-h4 {
-  color: var(--themer-danger) !important;
+.ytSearchboxComponentInputBox:focus-within, .ytSearchboxComponentInputBoxDark:focus-within {
+  border-color: var(--themer-focus-ring) !important;
 }
 
-#search-icon-legacy.ytd-searchbox,
-.ytSearchboxComponentReportButton,
-.yt-spec-button-shape-next--icon-only-default {
-  display: none;
+.ytSearchboxComponentSearchButton, .ytSearchboxComponentSearchButtonDark {
+  background-color: var(--themer-surface-hover) !important;
+  border-color: var(--themer-line-strong) !important;
 }
 
-.ytd-rich-item-renderer-highlight {
-  background: var(--themer-surface) !important;
-  box-shadow: var(--themer-surface) 0px 0px 0px 10px !important;
+.ytSearchboxComponentSuggestionsContainer, .ytSearchboxComponentSuggestionsContainerDark {
+  background-color: var(--themer-surface-raised) !important;
 }
 
-#chip-container {
-  background-color: var(--themer-surface) !important;
+/* ---- Buttons and chips ------------------------------------------------------------------------------------------ */
+/* The Subscribe button is the primary action: the accent, not the filled text color */
+ytd-subscribe-button-renderer .ytSpecButtonShapeNextFilled.ytSpecButtonShapeNextMono {
+  background: var(--themer-accent) !important;
+  color: var(--themer-on-accent) !important;
+  backdrop-filter: none !important;
 }
 
-#container.ytd-searchbox {
-  border-radius: 40px 40px 40px 40px;
-  background-color: var(--themer-surface) !important;
+ytd-subscribe-button-renderer .ytSpecButtonShapeNextFilled.ytSpecButtonShapeNextMono:hover {
+  background: var(--themer-accent-hover) !important;
 }
 
-.ytSearchboxComponentInputBox,
-.ytSearchboxComponentSearchButton {
-  background-color: var(--themer-surface) !important;
+/* A selected filter chip is the accent too */
+yt-chip-cloud-chip-renderer[selected] #chip-container, yt-chip-cloud-chip-renderer[selected] button,
+.ytChipShapeActive {
+  background: var(--themer-accent) !important;
+  color: var(--themer-on-accent) !important;
 }
 
-.ytSearchboxComponentSearchButton {
-  border: none !important;
+/* ---- Player ----------------------------------------------------------------------------------------------------- */
+/* Ambient mode paints a canvas behind the page from a base color it reads once (#0f0f0f), so it would stay a gray
+ * slab under the theme's background. Remove this rule to get the glow back. */
+#cinematics, #cinematics-container, ytd-cinematic-container-renderer {
+  display: none !important;
 }
 
+/* ---- Fonts ------------------------------------------------------------------------------------------------------ */
+html, body, body *:not(svg, svg *, code, pre, kbd, samp, .ytp-caption-segment) {
+  font-family: var(--themer-font-sans, "SF Pro Display"), Roboto, Arial, sans-serif !important;
+}
+
+/* ---- Logo and brand --------------------------------------------------------------------------------------------- */
+/* The red play button becomes the accent; the word stays the text color */
+#logo-icon yt-icon path:first-child,
+ytd-topbar-logo-renderer svg g:first-child path:first-child,
 #yt-logo-updated_yt16 > g:nth-child(1) > path:nth-child(1) {
-  fill: var(--main-color) !important;
+  fill: var(--themer-accent) !important;
 }
 
 #yt-logo-updated-svg_yt16, #yt-logo-updated_yt16 > g:nth-child(1) > path:nth-child(2) {
-  fill: var(--main-text) !important;
+  fill: var(--themer-text-bright) !important;
 }
 
 .ytd-guide-entry-renderer.style-scope.guide-icon > .yt-spec-icon-shape.yt-icon-shape > div {
-  fill: var(--main-color) !important;
-}
-
-.ytSearchboxComponentInputBoxDark {
-  border-color: var(--themer-surface) !important;
-  box-shadow: none;
-}
-
-.ytSearchboxComponentSuggestionsContainer {
-  background-color: var(--themer-bg) !important;
+  fill: var(--themer-accent) !important;
 }
 
 div#footer.style-scope.ytd-guide-renderer {
   display: none;
 }
+
 }

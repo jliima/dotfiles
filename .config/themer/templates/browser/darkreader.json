@@ -1,5 +1,6 @@
 {
   "enabled": true,
+  "disabledFor": ["youtube.com"],
   "theme": {
     "mode": {{ is-dark | pick(1, 0) }},
     "engine": "dynamicTheme",
