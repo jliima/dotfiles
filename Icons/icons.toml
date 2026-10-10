@@ -392,3 +392,32 @@ aliases = ["jetbrains-rider", "rider"]
 [[app]]
 name = "jetbrains-webstorm-d7a6764f-0dee-4aac-8c62-3c7dc5adb35b"
 aliases = ["jetbrains-webstorm", "webstorm"]
+
+# The web apps installed from Chromium (the site's own picture, saved in the user's hicolor folder) and small local ones.
+[[app]]
+name = "chrome-eoficlgicibekocmfdomjbfnjmehnhcd-Default"   # Outlook
+themes = ["hicolor"]
+
+[[app]]
+name = "chrome-ompifgpmddkgmclendfeacglnodjjndh-Default"   # Microsoft Teams
+themes = ["hicolor"]
+
+[[app]]
+name = "chrome-cadlkienfkclaiaibeoongdcgmdikeeg-Default"   # ChatGPT
+themes = ["hicolor"]
+
+[[app]]
+name = "chrome-hnpfjngllnobngcgfapefoaidbinmjnm-Default"   # WhatsApp Web
+themes = ["hicolor"]
+
+[[app]]
+name = "stash"
+themes = ["hicolor"]
+
+[[app]]
+name = "phonecam"
+themes = ["hicolor"]
+
+[[app]]
+name = "iriunwebcam"
+themes = ["pixmaps"]
