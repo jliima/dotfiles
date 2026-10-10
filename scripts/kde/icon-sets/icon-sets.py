@@ -240,10 +240,23 @@ def theme_title(theme: str) -> str:
     return theme[:1].upper() + theme[1:]
 
 
+HUES = ("red", "orange", "yellow", "green", "cyan", "blue", "violet", "magenta")
+
+
+def accent_hue(tokens: dict[str, str]) -> str:
+    """The hue the theme's accent is, so a manifest can say {accent} and get blue for Pare and orange for Aphelion."""
+    for hue in HUES:
+        if tokens.get(hue) == tokens.get("accent"):
+            return hue
+    return "blue"
+
+
 def expand_tokens(patterns: list[str], tokens: dict[str, str]) -> list[str]:
     """Hex colors of the tokens a palette lists, in order and without duplicates."""
     colors: list[str] = []
+    hue = accent_hue(tokens)
     for pattern in patterns:
+        pattern = pattern.replace("{accent}", hue)
         for name, value in tokens.items():
             if fnmatch.fnmatchcase(name, pattern) and value not in colors:
                 colors.append(value)
@@ -253,14 +266,16 @@ def expand_tokens(patterns: list[str], tokens: dict[str, str]) -> list[str]:
 # ==== Rendering ====
 
 
+def glyph_color(mapping: dict[str, str], cls: str, tokens: dict[str, str], hue: str) -> str:
+    """The color a glyph class gets: its token with {hue} (the group's) and {accent} (the theme's) filled in."""
+    token = mapping[cls].replace("{hue}", hue).replace("{accent}", accent_hue(tokens))
+    if token not in tokens:
+        die(f"glyph color {token!r} is not a token of the theme")
+    return tokens[token]
+
+
 def glyph_css(mapping: dict[str, str], tokens: dict[str, str], hue: str) -> str:
-    rules = []
-    for cls, token in mapping.items():
-        token = token.replace("{hue}", hue)
-        if token not in tokens:
-            die(f"glyph color {token!r} is not a token of the theme")
-        rules.append(f".ColorScheme-{cls} {{ color: {tokens[token]}; }}")
-    return " ".join(rules)
+    return " ".join(f".ColorScheme-{cls} {{ color: {glyph_color(mapping, cls, tokens, hue)}; }}" for cls in mapping)
 
 
 STYLE_RE = re.compile(r"(<style\b[^>]*>)(.*?)(</style>)", re.S)
@@ -439,7 +454,7 @@ def build_set(set_name: str, theme: str, variant: str, items: list[Item], index:
                 svg = path
                 if item.glyph:
                     css = glyph_css(glyph_map, tokens, item.hue)
-                    text_color = tokens[glyph_map["Text"].replace("{hue}", item.hue)]
+                    text_color = glyph_color(glyph_map, "Text", tokens, item.hue)
                     svg = work / "svg" / str(size) / f"{item.name}.svg"
                     svg.parent.mkdir(parents=True, exist_ok=True)
                     svg.write_text(recolor_glyph(path.read_text(errors="replace"), css, text_color))

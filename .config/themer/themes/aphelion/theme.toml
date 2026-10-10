@@ -1,0 +1,170 @@
+# Aphelion: a Themer theme.
+#
+#   themer apply --theme aphelion             apply it (themer apply --theme aphelion:light for the light variant)
+#   themer check --theme aphelion             contrast report
+#   themer validate --theme aphelion          check it fills the token contract (contract.toml)
+#
+# Values: "#rrggbb", "oklch(L C H)" (L 0..1, C about 0..0.37, H degrees), or "{other-token}".
+# Anything left out falls back to defaults.toml: roles, syntax colors, terminal colors, fonts, shapes.
+# Each hue may also define -bright, -dim and -soft; leave them out and Themer derives them from the base hue.
+
+[meta]
+id = "aphelion"
+name = "Aphelion"
+description = "elenapan's Aphelion colors: deep indigo-black, warm off-white, orange accent. Dark first."
+version = "1.0.0"
+variants = ["dark", "light"]
+default-variant = "dark"
+
+[fonts]
+sans = "SF Pro"
+mono = "Liga SFMono Nerd Font"
+ui-weight = 500
+title-weight = 600
+
+# Plasma icon themes built from this palette by scripts/kde/icon-sets (Icons/monochrome: two tones, the grounds and the
+# orange accent; Icons/colorful: every color of the theme), each with a -Light twin.
+[icons]
+theme = "Aphelion-Colorful"
+theme-light = "Aphelion-Colorful-Light"
+
+[shape]
+radius-xs = 4
+radius-sm = 6
+radius-md = 10
+radius-lg = 14
+
+# Roles: what each color is for. A variant table can override any of them.
+[roles]
+accent = "{orange}"
+accent-hover = "{orange-bright}"
+accent-soft = "{orange-soft}"
+focus-ring = "{orange}"
+link = "{blue}"
+success = "{green}"
+success-soft = "{green-soft}"
+warning = "{yellow}"
+warning-soft = "{yellow-soft}"
+danger = "{red}"
+danger-soft = "{red-soft}"
+info = "{cyan}"
+info-soft = "{cyan-soft}"
+kde-selection = "{selection}"
+syntax-keyword = "{violet}"
+syntax-string = "{green}"
+syntax-escape = "{cyan}"
+syntax-number = "{orange}"
+syntax-constant = "{orange}"
+syntax-function = "{blue}"
+syntax-class = "{blue-bright}"
+syntax-type = "{cyan}"
+syntax-annotation = "{yellow}"
+syntax-doc-tag = "{red}"
+syntax-property = "{cyan}"
+syntax-tag = "{red}"
+syntax-attribute = "{yellow}"
+syntax-variable = "{text}"
+syntax-operator = "{text-muted}"
+syntax-punctuation = "{text-subtle}"
+syntax-comment = "{text-faint}"
+syntax-heading = "{orange-bright}"
+syntax-link = "{blue}"
+syntax-url = "{cyan}"
+syntax-regex = "{cyan}"
+syntax-json-key = "{syntax-function}"
+syntax-xml-attribute = "{syntax-function}"
+syntax-yaml-key = "{orange}"
+syntax-yaml-anchor = "{syntax-function}"
+syntax-css-at = "{orange}"
+syntax-css-property = "{syntax-type}"
+syntax-css-class = "{syntax-keyword}"
+syntax-css-id = "{syntax-doc-tag}"
+syntax-css-pseudo = "{syntax-function}"
+syntax-css-color = "{syntax-annotation}"
+syntax-sh-command = "{syntax-function}"
+syntax-py-keyword = "{magenta}"
+syntax-py-bytes = "{syntax-string}"
+
+# The grounds are the deskmat's ink black (#050706, a faint green in it), the text its beige (#e5dac6).
+# The hues borrow from the set's metals and what time does to them: brass, copper, verdigris.
+
+# The colors of config/colorschemes/aphelion in github.com/elenapan/dotfiles: background #101319 and foreground
+# #f4f3ee, color0 #171b24 and color8 #3A435A for the surfaces, and her hues. Where she has a darker, more saturated
+# "bright" color (color9 to color14) it is the -dim step here. She has no yellow, green or magenta (her color2 is a teal
+# and color6 a sky blue), so those three are drawn in the same lightness and chroma as her others.
+[dark]
+# Grounds, deepest to highest
+bg-deep = "oklch(0.155 0.011 264)"
+bg-sunken = "oklch(0.17 0.012 264)"
+bg = "#101319"
+# Surfaces
+surface = "#171b24"
+surface-raised = "oklch(0.265 0.024 266)"
+surface-hover = "oklch(0.31 0.03 267)"
+surface-active = "#3A435A"
+# Lines
+line = "oklch(0.285 0.028 266)"
+line-strong = "oklch(0.56 0.045 268)"
+# Text, brightest last
+text-bright = "oklch(0.985 0.006 97)"
+text = "#f4f3ee"
+text-muted = "#DDDBCF"
+text-subtle = "oklch(0.78 0.02 99)"
+text-faint = "oklch(0.69 0.03 262)"
+text-disabled = "oklch(0.5 0.03 264)"
+text-inverse = "{bg-deep}"
+# Hues
+red = "#E34F4F"
+red-dim = "#DE2B2B"
+red-soft = "oklch(0.22 0.055 24)"
+orange = "#e37e4f"
+orange-dim = "#DE642B"
+yellow = "oklch(0.8 0.13 88)"
+green = "oklch(0.76 0.12 155)"
+cyan = "#69bfce"
+cyan-dim = "#56B7C8"
+blue = "#5599E2"
+blue-dim = "#3F8CDE"
+violet = "#9f78d4"
+violet-soft = "oklch(0.26 0.06 302)"
+violet-dim = "#885AC4"
+magenta = "oklch(0.68 0.16 352)"
+# Text on solid hue fills
+on-accent = "{bg-deep}"
+# Selected rows: her color4 indigo, darkened to a ground
+selection = "oklch(0.37 0.075 266)"
+
+[light]
+# Grounds, deepest to highest: the warm off-white of her foreground, with her background as the text
+bg-deep = "oklch(0.89 0.012 97)"
+bg-sunken = "oklch(0.925 0.01 97)"
+bg = "#f4f3ee"
+# Surfaces
+surface = "oklch(0.975 0.006 97)"
+surface-raised = "oklch(0.99 0.004 97)"
+surface-hover = "oklch(0.915 0.012 97)"
+surface-active = "oklch(0.87 0.016 97)"
+# Lines
+line = "oklch(0.86 0.014 97)"
+line-strong = "oklch(0.58 0.03 264)"
+# Text, brightest last
+text-bright = "oklch(0.13 0.012 264)"
+text = "#101319"
+text-muted = "oklch(0.36 0.025 264)"
+text-subtle = "oklch(0.44 0.03 264)"
+text-faint = "oklch(0.5 0.03 264)"
+text-disabled = "oklch(0.66 0.02 97)"
+text-inverse = "{surface-raised}"
+# Hues
+red = "oklch(0.52 0.18 24)"
+orange = "oklch(0.52 0.14 45)"
+yellow = "oklch(0.5 0.1 88)"
+green = "oklch(0.5 0.11 155)"
+cyan = "oklch(0.5 0.08 210)"
+blue = "oklch(0.5 0.13 252)"
+violet = "oklch(0.5 0.13 302)"
+magenta = "oklch(0.5 0.16 352)"
+# Text on solid hue fills
+on-accent = "{surface-raised}"
+# Selected rows
+selection = "oklch(0.86 0.06 266)"

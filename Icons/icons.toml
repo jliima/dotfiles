@@ -1,6 +1,6 @@
 # What scripts/kde/icon-sets/icon-sets.py builds: two icon themes per Themer theme and variant, recolored with gowall.
 #
-#   monochrome/<Theme>-Monochrome[-Light]/   two tones: the grounds (bg, surface, line) and the main blue
+#   monochrome/<Theme>-Monochrome[-Light]/   two tones: the grounds (bg, surface, line) and the accent (blue in Pare)
 #   colorful/<Theme>-Colorful[-Light]/       every color of the theme
 #
 # Each result is an XDG icon theme (index.theme plus <context>/<size>/<name>.png) that inherits the base themes, so only
@@ -11,11 +11,11 @@
 # The same list is what the built themes inherit.
 source-themes = ["Breeze Chameleon Dark", "breeze-dark", "breeze", "hicolor", "pixmaps"]
 
-# The palette gowall maps every pixel to, as Themer token names (a * matches any text). Palette colors are the only
-# colors in a built icon.
+# The palette gowall maps every pixel to, as Themer token names (a * matches any text; {accent} is the hue of the
+# theme's accent: blue for Pare, orange for Aphelion). Palette colors are the only colors in a built icon.
 [palette.monochrome]
 tokens = ["bg-deep", "bg-sunken", "bg", "surface", "surface-raised", "surface-hover", "surface-active", "line",
-          "line-strong", "blue-soft", "blue-dim", "blue", "blue-bright"]
+          "line-strong", "{accent}-soft", "{accent}-dim", "{accent}", "{accent}-bright"]
 
 [palette.colorful]
 tokens = ["bg-deep", "surface-raised", "surface-active", "line-strong", "text-faint", "text-muted", "text",
@@ -26,15 +26,15 @@ tokens = ["bg-deep", "surface-raised", "surface-active", "line-strong", "text-fa
 # Breeze status and action icons are single glyphs colored by the color scheme through CSS classes. Before gowall maps
 # them, each class is painted with one of these tokens (a hue name stands for the group's hue below).
 [glyph.monochrome]
-Text = "blue"
-ButtonText = "blue"
-ViewText = "blue"
-Highlight = "blue-bright"
-ButtonFocus = "blue-bright"
-ViewFocus = "blue-bright"
-PositiveText = "blue-bright"
-NeutralText = "blue-bright"
-NegativeText = "blue-bright"
+Text = "{accent}"
+ButtonText = "{accent}"
+ViewText = "{accent}"
+Highlight = "{accent}-bright"
+ButtonFocus = "{accent}-bright"
+ViewFocus = "{accent}-bright"
+PositiveText = "{accent}-bright"
+NeutralText = "{accent}-bright"
+NegativeText = "{accent}-bright"
 Background = "surface-active"
 ButtonBackground = "surface-active"
 ViewBackground = "surface-active"
