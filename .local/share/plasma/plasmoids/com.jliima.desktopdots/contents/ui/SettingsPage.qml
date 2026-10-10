@@ -15,7 +15,8 @@ KCM.SimpleKCM {
   property var work: Defaults.effective({})
   property bool ready: false
 
-  ConfigFile {
+  // Held as a property so it is not one of the page's visual children (a page takes a single content item)
+  readonly property var configStore: ConfigFile {
     id: store
     relativePath: page.cfg_configFile
     onLoadedChanged: if (loaded && !page.ready) page.reset()
