@@ -1,0 +1,62 @@
+{
+  "layout": {
+    "orientation": "auto",
+    "spacing": 10,
+    "margin": 4,
+    "pillPosition": "after",
+    "pillGap": 6
+  },
+  "circles": {
+    "size": 12,
+    "borderWidth": 2,
+    "label": "none",
+    "labelSize": 8,
+    "labelColor": "{{ text-inverse }}",
+    "levelMax": 4,
+    "animation": 140,
+    "active": { "fill": "solid", "color": "{{ accent }}", "border": "{{ accent }}", "opacity": 1, "scale": 1 },
+    "occupied": {
+      "fill": "dot", "color": "{{ text-muted }}", "border": "{{ text-subtle }}", "opacity": 1, "scale": 1
+    },
+    "empty": {
+      "fill": "outline", "color": "{{ line-strong }}", "border": "{{ line-strong }}", "opacity": 1, "scale": 1
+    },
+    "urgent": { "fill": "solid", "color": "{{ danger }}", "border": "{{ danger }}", "opacity": 1, "scale": 1 },
+    "hover": { "opacity": 1, "scale": 1.15 }
+  },
+  "programs": {
+    "show": true,
+    "showOn": "all",
+    "onePerApp": true,
+    "maxIcons": 5,
+    "overflow": "count",
+    "iconSize": 18,
+    "iconSpacing": 5,
+    "iconOpacity": 0.8,
+    "activeIconOpacity": 1,
+    "highlightFocused": true,
+    "pill": {
+      "paddingX": 7,
+      "paddingY": 3,
+      "radius": -1,
+      "color": "{{ surface-raised }}",
+      "opacity": 1,
+      "activeColor": "{{ accent-soft }}",
+      "activeOpacity": 1,
+      "border": "{{ line }}",
+      "borderOpacity": 1,
+      "activeBorder": "{{ accent }}",
+      "activeBorderOpacity": 0.45,
+      "borderWidth": 1
+    }
+  },
+  "behavior": {
+    "clickSwitches": true,
+    "wheel": true,
+    "wrap": false,
+    "iconClickFocuses": true,
+    "currentActivityOnly": true,
+    "currentScreenOnly": false,
+    "tooltip": true
+  }
+}

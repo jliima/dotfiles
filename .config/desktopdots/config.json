@@ -1,0 +1,62 @@
+{
+  "layout": {
+    "orientation": "auto",
+    "spacing": 10,
+    "margin": 4,
+    "pillPosition": "after",
+    "pillGap": 6
+  },
+  "circles": {
+    "size": 12,
+    "borderWidth": 2,
+    "label": "none",
+    "labelSize": 8,
+    "labelColor": "#05090e",
+    "levelMax": 4,
+    "animation": 140,
+    "active": { "fill": "solid", "color": "#5faff1", "border": "#5faff1", "opacity": 1, "scale": 1 },
+    "occupied": {
+      "fill": "dot", "color": "#b0bcc8", "border": "#909daa", "opacity": 1, "scale": 1
+    },
+    "empty": {
+      "fill": "outline", "color": "#5d6b79", "border": "#5d6b79", "opacity": 1, "scale": 1
+    },
+    "urgent": { "fill": "solid", "color": "#f45959", "border": "#f45959", "opacity": 1, "scale": 1 },
+    "hover": { "opacity": 1, "scale": 1.15 }
+  },
+  "programs": {
+    "show": true,
+    "showOn": "all",
+    "onePerApp": true,
+    "maxIcons": 5,
+    "overflow": "count",
+    "iconSize": 18,
+    "iconSpacing": 5,
+    "iconOpacity": 0.8,
+    "activeIconOpacity": 1,
+    "highlightFocused": true,
+    "pill": {
+      "paddingX": 7,
+      "paddingY": 3,
+      "radius": -1,
+      "color": "#19232c",
+      "opacity": 1,
+      "activeColor": "#0f283d",
+      "activeOpacity": 1,
+      "border": "#222b35",
+      "borderOpacity": 1,
+      "activeBorder": "#5faff1",
+      "activeBorderOpacity": 0.45,
+      "borderWidth": 1
+    }
+  },
+  "behavior": {
+    "clickSwitches": true,
+    "wheel": true,
+    "wrap": false,
+    "iconClickFocuses": true,
+    "currentActivityOnly": true,
+    "currentScreenOnly": false,
+    "tooltip": true
+  }
+}

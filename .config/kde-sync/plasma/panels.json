@@ -15,7 +15,7 @@
         },
         {
           "config": {},
-          "plugin": "org.kde.plasma.pager"
+          "plugin": "com.jliima.desktopdots"
         },
         {
           "config": {},

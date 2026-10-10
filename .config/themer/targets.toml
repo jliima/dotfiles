@@ -61,6 +61,17 @@ output = "~/.cache/themer/plasma/panels.js"
 reload = """qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$(cat ~/.cache/themer/plasma/panels.js)" \
   >/dev/null && systemctl --user restart plasma-plasmashell.service"""
 
+# ---- Desktop Dots -------------------------------------------------------------------------------------------------
+
+# The look of the Desktop Dots widget (.local/share/plasma/plasmoids/com.jliima.desktopdots). The widget knows nothing
+# about Themer: it follows this JSON file live, so a new theme or mode restyles the panel without a reload.
+[[target]]
+name = "Desktop Dots"
+dotfiles = true
+group = "desktopdots"
+template = "desktopdots/config.json"
+output = "~/.config/desktopdots/config.json"
+
 # ---- Konsole ---------------------------------------------------------------------------------------------------------
 
 # The shipped target, but written straight into ~/.local/share/konsole instead of the dotfiles: its font size follows

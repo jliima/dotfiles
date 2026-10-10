@@ -1,0 +1,17 @@
+{
+    "KPlugin": {
+        "Id": "com.jliima.desktopdots",
+        "Name": "Desktop Dots",
+        "Description": "Virtual desktops as circles you can restyle completely, with an optional pill of the programs open on each",
+        "Authors": [
+            { "Name": "jliima" }
+        ],
+        "Category": "Windows and Tasks",
+        "Icon": "user-desktop",
+        "License": "MIT",
+        "Version": "1.0",
+        "Website": ""
+    },
+    "KPackageStructure": "Plasma/Applet",
+    "X-Plasma-API-Minimum-Version": "6.0"
+}
