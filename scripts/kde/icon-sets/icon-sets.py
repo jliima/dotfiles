@@ -376,7 +376,7 @@ def load_manifest(path: Path) -> dict:
         return tomllib.load(handle)
 
 
-def plan_items(manifest: dict, index: IconIndex, only: list[str]) -> list[Item]:
+def plan_items(manifest: dict, index: IconIndex, only: list[str], icons_dir: Path) -> list[Item]:
     """The icons the manifest asks for, with globs resolved against the source themes."""
     items: dict[str, Item] = {}
     for group in manifest.get("group", []):
@@ -397,6 +397,7 @@ def plan_items(manifest: dict, index: IconIndex, only: list[str]) -> list[Item]:
     for app in manifest.get("app", []):
         name = app["name"]
         sources = [Path(os.path.expanduser(s)) for s in app.get("files", [])]
+        sources = [s if s.is_absolute() else icons_dir / s for s in sources]
         items[name] = Item(name, app.get("context", "apps"), app.get("sizes", [16, 22, 24, 32, 48, 64, 128, 256]),
                            app.get("glyph", False), app.get("hue", "blue"), "apps", sources,
                            app.get("aliases", []), app.get("source", name), app.get("themes", []))
@@ -525,7 +526,7 @@ def cmd_build(args: argparse.Namespace) -> None:
     manifest = load_manifest(icons_dir / "icons.toml")
     index = IconIndex(manifest["source-themes"])
     only = [p for p in args.only.split(",") if p] if args.only else []
-    items = plan_items(manifest, index, only)
+    items = plan_items(manifest, index, only, icons_dir)
     if not items:
         die("nothing to build")
     print_info(f"{len(items)} icons")
@@ -552,7 +553,7 @@ def cmd_list(args: argparse.Namespace) -> None:
     icons_dir = Path(args.icons).expanduser().resolve()
     manifest = load_manifest(icons_dir / "icons.toml")
     index = IconIndex(manifest["source-themes"])
-    items = plan_items(manifest, index, [])
+    items = plan_items(manifest, index, [], icons_dir)
     by_group: dict[str, list[Item]] = {}
     for item in items:
         by_group.setdefault(item.group, []).append(item)

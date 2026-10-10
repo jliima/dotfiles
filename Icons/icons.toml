@@ -74,7 +74,7 @@ sizes = [16, 22, 24, 32]
 glyph = true
 hue = "cyan"
 names = ["network-wired*", "network-wireless*", "network-vpn*", "network-flightmode-*", "network-offline",
-         "network-unavailable", "network-limited", "network-connect*", "network-disconnect*", "network-error*",
+         "network-unavailable", "network-limited", "network-connect*", "network-disconnect*",
          "network-workgroup*", "network-server*", "nm-*", "flightmode-*", "preferences-system-network*"]
 
 [[group]]
@@ -143,7 +143,7 @@ context = "status"
 sizes = [16, 22, 24, 32]
 glyph = true
 hue = "violet"
-names = ["plasmavault*", "plasma-vault*", "folder-encrypted*", "folder-decrypted*", "wallet-*"]
+names = ["plasmavault*", "folder-encrypted*", "folder-decrypted*", "wallet-*"]
 
 [[group]]
 id = "weather"
@@ -267,3 +267,128 @@ files = ["~/.local/share/JetBrains/Toolbox/bin/toolbox-tray-color.png"]
 [[app]]
 name = "jetbrains-toolbox"
 files = ["~/.local/share/JetBrains/Toolbox/toolbox.svg"]
+
+# ---- More applications, by how much they are used --------------------------------------------------------------------
+
+[[app]]
+name = "org.telegram.desktop"
+aliases = ["telegram", "telegram-desktop", "org.telegram.desktop.desktop"]
+themes = ["hicolor"]
+
+[[app]]
+name = "claude-desktop"
+aliases = ["com.anthropic.Claude", "claude"]
+
+[[app]]
+name = "com.obsproject.Studio"
+aliases = ["obs", "obs-studio"]
+
+[[app]]
+name = "syncthing"
+aliases = ["syncthing-gtk", "syncthingtray", "syncthing-start"]
+themes = ["hicolor"]
+
+[[app]]
+name = "spectacle"
+aliases = ["org.kde.spectacle"]
+themes = ["hicolor"]
+
+[[app]]
+name = "gwenview"
+aliases = ["org.kde.gwenview"]
+themes = ["hicolor"]
+
+[[app]]
+name = "preferences-system"
+aliases = ["systemsettings", "org.kde.systemsettings"]
+
+[[app]]
+name = "kdeconnect"
+aliases = ["org.kde.kdeconnect.app", "org.kde.kdeconnect.sms"]
+themes = ["hicolor"]
+
+[[app]]
+name = "ark"
+aliases = ["org.kde.ark"]
+
+[[app]]
+name = "plasmadiscover"
+aliases = ["org.kde.discover", "system-software-install"]
+themes = ["hicolor"]
+
+[[app]]
+name = "utilities-system-monitor"
+aliases = ["org.kde.plasma-systemmonitor", "ksysguard"]
+
+[[app]]
+name = "kfind"
+aliases = ["org.kde.kfind"]
+themes = ["hicolor"]
+
+[[app]]
+name = "partitionmanager"
+aliases = ["org.kde.partitionmanager"]
+themes = ["hicolor"]
+
+[[app]]
+name = "kdenlive"
+aliases = ["org.kde.kdenlive"]
+themes = ["hicolor"]
+
+[[app]]
+name = "vlc"
+themes = ["hicolor"]
+
+[[app]]
+name = "steam"
+aliases = ["steam_icon_431960"]
+themes = ["hicolor", "pixmaps"]
+
+[[app]]
+name = "discord"
+aliases = ["com.discordapp.Discord"]
+themes = ["Breeze Chameleon Dark"]
+
+[[app]]
+name = "signal-desktop"
+aliases = ["signal", "org.signal.Signal"]
+themes = ["hicolor"]
+
+[[app]]
+name = "mullvad-vpn"
+themes = ["hicolor"]
+
+[[app]]
+name = "virt-manager"
+themes = ["hicolor"]
+
+[[app]]
+name = "com.mongodb.Compass"
+aliases = ["mongodb-compass"]
+themes = ["hicolor"]
+
+[[app]]
+name = "org.jellyfin.JellyfinDesktop"
+aliases = ["jellyfin", "com.github.iwalton3.jellyfin-media-player"]
+themes = ["hicolor"]
+
+[[app]]
+name = "github-copilot"
+files = ["github-copilot.svg"]
+
+# The other JetBrains IDEs, as Toolbox installs them: the icon of each is named after its install.
+[[app]]
+name = "jetbrains-datagrip-0ce6d93d-08aa-4bee-930d-b2398e113ac7"
+aliases = ["jetbrains-datagrip", "datagrip"]
+
+[[app]]
+name = "jetbrains-pycharm-ce-f7e7ccd6-4b95-4180-b8d2-8ca15f55fe02"
+aliases = ["jetbrains-pycharm-ce", "jetbrains-pycharm", "pycharm"]
+
+[[app]]
+name = "jetbrains-rider-8071f81a-fc2f-4d9c-b51e-fe4fcbb36c75"
+aliases = ["jetbrains-rider", "rider"]
+
+[[app]]
+name = "jetbrains-webstorm-d7a6764f-0dee-4aac-8c62-3c7dc5adb35b"
+aliases = ["jetbrains-webstorm", "webstorm"]
