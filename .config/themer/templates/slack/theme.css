@@ -1,0 +1,550 @@
+/* Themer theme for the Slack desktop app.
+ *
+ * Written to ~/.config/slack-theme/theme.css and injected into every page of the app with insertCSS() by a one-time
+ * patch of its app.asar (scripts/slack/patch.sh), which also watches the file, so an apply restyles the open window.
+ *
+ * Slack's web client draws everything from two sets of variables that its light and dark themes (the
+ * .sk-client-theme--* classes) define: the design tokens --dt_color-* (grounds, overlays, text, outlines and the
+ * palette ramps) and the older --sk_* RGB triplets (foreground and background steps, highlight). Both are overridden
+ * here for every theme class, so the whole client follows the theme and Slack's own light/dark switch (and its
+ * sidebar theme) no longer changes the colors. What the variables do not reach (the sidebar painted by the sidebar
+ * theme, code, scrollbars, selection) and the fonts are below.
+ *
+ * Palette ramps: Slack's 12 steps per hue run from the lowest contrast (0) to the highest (100) against the ground in
+ * its dark theme and the other way round in the light one. Here step 0 is the hue's soft ground, 70 the hue itself
+ * and 100 the hue pulled towards the brightest text, which is the right direction in both variants.
+ */
+
+:root,
+.sk-client-theme--light,
+.sk-client-theme--dark,
+.sk-client-theme--light-inverted-sidebar {
+  color-scheme: {{ is-dark | pick(dark, light) }} !important;
+
+  /* --sk_*: RGB triplets, used as rgba(var(--sk_x), alpha). The foreground steps are the text color at different
+     alphas in Slack, and the *_solid ones the same steps flattened onto the ground. */
+  --sk_primary_foreground: {{ text | rgb }} !important;
+  --sk_primary_background: {{ bg | rgb }} !important;
+  --sk_inverted_foreground: {{ bg | rgb }} !important;
+  --sk_inverted_background: {{ text | rgb }} !important;
+  --sk_foreground_max: {{ text | rgb }} !important;
+  --sk_foreground_high: {{ text | rgb }} !important;
+  --sk_foreground_mid: {{ text | rgb }} !important;
+  --sk_foreground_low: {{ text | rgb }} !important;
+  --sk_foreground_soft: {{ text | rgb }} !important;
+  --sk_foreground_min: {{ text | rgb }} !important;
+  --sk_foreground_max_solid: {{ text-muted | rgb }} !important;
+  --sk_foreground_high_solid: {{ text-faint | rgb }} !important;
+  --sk_foreground_mid_solid: {{ line-strong | rgb }} !important;
+  --sk_foreground_low_solid: {{ surface-active | rgb }} !important;
+  --sk_foreground_soft_solid: {{ surface-raised | rgb }} !important;
+  --sk_foreground_min_solid: {{ surface | rgb }} !important;
+  --sk_highlight: {{ accent | rgb }} !important;
+  --sk_highlight_hover: {{ accent-hover | rgb }} !important;
+  --sk_highlight_accent: {{ accent | rgb }} !important;
+  --sk_secondary_highlight: {{ yellow | rgb }} !important;
+
+  /* --dt_color-*: base (grounds), surf (translucent overlays), ctr (controls), content (text and icons), otl
+     (outlines) and plt (the palette), each with hover and pressed states. */
+  --dt_color-base-pry: {{ bg }} !important;
+  --dt_color-base-sec: {{ bg-sunken }} !important;
+  --dt_color-base-ter: {{ surface }} !important;
+  --dt_color-base-hgl-1: {{ accent-soft }} !important;
+  --dt_color-base-hgl-2: {{ success-soft }} !important;
+  --dt_color-base-hgl-3: {{ yellow-soft }} !important;
+  --dt_color-base-imp: {{ danger-soft }} !important;
+  --dt_color-base-inv-pry: {{ surface-raised }} !important;
+  --dt_color-base-inv-hgl-1: {{ blue-dim }} !important;
+  --dt_color-base-inv-hgl-2: {{ green-dim }} !important;
+  --dt_color-base-inv-hgl-3: {{ yellow-dim }} !important;
+  --dt_color-base-inv-imp: {{ red-dim }} !important;
+  --dt_color-base-education: {{ violet-soft }} !important;
+  --dt_color-base-inv-education: {{ violet-dim }} !important;
+  --dt_color-base-modal: {{ bg-deep | alpha(0.6) }} !important;
+  --dt_color-base-pry-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-base-pry-pressed: {{ text | alpha(0.18) }} !important;
+  --dt_color-base-sec-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-base-sec-pressed: {{ text | alpha(0.18) }} !important;
+  --dt_color-base-ter-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-base-ter-pressed: {{ text | alpha(0.18) }} !important;
+  --dt_color-base-hgl-1-hover: {{ accent | alpha(0.08) }} !important;
+  --dt_color-base-hgl-1-pressed: {{ accent | alpha(0.18) }} !important;
+  --dt_color-base-hgl-2-hover: {{ success | alpha(0.08) }} !important;
+  --dt_color-base-hgl-2-pressed: {{ success | alpha(0.18) }} !important;
+  --dt_color-base-hgl-3-hover: {{ yellow | alpha(0.08) }} !important;
+  --dt_color-base-hgl-3-pressed: {{ yellow | alpha(0.18) }} !important;
+  --dt_color-base-imp-hover: {{ danger | alpha(0.08) }} !important;
+  --dt_color-base-imp-pressed: {{ danger | alpha(0.18) }} !important;
+  --dt_color-base-inv-pry-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-base-inv-pry-pressed: {{ text | alpha(0.18) }} !important;
+  --dt_color-base-inv-hgl-1-hover: {{ accent | alpha(0.08) }} !important;
+  --dt_color-base-inv-hgl-1-pressed: {{ accent | alpha(0.18) }} !important;
+  --dt_color-base-inv-hgl-2-hover: {{ success | alpha(0.08) }} !important;
+  --dt_color-base-inv-hgl-2-pressed: {{ success | alpha(0.18) }} !important;
+  --dt_color-base-inv-hgl-3-hover: {{ yellow | alpha(0.08) }} !important;
+  --dt_color-base-inv-hgl-3-pressed: {{ yellow | alpha(0.18) }} !important;
+  --dt_color-base-inv-imp-hover: {{ danger | alpha(0.08) }} !important;
+  --dt_color-base-inv-imp-pressed: {{ danger | alpha(0.18) }} !important;
+  --dt_color-base-education-hover: {{ violet | alpha(0.08) }} !important;
+  --dt_color-base-education-pressed: {{ violet | alpha(0.18) }} !important;
+  --dt_color-base-inv-education-hover: {{ violet | alpha(0.08) }} !important;
+  --dt_color-base-inv-education-pressed: {{ violet | alpha(0.18) }} !important;
+  --dt_color-base-modal-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-base-modal-pressed: {{ text | alpha(0.18) }} !important;
+  --dt_color-surf-pry: {{ text | alpha(0.06) }} !important;
+  --dt_color-surf-sec: {{ text | alpha(0.25) }} !important;
+  --dt_color-surf-hgl-1: {{ accent | alpha(0.25) }} !important;
+  --dt_color-surf-hgl-2: {{ success | alpha(0.3) }} !important;
+  --dt_color-surf-hgl-3: {{ yellow | alpha(0.2) }} !important;
+  --dt_color-surf-imp: {{ danger | alpha(0.25) }} !important;
+  --dt_color-surf-education: {{ violet | alpha(0.4) }} !important;
+  --dt_color-surf-inv: {{ text | alpha(0.18) }} !important;
+  --dt_color-surf-inv-hgl-3: {{ yellow | alpha(0.2) }} !important;
+  --dt_color-surf-pry-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-surf-pry-pressed: {{ text | alpha(0.18) }} !important;
+  --dt_color-surf-sec-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-surf-sec-pressed: {{ text | alpha(0.18) }} !important;
+  --dt_color-surf-hgl-1-hover: {{ accent | alpha(0.08) }} !important;
+  --dt_color-surf-hgl-1-pressed: {{ accent | alpha(0.18) }} !important;
+  --dt_color-surf-hgl-2-hover: {{ success | alpha(0.08) }} !important;
+  --dt_color-surf-hgl-2-pressed: {{ success | alpha(0.18) }} !important;
+  --dt_color-surf-hgl-3-hover: {{ yellow | alpha(0.08) }} !important;
+  --dt_color-surf-hgl-3-pressed: {{ yellow | alpha(0.18) }} !important;
+  --dt_color-surf-imp-hover: {{ danger | alpha(0.08) }} !important;
+  --dt_color-surf-imp-pressed: {{ danger | alpha(0.18) }} !important;
+  --dt_color-surf-education-hover: {{ violet | alpha(0.08) }} !important;
+  --dt_color-surf-education-pressed: {{ violet | alpha(0.18) }} !important;
+  --dt_color-surf-inv-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-surf-inv-pressed: {{ text | alpha(0.18) }} !important;
+  --dt_color-surf-inv-hgl-3-hover: {{ yellow | alpha(0.08) }} !important;
+  --dt_color-surf-inv-hgl-3-pressed: {{ yellow | alpha(0.18) }} !important;
+  --dt_color-ctr-pry: {{ surface }} !important;
+  --dt_color-ctr-sec: {{ surface }} !important;
+  --dt_color-ctr-pry-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-ctr-pry-pressed: {{ text | alpha(0.18) }} !important;
+  --dt_color-ctr-sec-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-ctr-sec-pressed: {{ text | alpha(0.18) }} !important;
+  --dt_color-content-pry: {{ text }} !important;
+  --dt_color-content-sec: {{ text-muted }} !important;
+  --dt_color-content-ter: {{ text-subtle }} !important;
+  --dt_color-content-hgl-1: {{ accent }} !important;
+  --dt_color-content-hgl-2: {{ success }} !important;
+  --dt_color-content-hgl-3: {{ yellow }} !important;
+  --dt_color-content-imp: {{ danger }} !important;
+  --dt_color-content-education: {{ violet }} !important;
+  --dt_color-content-inv-pry: {{ text-bright }} !important;
+  --dt_color-content-inv-sec: {{ text-muted }} !important;
+  --dt_color-content-inv-hgl-1: {{ accent }} !important;
+  --dt_color-content-inv-hgl-2: {{ success }} !important;
+  --dt_color-content-inv-hgl-3: {{ yellow }} !important;
+  --dt_color-content-inv-imp: {{ danger }} !important;
+  --dt_color-content-inv-education: {{ text-bright }} !important;
+  --dt_color-otl-pry: {{ line-strong }} !important;
+  --dt_color-otl-sec: {{ line-strong | alpha(0.5) }} !important;
+  --dt_color-otl-ter: {{ line }} !important;
+  --dt_color-otl-hgl-1: {{ accent }} !important;
+  --dt_color-otl-hgl-1-sec: {{ accent | alpha(0.2) }} !important;
+  --dt_color-otl-hgl-2: {{ success }} !important;
+  --dt_color-otl-hgl-2-sec: {{ success | alpha(0.2) }} !important;
+  --dt_color-otl-hgl-3: {{ yellow }} !important;
+  --dt_color-otl-hgl-3-sec: {{ yellow | alpha(0.2) }} !important;
+  --dt_color-otl-imp: {{ danger }} !important;
+  --dt_color-otl-imp-sec: {{ danger | alpha(0.25) }} !important;
+  --dt_color-otl-education: {{ violet }} !important;
+  --dt_color-otl-inv-pry: {{ line-strong }} !important;
+  --dt_color-otl-inv-sec: {{ line-strong | alpha(0.5) }} !important;
+  --dt_color-otl-inv-ter: {{ line }} !important;
+  --dt_color-plt-gray-0: {{ bg-deep | rgb }} !important;
+  --dt_color-plt-gray-5: {{ bg | rgb }} !important;
+  --dt_color-plt-gray-10: {{ surface | rgb }} !important;
+  --dt_color-plt-gray-20: {{ surface-active | rgb }} !important;
+  --dt_color-plt-gray-30: {{ surface-active | mix(line-strong, 0.5) | rgb }} !important;
+  --dt_color-plt-gray-40: {{ line-strong | rgb }} !important;
+  --dt_color-plt-gray-50: {{ text-faint | rgb }} !important;
+  --dt_color-plt-gray-60: {{ text-subtle | rgb }} !important;
+  --dt_color-plt-gray-70: {{ text-muted | rgb }} !important;
+  --dt_color-plt-gray-80: {{ text | rgb }} !important;
+  --dt_color-plt-gray-90: {{ text | mix(text-bright, 0.5) | rgb }} !important;
+  --dt_color-plt-gray-100: {{ text-bright | rgb }} !important;
+  --dt_color-plt-gray-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-plt-gray-pressed: {{ text | alpha(0.18) }} !important;
+  --dt_color-plt-tomato-0: {{ red-soft | mix(red, 0.000) | rgb }} !important;
+  --dt_color-plt-tomato-5: {{ red-soft | mix(red, 0.071) | rgb }} !important;
+  --dt_color-plt-tomato-10: {{ red-soft | mix(red, 0.143) | rgb }} !important;
+  --dt_color-plt-tomato-20: {{ red-soft | mix(red, 0.286) | rgb }} !important;
+  --dt_color-plt-tomato-30: {{ red-soft | mix(red, 0.429) | rgb }} !important;
+  --dt_color-plt-tomato-40: {{ red-soft | mix(red, 0.571) | rgb }} !important;
+  --dt_color-plt-tomato-50: {{ red-soft | mix(red, 0.714) | rgb }} !important;
+  --dt_color-plt-tomato-60: {{ red-soft | mix(red, 0.857) | rgb }} !important;
+  --dt_color-plt-tomato-70: {{ red-soft | mix(red, 1.000) | rgb }} !important;
+  --dt_color-plt-tomato-80: {{ red | mix(text-bright, 0.283) | rgb }} !important;
+  --dt_color-plt-tomato-90: {{ red | mix(text-bright, 0.567) | rgb }} !important;
+  --dt_color-plt-tomato-100: {{ red | mix(text-bright, 0.850) | rgb }} !important;
+  --dt_color-plt-tomato-hover: {{ red-bright | alpha(0.08) }} !important;
+  --dt_color-plt-tomato-pressed: {{ red-bright | alpha(0.18) }} !important;
+  --dt_color-plt-paprika-0: {{ red-soft | mix(red, 0.000) | rgb }} !important;
+  --dt_color-plt-paprika-5: {{ red-soft | mix(red, 0.071) | rgb }} !important;
+  --dt_color-plt-paprika-10: {{ red-soft | mix(red, 0.143) | rgb }} !important;
+  --dt_color-plt-paprika-20: {{ red-soft | mix(red, 0.286) | rgb }} !important;
+  --dt_color-plt-paprika-30: {{ red-soft | mix(red, 0.429) | rgb }} !important;
+  --dt_color-plt-paprika-40: {{ red-soft | mix(red, 0.571) | rgb }} !important;
+  --dt_color-plt-paprika-50: {{ red-soft | mix(red, 0.714) | rgb }} !important;
+  --dt_color-plt-paprika-60: {{ red-soft | mix(red, 0.857) | rgb }} !important;
+  --dt_color-plt-paprika-70: {{ red-soft | mix(red, 1.000) | rgb }} !important;
+  --dt_color-plt-paprika-80: {{ red | mix(text-bright, 0.283) | rgb }} !important;
+  --dt_color-plt-paprika-90: {{ red | mix(text-bright, 0.567) | rgb }} !important;
+  --dt_color-plt-paprika-100: {{ red | mix(text-bright, 0.850) | rgb }} !important;
+  --dt_color-plt-paprika-hover: {{ red-bright | alpha(0.08) }} !important;
+  --dt_color-plt-paprika-pressed: {{ red-bright | alpha(0.18) }} !important;
+  --dt_color-plt-tangerine-0: {{ orange-soft | mix(orange, 0.000) | rgb }} !important;
+  --dt_color-plt-tangerine-5: {{ orange-soft | mix(orange, 0.071) | rgb }} !important;
+  --dt_color-plt-tangerine-10: {{ orange-soft | mix(orange, 0.143) | rgb }} !important;
+  --dt_color-plt-tangerine-20: {{ orange-soft | mix(orange, 0.286) | rgb }} !important;
+  --dt_color-plt-tangerine-30: {{ orange-soft | mix(orange, 0.429) | rgb }} !important;
+  --dt_color-plt-tangerine-40: {{ orange-soft | mix(orange, 0.571) | rgb }} !important;
+  --dt_color-plt-tangerine-50: {{ orange-soft | mix(orange, 0.714) | rgb }} !important;
+  --dt_color-plt-tangerine-60: {{ orange-soft | mix(orange, 0.857) | rgb }} !important;
+  --dt_color-plt-tangerine-70: {{ orange-soft | mix(orange, 1.000) | rgb }} !important;
+  --dt_color-plt-tangerine-80: {{ orange | mix(text-bright, 0.283) | rgb }} !important;
+  --dt_color-plt-tangerine-90: {{ orange | mix(text-bright, 0.567) | rgb }} !important;
+  --dt_color-plt-tangerine-100: {{ orange | mix(text-bright, 0.850) | rgb }} !important;
+  --dt_color-plt-tangerine-hover: {{ orange-bright | alpha(0.08) }} !important;
+  --dt_color-plt-tangerine-pressed: {{ orange-bright | alpha(0.18) }} !important;
+  --dt_color-plt-campfire-0: {{ orange-soft | mix(orange, 0.000) | rgb }} !important;
+  --dt_color-plt-campfire-5: {{ orange-soft | mix(orange, 0.071) | rgb }} !important;
+  --dt_color-plt-campfire-10: {{ orange-soft | mix(orange, 0.143) | rgb }} !important;
+  --dt_color-plt-campfire-20: {{ orange-soft | mix(orange, 0.286) | rgb }} !important;
+  --dt_color-plt-campfire-30: {{ orange-soft | mix(orange, 0.429) | rgb }} !important;
+  --dt_color-plt-campfire-40: {{ orange-soft | mix(orange, 0.571) | rgb }} !important;
+  --dt_color-plt-campfire-50: {{ orange-soft | mix(orange, 0.714) | rgb }} !important;
+  --dt_color-plt-campfire-60: {{ orange-soft | mix(orange, 0.857) | rgb }} !important;
+  --dt_color-plt-campfire-70: {{ orange-soft | mix(orange, 1.000) | rgb }} !important;
+  --dt_color-plt-campfire-80: {{ orange | mix(text-bright, 0.283) | rgb }} !important;
+  --dt_color-plt-campfire-90: {{ orange | mix(text-bright, 0.567) | rgb }} !important;
+  --dt_color-plt-campfire-100: {{ orange | mix(text-bright, 0.850) | rgb }} !important;
+  --dt_color-plt-campfire-hover: {{ orange-bright | alpha(0.08) }} !important;
+  --dt_color-plt-campfire-pressed: {{ orange-bright | alpha(0.18) }} !important;
+  --dt_color-plt-honeycomb-0: {{ yellow-soft | mix(yellow, 0.000) | rgb }} !important;
+  --dt_color-plt-honeycomb-5: {{ yellow-soft | mix(yellow, 0.071) | rgb }} !important;
+  --dt_color-plt-honeycomb-10: {{ yellow-soft | mix(yellow, 0.143) | rgb }} !important;
+  --dt_color-plt-honeycomb-20: {{ yellow-soft | mix(yellow, 0.286) | rgb }} !important;
+  --dt_color-plt-honeycomb-30: {{ yellow-soft | mix(yellow, 0.429) | rgb }} !important;
+  --dt_color-plt-honeycomb-40: {{ yellow-soft | mix(yellow, 0.571) | rgb }} !important;
+  --dt_color-plt-honeycomb-50: {{ yellow-soft | mix(yellow, 0.714) | rgb }} !important;
+  --dt_color-plt-honeycomb-60: {{ yellow-soft | mix(yellow, 0.857) | rgb }} !important;
+  --dt_color-plt-honeycomb-70: {{ yellow-soft | mix(yellow, 1.000) | rgb }} !important;
+  --dt_color-plt-honeycomb-80: {{ yellow | mix(text-bright, 0.283) | rgb }} !important;
+  --dt_color-plt-honeycomb-90: {{ yellow | mix(text-bright, 0.567) | rgb }} !important;
+  --dt_color-plt-honeycomb-100: {{ yellow | mix(text-bright, 0.850) | rgb }} !important;
+  --dt_color-plt-honeycomb-hover: {{ yellow-bright | alpha(0.08) }} !important;
+  --dt_color-plt-honeycomb-pressed: {{ yellow-bright | alpha(0.18) }} !important;
+  --dt_color-plt-sunflower-0: {{ yellow-soft | mix(yellow, 0.000) | rgb }} !important;
+  --dt_color-plt-sunflower-5: {{ yellow-soft | mix(yellow, 0.071) | rgb }} !important;
+  --dt_color-plt-sunflower-10: {{ yellow-soft | mix(yellow, 0.143) | rgb }} !important;
+  --dt_color-plt-sunflower-20: {{ yellow-soft | mix(yellow, 0.286) | rgb }} !important;
+  --dt_color-plt-sunflower-30: {{ yellow-soft | mix(yellow, 0.429) | rgb }} !important;
+  --dt_color-plt-sunflower-40: {{ yellow-soft | mix(yellow, 0.571) | rgb }} !important;
+  --dt_color-plt-sunflower-50: {{ yellow-soft | mix(yellow, 0.714) | rgb }} !important;
+  --dt_color-plt-sunflower-60: {{ yellow-soft | mix(yellow, 0.857) | rgb }} !important;
+  --dt_color-plt-sunflower-70: {{ yellow-soft | mix(yellow, 1.000) | rgb }} !important;
+  --dt_color-plt-sunflower-80: {{ yellow | mix(text-bright, 0.283) | rgb }} !important;
+  --dt_color-plt-sunflower-90: {{ yellow | mix(text-bright, 0.567) | rgb }} !important;
+  --dt_color-plt-sunflower-100: {{ yellow | mix(text-bright, 0.850) | rgb }} !important;
+  --dt_color-plt-sunflower-hover: {{ yellow-bright | alpha(0.08) }} !important;
+  --dt_color-plt-sunflower-pressed: {{ yellow-bright | alpha(0.18) }} !important;
+  --dt_color-plt-grass-0: {{ green-soft | mix(green, 0.000) | rgb }} !important;
+  --dt_color-plt-grass-5: {{ green-soft | mix(green, 0.071) | rgb }} !important;
+  --dt_color-plt-grass-10: {{ green-soft | mix(green, 0.143) | rgb }} !important;
+  --dt_color-plt-grass-20: {{ green-soft | mix(green, 0.286) | rgb }} !important;
+  --dt_color-plt-grass-30: {{ green-soft | mix(green, 0.429) | rgb }} !important;
+  --dt_color-plt-grass-40: {{ green-soft | mix(green, 0.571) | rgb }} !important;
+  --dt_color-plt-grass-50: {{ green-soft | mix(green, 0.714) | rgb }} !important;
+  --dt_color-plt-grass-60: {{ green-soft | mix(green, 0.857) | rgb }} !important;
+  --dt_color-plt-grass-70: {{ green-soft | mix(green, 1.000) | rgb }} !important;
+  --dt_color-plt-grass-80: {{ green | mix(text-bright, 0.283) | rgb }} !important;
+  --dt_color-plt-grass-90: {{ green | mix(text-bright, 0.567) | rgb }} !important;
+  --dt_color-plt-grass-100: {{ green | mix(text-bright, 0.850) | rgb }} !important;
+  --dt_color-plt-grass-hover: {{ green-bright | alpha(0.08) }} !important;
+  --dt_color-plt-grass-pressed: {{ green-bright | alpha(0.18) }} !important;
+  --dt_color-plt-cilantro-0: {{ green-soft | mix(green, 0.000) | rgb }} !important;
+  --dt_color-plt-cilantro-5: {{ green-soft | mix(green, 0.071) | rgb }} !important;
+  --dt_color-plt-cilantro-10: {{ green-soft | mix(green, 0.143) | rgb }} !important;
+  --dt_color-plt-cilantro-20: {{ green-soft | mix(green, 0.286) | rgb }} !important;
+  --dt_color-plt-cilantro-30: {{ green-soft | mix(green, 0.429) | rgb }} !important;
+  --dt_color-plt-cilantro-40: {{ green-soft | mix(green, 0.571) | rgb }} !important;
+  --dt_color-plt-cilantro-50: {{ green-soft | mix(green, 0.714) | rgb }} !important;
+  --dt_color-plt-cilantro-60: {{ green-soft | mix(green, 0.857) | rgb }} !important;
+  --dt_color-plt-cilantro-70: {{ green-soft | mix(green, 1.000) | rgb }} !important;
+  --dt_color-plt-cilantro-80: {{ green | mix(text-bright, 0.283) | rgb }} !important;
+  --dt_color-plt-cilantro-90: {{ green | mix(text-bright, 0.567) | rgb }} !important;
+  --dt_color-plt-cilantro-100: {{ green | mix(text-bright, 0.850) | rgb }} !important;
+  --dt_color-plt-cilantro-hover: {{ green-bright | alpha(0.08) }} !important;
+  --dt_color-plt-cilantro-pressed: {{ green-bright | alpha(0.18) }} !important;
+  --dt_color-plt-mojito-0: {{ green-soft | mix(green, 0.000) | rgb }} !important;
+  --dt_color-plt-mojito-5: {{ green-soft | mix(green, 0.071) | rgb }} !important;
+  --dt_color-plt-mojito-10: {{ green-soft | mix(green, 0.143) | rgb }} !important;
+  --dt_color-plt-mojito-20: {{ green-soft | mix(green, 0.286) | rgb }} !important;
+  --dt_color-plt-mojito-30: {{ green-soft | mix(green, 0.429) | rgb }} !important;
+  --dt_color-plt-mojito-40: {{ green-soft | mix(green, 0.571) | rgb }} !important;
+  --dt_color-plt-mojito-50: {{ green-soft | mix(green, 0.714) | rgb }} !important;
+  --dt_color-plt-mojito-60: {{ green-soft | mix(green, 0.857) | rgb }} !important;
+  --dt_color-plt-mojito-70: {{ green-soft | mix(green, 1.000) | rgb }} !important;
+  --dt_color-plt-mojito-80: {{ green | mix(text-bright, 0.283) | rgb }} !important;
+  --dt_color-plt-mojito-90: {{ green | mix(text-bright, 0.567) | rgb }} !important;
+  --dt_color-plt-mojito-100: {{ green | mix(text-bright, 0.850) | rgb }} !important;
+  --dt_color-plt-mojito-hover: {{ green-bright | alpha(0.08) }} !important;
+  --dt_color-plt-mojito-pressed: {{ green-bright | alpha(0.18) }} !important;
+  --dt_color-plt-jade-0: {{ green-soft | mix(green, 0.000) | rgb }} !important;
+  --dt_color-plt-jade-5: {{ green-soft | mix(green, 0.071) | rgb }} !important;
+  --dt_color-plt-jade-10: {{ green-soft | mix(green, 0.143) | rgb }} !important;
+  --dt_color-plt-jade-20: {{ green-soft | mix(green, 0.286) | rgb }} !important;
+  --dt_color-plt-jade-30: {{ green-soft | mix(green, 0.429) | rgb }} !important;
+  --dt_color-plt-jade-40: {{ green-soft | mix(green, 0.571) | rgb }} !important;
+  --dt_color-plt-jade-50: {{ green-soft | mix(green, 0.714) | rgb }} !important;
+  --dt_color-plt-jade-60: {{ green-soft | mix(green, 0.857) | rgb }} !important;
+  --dt_color-plt-jade-70: {{ green-soft | mix(green, 1.000) | rgb }} !important;
+  --dt_color-plt-jade-80: {{ green | mix(text-bright, 0.283) | rgb }} !important;
+  --dt_color-plt-jade-90: {{ green | mix(text-bright, 0.567) | rgb }} !important;
+  --dt_color-plt-jade-100: {{ green | mix(text-bright, 0.850) | rgb }} !important;
+  --dt_color-plt-jade-hover: {{ green-bright | alpha(0.08) }} !important;
+  --dt_color-plt-jade-pressed: {{ green-bright | alpha(0.18) }} !important;
+  --dt_color-plt-aquarium-0: {{ cyan-soft | mix(cyan, 0.000) | rgb }} !important;
+  --dt_color-plt-aquarium-5: {{ cyan-soft | mix(cyan, 0.071) | rgb }} !important;
+  --dt_color-plt-aquarium-10: {{ cyan-soft | mix(cyan, 0.143) | rgb }} !important;
+  --dt_color-plt-aquarium-20: {{ cyan-soft | mix(cyan, 0.286) | rgb }} !important;
+  --dt_color-plt-aquarium-30: {{ cyan-soft | mix(cyan, 0.429) | rgb }} !important;
+  --dt_color-plt-aquarium-40: {{ cyan-soft | mix(cyan, 0.571) | rgb }} !important;
+  --dt_color-plt-aquarium-50: {{ cyan-soft | mix(cyan, 0.714) | rgb }} !important;
+  --dt_color-plt-aquarium-60: {{ cyan-soft | mix(cyan, 0.857) | rgb }} !important;
+  --dt_color-plt-aquarium-70: {{ cyan-soft | mix(cyan, 1.000) | rgb }} !important;
+  --dt_color-plt-aquarium-80: {{ cyan | mix(text-bright, 0.283) | rgb }} !important;
+  --dt_color-plt-aquarium-90: {{ cyan | mix(text-bright, 0.567) | rgb }} !important;
+  --dt_color-plt-aquarium-100: {{ cyan | mix(text-bright, 0.850) | rgb }} !important;
+  --dt_color-plt-aquarium-hover: {{ cyan-bright | alpha(0.08) }} !important;
+  --dt_color-plt-aquarium-pressed: {{ cyan-bright | alpha(0.18) }} !important;
+  --dt_color-plt-lagoon-0: {{ cyan-soft | mix(cyan, 0.000) | rgb }} !important;
+  --dt_color-plt-lagoon-5: {{ cyan-soft | mix(cyan, 0.071) | rgb }} !important;
+  --dt_color-plt-lagoon-10: {{ cyan-soft | mix(cyan, 0.143) | rgb }} !important;
+  --dt_color-plt-lagoon-20: {{ cyan-soft | mix(cyan, 0.286) | rgb }} !important;
+  --dt_color-plt-lagoon-30: {{ cyan-soft | mix(cyan, 0.429) | rgb }} !important;
+  --dt_color-plt-lagoon-40: {{ cyan-soft | mix(cyan, 0.571) | rgb }} !important;
+  --dt_color-plt-lagoon-50: {{ cyan-soft | mix(cyan, 0.714) | rgb }} !important;
+  --dt_color-plt-lagoon-60: {{ cyan-soft | mix(cyan, 0.857) | rgb }} !important;
+  --dt_color-plt-lagoon-70: {{ cyan-soft | mix(cyan, 1.000) | rgb }} !important;
+  --dt_color-plt-lagoon-80: {{ cyan | mix(text-bright, 0.283) | rgb }} !important;
+  --dt_color-plt-lagoon-90: {{ cyan | mix(text-bright, 0.567) | rgb }} !important;
+  --dt_color-plt-lagoon-100: {{ cyan | mix(text-bright, 0.850) | rgb }} !important;
+  --dt_color-plt-lagoon-hover: {{ cyan-bright | alpha(0.08) }} !important;
+  --dt_color-plt-lagoon-pressed: {{ cyan-bright | alpha(0.18) }} !important;
+  --dt_color-plt-ocean-0: {{ blue-soft | mix(blue, 0.000) | rgb }} !important;
+  --dt_color-plt-ocean-5: {{ blue-soft | mix(blue, 0.071) | rgb }} !important;
+  --dt_color-plt-ocean-10: {{ blue-soft | mix(blue, 0.143) | rgb }} !important;
+  --dt_color-plt-ocean-20: {{ blue-soft | mix(blue, 0.286) | rgb }} !important;
+  --dt_color-plt-ocean-30: {{ blue-soft | mix(blue, 0.429) | rgb }} !important;
+  --dt_color-plt-ocean-40: {{ blue-soft | mix(blue, 0.571) | rgb }} !important;
+  --dt_color-plt-ocean-50: {{ blue-soft | mix(blue, 0.714) | rgb }} !important;
+  --dt_color-plt-ocean-60: {{ blue-soft | mix(blue, 0.857) | rgb }} !important;
+  --dt_color-plt-ocean-70: {{ blue-soft | mix(blue, 1.000) | rgb }} !important;
+  --dt_color-plt-ocean-80: {{ blue | mix(text-bright, 0.283) | rgb }} !important;
+  --dt_color-plt-ocean-90: {{ blue | mix(text-bright, 0.567) | rgb }} !important;
+  --dt_color-plt-ocean-100: {{ blue | mix(text-bright, 0.850) | rgb }} !important;
+  --dt_color-plt-ocean-hover: {{ blue-bright | alpha(0.08) }} !important;
+  --dt_color-plt-ocean-pressed: {{ blue-bright | alpha(0.18) }} !important;
+  --dt_color-plt-indigo-0: {{ violet-soft | mix(violet, 0.000) | rgb }} !important;
+  --dt_color-plt-indigo-5: {{ violet-soft | mix(violet, 0.071) | rgb }} !important;
+  --dt_color-plt-indigo-10: {{ violet-soft | mix(violet, 0.143) | rgb }} !important;
+  --dt_color-plt-indigo-20: {{ violet-soft | mix(violet, 0.286) | rgb }} !important;
+  --dt_color-plt-indigo-30: {{ violet-soft | mix(violet, 0.429) | rgb }} !important;
+  --dt_color-plt-indigo-40: {{ violet-soft | mix(violet, 0.571) | rgb }} !important;
+  --dt_color-plt-indigo-50: {{ violet-soft | mix(violet, 0.714) | rgb }} !important;
+  --dt_color-plt-indigo-60: {{ violet-soft | mix(violet, 0.857) | rgb }} !important;
+  --dt_color-plt-indigo-70: {{ violet-soft | mix(violet, 1.000) | rgb }} !important;
+  --dt_color-plt-indigo-80: {{ violet | mix(text-bright, 0.283) | rgb }} !important;
+  --dt_color-plt-indigo-90: {{ violet | mix(text-bright, 0.567) | rgb }} !important;
+  --dt_color-plt-indigo-100: {{ violet | mix(text-bright, 0.850) | rgb }} !important;
+  --dt_color-plt-indigo-hover: {{ violet-bright | alpha(0.08) }} !important;
+  --dt_color-plt-indigo-pressed: {{ violet-bright | alpha(0.18) }} !important;
+  --dt_color-plt-aubergine-0: {{ violet-soft | mix(violet, 0.000) | rgb }} !important;
+  --dt_color-plt-aubergine-5: {{ violet-soft | mix(violet, 0.071) | rgb }} !important;
+  --dt_color-plt-aubergine-10: {{ violet-soft | mix(violet, 0.143) | rgb }} !important;
+  --dt_color-plt-aubergine-20: {{ violet-soft | mix(violet, 0.286) | rgb }} !important;
+  --dt_color-plt-aubergine-30: {{ violet-soft | mix(violet, 0.429) | rgb }} !important;
+  --dt_color-plt-aubergine-40: {{ violet-soft | mix(violet, 0.571) | rgb }} !important;
+  --dt_color-plt-aubergine-50: {{ violet-soft | mix(violet, 0.714) | rgb }} !important;
+  --dt_color-plt-aubergine-60: {{ violet-soft | mix(violet, 0.857) | rgb }} !important;
+  --dt_color-plt-aubergine-70: {{ violet-soft | mix(violet, 1.000) | rgb }} !important;
+  --dt_color-plt-aubergine-80: {{ violet | mix(text-bright, 0.283) | rgb }} !important;
+  --dt_color-plt-aubergine-90: {{ violet | mix(text-bright, 0.567) | rgb }} !important;
+  --dt_color-plt-aubergine-100: {{ violet | mix(text-bright, 0.850) | rgb }} !important;
+  --dt_color-plt-aubergine-hover: {{ violet-bright | alpha(0.08) }} !important;
+  --dt_color-plt-aubergine-pressed: {{ violet-bright | alpha(0.18) }} !important;
+  --dt_color-plt-sangria-0: {{ magenta-soft | mix(magenta, 0.000) | rgb }} !important;
+  --dt_color-plt-sangria-5: {{ magenta-soft | mix(magenta, 0.071) | rgb }} !important;
+  --dt_color-plt-sangria-10: {{ magenta-soft | mix(magenta, 0.143) | rgb }} !important;
+  --dt_color-plt-sangria-20: {{ magenta-soft | mix(magenta, 0.286) | rgb }} !important;
+  --dt_color-plt-sangria-30: {{ magenta-soft | mix(magenta, 0.429) | rgb }} !important;
+  --dt_color-plt-sangria-40: {{ magenta-soft | mix(magenta, 0.571) | rgb }} !important;
+  --dt_color-plt-sangria-50: {{ magenta-soft | mix(magenta, 0.714) | rgb }} !important;
+  --dt_color-plt-sangria-60: {{ magenta-soft | mix(magenta, 0.857) | rgb }} !important;
+  --dt_color-plt-sangria-70: {{ magenta-soft | mix(magenta, 1.000) | rgb }} !important;
+  --dt_color-plt-sangria-80: {{ magenta | mix(text-bright, 0.283) | rgb }} !important;
+  --dt_color-plt-sangria-90: {{ magenta | mix(text-bright, 0.567) | rgb }} !important;
+  --dt_color-plt-sangria-100: {{ magenta | mix(text-bright, 0.850) | rgb }} !important;
+  --dt_color-plt-sangria-hover: {{ magenta-bright | alpha(0.08) }} !important;
+  --dt_color-plt-sangria-pressed: {{ magenta-bright | alpha(0.18) }} !important;
+  --dt_color-plt-flamingo-0: {{ magenta-soft | mix(magenta, 0.000) | rgb }} !important;
+  --dt_color-plt-flamingo-5: {{ magenta-soft | mix(magenta, 0.071) | rgb }} !important;
+  --dt_color-plt-flamingo-10: {{ magenta-soft | mix(magenta, 0.143) | rgb }} !important;
+  --dt_color-plt-flamingo-20: {{ magenta-soft | mix(magenta, 0.286) | rgb }} !important;
+  --dt_color-plt-flamingo-30: {{ magenta-soft | mix(magenta, 0.429) | rgb }} !important;
+  --dt_color-plt-flamingo-40: {{ magenta-soft | mix(magenta, 0.571) | rgb }} !important;
+  --dt_color-plt-flamingo-50: {{ magenta-soft | mix(magenta, 0.714) | rgb }} !important;
+  --dt_color-plt-flamingo-60: {{ magenta-soft | mix(magenta, 0.857) | rgb }} !important;
+  --dt_color-plt-flamingo-70: {{ magenta-soft | mix(magenta, 1.000) | rgb }} !important;
+  --dt_color-plt-flamingo-80: {{ magenta | mix(text-bright, 0.283) | rgb }} !important;
+  --dt_color-plt-flamingo-90: {{ magenta | mix(text-bright, 0.567) | rgb }} !important;
+  --dt_color-plt-flamingo-100: {{ magenta | mix(text-bright, 0.850) | rgb }} !important;
+  --dt_color-plt-flamingo-hover: {{ magenta-bright | alpha(0.08) }} !important;
+  --dt_color-plt-flamingo-pressed: {{ magenta-bright | alpha(0.18) }} !important;
+  --dt_color-plt-rose-0: {{ magenta-soft | mix(magenta, 0.000) | rgb }} !important;
+  --dt_color-plt-rose-5: {{ magenta-soft | mix(magenta, 0.071) | rgb }} !important;
+  --dt_color-plt-rose-10: {{ magenta-soft | mix(magenta, 0.143) | rgb }} !important;
+  --dt_color-plt-rose-20: {{ magenta-soft | mix(magenta, 0.286) | rgb }} !important;
+  --dt_color-plt-rose-30: {{ magenta-soft | mix(magenta, 0.429) | rgb }} !important;
+  --dt_color-plt-rose-40: {{ magenta-soft | mix(magenta, 0.571) | rgb }} !important;
+  --dt_color-plt-rose-50: {{ magenta-soft | mix(magenta, 0.714) | rgb }} !important;
+  --dt_color-plt-rose-60: {{ magenta-soft | mix(magenta, 0.857) | rgb }} !important;
+  --dt_color-plt-rose-70: {{ magenta-soft | mix(magenta, 1.000) | rgb }} !important;
+  --dt_color-plt-rose-80: {{ magenta | mix(text-bright, 0.283) | rgb }} !important;
+  --dt_color-plt-rose-90: {{ magenta | mix(text-bright, 0.567) | rgb }} !important;
+  --dt_color-plt-rose-100: {{ magenta | mix(text-bright, 0.850) | rgb }} !important;
+  --dt_color-plt-rose-hover: {{ magenta-bright | alpha(0.08) }} !important;
+  --dt_color-plt-rose-pressed: {{ magenta-bright | alpha(0.18) }} !important;
+  --dt_color-plt-horchata-0: {{ orange-soft | mix(orange, 0.000) | rgb }} !important;
+  --dt_color-plt-horchata-5: {{ orange-soft | mix(orange, 0.071) | rgb }} !important;
+  --dt_color-plt-horchata-10: {{ orange-soft | mix(orange, 0.143) | rgb }} !important;
+  --dt_color-plt-horchata-20: {{ orange-soft | mix(orange, 0.286) | rgb }} !important;
+  --dt_color-plt-horchata-30: {{ orange-soft | mix(orange, 0.429) | rgb }} !important;
+  --dt_color-plt-horchata-40: {{ orange-soft | mix(orange, 0.571) | rgb }} !important;
+  --dt_color-plt-horchata-50: {{ orange-soft | mix(orange, 0.714) | rgb }} !important;
+  --dt_color-plt-horchata-60: {{ orange-soft | mix(orange, 0.857) | rgb }} !important;
+  --dt_color-plt-horchata-70: {{ orange-soft | mix(orange, 1.000) | rgb }} !important;
+  --dt_color-plt-horchata-80: {{ orange | mix(text-bright, 0.283) | rgb }} !important;
+  --dt_color-plt-horchata-90: {{ orange | mix(text-bright, 0.567) | rgb }} !important;
+  --dt_color-plt-horchata-100: {{ orange | mix(text-bright, 0.850) | rgb }} !important;
+  --dt_color-plt-horchata-hover: {{ orange-bright | alpha(0.08) }} !important;
+  --dt_color-plt-horchata-pressed: {{ orange-bright | alpha(0.18) }} !important;
+  --dt_blend-mode-interaction: {{ is-dark | pick(lighten, darken) }} !important;
+}
+
+/* --dt_color-theme-*: the colors of the sidebar, the top bar and everything drawn with "theme" tokens. Slack's script
+   sets these from the sidebar theme the user picked, on elements of its own, so they are set on every element here
+   (an inherited value would lose to those). Slack's "inv" tokens are the sidebar side: its ground is bg-sunken, rows
+   and the search field sit on surface, the selected row is accent-soft. */
+:root,
+* {
+  --dt_color-theme-base-hgl-1: {{ accent-soft }} !important;
+  --dt_color-theme-base-hgl-1-hover: {{ accent | alpha(0.08) }} !important;
+  --dt_color-theme-base-hgl-1-pressed: {{ accent | alpha(0.18) }} !important;
+  --dt_color-theme-base-hgl-2: {{ success-soft }} !important;
+  --dt_color-theme-base-hgl-2-hover: {{ success | alpha(0.08) }} !important;
+  --dt_color-theme-base-hgl-2-pressed: {{ success | alpha(0.18) }} !important;
+  --dt_color-theme-base-imp: {{ red-dim }} !important;
+  --dt_color-theme-base-imp-hover: {{ danger | alpha(0.08) }} !important;
+  --dt_color-theme-base-imp-pressed: {{ danger | alpha(0.18) }} !important;
+  --dt_color-theme-base-inv-hgl-1: {{ accent-soft }} !important;
+  --dt_color-theme-base-inv-hgl-1-hover: {{ accent | alpha(0.08) }} !important;
+  --dt_color-theme-base-inv-hgl-1-pressed: {{ accent | alpha(0.18) }} !important;
+  --dt_color-theme-base-inv-hgl-2: {{ green-dim }} !important;
+  --dt_color-theme-base-inv-hgl-2-hover: {{ success | alpha(0.08) }} !important;
+  --dt_color-theme-base-inv-hgl-2-pressed: {{ success | alpha(0.18) }} !important;
+  --dt_color-theme-base-inv-imp: {{ red-dim }} !important;
+  --dt_color-theme-base-inv-imp-hover: {{ danger | alpha(0.08) }} !important;
+  --dt_color-theme-base-inv-imp-pressed: {{ danger | alpha(0.18) }} !important;
+  --dt_color-theme-base-inv-pry: {{ bg-sunken }} !important;
+  --dt_color-theme-base-inv-pry-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-theme-base-inv-pry-pressed: {{ text | alpha(0.18) }} !important;
+  --dt_color-theme-base-inv-sec: {{ surface }} !important;
+  --dt_color-theme-base-inv-sec-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-theme-base-inv-sec-pressed: {{ text | alpha(0.18) }} !important;
+  --dt_color-theme-base-pry: {{ text-bright }} !important;
+  --dt_color-theme-base-pry-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-theme-base-pry-pressed: {{ text | alpha(0.18) }} !important;
+  --dt_color-theme-base-sec: {{ surface-raised }} !important;
+  --dt_color-theme-base-sec-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-theme-base-sec-pressed: {{ text | alpha(0.18) }} !important;
+  --dt_color-theme-content-hgl-1: {{ text-bright }} !important;
+  --dt_color-theme-content-imp: {{ text-bright }} !important;
+  --dt_color-theme-content-inv-imp: {{ text-bright }} !important;
+  --dt_color-theme-content-inv-imp-sec: {{ text-muted }} !important;
+  --dt_color-theme-content-inv-pry: {{ text }} !important;
+  --dt_color-theme-content-inv-sec: {{ text-muted }} !important;
+  --dt_color-theme-content-inv-ter: {{ text-subtle }} !important;
+  --dt_color-theme-content-pry: {{ text }} !important;
+  --dt_color-theme-content-sec: {{ text-muted }} !important;
+  --dt_color-theme-content-ter: {{ text-inverse }} !important;
+  --dt_color-theme-otl-hgl-1: {{ accent }} !important;
+  --dt_color-theme-otl-inv-pry: {{ line-strong | alpha(0.5) }} !important;
+  --dt_color-theme-otl-pry: {{ line-strong }} !important;
+  --dt_color-theme-surf-inv-pry: {{ text | alpha(0.09) }} !important;
+  --dt_color-theme-surf-inv-pry-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-theme-surf-inv-pry-pressed: {{ text | alpha(0.18) }} !important;
+  --dt_color-theme-surf-inv-sec: {{ bg-deep | alpha(0.8) }} !important;
+  --dt_color-theme-surf-inv-sec-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-theme-surf-inv-sec-pressed: {{ text | alpha(0.18) }} !important;
+  --dt_color-theme-surf-inv-ter: {{ text | alpha(0.05) }} !important;
+  --dt_color-theme-surf-inv-ter-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-theme-surf-inv-ter-pressed: {{ text | alpha(0.18) }} !important;
+  --dt_color-theme-surf-pry: {{ text | alpha(0.12) }} !important;
+  --dt_color-theme-surf-pry-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-theme-surf-pry-pressed: {{ text | alpha(0.18) }} !important;
+  --dt_color-theme-surf-sec: {{ accent | alpha(0.1) }} !important;
+  --dt_color-theme-surf-sec-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-theme-surf-sec-pressed: {{ text | alpha(0.18) }} !important;
+  --dt_color-theme-surf-ter: {{ bg-deep | alpha(0.95) }} !important;
+  --dt_color-theme-surf-ter-hover: {{ text | alpha(0.08) }} !important;
+  --dt_color-theme-surf-ter-pressed: {{ text | alpha(0.18) }} !important;
+}
+
+/* Fonts: the UI font and the code font of the theme. Slack names its families through these two variables
+   (the monospace one is !important in Slack itself, hence the same here). */
+:root,
+:root[lang] {
+  --font-family-default: "{{ fonts.sans }}", var(--font-family-lato, sans-serif) !important;
+  --font-family-monospace: "{{ fonts.mono }}", "Slack-Roboto-Mono", monospace !important;
+}
+
+/* Code: the theme's code font on every code element. Slack takes it from the variable above, but a few rules name
+   Monaco or SF Mono themselves, and the message box draws code blocks of its own. Ligatures stay on, the fonts meant
+   for code (the "Liga" builds) have them for a reason. */
+code,
+pre,
+kbd,
+samp,
+.c-mrkdwn__code,
+.c-mrkdwn__pre,
+.c-mrkdwn__pre *,
+.ql-code-block,
+.ql-code-block *,
+.ql-editor code,
+.c-texty_input_unstyled__code {
+  font-family: var(--font-family-monospace) !important;
+  font-variant-ligatures: normal !important;
+}
+
+/* Inline code in the dark client is a fixed orange; every theme colors it like a syntax annotation. */
+.c-mrkdwn__code,
+.sk-client-theme--dark .c-mrkdwn__code,
+.sk-client-theme--light .c-mrkdwn__code {
+  color: {{ syntax-annotation }} !important;
+}
+
+::selection {
+  background-color: {{ selection }} !important;
+  color: {{ text-bright }} !important;
+}
+input,
+textarea,
+[contenteditable] {
+  caret-color: {{ accent }} !important;
+}

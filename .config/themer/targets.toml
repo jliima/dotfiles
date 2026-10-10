@@ -38,6 +38,17 @@ template = "claude-desktop/theme.css"
 output = "~/.config/claude-desktop-theme/theme.css"
 reload = "~/scripts/claude-desktop/patch.sh ensure"
 
+# ---- Slack -----------------------------------------------------------------------------------------------------------
+
+# The app reads theme.css through an app.asar patch (scripts/slack/patch.sh), which also watches the file, so an apply
+# restyles the open window. The reload checks the patch and reinstalls it after an apt upgrade replaced app.asar.
+[[target]]
+name = "Slack"
+group = "slack"
+template = "slack/theme.css"
+output = "~/.config/slack-theme/theme.css"
+reload = "~/scripts/slack/patch.sh ensure"
+
 # ---- Plasma panels ---------------------------------------------------------------------------------------------------
 
 # Panel sizes that follow the UI font (the clock), so the screen profile changes them too. plasmashell only takes a new

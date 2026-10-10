@@ -10,6 +10,7 @@ __pycache__
 
 scripts/*
 !scripts/claude-desktop
+!scripts/slack
 !scripts/kde
 !scripts/applications
 
