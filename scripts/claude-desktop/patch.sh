@@ -40,13 +40,16 @@ backup_version() {
   [[ -f "$VERSION_FILE" ]] && cat "$VERSION_FILE" || echo ""
 }
 
-# Runs a command as root: directly when already root, with sudo on a terminal or when sudo needs no password, else
-# through pkexec (a graphical password prompt), so Themer can ask when it runs from a keyboard shortcut.
+# Runs a command as root: directly when already root, with sudo on a terminal or when sudo needs no password, with
+# sudo -A when SUDO_ASKPASS names a program that prints the password, else through pkexec (a graphical password
+# prompt), so Themer can ask when it runs from a keyboard shortcut.
 as_root() {
   if [[ $EUID -eq 0 ]]; then
     "$@"
   elif [[ -t 0 ]] || sudo -n true 2>/dev/null; then
     sudo "$@"
+  elif [[ -n "${SUDO_ASKPASS:-}" ]]; then
+    sudo -A "$@"
   elif [[ -n "${WAYLAND_DISPLAY:-}${DISPLAY:-}" ]] && command -v pkexec >/dev/null; then
     pkexec "$@"
   else

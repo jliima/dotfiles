@@ -90,29 +90,27 @@ export function buildAsar(header, orderedBuffers) {
 export function repackWithReplacements(header, data, dataOffset, replacements) {
   const files = listFiles(header);
 
-  const groups = new Map(); // original offset -> { size, nodes: [], buf }
+  // Keyed by offset and size: an empty file has the offset of the file after it.
+  const groups = new Map(); // "offset:size" -> { offset, size, nodes: [], paths: [] }
   for (const f of files) {
-    let g = groups.get(f.offset);
+    const key = `${f.offset}:${f.size}`;
+    let g = groups.get(key);
     if (!g) {
-      g = { size: f.size, nodes: [], paths: [] };
-      groups.set(f.offset, g);
-    }
-    if (g.size !== f.size) {
-      throw new Error(`offset ${f.offset} has mismatched sizes across entries (${g.size} vs ${f.size})`);
+      g = { offset: f.offset, size: f.size, nodes: [], paths: [] };
+      groups.set(key, g);
     }
     g.nodes.push(f.node);
     g.paths.push(f.path);
   }
 
-  const orderedOffsets = [...groups.keys()].sort((a, b) => a - b);
+  const orderedGroups = [...groups.values()].sort((a, b) => a.offset - b.offset || a.size - b.size);
   let cursor = 0;
   const ordered = [];
-  for (const off of orderedOffsets) {
-    const g = groups.get(off);
+  for (const g of orderedGroups) {
     const replacedPath = g.paths.find((p) => replacements.has(p));
     const buf = replacedPath !== undefined
       ? replacements.get(replacedPath)
-      : data.subarray(dataOffset + off, dataOffset + off + g.size);
+      : data.subarray(dataOffset + g.offset, dataOffset + g.offset + g.size);
     const integrity = g.nodes[0].integrity ? computeIntegrity(buf) : undefined;
     for (const node of g.nodes) {
       node.offset = String(cursor);
