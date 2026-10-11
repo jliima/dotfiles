@@ -5,6 +5,7 @@ import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.components as PlasmaComponents3
 import org.kde.kirigami as Kirigami
 import org.kde.ksysguard.sensors as Sensors
+import org.kde.plasma.plasma5support as P5Support
 
 // CPU usage: a bar per core with the total over it in the panel, the same with every core's number in the popup.
 // Colours come from the colour scheme (Themer): bars in the accent, text in the text colour.
@@ -17,9 +18,36 @@ PlasmoidItem {
   // Per-core usage, refreshed with the sensors; the core count differs per machine.
   property var cores: []
 
-  toolTipMainText: "CPU usage"
+  // The CPU model from /proc/cpuinfo (ksystemstats has no sensor for it), without the marketing noise
+  property string model: "CPU"
+  function cleanModel(raw) {
+    return raw.replace(/\((R|TM)\)/g, "").replace(/\s+(\d+-Core Processor|CPU\b.*|w\/.*)$/, "").replace(/\s+/g, " ").trim()
+  }
+
+  // Positive at 0 %, neutral at 50 %, negative at 100 %, blended in between (the colors come from the color scheme)
+  readonly property color loadColor: {
+    var t = Math.min(100, Math.max(0, total)) / 50
+    var from = t <= 1 ? Kirigami.Theme.positiveTextColor : Kirigami.Theme.neutralTextColor
+    var to = t <= 1 ? Kirigami.Theme.neutralTextColor : Kirigami.Theme.negativeTextColor
+    var f = t <= 1 ? t : t - 1
+    return Qt.rgba(from.r + (to.r - from.r) * f, from.g + (to.g - from.g) * f, from.b + (to.b - from.b) * f, 1)
+  }
+
+  toolTipMainText: model
   toolTipSubText: percent
 
+  P5Support.DataSource {
+    id: modelReader
+    engine: "executable"
+    connectedSources: ["sed -n 's/^model name[[:space:]]*: //p;q' /proc/cpuinfo"]
+    onNewData: (source, data) => {
+      var raw = String(data.stdout || "").trim()
+      if (raw !== "") {
+        root.model = root.cleanModel(raw)
+      }
+      disconnectSource(source)
+    }
+  }
   Sensors.Sensor {
     id: totalSensor
     sensorId: "cpu/all/usage"
@@ -125,7 +153,7 @@ PlasmoidItem {
 
       RowLayout {
         Layout.fillWidth: true
-        Kirigami.Heading { level: 3; text: "CPU Usage" }
+        Kirigami.Heading { level: 3; text: root.model }
         Item { Layout.fillWidth: true }
         PlasmaComponents3.Label { text: "Total"; opacity: 0.8 }
         PlasmaComponents3.Label {
@@ -135,10 +163,20 @@ PlasmoidItem {
           font.features: { "tnum": 1 }
         }
       }
-      PlasmaComponents3.ProgressBar {
+      // The total bar shades from green through yellow to red as the load rises
+      Rectangle {
         Layout.fillWidth: true
-        from: 0; to: 100
-        value: root.total
+        Layout.preferredHeight: Kirigami.Units.smallSpacing * 2
+        radius: height / 2
+        color: Qt.rgba(Kirigami.Theme.textColor.r, Kirigami.Theme.textColor.g, Kirigami.Theme.textColor.b, 0.1)
+        Rectangle {
+          width: Math.round(parent.width * Math.min(100, root.total) / 100)
+          height: parent.height
+          radius: height / 2
+          color: root.loadColor
+          Behavior on width { NumberAnimation { duration: Kirigami.Units.shortDuration } }
+          Behavior on color { ColorAnimation { duration: Kirigami.Units.longDuration } }
+        }
       }
 
       Kirigami.Separator { Layout.fillWidth: true }
@@ -161,9 +199,8 @@ PlasmoidItem {
             required property int index
             Layout.fillWidth: true
             PlasmaComponents3.Label {
-              text: (index + 1)
+              text: "Core " + (index + 1) + " usage"
               opacity: 0.6
-              font.features: { "tnum": 1 }
             }
             Item { Layout.fillWidth: true }
             PlasmaComponents3.Label {
