@@ -1,7 +1,7 @@
 # Desktop Dots
 
-A Plasma 6 widget that shows every virtual desktop as a circle, and optionally the programs open on it as icons in a
-pill. It replaces the Pager and needs nothing else (no theme tool, no extra packages).
+A Plasma 6 widget that shows every virtual desktop as a circle, or, when programs are open on it, as a pill of their
+icons (the circle is not drawn for those desktops). It replaces the Pager and needs nothing else (no theme tool, no extra packages).
 
 Add it to a panel like any widget (right-click the panel, Add Widgets, "Desktop Dots") and open its settings for the
 three pages: Circles, Programs and Behavior.
@@ -14,8 +14,8 @@ three pages: Circles, Programs and Behavior.
   number of windows, a gradient, or invisible; each state has its own color, border color, opacity and size.
 - **Programs**: an icon for every program that has a window on the desktop, one per program however many windows it
   has (or one per window), in a pill. Choose the icon size, the gap between icons, how many show (the rest as +N),
-  where the pill sits (after, before, below, above, or around the circle), its padding, corner radius, colors and
-  border, and a bar under the focused program. Pills can show on every desktop or only on the current one.
+  the color of that +N, the pill's padding, corner radius, colors and border, and a bar under the focused program.
+  Pills can show on every desktop or only on the current one.
 - **Behavior**: click a desktop to switch to it, click an icon to focus that program, scroll over the widget to change
   desktop (with or without wrapping), tooltips, and whether only the current activity's and this screen's windows count.
 
@@ -29,7 +29,7 @@ keeps its default, so a short file is fine:
 ```json
 {
   "circles": { "size": 14, "active": { "fill": "gradient", "color": "#5faff1" } },
-  "layout": { "pillPosition": "inside" },
+  "layout": { "spacing": 14 },
   "programs": { "iconSize": 18, "pill": { "radius": 8 } }
 }
 ```

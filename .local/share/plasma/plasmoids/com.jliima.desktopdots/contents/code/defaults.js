@@ -4,15 +4,13 @@
 // dialog writes all of it. Colors are "theme:<name>" (accent, highlight, text, dimmed, background, positive,
 // negative, neutral, link) so the widget follows the Plasma color scheme, or any "#rrggbb" / "#aarrggbb".
 //
-// layout.pillPosition: after, before, below, above, inside (the circle sits in the pill)
+// A desktop with programs shows its pill instead of the circle.
 // circle fill: solid, outline, dot, ring, half, level (filled from the bottom by the number of windows), gradient, none
 var defaults = {
   layout: {
     orientation: "auto",      // auto follows the panel, or horizontal / vertical
     spacing: 10,              // gap between desktops
-    margin: 4,                // space at both ends of the widget
-    pillPosition: "after",
-    pillGap: 6                // between a circle and its pill
+    margin: 4                 // space at both ends of the widget
   },
   circles: {
     size: 12,
@@ -26,7 +24,7 @@ var defaults = {
     occupied: { fill: "dot", color: "theme:text", border: "theme:text", opacity: 0.85, scale: 1 },
     empty: { fill: "outline", color: "theme:text", border: "theme:text", opacity: 0.35, scale: 1 },
     urgent: { fill: "solid", color: "theme:negative", border: "theme:negative", opacity: 1, scale: 1 },
-    hover: { opacity: 1, scale: 1.15 }
+    hover: { opacity: 1, scale: 1 }
   },
   programs: {
     show: true,
@@ -34,6 +32,7 @@ var defaults = {
     onePerApp: true,          // one icon per program, however many windows it has
     maxIcons: 5,
     overflow: "count",        // count shows +N for the rest, none hides them
+    overflowColor: "theme:text",  // the color of that +N
     iconSize: 16,
     iconSpacing: 4,
     iconOpacity: 0.85,

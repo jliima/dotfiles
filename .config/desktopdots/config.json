@@ -2,9 +2,7 @@
   "layout": {
     "orientation": "auto",
     "spacing": 10,
-    "margin": 4,
-    "pillPosition": "after",
-    "pillGap": 6
+    "margin": 4
   },
   "circles": {
     "size": 12,
@@ -22,7 +20,7 @@
       "fill": "outline", "color": "#5d6b79", "border": "#5d6b79", "opacity": 1, "scale": 1
     },
     "urgent": { "fill": "solid", "color": "#f45959", "border": "#f45959", "opacity": 1, "scale": 1 },
-    "hover": { "opacity": 1, "scale": 1.15 }
+    "hover": { "opacity": 1, "scale": 1 }
   },
   "programs": {
     "show": true,
@@ -30,6 +28,7 @@
     "onePerApp": true,
     "maxIcons": 5,
     "overflow": "count",
+    "overflowColor": "#d1deeb",
     "iconSize": 18,
     "iconSpacing": 5,
     "iconOpacity": 0.8,

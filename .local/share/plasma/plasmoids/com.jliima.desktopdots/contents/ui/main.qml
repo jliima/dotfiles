@@ -4,6 +4,7 @@ import org.kde.plasma.plasmoid
 import org.kde.plasma.core as PlasmaCore
 import org.kde.kirigami as Kirigami
 import org.kde.taskmanager as TaskManager
+import org.kde.plasma.plasma5support as P5Support
 
 // Desktop Dots: every virtual desktop as a circle, and optionally a pill of the programs open on it. The whole look is
 // in a JSON file under ~/.config (see ConfigFile.qml and code/defaults.js), edited in the settings dialog or by hand;
@@ -27,8 +28,19 @@ PlasmoidItem {
   TaskManager.VirtualDesktopInfo { id: desktopInfo }
   TaskManager.ActivityInfo { id: activityInfo }
 
+  // VirtualDesktopInfo cannot switch desktops, so KWin is asked over D-Bus (desktops are numbered from 1)
+  P5Support.DataSource {
+    id: runner
+    engine: "executable"
+    onNewData: (source) => disconnectSource(source)
+  }
+
   function switchTo(id) {
-    desktopInfo.requestActivate(id)
+    var number = desktopInfo.desktopIds.indexOf(id) + 1
+    if (number > 0) {
+      runner.connectSource("dbus-send --session --dest=org.kde.KWin --type=method_call /KWin "
+          + "org.kde.KWin.setCurrentDesktop int32:" + number)
+    }
   }
 
   // The desktop `step` away from the current one, or the current one at the ends unless wrapping

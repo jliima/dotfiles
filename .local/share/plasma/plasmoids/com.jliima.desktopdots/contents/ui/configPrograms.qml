@@ -43,6 +43,11 @@ SettingsPage {
         { text: "Show nothing", value: "none" }
       ]
     }
+    SettingColor {
+      Kirigami.FormData.label: "Color of +N:"
+      page: page
+      path: "programs.overflowColor"
+    }
 
     Kirigami.Separator {
       Kirigami.FormData.isSection: true
@@ -91,26 +96,6 @@ SettingsPage {
     Kirigami.Separator {
       Kirigami.FormData.isSection: true
       Kirigami.FormData.label: "Pill"
-    }
-    SettingCombo {
-      Kirigami.FormData.label: "Position:"
-      page: page
-      path: "layout.pillPosition"
-      model: [
-        { text: "After the circle", value: "after" },
-        { text: "Before the circle", value: "before" },
-        { text: "Below the circle", value: "below" },
-        { text: "Above the circle", value: "above" },
-        { text: "Around the circle", value: "inside" }
-      ]
-    }
-    SettingSpin {
-      Kirigami.FormData.label: "Gap to the circle:"
-      page: page
-      path: "layout.pillGap"
-      from: 0
-      to: 100
-      suffix: " px"
     }
     SettingSpin {
       Kirigami.FormData.label: "Padding along:"
