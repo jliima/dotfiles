@@ -17,10 +17,12 @@ theme = "Pare-Colorful"            # the dark variant
 theme-light = "Pare-Colorful-Light"
 ```
 
-`themer apply` writes `[Icons] Theme=` into kdeglobals and tells running apps. To switch Pare to the two-tone set, change
-the two names in `.config/themer/themes/pare/theme.toml`, or for this machine only add
-`[overrides.icons] theme = "Pare-Monochrome"` (and `theme-light`) to `~/.config/themer/settings.toml`. Plasma re-reads
-tray icons when plasmashell restarts (`systemctl --user restart plasma-plasmashell.service`).
+No theme selects an icon set at the moment (the `[icons]` tables are removed from Pare and Aphelion); the sets stay
+built and linked, so they can be picked in System Settings. To apply one again, add the table above to
+`.config/themer/themes/<theme>/theme.toml`, or for this machine only add `[overrides.icons] theme = "Pare-Monochrome"`
+(and `theme-light`) to `~/.config/themer/settings.toml`; `themer apply` then writes `[Icons] Theme=` into kdeglobals and
+tells running apps. Plasma re-reads tray icons when plasmashell restarts
+(`systemctl --user restart plasma-plasmashell.service`).
 
 ## Building
 

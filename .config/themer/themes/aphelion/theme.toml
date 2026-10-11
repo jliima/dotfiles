@@ -22,12 +22,6 @@ mono = "Liga SFMono Nerd Font"
 ui-weight = 500
 title-weight = 600
 
-# Plasma icon themes built from this palette by scripts/kde/icon-sets (Icons/monochrome: two tones, the grounds and the
-# orange accent; Icons/colorful: every color of the theme), each with a -Light twin.
-[icons]
-theme = "Aphelion-Colorful"
-theme-light = "Aphelion-Colorful-Light"
-
 [shape]
 radius-xs = 4
 radius-sm = 6
