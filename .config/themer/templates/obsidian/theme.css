@@ -386,6 +386,24 @@ pre[class*='language-'] {
   overflow: auto !important;
 }
 
+/* The editing view draws a block as one line element per line: the box border is split over them like the reading view's. */
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock {
+  border-left: 1px solid var(--divider-color);
+  border-right: 1px solid var(--divider-color);
+  padding-left: 1em;
+  padding-right: 1em;
+}
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin {
+  border-top: 1px solid var(--divider-color);
+  border-top-left-radius: var(--radius-m);
+  border-top-right-radius: var(--radius-m);
+}
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-end {
+  border-bottom: 1px solid var(--divider-color);
+  border-bottom-left-radius: var(--radius-m);
+  border-bottom-right-radius: var(--radius-m);
+}
+
 .token.important,
 .token.bold {
   font-weight: bold !important;

@@ -532,11 +532,175 @@ samp,
   font-variant-ligatures: normal !important;
 }
 
-/* Inline code in the dark client is a fixed orange; every theme colors it like a syntax annotation. */
+/* Code looks the same in every program (Obsidian is the reference): inline code is the annotation color (purple) on
+   surface-active with the small radius, a block is a bg-sunken box with a line border and the medium radius, in
+   the sent message, the message box and the file previews. */
 .c-mrkdwn__code,
 .sk-client-theme--dark .c-mrkdwn__code,
-.sk-client-theme--light .c-mrkdwn__code {
+.sk-client-theme--light .c-mrkdwn__code,
+.sk-client-theme--dark .c-texty_input code,
+.sk-client-theme--light .c-texty_input code,
+.c-texty_input code,
+.c-texty_input_unstyled__container .ql-editor code,
+.sk-client-theme--dark .c-pillow_file__post__content code,
+.c-pillow_file__post__content code {
   color: {{ syntax-annotation }} !important;
+  background-color: {{ surface-active }} !important;
+  border: 0 !important;
+  border-radius: {{ shape.radius-xs | px }} !important;
+  padding: 1px 4px !important;
+}
+.c-texty_input .ql-editor .ql-code-block code,
+.c-texty_input_unstyled__container .ql-editor .ql-code-block code {
+  color: inherit !important;
+  background: none !important;
+  padding: 0 !important;
+}
+
+.c-mrkdwn__pre,
+.c-texty_input .ql-editor .ql-code-block,
+.c-texty_input_unstyled__container .ql-editor .ql-code-block {
+  background: {{ bg-sunken }} !important;
+  border: 1px solid {{ line }} !important;
+  border-radius: {{ shape.radius-sm | px }} !important;
+  color: {{ text }} !important;
+}
+.c-texty_input .ql-editor .ql-code-block,
+.c-texty_input_unstyled__container .ql-editor .ql-code-block {
+  padding: 8px 12px !important;
+  margin: 4px 0 !important;
+}
+/* The message box draws one block as a first line, middle lines and a footer; one box is enough here. */
+.c-texty_input .ql-editor .ql-code-block:after,
+.c-texty_input_unstyled__container .ql-editor .ql-code-block:after {
+  display: none !important;
+}
+
+/* File previews (a sent .json, .py, ...) are CodeMirror with Slack's own "yonce" scheme: italic keys, yellow strings.
+   Here it is the IntelliJ/Obsidian palette, upright, on the code block ground. */
+.CodeMirror,
+.cm-s-yonce.CodeMirror,
+.cm-s-solanum.CodeMirror {
+  background: {{ bg-sunken }} !important;
+  border: 1px solid {{ line }} !important;
+  border-radius: {{ shape.radius-sm | px }} !important;
+  color: {{ text }} !important;
+}
+.CodeMirror-gutters {
+  background: {{ bg-sunken }} !important;
+  border-right: 0 !important;
+}
+.CodeMirror-linenumber {
+  color: {{ text-faint }} !important;
+}
+.CodeMirror .CodeMirror-cursor {
+  border-left-color: {{ accent }} !important;
+}
+.CodeMirror .CodeMirror-activeline-background {
+  background: {{ surface }} !important;
+}
+.CodeMirror .CodeMirror-activeline .CodeMirror-linenumber {
+  color: {{ text }} !important;
+  background: transparent !important;
+}
+.CodeMirror .CodeMirror-selected,
+.CodeMirror .CodeMirror-selectedtext,
+.CodeMirror div.CodeMirror-selected {
+  background: {{ selection }} !important;
+}
+.CodeMirror .CodeMirror-matchingbracket {
+  outline: 1px solid {{ line-strong }} !important;
+  color: inherit !important;
+}
+.CodeMirror [class*="cm-"] {
+  font-style: normal !important;
+  font-weight: normal !important;
+}
+.CodeMirror .cm-property,
+.CodeMirror .cm-property.cm-def {
+  color: {{ syntax-json-key }} !important;
+}
+.CodeMirror .cm-string {
+  color: {{ syntax-string }} !important;
+}
+.CodeMirror .cm-string-2 {
+  color: {{ syntax-escape }} !important;
+}
+.CodeMirror .cm-number,
+.CodeMirror .cm-atom {
+  color: {{ syntax-number }} !important;
+}
+.CodeMirror .cm-keyword,
+.CodeMirror .cm-tag {
+  color: {{ syntax-keyword }} !important;
+}
+.CodeMirror .cm-variable,
+.CodeMirror .cm-meta {
+  color: {{ syntax-variable }} !important;
+}
+.CodeMirror .cm-variable-2,
+.CodeMirror .cm-variable-3,
+.CodeMirror .cm-type,
+.CodeMirror .cm-builtin {
+  color: {{ syntax-type }} !important;
+}
+.CodeMirror .cm-def,
+.CodeMirror .cm-callee {
+  color: {{ syntax-function }} !important;
+}
+.CodeMirror .cm-attribute {
+  color: {{ syntax-xml-attribute }} !important;
+}
+.CodeMirror .cm-qualifier {
+  color: {{ syntax-class }} !important;
+}
+.CodeMirror .cm-operator {
+  color: {{ syntax-operator }} !important;
+}
+.CodeMirror .cm-bracket,
+.CodeMirror .cm-tag.cm-bracket {
+  color: {{ syntax-punctuation }} !important;
+}
+.CodeMirror .cm-comment,
+.CodeMirror .cm-comment.cm-attribute,
+.CodeMirror .cm-comment.cm-tag {
+  color: {{ syntax-comment }} !important;
+}
+.CodeMirror .cm-header {
+  color: {{ syntax-heading }} !important;
+}
+.CodeMirror .cm-link {
+  color: {{ syntax-link }} !important;
+}
+.CodeMirror .cm-error {
+  color: {{ danger }} !important;
+}
+
+/* Message text (sent and in the message box) is one weight step bolder than Slack's regular (400 -> 500). Code stays
+   regular, and bold, links and the like keep the weights Slack gives them. */
+.p-rich_text_block,
+.c-message_kit__blocks,
+.c-texty_input .ql-editor,
+.c-texty_input_unstyled__container .ql-editor {
+  font-weight: 500;
+}
+.c-mrkdwn__code,
+.c-mrkdwn__pre,
+.c-texty_input code,
+.c-texty_input .ql-code-block,
+.c-texty_input_unstyled__container .ql-code-block,
+.CodeMirror {
+  font-weight: 400 !important;
+}
+
+/* Sidebar rows without anything new are one weight step bolder than Slack's regular (400 -> 500); rows with new
+   items keep Slack's black weight, section headings and everything else stay as they are. */
+.p-channel_sidebar__name {
+  font-weight: 500 !important;
+}
+.p-channel_sidebar__channel--unread:not(.p-channel_sidebar__channel--muted) .p-channel_sidebar__name,
+.p-channel_sidebar__link--unread .p-channel_sidebar__name {
+  font-weight: var(--custom-font-weight-black, 900) !important;
 }
 
 ::selection {
