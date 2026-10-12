@@ -69,3 +69,7 @@ ui-scale = 1.2
 [profile.overrides.jetbrains]
 editor-font-size = 18
 ui-font-size = 16
+
+# The Stylus styles live in their own repo (one *.user.css per style, mirrored both ways by the browser extensions).
+[browser]
+stylus-styles = "~/Git/stylus-styles/styles"
