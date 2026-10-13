@@ -236,6 +236,17 @@ group = "qtcreator"
 template = "qtcreator/colors.xml"
 output = "~/.config/QtProject/qtcreator/styles/themer.xml"
 
+# ---- LosslessCut -----------------------------------------------------------------------------------------------------
+
+# My LosslessCut build (~/koodi/lossless-cut) reads CSS variables per mode from Themes/<name>.json, selected by the
+# "theme" key in config.json ("themer") and the "darkMode" key. The file holds both modes, so the template reads the
+# dark.<token> and light.<token> names. The app watches the file and restyles at once.
+[[target]]
+name = "LosslessCut theme"
+group = "losslesscut"
+template = "losslesscut/theme.json"
+output = "~/.config/LosslessCut/Themes/themer.json"
+
 # ---- Okular (Markdown) -----------------------------------------------------------------------------------------------
 
 # The themed Markdown backend (the okular-markdown repo) reads this file when it opens a document; reopen the
