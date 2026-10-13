@@ -30,6 +30,12 @@ Works on my machine running [Kubuntu 26.04](https://kubuntu.org/)
 - [KDE Rounded corners](https://github.com/matinlotfali/KDE-Rounded-Corners)
 - [Themer](https://github.com/jliima/themer), Python 3.11+ (the theming tool, not part of this repo)
 
+### Own KDE widgets and plugins
+
+The dots only configure these, they are separate repos to clone and install (each has an `install.sh`):
+Plasma widgets `plasma-desktop-dots`, `plasma-claude-usage`, `plasma-copilot-usage`, `plasma-cpu-percent`,
+`plasma-minimized-tasks`, `plasma-separator`, and the KRunner add-ons `IntellijRunner` and `krunner-tab-nav`.
+
 ### Theming
 
 [Themer](https://github.com/jliima/themer) is a generic tool that renders a color scheme into Plasma, Darkly, KWin,
