@@ -1,0 +1,32 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Chromium Web Browser
+GenericName=Web Browser
+Comment=Access the Internet, with the profile of the current activity
+Exec=/home/hieroja/scripts/kde/open-program/open-chromium.sh %U
+Actions=Work;School;Default;Incognito;
+Categories=Network;WebBrowser;
+Icon=chromium
+Keywords=browser
+MimeType=x-scheme-handler/mailto;text/html;text/xml;application/xhtml_xml;application/x-mimearchive;x-scheme-handler/http;x-scheme-handler/https;
+StartupNotify=true
+StartupWMClass=chromium
+Terminal=false
+X-MultipleArgs=false
+
+[Desktop Action Work]
+Name=Work profile
+Exec=/home/hieroja/scripts/kde/open-program/open-chromium.sh work
+
+[Desktop Action School]
+Name=School profile
+Exec=/home/hieroja/scripts/kde/open-program/open-chromium.sh school
+
+[Desktop Action Default]
+Name=Personal profile
+Exec=/home/hieroja/scripts/kde/open-program/open-chromium.sh default
+
+[Desktop Action Incognito]
+Name=New incognito window
+Exec=/home/hieroja/scripts/kde/open-program/open-chromium.sh --incognito

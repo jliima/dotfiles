@@ -50,6 +50,7 @@ next activity=Meta+Tab
 previous activity=Meta+Shift+A
 
 [services][chromium.desktop]
+Incognito=Meta+Shift+C
 _launch=Meta+C
 
 [services][chromium_chromium.desktop]
