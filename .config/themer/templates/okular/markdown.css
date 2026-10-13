@@ -1,0 +1,77 @@
+/* syntax-theme: Themer {{ Variant }} */
+/*
+ * Themer style for Okular's Markdown backend (scripts/okular-markdown), laid out like Obsidian's reading view.
+ * Qt rich text knows only a subset of CSS: no border radius, no padding outside table cells, and it ignores color and
+ * font on <body> (so they are set on the block elements; the converter reads the body background itself). The comment
+ * above names the Kate theme (Themer-Dark.theme / Themer-Light.theme) the code blocks are highlighted with.
+ */
+body { background-color: {{ bg }}; }
+p, li, td, th, h1, h2, h3, h4, h5, h6 {
+  color: {{ text }};
+  font-family: "{{ fonts.sans }}";
+}
+p, li, td, th { font-size: 12pt; }
+li { margin-top: 3px; margin-bottom: 3px; }
+
+h1, h2, h3, h4, h5 {
+  color: {{ syntax-heading }};
+  font-weight: 600;
+  margin-top: 28px;
+  margin-bottom: 8px;
+}
+h6 {
+  color: {{ text-muted }};
+  font-weight: 600;
+  font-size: 12pt;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+h1 { font-size: 24pt; font-weight: 700; }
+h2 { font-size: 19pt; }
+h3 { font-size: 16pt; }
+h4 { font-size: 14pt; }
+h5 { font-size: 12.5pt; }
+
+p { margin-top: 0px; margin-bottom: 12px; }
+b, strong { color: {{ text-bright }}; font-weight: 700; }
+a { color: {{ link }}; text-decoration: underline; }
+
+code {
+  font-family: "{{ fonts.mono }}";
+  font-size: 10.5pt;
+  color: {{ syntax-annotation }};
+  background-color: {{ surface-active }};
+}
+
+pre {
+  font-family: "{{ fonts.mono }}";
+  font-size: 10.5pt;
+  color: {{ text }};
+  margin: 0px;
+}
+td.code {
+  background-color: {{ bg-sunken }};
+  border-width: 1px;
+  border-style: solid;
+  border-color: {{ line }};
+  padding: 12px;
+}
+
+td.quote {
+  color: {{ text-muted }};
+  border-left-width: 3px;
+  border-left-style: solid;
+  border-left-color: {{ accent }};
+  padding-left: 14px;
+}
+
+table.md { border-color: {{ line }}; }
+table.md th {
+  text-align: left;
+  background-color: {{ surface }};
+  color: {{ text-muted }};
+  font-weight: 600;
+}
+table.md td { color: {{ text }}; }
+
+hr { color: {{ line-strong }}; background-color: {{ line-strong }}; }

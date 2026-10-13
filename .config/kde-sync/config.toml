@@ -13,6 +13,9 @@ ignore = [
   ["KTextEditor Renderer", "Auto Color Theme Selection"],
 ]
 
+# Kate's file types ("Modes & Filetypes"): JSON, JSON5 and JSONC have spell checking off, their keys are not words.
+[files.katemoderc]
+
 # Only shortcuts that differ from their default sync, and only for apps a machine has. The Claude desktop app
 # registers its shortcut through the portal under an id that differs on every install, so it is set per machine.
 [files.kglobalshortcutsrc]

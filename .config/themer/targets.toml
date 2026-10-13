@@ -236,6 +236,25 @@ group = "qtcreator"
 template = "qtcreator/colors.xml"
 output = "~/.config/QtProject/qtcreator/styles/themer.xml"
 
+# ---- Okular (Markdown) -----------------------------------------------------------------------------------------------
+
+# The themed Markdown backend (the okular-markdown repo) reads this file when it opens a document; reopen the
+# Markdown file to see a change. The first comment of the file names the Kate syntax theme for fenced code.
+[[target]]
+name = "Okular Markdown style"
+group = "okular"
+template = "okular/markdown.css"
+output = "~/.config/okular-markdown/style.css"
+
+# Okular multiplies text selections onto the page, so on a dark Markdown page they need a bright selection color
+# (see the template). The reload selects the scheme in okularrc; Okular reads it at start.
+[[target]]
+name = "Okular color scheme"
+group = "okular"
+template = "okular/scheme.colors"
+output = "~/.local/share/color-schemes/ThemerOkular.colors"
+reload = "kwriteconfig6 --file okularrc --group UiSettings --key ColorScheme ThemerOkular"
+
 # ---- Wireshark -------------------------------------------------------------------------------------------------------
 
 # The color rules (colorfilters) are a whole file Themer owns, so they are stowed. The rule list, filters and order

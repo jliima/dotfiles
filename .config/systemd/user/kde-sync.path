@@ -5,6 +5,7 @@ PartOf=graphical-session.target
 
 [Path]
 PathChanged=%h/.config/katerc
+PathChanged=%h/.config/katemoderc
 PathChanged=%h/.config/kglobalshortcutsrc
 PathChanged=%h/.config/plasma-org.kde.plasma.desktop-appletsrc
 PathChanged=%h/.config/plasmashellrc
