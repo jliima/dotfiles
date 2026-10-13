@@ -2,7 +2,7 @@
 Type=Application
 Version=1.0
 Name=Konsole (focus or launch)
-Comment=New tab in the Konsole window on this desktop (new window if it runs Claude Code), or a new window
+Comment=Focus the Konsole window on this desktop under the mouse (new window if none or only Claude Code ones)
 Exec=/home/hieroja/dotfiles/scripts/kde/open-program/focus-or-launch.py konsole
 Icon=utilities-terminal
 Categories=System;TerminalEmulator;

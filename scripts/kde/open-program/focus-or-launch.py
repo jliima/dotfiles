@@ -1,27 +1,45 @@
 #!/usr/bin/env python3
 # ------------------------------------------------------------------------------
 # Name:        focus-or-launch.py
-# Description: Focus an app's window on the current virtual desktop and open a
-#              new tab in it, or launch a new window if there is none.
+# Description: Focus an app's window on the current virtual desktop, or launch
+#              a new window if there is none (what the Meta+T/E/D keys do).
 #
 # Details:
-#   kate, dolphin, konsole, firefox:
-#     If a window of the app is on the current virtual desktop (and activity),
-#     the topmost one is focused and a new tab / document is opened in it.
-#     Otherwise a brand new window is launched. For konsole, windows whose
-#     current tab is running Claude Code are skipped, so a Claude session
-#     never gets a new tab and a new window opens instead.
+#   konsole:
+#     If a window on the current virtual desktop (and activity) has a tab that
+#     is not running Claude Code, the topmost such window is focused and moved
+#     under the mouse. Otherwise (no window, or only Claude Code ones) a new
+#     window is launched.
+#
+#   kate:
+#     The topmost window on the current desktop that has a file open is
+#     focused, moved under the mouse and gets a new document tab. If the only
+#     windows are "Untitled" ones, the topmost is focused and moved, with no new
+#     tab. No window: a new one is launched. Kate has no D-Bus call that lists
+#     documents, so a window counts as "Untitled" when the title of its current
+#     tab is Untitled; a file in another tab is not seen.
+#
+#   dolphin:
+#     The topmost window on the current desktop is focused, moved under the
+#     mouse and gets a new tab showing the home folder. No window: a new one.
+#
+#   firefox:
+#     The topmost window on the current desktop is focused and a new tab is
+#     opened in it, else a new window is launched.
 #
 #   keepassxc:
 #     The KeePassXC window is moved from whatever desktop it is on to the
 #     current one and focused. If it is hidden to the tray, it is shown.
 #
-#   Window lookup and activation go through kwin_windows.py (KWin scripting
-#   over D-Bus). New tabs are opened through each app's own D-Bus interface.
+#   Window lookup, activation and moving go through kwin_windows.py (KWin
+#   scripting over D-Bus). New tabs are opened through each app's own D-Bus
+#   interface. The Shift variants of the keys launch the apps themselves and do
+#   not come through here.
 # ------------------------------------------------------------------------------
 
 import argparse
 import os
+import re
 import subprocess
 import sys
 import time
@@ -38,6 +56,8 @@ FIREFOX_BIN = "/usr/bin/firefox"
 KEEPASSXC_CMD = ["/usr/bin/flatpak", "run", "--branch=stable", "--arch=x86_64", "--command=keepassxc",
                  "org.keepassxc.KeePassXC"]
 CLAUDE_COMMANDS = ("claude",)
+# The title of a Kate window whose current tab is an unsaved new document, "Untitled" or "Untitled *".
+KATE_UNTITLED = re.compile(r"^Untitled(?: \*)?(?: \u2014 Kate)?$")
 # How long to wait for the app to notice it got focused before asking it for a new tab.
 FOCUS_WAIT_S = 1.0
 FOCUS_POLL_S = 0.05
@@ -97,17 +117,27 @@ def focus_here_or_launch(class_regex, new_tab, launch_cmd, pick=topmost):
 
 # ==== Apps ====
 def kate():
-  def new_tab(w):
-    trigger_in_active_window(f"org.kde.kate-{w['pid']}", "/kate", "MainWindow_", "file_new")
-
-  focus_here_or_launch(r"^org\.kde\.kate$", new_tab, ["kate", "-n"])
+  windows = kwin_windows.list_windows(r"^org\.kate$|^org\.kde\.kate$", here_only=True)
+  with_file = [w for w in windows if not KATE_UNTITLED.match(w["caption"])]
+  window = topmost(with_file) or topmost(windows)
+  if window is None:
+    launch(["kate", "-n"])
+    return
+  kwin_windows.activate(window["id"], to_cursor=True)
+  if window in with_file:
+    trigger_in_active_window(f"org.kde.kate-{window['pid']}", "/kate", "MainWindow_", "file_new")
 
 
 def dolphin():
-  def new_tab(w):
-    trigger_in_active_window(f"org.kde.dolphin-{w['pid']}", "/dolphin", "Dolphin_", "new_tab")
-
-  focus_here_or_launch(r"^org\.kde\.dolphin$", new_tab, ["dolphin", "--new-window"])
+  window = topmost(kwin_windows.list_windows(r"^org\.kde\.dolphin$", here_only=True))
+  if window is None:
+    launch(["dolphin", "--new-window"])
+    return
+  kwin_windows.activate(window["id"], to_cursor=True)
+  service = f"org.kde.dolphin-{window['pid']}"
+  # A new tab opens at the current folder; go_home then shows the home folder in it.
+  trigger_in_active_window(service, "/dolphin", "Dolphin_", "new_tab")
+  trigger_in_active_window(service, "/dolphin", "Dolphin_", "go_home")
 
 
 def konsole_window_path(bus, service, caption):
@@ -135,30 +165,22 @@ def is_claude(pid):
 
 def konsole():
   bus = dbus.SessionBus()
-  targets = {}
-
-  def pick(windows):
-    # Topmost Konsole window on this desktop whose visible tab is not running Claude Code.
-    for w in sorted(windows, key=lambda w: w["stackIndex"], reverse=True):
-      service = f"org.kde.konsole-{w['pid']}"
-      try:
-        path, session = konsole_window_path(bus, service, w["caption"])
-        if path is None:
-          continue
-        fg = bus.get_object(service, f"/Sessions/{session}").foregroundProcessId(
-          dbus_interface="org.kde.konsole.Session")
-      except dbus.DBusException:
+  windows = kwin_windows.list_windows(r"^org\.konsole$|^org\.kde\.konsole$", here_only=True)
+  # Topmost Konsole window on this desktop whose visible tab is not running Claude Code.
+  for w in sorted(windows, key=lambda w: w["stackIndex"], reverse=True):
+    service = f"org.kde.konsole-{w['pid']}"
+    try:
+      path, session = konsole_window_path(bus, service, w["caption"])
+      if path is None:
         continue
-      if not is_claude(fg):
-        targets[w["id"]] = (service, path)
-        return w
-    return None
-
-  def new_tab(w):
-    service, path = targets[w["id"]]
-    bus.get_object(service, path).newSession(dbus_interface="org.kde.konsole.Window", signature="")
-
-  focus_here_or_launch(r"^org\.konsole$|^org\.kde\.konsole$", new_tab, ["konsole"], pick=pick)
+      fg = bus.get_object(service, f"/Sessions/{session}").foregroundProcessId(
+        dbus_interface="org.kde.konsole.Session")
+    except dbus.DBusException:
+      continue
+    if not is_claude(fg):
+      kwin_windows.activate(w["id"], to_cursor=True)
+      return
+  launch(["konsole"])
 
 
 def firefox_profile_args(pid):

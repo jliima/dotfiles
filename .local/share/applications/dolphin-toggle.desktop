@@ -2,7 +2,7 @@
 Type=Application
 Version=1.0
 Name=Dolphin (focus or launch)
-Comment=New tab in the Dolphin window on this desktop, or a new window
+Comment=Focus the Dolphin window on this desktop under the mouse with a new Home tab, or a new window
 Exec=/home/hieroja/dotfiles/scripts/kde/open-program/focus-or-launch.py dolphin
 Icon=system-file-manager
 Categories=System;FileTools;FileManager;

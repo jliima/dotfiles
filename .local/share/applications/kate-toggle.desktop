@@ -2,7 +2,7 @@
 Type=Application
 Version=1.0
 Name=Kate (focus or launch)
-Comment=New tab in the Kate window on this desktop, or a new window
+Comment=Focus the Kate window on this desktop under the mouse, new tab if it has a file open, or a new window
 Exec=/home/hieroja/dotfiles/scripts/kde/open-program/focus-or-launch.py kate
 Icon=kate
 Categories=Utility;TextEditor;

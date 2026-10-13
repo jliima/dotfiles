@@ -8,7 +8,7 @@
 #   through callDBus(). Used by focus-or-launch.py, but also runnable directly:
 #
 #     kwin_windows.py list [CLASS_REGEX] [--here]
-#     kwin_windows.py activate WINDOW_ID [--move-here]
+#     kwin_windows.py activate WINDOW_ID [--move-here] [--to-cursor]
 # ------------------------------------------------------------------------------
 
 import argparse
@@ -45,12 +45,15 @@ for (const w of workspace.windowList()) {
     id: w.internalId.toString(), pid: w.pid, caption: w.caption, resourceClass: w.resourceClass,
     desktopFile: w.desktopFileName, minimized: w.minimized, active: w === workspace.activeWindow,
     here: onDesk && onAct, stackIndex: stack.indexOf(w),
+    geometry: {x: w.frameGeometry.x, y: w.frameGeometry.y, width: w.frameGeometry.width, height: w.frameGeometry.height},
   });
 }
 callDBus("%(bus)s", "%(path)s", "%(iface)s", "result", JSON.stringify(out));
 """
 
-# Optionally moves the window to the current desktop/activity, then unminimizes and focuses it.
+# Optionally moves the window to the current desktop/activity and to the mouse, then unminimizes and focuses it.
+# "To the mouse" centers the window on the pointer, kept inside the work area of the screen the pointer is on; a window
+# that fills its screen (maximized, fullscreen) is only sent to that screen.
 ACTIVATE_JS = """
 let ok = false;
 for (const w of workspace.windowList()) {
@@ -58,6 +61,18 @@ for (const w of workspace.windowList()) {
   if (%(move)s) {
     w.desktops = [workspace.currentDesktop];
     if (w.activities.length !== 0) w.activities = [workspace.currentActivity];
+  }
+  if (%(cursor)s) {
+    const pos = workspace.cursorPos;
+    const output = workspace.screenAt(pos);
+    if (w.output !== output) workspace.sendClientToScreen(w, output);
+    const area = workspace.clientArea(KWin.MaximizeArea, output, workspace.currentDesktop);
+    const g = w.frameGeometry;
+    if (!w.fullScreen && (g.width < area.width - 2 || g.height < area.height - 2)) {
+      const x = Math.min(Math.max(pos.x - g.width / 2, area.x), area.x + area.width - g.width);
+      const y = Math.min(Math.max(pos.y - g.height / 2, area.y), area.y + area.height - g.height);
+      w.frameGeometry = {x: Math.round(x), y: Math.round(y), width: g.width, height: g.height};
+    }
   }
   w.minimized = false;
   workspace.activeWindow = w;
@@ -118,9 +133,10 @@ def list_windows(class_regex=None, here_only=False):
   return windows
 
 
-def activate(window_id, move_here=False):
-  """Focuses the window, first moving it to the current desktop when move_here is set."""
-  return _run_script(ACTIVATE_JS, id=window_id, move="true" if move_here else "false")
+def activate(window_id, move_here=False, to_cursor=False):
+  """Focuses the window, first moving it to the current desktop (move_here) and/or under the mouse (to_cursor)."""
+  return _run_script(ACTIVATE_JS, id=window_id, move="true" if move_here else "false",
+                     cursor="true" if to_cursor else "false")
 
 
 def main():
@@ -132,12 +148,13 @@ def main():
   p_act = sub.add_parser("activate", help="focus a window by id")
   p_act.add_argument("window_id")
   p_act.add_argument("--move-here", action="store_true", help="move it to the current desktop first")
+  p_act.add_argument("--to-cursor", action="store_true", help="move it under the mouse pointer first")
   args = parser.parse_args()
 
   if args.command == "list":
     print(json.dumps(list_windows(args.class_regex, args.here), indent=2, ensure_ascii=False))
   else:
-    print(json.dumps(activate(args.window_id, args.move_here)))
+    print(json.dumps(activate(args.window_id, args.move_here, args.to_cursor)))
 
 
 if __name__ == "__main__":
