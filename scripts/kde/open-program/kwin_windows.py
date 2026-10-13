@@ -51,9 +51,10 @@ for (const w of workspace.windowList()) {
 callDBus("%(bus)s", "%(path)s", "%(iface)s", "result", JSON.stringify(out));
 """
 
-# Optionally moves the window to the current desktop/activity and to the mouse, then unminimizes and focuses it.
-# "To the mouse" centers the window on the pointer, kept inside the work area of the screen the pointer is on; a window
-# that fills its screen (maximized, fullscreen) is only sent to that screen.
+# Optionally moves the window to the current desktop/activity and, if it is on another screen than the pointer, to the
+# mouse. "To the mouse" centers the window on the pointer, kept inside the work area of the pointer's screen; a window
+# that fills its screen (maximized, fullscreen) is only sent to that screen. A window already on the pointer's screen
+# stays where it is.
 ACTIVATE_JS = """
 let ok = false;
 for (const w of workspace.windowList()) {
@@ -62,10 +63,10 @@ for (const w of workspace.windowList()) {
     w.desktops = [workspace.currentDesktop];
     if (w.activities.length !== 0) w.activities = [workspace.currentActivity];
   }
-  if (%(cursor)s) {
-    const pos = workspace.cursorPos;
-    const output = workspace.screenAt(pos);
-    if (w.output !== output) workspace.sendClientToScreen(w, output);
+  const pos = workspace.cursorPos;
+  const output = workspace.screenAt(pos);
+  if (%(cursor)s && w.output !== output) {
+    workspace.sendClientToScreen(w, output);
     const area = workspace.clientArea(KWin.MaximizeArea, output, workspace.currentDesktop);
     const g = w.frameGeometry;
     if (!w.fullScreen && (g.width < area.width - 2 || g.height < area.height - 2)) {
@@ -134,7 +135,7 @@ def list_windows(class_regex=None, here_only=False):
 
 
 def activate(window_id, move_here=False, to_cursor=False):
-  """Focuses the window, first moving it to the current desktop (move_here) and/or under the mouse (to_cursor)."""
+  """Focuses the window, first moving it to the current desktop (move_here) and/or under the mouse (to_cursor, only if it is on another screen)."""
   return _run_script(ACTIVATE_JS, id=window_id, move="true" if move_here else "false",
                      cursor="true" if to_cursor else "false")
 
@@ -148,7 +149,7 @@ def main():
   p_act = sub.add_parser("activate", help="focus a window by id")
   p_act.add_argument("window_id")
   p_act.add_argument("--move-here", action="store_true", help="move it to the current desktop first")
-  p_act.add_argument("--to-cursor", action="store_true", help="move it under the mouse pointer first")
+  p_act.add_argument("--to-cursor", action="store_true", help="move it under the mouse pointer first, if it is on another screen")
   args = parser.parse_args()
 
   if args.command == "list":

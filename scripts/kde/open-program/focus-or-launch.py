@@ -5,6 +5,9 @@
 #              a new window if there is none (what the Meta+T/E/D keys do).
 #
 # Details:
+#   "Moved under the mouse" below means: only when the window is on another
+#   screen than the pointer; a window on the pointer's screen is just focused.
+#
 #   konsole:
 #     If a window on the current virtual desktop (and activity) has a tab that
 #     is not running Claude Code, the topmost such window is focused and moved
@@ -12,16 +15,18 @@
 #     window is launched.
 #
 #   kate:
-#     The topmost window on the current desktop that has a file open is
-#     focused, moved under the mouse and gets a new document tab. If the only
-#     windows are "Untitled" ones, the topmost is focused and moved, with no new
-#     tab. No window: a new one is launched. Kate has no D-Bus call that lists
-#     documents, so a window counts as "Untitled" when the title of its current
-#     tab is Untitled; a file in another tab is not seen.
+#     Reuses an "Untitled" tab before making anything new. Windows on the
+#     current desktop are searched, the topmost first, and within a window
+#     every tab (Kate cannot list documents over D-Bus, so the tabs are stepped
+#     through and the window title read). The window that has one is focused,
+#     moved under the mouse and switched to that tab. If no window has an
+#     Untitled tab, the topmost gets a new one; with no window, a new one is
+#     launched.
 #
 #   dolphin:
-#     The topmost window on the current desktop is focused, moved under the
-#     mouse and gets a new tab showing the home folder. No window: a new one.
+#     A window on the current desktop that is not focused is brought forward
+#     and moved under the mouse. If one is already focused, it gets a new tab
+#     showing the home folder. No window: a new one is launched.
 #
 #   firefox:
 #     The topmost window on the current desktop is focused and a new tab is
@@ -39,7 +44,6 @@
 
 import argparse
 import os
-import re
 import subprocess
 import sys
 import time
@@ -56,8 +60,9 @@ FIREFOX_BIN = "/usr/bin/firefox"
 KEEPASSXC_CMD = ["/usr/bin/flatpak", "run", "--branch=stable", "--arch=x86_64", "--command=keepassxc",
                  "org.keepassxc.KeePassXC"]
 CLAUDE_COMMANDS = ("claude",)
-# The title of a Kate window whose current tab is an unsaved new document, "Untitled" or "Untitled *".
-KATE_UNTITLED = re.compile(r"^Untitled(?: \*)?(?: \u2014 Kate)?$")
+# How long Kate gets to change its window title after a tab switch, and how many tabs are looked at per window.
+KATE_TAB_WAIT_S = 0.5
+KATE_MAX_TABS = 200
 # How long to wait for the app to notice it got focused before asking it for a new tab.
 FOCUS_WAIT_S = 1.0
 FOCUS_POLL_S = 0.05
@@ -116,24 +121,97 @@ def focus_here_or_launch(class_regex, new_tab, launch_cmd, pick=topmost):
 
 
 # ==== Apps ====
+def kate_title(bus, service, path):
+  """The title of the tab Kate shows in a main window, "Untitled [*]" for a new document."""
+  return str(qt_prop(bus, service, path, "windowTitle"))
+
+
+def kate_is_untitled(title):
+  return title.replace("[*]", "").strip() == "Untitled"
+
+
+def kate_main_window(bus, service):
+  paths = [f"/kate/{n}" for n in sorted(child_nodes(bus, service, "/kate")) if n.startswith("MainWindow_")]
+  return paths[0] if paths else None
+
+
+def kate_trigger(bus, service, path, action):
+  bus.get_object(service, f"{path}/actions/{action}").trigger(dbus_interface="org.qtproject.Qt.QAction")
+
+
+def kate_focus_untitled_tab(bus, service, path):
+  """Switches the window to its Untitled tab if it has one; returns whether it does.
+
+  Kate cannot list its documents over D-Bus, so the tabs are stepped through (next tab wraps around) and the window
+  title is read after each step. Without an Untitled tab the loop ends on the tab it started on.
+  """
+  start = title = kate_title(bus, service, path)
+  if kate_is_untitled(title):
+    return True
+  for _ in range(KATE_MAX_TABS):
+    kate_trigger(bus, service, path, "view_next_tab")
+    deadline = time.monotonic() + KATE_TAB_WAIT_S
+    new = title
+    while new == title and time.monotonic() < deadline:
+      time.sleep(FOCUS_POLL_S)
+      new = kate_title(bus, service, path)
+    if new == title:
+      return False  # the title did not change: a single tab
+    title = new
+    if kate_is_untitled(title):
+      return True
+    if title == start:
+      return False
+  return False
+
+
 def kate():
-  windows = kwin_windows.list_windows(r"^org\.kate$|^org\.kde\.kate$", here_only=True)
-  with_file = [w for w in windows if not KATE_UNTITLED.match(w["caption"])]
-  window = topmost(with_file) or topmost(windows)
-  if window is None:
+  """Reuses an existing Untitled tab (any window on this desktop) before making a new tab or window."""
+  bus = dbus.SessionBus()
+  windows = sorted(kwin_windows.list_windows(r"^org\.kate$|^org\.kde\.kate$", here_only=True),
+                   key=lambda w: w["stackIndex"], reverse=True)
+  if not windows:
     launch(["kate", "-n"])
     return
-  kwin_windows.activate(window["id"], to_cursor=True)
-  if window in with_file:
-    trigger_in_active_window(f"org.kde.kate-{window['pid']}", "/kate", "MainWindow_", "file_new")
+
+  targets = []
+  for w in windows:
+    service = f"org.kde.kate-{w['pid']}"
+    try:
+      path = kate_main_window(bus, service)
+    except dbus.DBusException:
+      path = None
+    if path:
+      targets.append((w, service, path))
+  if not targets:
+    kwin_windows.activate(windows[0]["id"], to_cursor=True)
+    return
+
+  # Windows already showing an Untitled tab first, then the rest, each stepped through its tabs.
+  try:
+    ordered = sorted(targets, key=lambda t: not kate_is_untitled(kate_title(bus, t[1], t[2])))
+    for w, service, path in ordered:
+      if kate_focus_untitled_tab(bus, service, path):
+        kwin_windows.activate(w["id"], to_cursor=True)
+        return
+  except dbus.DBusException:
+    pass
+  # No Untitled tab anywhere: a new one in the topmost window.
+  w, service, path = targets[0]
+  kwin_windows.activate(w["id"], to_cursor=True)
+  trigger_in_active_window(service, "/kate", "MainWindow_", "file_new")
 
 
 def dolphin():
-  window = topmost(kwin_windows.list_windows(r"^org\.kde\.dolphin$", here_only=True))
-  if window is None:
+  windows = kwin_windows.list_windows(r"^org\.kde\.dolphin$", here_only=True)
+  if not windows:
     launch(["dolphin", "--new-window"])
     return
-  kwin_windows.activate(window["id"], to_cursor=True)
+  # A window that is already focused gets a new tab; otherwise the first press only brings the topmost one forward.
+  window = next((w for w in windows if w["active"]), None)
+  if window is None:
+    kwin_windows.activate(topmost(windows)["id"], to_cursor=True)
+    return
   service = f"org.kde.dolphin-{window['pid']}"
   # A new tab opens at the current folder; go_home then shows the home folder in it.
   trigger_in_active_window(service, "/dolphin", "Dolphin_", "new_tab")
