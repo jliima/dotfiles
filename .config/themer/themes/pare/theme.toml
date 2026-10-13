@@ -78,8 +78,8 @@ syntax-css-id = "{syntax-doc-tag}"
 syntax-css-pseudo = "{syntax-function}"
 syntax-css-color = "{syntax-annotation}"
 syntax-sh-command = "{syntax-function}"
-syntax-py-keyword = "{syntax-doc-tag}"
-syntax-py-bytes = "{syntax-keyword}"
+syntax-py-keyword = "{syntax-keyword}"
+syntax-py-bytes = "{syntax-doc-tag}"
 
 [dark]
 # Grounds, deepest to highest

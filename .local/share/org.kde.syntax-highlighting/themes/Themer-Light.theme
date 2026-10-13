@@ -108,10 +108,10 @@
       "Annotation": {"text-color": "#a15500", "selected-text-color": "#a15500"}
     },
     "Python": {
-      "Definition Keyword": {"text-color": "#a15500", "selected-text-color": "#a15500"},
-      "Operator Keyword": {"text-color": "#a15500", "selected-text-color": "#a15500"},
-      "Flow Control Keyword": {"text-color": "#a15500", "selected-text-color": "#a15500"},
-      "Import": {"text-color": "#a15500", "selected-text-color": "#a15500"},
+      "Definition Keyword": {"text-color": "#007950", "selected-text-color": "#007950"},
+      "Operator Keyword": {"text-color": "#007950", "selected-text-color": "#007950"},
+      "Flow Control Keyword": {"text-color": "#007950", "selected-text-color": "#007950"},
+      "Import": {"text-color": "#007950", "selected-text-color": "#007950"},
       "Builtin Function": {"text-color": "#1a2530", "selected-text-color": "#1a2530"},
       "Special Variable": {"text-color": "#1a2530", "selected-text-color": "#1a2530"},
       "Exceptions": {"text-color": "#156eac", "selected-text-color": "#156eac"},
@@ -120,8 +120,8 @@
       "Decorator": {"text-color": "#007950", "selected-text-color": "#007950"},
       "F-String": {"text-color": "#b83085", "selected-text-color": "#b83085"},
       "F-String Deliminator": {"text-color": "#b83085", "selected-text-color": "#b83085"},
-      "B-String": {"text-color": "#007950", "selected-text-color": "#007950"},
-      "B-String Deliminator": {"text-color": "#007950", "selected-text-color": "#007950"},
+      "B-String": {"text-color": "#a15500", "selected-text-color": "#a15500"},
+      "B-String Deliminator": {"text-color": "#a15500", "selected-text-color": "#a15500"},
       "String Substitution": {"text-color": "#007576", "selected-text-color": "#007576"},
       "String Char": {"text-color": "#007576", "selected-text-color": "#007576"}
     },
