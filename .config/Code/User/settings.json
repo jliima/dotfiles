@@ -184,5 +184,13 @@
   "pdf-preview.default.sidebar": true,
   "diffEditor.hideUnchangedRegions.enabled": true,
   "claudeCode.preferredLocation": "panel",
-  "claudeCode.hideOnboarding": true
+  "claudeCode.hideOnboarding": true,
+  "cSpell.customDictionaries": {
+    "shared": {
+      "name": "shared",
+      "path": "~/.config/spelling/words.txt",
+      "addWords": true,
+      "scope": "user"
+    }
+  }
 }
