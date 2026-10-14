@@ -38,6 +38,21 @@ template = "claude-desktop/theme.css"
 output = "~/.config/claude-desktop-theme/theme.css"
 reload = "~/scripts/claude-desktop/patch.sh ensure"
 
+# Artifacts and project documents live in cross-origin frames, which the patch styles from this second file.
+[[target]]
+name = "Claude desktop frames"
+group = "claude-desktop"
+template = "claude-desktop/frame.css"
+output = "~/.config/claude-desktop-theme/frame.css"
+
+# The main process draws the window background and the title bar buttons' ground with fixed colors, which the patch
+# reads from this file instead. Read at app start, so restart Claude to see a change.
+[[target]]
+name = "Claude desktop window"
+group = "claude-desktop"
+template = "claude-desktop/window.json"
+output = "~/.config/claude-desktop-theme/window.json"
+
 # ---- Slack -----------------------------------------------------------------------------------------------------------
 
 # The app reads theme.css through an app.asar patch (scripts/slack/patch.sh), which also watches the file, so an apply

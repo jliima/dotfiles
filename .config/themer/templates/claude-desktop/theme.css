@@ -101,3 +101,19 @@ body,
 body.darkTheme {
   color: {{ text }} !important;
 }
+
+/* Scrollbars follow the theme, not Chromium's default grey. */
+* {
+  scrollbar-color: {{ line-strong }} transparent !important;
+}
+
+/* Left sidebar: row labels (navigation and chat titles) in the normal text color and a little heavier. The headings
+ * (Pinned, Ungrouped) and the search field keep their muted color. */
+button[class*="df-row-font"],
+button[class*="df-row-font"] span,
+.dframe-fade-label,
+.dframe-fade-label span {
+  color: var(--cds-text-primary) !important;
+  font-weight: 450 !important;
+  font-variation-settings: "wght" 450 !important;
+}

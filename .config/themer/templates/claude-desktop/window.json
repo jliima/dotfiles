@@ -1,0 +1,6 @@
+{
+  "light": "{{ bg-sunken }}",
+  "dark": "{{ bg-sunken }}",
+  "symbolLight": "{{ text-muted }}",
+  "symbolDark": "{{ text-muted }}"
+}
