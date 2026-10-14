@@ -1,0 +1,23 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=Outlook
+MimeType=x-scheme-handler/mailto;x-scheme-handler/chromium;
+Exec=/home/hieroja/.local/bin/outlook-launcher.sh --profile-directory=Default --app-id=faolnafnngnfdaknnbpnkhgohbobgegn %U
+Icon=chrome-faolnafnngnfdaknnbpnkhgohbobgegn-Default
+StartupWMClass=crx_faolnafnngnfdaknnbpnkhgohbobgegn
+Actions=New-event;New-message;Open-calendar
+
+[Desktop Action New-event]
+Name=New event
+Exec=/home/hieroja/.local/bin/outlook-launcher.sh --profile-directory=Default --app-id=faolnafnngnfdaknnbpnkhgohbobgegn --app-launch-url-for-shortcuts-menu-item=https://outlook.office.com/calendar/deeplink/compose
+
+[Desktop Action New-message]
+Name=New message
+Exec=/home/hieroja/.local/bin/outlook-launcher.sh --profile-directory=Default --app-id=faolnafnngnfdaknnbpnkhgohbobgegn --app-launch-url-for-shortcuts-menu-item=https://outlook.office.com/mail/deeplink/compose
+
+[Desktop Action Open-calendar]
+Name=Open calendar
+Exec=/home/hieroja/.local/bin/outlook-launcher.sh --profile-directory=Default --app-id=faolnafnngnfdaknnbpnkhgohbobgegn --app-launch-url-for-shortcuts-menu-item=https://outlook.office.com/calendar
