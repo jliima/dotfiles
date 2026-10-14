@@ -101,5 +101,5 @@ vault_name=$(basename "$vault_dir")
 # URL-encode spaces (POSIX-safe)
 vault_name_encoded=$(printf '%s' "$vault_name" | sed 's/ /%20/g')
 
-"$OBSIDIAN_BIN" "obsidian://open?vault=${vault_name_encoded}" >/dev/null 2>&1 &
+"$OBSIDIAN_BIN" --disable-features=WaylandWpColorManagerV1 "obsidian://open?vault=${vault_name_encoded}" >/dev/null 2>&1 &
 print_success "Obsidian launched"

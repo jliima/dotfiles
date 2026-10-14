@@ -184,13 +184,13 @@ launch() {
   mkdir -p "$CACHE_DIR"
   if [ -e "$GPU_MARKER" ]; then
     print_info "Launching Spotify with $GPU_FLAG"
-    setsid spotify "$GPU_FLAG" "$@" >"$LOG_FILE" 2>&1 &
+    setsid spotify --disable-features=WaylandWpColorManagerV1 "$GPU_FLAG" "$@" >"$LOG_FILE" 2>&1 &
     print_success "Spotify launched"
     return
   fi
 
   print_info "Launching Spotify"
-  setsid spotify "$@" >"$LOG_FILE" 2>&1 &
+  setsid spotify --disable-features=WaylandWpColorManagerV1 "$@" >"$LOG_FILE" 2>&1 &
   local pid=$!
   local waited=0
   while [ "$waited" -lt "$STARTUP_WAIT" ]; do
@@ -200,7 +200,7 @@ launch() {
       if grep -q "$GPU_CRASH_TEXT" "$LOG_FILE"; then
         print_warn "GPU sandbox crash, relaunching with $GPU_FLAG (remembered for kernel $(uname -r))"
         touch "$GPU_MARKER"
-        setsid spotify "$GPU_FLAG" "$@" >"$LOG_FILE" 2>&1 &
+        setsid spotify --disable-features=WaylandWpColorManagerV1 "$GPU_FLAG" "$@" >"$LOG_FILE" 2>&1 &
         print_success "Spotify launched"
       else
         print_error "Spotify exited early, see $LOG_FILE"
@@ -229,7 +229,7 @@ done
 
 # A running Spotify only needs the new request (URI, raise window)
 if [ "$check_only" = 0 ] && [ "$force_repair" = 0 ] && pgrep -x spotify >/dev/null; then
-  exec spotify "$@"
+  exec spotify --disable-features=WaylandWpColorManagerV1 "$@"
 fi
 
 print_header "Opening Spotify"

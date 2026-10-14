@@ -19,19 +19,19 @@ X-KDE-Username=
 Name=New Window – Default Vault
 Name[en_US]=New Window – Default Vault
 Name[fi]=Uusi ikkuna – Default Vault
-Exec=/opt/Obsidian/obsidian "obsidian://open?vault=default-vault"
+Exec=/opt/Obsidian/obsidian --disable-features=WaylandWpColorManagerV1 "obsidian://open?vault=default-vault"
 Icon=window-new
 
 [Desktop Action open-work-vault]
 Name=New Window – Work Vault
 Name[en_US]=New Window – Work Vault
 Name[fi]=Uusi ikkuna – Work Vault
-Exec=/opt/Obsidian/obsidian "obsidian://open?vault=work-vault"
+Exec=/opt/Obsidian/obsidian --disable-features=WaylandWpColorManagerV1 "obsidian://open?vault=work-vault"
 Icon=window-new
 
 [Desktop Action open-school-vault]
 Name=New Window – School Vault
 Name[en_US]=New Window – School Vault
 Name[fi]=Uusi ikkuna – School Vault
-Exec=/opt/Obsidian/obsidian "obsidian://open?vault=school-vault"
+Exec=/opt/Obsidian/obsidian --disable-features=WaylandWpColorManagerV1 "obsidian://open?vault=school-vault"
 Icon=window-new
