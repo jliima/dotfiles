@@ -146,6 +146,7 @@ magenta-soft = "#3c172c"
 on-accent = "{bg-deep}"
 # Selection
 selection = "#19405f"
+accent-soft = "oklch(0.40 0.075 246)"
 # Terminal colors 0 to 15
 ansi-0 = "{surface-active}"
 ansi-1 = "{red}"

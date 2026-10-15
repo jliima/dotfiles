@@ -115,7 +115,7 @@ magenta = "oklch(0.74 0.1 355)"
 on-accent = "{bg-deep}"
 # Selection and the ground of selected rows: sand rather than the olive the yellow soft step derives
 selection = "oklch(0.34 0.05 85)"
-accent-soft = "oklch(0.285 0.04 85)"
+accent-soft = "oklch(0.40 0.055 85)"
 
 [light]
 # Grounds, deepest to highest: the beige of the mat at the bottom, paper above it

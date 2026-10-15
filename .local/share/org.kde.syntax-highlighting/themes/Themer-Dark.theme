@@ -31,7 +31,7 @@
     "Documentation": {"text-color": "#788898", "selected-text-color": "#788898", "italic": false},
     "Annotation": {"text-color": "#f58d31", "selected-text-color": "#f58d31", "italic": false, "bold": true},
     "CommentVar": {"text-color": "#f58d31", "selected-text-color": "#f58d31", "italic": false, "bold": true},
-    "RegionMarker": {"text-color": "#5faff1", "selected-text-color": "#5faff1", "background-color": "#0f283d"},
+    "RegionMarker": {"text-color": "#5faff1", "selected-text-color": "#5faff1", "background-color": "#214b6e"},
     "Information": {"text-color": "#2bc5c7", "selected-text-color": "#2bc5c7"},
     "Warning": {"text-color": "#f58d31", "selected-text-color": "#f58d31"},
     "Alert": {"text-color": "#f45959", "selected-text-color": "#f45959", "background-color": "#411716", "bold": true},
@@ -145,7 +145,7 @@
   },
   "editor-colors": {
     "BackgroundColor": "#091017",
-    "CodeFolding": "#0f283d",
+    "CodeFolding": "#214b6e",
     "BracketMatching": "#28333e",
     "CurrentLine": "#0e161e",
     "IconBorder": "#091017",
@@ -168,7 +168,7 @@
     "SpellChecking": "#f45959",
     "TabMarker": "#222b35",
     "TemplateBackground": "#121a23",
-    "TemplatePlaceholder": "#0f283d",
+    "TemplatePlaceholder": "#214b6e",
     "TemplateFocusedPlaceholder": "#19405f",
     "TemplateReadOnlyPlaceholder": "#28333e",
     "WordWrapMarker": "#222b35"
