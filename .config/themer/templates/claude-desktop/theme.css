@@ -117,3 +117,40 @@ button[class*="df-row-font"] span,
   font-weight: 450 !important;
   font-variation-settings: "wght" 450 !important;
 }
+
+/* Code highlighting. The highlighter writes its colors inline on every token, so they are matched by value and mapped
+ * to the syntax roles of the Themer theme, the same ones the JetBrains scheme uses (the reference every editor copies):
+ * purple keywords, green strings, blue functions and parameters, class names, cyan numbers and constants, and red for
+ * keys and tags. It has one color for several roles, so those are split by the language class of the block. */
+pre code span[style*="rgb(204, 123, 244)"] { color: {{ syntax-keyword }} !important; }
+pre code span[style*="rgb(211, 215, 222)"] { color: {{ syntax-variable }} !important; }
+pre code span[style*="rgb(251, 173, 96)"] { color: {{ syntax-class }} !important; }
+pre code span[style*="rgb(155, 233, 99)"] { color: {{ syntax-string }} !important; }
+pre code span[style*="rgb(112, 184, 255)"],
+pre code span[style*="rgb(247, 171, 95)"] { color: {{ syntax-function }} !important; }
+pre code span[style*="rgb(94, 237, 237)"] { color: {{ syntax-number }} !important; }
+pre code span[style*="rgb(129, 136, 152)"] { color: {{ syntax-comment }} !important; }
+pre code span[style*="rgb(244, 123, 133)"] { color: {{ syntax-property }} !important; }
+pre code span[style*="rgb(240, 117, 128)"] { color: {{ syntax-attribute }} !important; }
+
+/* Shell: variables and positional parameters are plain variables, commands get the command color */
+pre code:is(.language-bash, .language-sh, .language-shell, .language-zsh, .language-shellscript, .language-console) {
+  & span:is([style*="rgb(251, 173, 96)"], [style*="rgb(247, 171, 95)"]) { color: {{ syntax-variable }} !important; }
+  & span[style*="rgb(112, 184, 255)"] { color: {{ syntax-sh-command }} !important; }
+}
+/* Keys and tags all come in the one red */
+pre code:is(.language-json, .language-jsonc, .language-json5) span[style*="rgb(244, 123, 133)"] {
+  color: {{ syntax-json-key }} !important;
+}
+pre code:is(.language-yaml, .language-yml) span[style*="rgb(244, 123, 133)"] {
+  color: {{ syntax-yaml-key }} !important;
+}
+pre code:is(.language-xml, .language-html, .language-svg, .language-xhtml, .language-vue) {
+  & span[style*="rgb(244, 123, 133)"] { color: {{ syntax-tag }} !important; }
+  & span[style*="rgb(240, 117, 128)"] { color: {{ syntax-xml-attribute }} !important; }
+}
+/* Markdown: link text and addresses */
+pre code:is(.language-markdown, .language-md) {
+  & span[style*="rgb(155, 233, 99)"] { color: {{ syntax-link }} !important; }
+  & span[style*="rgb(94, 237, 237)"] { color: {{ syntax-url }} !important; }
+}
