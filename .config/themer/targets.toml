@@ -300,3 +300,12 @@ group = "wireshark"
 template = "wireshark/preferences"
 output = "~/.config/wireshark/preferences"
 mode = "ensure-lines"
+
+# ---- Firefox ---------------------------------------------------------------------------------------------------------
+
+# Field and row values that userChrome.css and userContent.css both import.
+[[target]]
+name = "Firefox shared styles"
+group = "firefox"
+template = "firefox/themer-shared.css"
+output = "{firefox}/chrome/themer-shared.css"

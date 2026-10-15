@@ -8,10 +8,10 @@
  *   tab strip    40px on bg-deep, 32px tabs (200px wide) with a gap of 4px; the selected one surface-raised with an
  *                accent underline, hover surface; window buttons are 22px circles like the KWin decoration
  *   nav bar      44px on bg, ghost buttons, a 32px address field on bg-sunken
- *   bookmarks    12px labels in text-muted, then a line
+ *   bookmarks    12px labels in text-muted; the line below is the content area's own border (see .browserContainer)
  *   popups       surface-raised, radius-md, a line ring and shadow; rows radius-sm, hover accent-soft
  */
-@import url("themer-colors.css");
+@import url("themer-shared.css");
 
 :root {
   --themer-font: "{{ fonts.sans }}", sans-serif;
@@ -107,18 +107,18 @@
 
   /* Address bar: a 32px field in the 44px nav bar */
   --urlbar-container-height: 44px !important;
-  --urlbar-min-height: 32px !important;
+  --urlbar-min-height: var(--themer-field-height) !important;
   --urlbar-margin-inline: 6px !important;
-  --toolbar-field-background-color: var(--themer-bg-sunken) !important;
+  --toolbar-field-background-color: var(--themer-field-bg) !important;
   --toolbar-field-text-color: var(--themer-text) !important;
   --toolbar-field-color: var(--themer-text) !important;
-  --toolbar-field-border-color: var(--themer-line) !important;
-  --toolbar-field-background-color-focus: var(--themer-bg-sunken) !important;
+  --toolbar-field-border-color: var(--themer-field-border) !important;
+  --toolbar-field-background-color-focus: var(--themer-field-bg) !important;
   --toolbar-field-text-color-focus: var(--themer-text) !important;
-  --toolbar-field-border-color-focus: var(--themer-focus-ring) !important;
-  --toolbar-field-focus-background-color: var(--themer-bg-sunken) !important;
+  --toolbar-field-border-color-focus: var(--themer-field-border-focus) !important;
+  --toolbar-field-focus-background-color: var(--themer-field-bg) !important;
   --toolbar-field-focus-color: var(--themer-text) !important;
-  --toolbar-field-focus-border-color: var(--themer-focus-ring) !important;
+  --toolbar-field-focus-border-color: var(--themer-field-border-focus) !important;
   --urlbar-box-background-color: transparent !important;
   --urlbar-box-background-color-hover: var(--themer-surface-hover) !important;
   --urlbar-box-background-color-active: var(--themer-surface-active) !important;
@@ -136,7 +136,7 @@
   --urlbarView-highlight-color: var(--themer-text) !important;
   --urlbarView-hover-background: var(--themer-surface-hover) !important;
   --urlbarView-separator-color: var(--themer-line) !important;
-  --urlbar-border-radius: var(--themer-radius-sm) !important;
+  --urlbar-border-radius: var(--themer-field-radius) !important;
   --urlbarView-item-inline-padding: 10px !important;
   --urlbarView-row-gutter: 1px !important;
 
@@ -278,7 +278,8 @@
   --toolbarbutton-icon-fill: var(--themer-text-subtle) !important;
 }
 
-/* Window buttons: 22px circles with a chevron down, chevron up and a cross, like the Themer KWin decoration */
+/* Window buttons: 22px circles with a chevron down, chevron up and a cross, drawn like the Themer KWin decoration
+   (glyph-size 8, glyph-stroke 1.25, round caps) in a 10px box */
 .titlebar-buttonbox-container {
   margin-inline-start: 8px !important;
 }
@@ -340,19 +341,19 @@
 }
 
 .titlebar-min {
-  --themer-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 3.5 5 6.5 8 3.5' fill='none' stroke='black' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+  --themer-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M1 3 5 7 9 3' fill='none' stroke='black' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
 }
 
 .titlebar-max {
-  --themer-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 6.5 5 3.5 8 6.5' fill='none' stroke='black' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+  --themer-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M1 7 5 3 9 7' fill='none' stroke='black' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
 }
 
 .titlebar-restore {
-  --themer-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M5 1.8 8.2 5 5 8.2 1.8 5Z' fill='none' stroke='black' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+  --themer-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M5 1 9 5 5 9 1 5Z' fill='none' stroke='black' stroke-width='1.25' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
 }
 
 .titlebar-close {
-  --themer-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2.5 2.5 7.5 7.5M7.5 2.5 2.5 7.5' fill='none' stroke='black' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+  --themer-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M1 1 9 9M9 1 1 9' fill='none' stroke='black' stroke-width='1.25' stroke-linecap='round'/%3E%3C/svg%3E") !important;
 }
 
 /* ---- Navigation bar ----------------------------------------------------------------------------------------------- */
@@ -374,24 +375,142 @@
 }
 
 #urlbar, #searchbar {
-  font-size: calc(13px * var(--themer-ui-scale, 1)) !important;
+  font-size: calc(var(--themer-field-font-size) * var(--themer-ui-scale, 1)) !important;
 }
 
 #urlbar-background, #searchbar {
-  border-radius: var(--themer-radius-sm) !important;
-  border: 1px solid var(--themer-line) !important;
-  background-color: var(--themer-bg-sunken) !important;
+  border-radius: var(--themer-field-radius) !important;
+  border: 1px solid var(--themer-field-border) !important;
+  background-color: var(--themer-field-bg) !important;
   box-shadow: none !important;
 }
 
 #urlbar:hover:not([focused], [open]) > #urlbar-background {
-  border-color: var(--themer-line-strong) !important;
+  border-color: var(--themer-field-border-hover) !important;
 }
 
 #urlbar:is([focused], [open]) > #urlbar-background {
-  border-color: var(--themer-focus-ring) !important;
+  border-color: var(--themer-field-border-focus) !important;
   outline: 3px solid var(--themer-accent-soft) !important;
   outline-offset: 0 !important;
+}
+
+/* Firefox 157 sizes the field with --urlbar-height (28px by default); the radius is --urlbar-border-radius above. The
+   focused and open borders are drawn at twice the normal width by default. */
+#urlbar {
+  --urlbar-height: var(--themer-field-height) !important;
+  --urlbar-background-border-focused: var(--themer-field-focus-width) solid var(--themer-field-border-focus) !important;
+  --urlbar-input-container-outline-open: var(--themer-field-focus-width) solid var(--themer-field-border) !important;
+  --urlbar-input-container-outline-open-focused: var(--themer-field-focus-width) solid var(--themer-field-border-focus) !important;
+  --urlbar-input-container-outline-offset-open: calc(-1 * var(--themer-field-focus-width)) !important;
+}
+
+/* Pinned extensions sit 2px apart (the other toolbar buttons keep their 4px): the items overlap by a pixel on each side
+   (they have 2px of padding around the 28px button). Back and forward get the same 2px gap. */
+#nav-bar .unified-extensions-item {
+  margin-inline: -1px !important;
+}
+
+#forward-button {
+  margin-inline-start: -2px !important;
+}
+
+/* Search mode switcher: the engine pill (a moz-button of type "muted", drawn in a shadow root from these tokens) is
+   always filled, so it stands out from the field: surface-active at rest, a little lighter on hover, and the menu
+   hover color while its list is open. Its engine list (panel-list, panel-item) looks like the menus below. */
+#urlbar .searchmode-switcher {
+  --button-background-color-muted: var(--themer-surface-active) !important;
+  --button-background-color-muted-hover: color-mix(in srgb, var(--themer-surface-active), var(--themer-text) 8%) !important;
+  --button-background-color-muted-active: var(--themer-row-hover) !important;
+  --button-background-color-muted-selected: var(--themer-row-hover) !important;
+  --button-text-color-muted: var(--themer-text) !important;
+  --button-text-color-muted-hover: var(--themer-text) !important;
+  --button-text-color-muted-active: var(--themer-text) !important;
+  --button-text-color-muted-selected: var(--themer-text) !important;
+  --button-border-color-muted: transparent !important;
+  --button-border-color-muted-hover: transparent !important;
+  --button-border-color-muted-active: transparent !important;
+  --button-border-color-muted-selected: transparent !important;
+  --button-border-radius: var(--themer-radius-xs) !important;
+  --button-font-weight: {{ fonts.ui-weight }} !important;
+  --button-font-size: calc(var(--themer-field-font-size) * var(--themer-ui-scale, 1)) !important;
+  /* The field is 32px and the pill 20px, 6px from the top and the bottom; the same from the left edge */
+  margin-inline-start: 2px !important;
+}
+
+/* The "Firefox" badge on Firefox's own pages (about:preferences and the like) is a pill like the search-mode one above:
+   the same fill, hover and open colors, the same 2px in from the field's edge, and the label in the text color. */
+#identity-box.chromeUI {
+  margin-inline-start: 2px !important;
+}
+
+#identity-box.chromeUI #identity-icon-box {
+  background-color: var(--themer-surface-active) !important;
+  color: var(--themer-text) !important;
+  border-radius: var(--themer-radius-xs) !important;
+}
+
+#identity-box.chromeUI #identity-icon-box:hover {
+  background-color: color-mix(in srgb, var(--themer-surface-active), var(--themer-text) 8%) !important;
+}
+
+#identity-box.chromeUI #identity-icon-box:is(:hover:active, [open]) {
+  background-color: var(--themer-row-hover) !important;
+}
+
+#identity-box.chromeUI #identity-icon-label {
+  color: var(--themer-text) !important;
+}
+
+panel-list {
+  font-family: var(--themer-font) !important;
+  font-size: calc(13px * var(--themer-ui-scale, 1)) !important;
+  font-weight: {{ fonts.ui-weight }} !important;
+  font-optical-sizing: none !important;
+  --button-background-color-menu-hover: var(--themer-accent-soft) !important;
+  --button-background-color-menu-active: var(--themer-surface-active) !important;
+  --button-text-color-menu-hover: var(--themer-text) !important;
+  --button-text-color-menu-active: var(--themer-text) !important;
+}
+
+/* panel-item defines its own tokens on :host, so they have to be set on the item, not inherited from the list. Rules on
+   ::part(button) from a user sheet do not match, so the 26px rows come from the padding, and the row of the keyboard
+   focus is highlighted on the item itself (the button is transparent, and has no margin so the item shows whole). */
+panel-item {
+  --panel-item-button-border-radius: var(--themer-radius-sm) !important;
+  --panel-item-button-padding: 4.5px 8px !important;
+  --panel-item-button-margin: 0 !important;
+  --focus-outline: none !important;
+  margin: 0 4px !important;
+  border-radius: var(--themer-radius-sm) !important;
+}
+
+panel-item:focus-within {
+  background-color: var(--themer-accent-soft) !important;
+  color: var(--themer-text) !important;
+}
+
+/* Search fields of the sidebars (moz-input-search, drawn in a shadow root) from the shared field values. Firefox rings
+   the focused input with a native 2px outline (outline-style: auto) outside its box, which rules from here cannot
+   reach inside the shadow root. The field itself has the same box, so it clips the ring away and draws the 1px
+   focus border instead. */
+moz-input-search {
+  --input-text-min-height: var(--themer-field-height) !important;
+  --input-text-border-radius: var(--themer-field-radius) !important;
+  --input-search-border-radius: var(--themer-field-radius) !important;
+  --input-text-border-color: var(--themer-field-border) !important;
+  --input-text-background-color: var(--themer-field-bg) !important;
+  border-radius: var(--themer-field-radius) !important;
+  overflow: clip !important;
+}
+
+moz-input-search:hover:not(:focus-within) {
+  --input-text-border-color: var(--themer-field-border-hover) !important;
+}
+
+moz-input-search:focus-within {
+  outline: var(--themer-field-focus-width) solid var(--themer-field-border-focus) !important;
+  outline-offset: calc(-1 * var(--themer-field-focus-width)) !important;
 }
 
 #urlbar-input::placeholder, .searchbar-textbox::placeholder {
@@ -408,27 +527,60 @@
   fill: var(--themer-text-subtle) !important;
 }
 
+/* The "connection secure" icon is the color of the other icons in the field (the bookmark star's), not green */
 #identity-box[pageproxystate="valid"]:is(.verifiedDomain, .verifiedIdentity) #identity-icon,
 #trust-icon-container.secure #trust-icon {
-  fill: var(--themer-success) !important;
-  color: var(--themer-success) !important;
+  fill: var(--themer-text-subtle) !important;
+  color: var(--themer-text-subtle) !important;
+}
+
+/* The icon sits 8px from the top and bottom of the 32px field; the same from the left edge (it was 6px) */
+#trust-icon-container {
+  margin-inline-start: 2px !important;
 }
 
 #urlbar-input-container .urlbar-input-box .urlbar-input + * {
   color: var(--themer-text-subtle);
 }
 
-/* Address bar dropdown: a raised menu-like panel under the field, rows hover to surface-hover, selection accent-soft */
+/* Address bar dropdown: a raised menu-like panel under the field, rows hover to surface-hover, selection accent-soft.
+   Firefox paints the field and the list as one surface (the field's own background above, the view's below); both take
+   the focus color for their border, so the ring runs unbroken from the field down around the list. The field's own
+   outline, which would curve back in at its bottom corners, is switched off while the list is open. */
+#urlbar {
+  --urlbar-background-border-open: var(--themer-field-focus-width) solid var(--themer-field-border-focus) !important;
+  --urlbar-background-border-radius: var(--themer-radius-md) !important;
+}
+
 #urlbar[open] > #urlbar-background {
   background-color: var(--themer-surface-raised) !important;
-  border-color: var(--themer-line-strong) !important;
+  border-color: var(--themer-field-border-focus) !important;
   outline: none !important;
-  border-radius: var(--themer-radius-md) !important;
+  border-start-start-radius: var(--themer-field-radius) !important;
+  border-start-end-radius: var(--themer-field-radius) !important;
+  border-end-start-radius: 0 !important;
+  border-end-end-radius: 0 !important;
   box-shadow: var(--themer-shadow-md) !important;
 }
 
-#urlbar[open] > .urlbar-input-container {
-  border-bottom: 1px solid var(--themer-line);
+#urlbar[popover-open] > .urlbar-input-container {
+  outline: none !important;
+}
+
+/* Firefox insets the list's half of the surface by 1px on each side (the view's margin is -1px), so its border would sit
+   inside the field's; it reaches exactly as far as the field. */
+.urlbarView-background {
+  inset-inline: 0 !important;
+}
+
+/* The line between the field and its results belongs to the results, and stops short of the ring on both sides. A
+   border on the field would make it 1px taller and move its text up when the dropdown opens. */
+.urlbarView::before {
+  content: "";
+  position: absolute;
+  inset: 0 4px auto;
+  height: 1px;
+  background-color: var(--themer-line);
 }
 
 .urlbarView {
@@ -512,7 +664,6 @@
 #PersonalToolbar {
   background-color: var(--themer-bg) !important;
   border: none !important;
-  border-bottom: 1px solid var(--themer-line) !important;
   box-shadow: none !important;
   padding: 0 10px 6px !important;
   min-height: 0 !important;
@@ -617,6 +768,43 @@ panelview .toolbarbutton-1, .subviewbutton {
   background-color: var(--themer-accent-soft) !important;
 }
 
+/* ---- Sidebar lists ------------------------------------------------------------------------------------------------ */
+
+/* History, synced tabs and open tabs: the rows read their radius and hover colors from tokens that sidebar-tab-list
+   passes down into its shadow root (its rows are rounded all the way by default) */
+sidebar-tab-list {
+  --border-radius-circle: var(--themer-row-radius) !important;
+  --button-background-color-ghost-hover: var(--themer-row-hover) !important;
+  --button-background-color-ghost-active: var(--themer-row-active) !important;
+  --button-text-color-ghost-hover: var(--themer-text) !important;
+  --button-text-color-ghost-active: var(--themer-text) !important;
+}
+
+/* The bookmarks sidebar (a tree in its own document) lays out its title, search field and first row where the history
+   sidebar (the same panel built from custom elements) has them, so switching between the two moves nothing. History is
+   the reference: title 13px from the edge and 10px down, field 6.7px below the header at the same inset, rows after. */
+#sidebar-panel-header > h4 {
+  margin-block: calc(var(--space-large) * 0.75) !important;
+}
+
+#sidebar-search-container {
+  padding: calc(var(--space-large) / 2) var(--space-large) var(--space-large) !important;
+}
+
+/* First row 5px lower, and its text 7px further from the icon, like the history rows */
+#bookmarks-view {
+  margin-top: 5px !important;
+}
+
+.sidebar-placesTreechildren::-moz-tree-image {
+  margin-inline-end: 7px !important;
+}
+
+/* Bookmarks (a tree): hovered rows like the hovered menu items */
+treechildren::-moz-tree-row(hover) {
+  background-color: var(--themer-row-hover) !important;
+}
+
 /* ---- Find bar, sidebar, content edge ------------------------------------------------------------------------------ */
 
 findbar {
@@ -628,10 +816,12 @@ findbar {
   background-color: var(--themer-bg-sunken) !important;
 }
 
-#sidebar-splitter {
-  border-color: var(--themer-line) !important;
-  background-color: var(--themer-line) !important;
-  width: 1px !important;
+/* No line in the middle between the sidebar and the page: the splitter is invisible but keeps its width, so it still
+   resizes the sidebar. The borders Firefox draws on either side of it stay, each continuing down from its rounded
+   corner. */
+#sidebar-splitter, #sidebar-splitter:hover {
+  border-color: transparent !important;
+  background-color: transparent !important;
 }
 
 #tabbrowser-tabbox, #tabbrowser-tabpanels {
@@ -643,4 +833,48 @@ findbar {
 /* A bookmark whose name starts with * shows just its icon: rename it to "*GitHub". The name still works in search. */
 #PlacesToolbarItems > .bookmark-item[label^="*"] > .toolbarbutton-text {
   display: none !important;
+}
+
+/* ---- Bookmark folder icons on the toolbar ------------------------------------------------------------------------- */
+
+/* Like the folder icon of a highlighted item in the folder's own menu: accent while hovered or open */
+#PersonalToolbar toolbarbutton.bookmark-item[container]:is(:hover, [open]) .toolbarbutton-icon {
+  fill: var(--themer-accent) !important;
+}
+
+/* ---- Library and bookmark properties ------------------------------------------------------------------------------ */
+
+/* The Library window and the "Edit Bookmark" dialog (the same editor as the star panel) in the theme's font */
+#places, #bookmarkpropertiesdialog {
+  font-family: var(--themer-font) !important;
+  font-size: calc(13px * var(--themer-ui-scale, 1)) !important;
+  font-weight: {{ fonts.ui-weight }} !important;
+  font-optical-sizing: none !important;
+}
+
+/* The fields of the editor (Name, Location, Tags, Keyword) are the address bar's kind: shared height, radius and
+   1px border, stronger on hover, the focus color when typing (the border is the focus ring, so no outline). */
+#editBookmarkPanelContent input[type="text"] {
+  box-sizing: border-box !important;
+  min-height: var(--themer-field-height) !important;
+  padding-block: 0 !important;
+  border: 1px solid var(--themer-field-border) !important;
+  border-radius: var(--themer-field-radius) !important;
+  background-color: var(--themer-field-bg) !important;
+  color: var(--themer-text) !important;
+  font-size: calc(var(--themer-field-font-size) * var(--themer-ui-scale, 1)) !important;
+  outline: none !important;
+}
+
+#editBookmarkPanelContent input[type="text"]:hover:not(:focus) {
+  border-color: var(--themer-field-border-hover) !important;
+}
+
+#editBookmarkPanelContent input[type="text"]:focus {
+  border-color: var(--themer-field-border-focus) !important;
+}
+
+/* No dotted outline on the current row of a tree (Library, sidebar); the selection color already marks it */
+treechildren::-moz-tree-row(current, focus), treechildren::-moz-tree-row(selected, current, focus) {
+  outline: none !important;
 }

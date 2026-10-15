@@ -3,8 +3,8 @@
   "ui-scale": {{ firefox.ui-scale }},
   "prefs": {
     "font.default.x-western": "sans-serif",
-    "font.name.sans-serif.x-western": "SF Pro Display",
-    "font.name.serif.x-western": "SF Pro Display",
+    "font.name.sans-serif.x-western": "{{ fonts.sans }}",
+    "font.name.serif.x-western": "{{ fonts.sans }}",
     "font.name.monospace.x-western": "{{ fonts.mono }}",
     "font.minimum-size.x-western": 14
   }
