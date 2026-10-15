@@ -31,8 +31,6 @@
     "overflowColor": "#d1deeb",
     "iconSize": 18,
     "iconSpacing": 5,
-    "iconOpacity": 0.8,
-    "activeIconOpacity": 1,
     "highlightFocused": true,
     "pill": {
       "paddingX": 7,
