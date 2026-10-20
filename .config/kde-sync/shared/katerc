@@ -241,7 +241,7 @@ sortRole=0
 viewShade=81,49,95
 
 [lspclient]
-AllowedServerCommandLines=
+AllowedServerCommandLines=/usr/local/bin/marksman server
 AutoHover=true
 AutoImport=true
 BlockedServerCommandLines=
