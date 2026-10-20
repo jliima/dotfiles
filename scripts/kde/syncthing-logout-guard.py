@@ -19,9 +19,10 @@
 #      (completion 100 %), shown per folder with scan and upload progress
 #
 # When all folders are done the window closes and the logout continues. If the
-# server is offline, or a device stops taking data without catching up, the
-# window counts down and then continues anyway. The buttons skip the wait or
-# cancel the logout.
+# server is offline, a device stops taking data without catching up, or files
+# could not be read (a running VM's disk changes while it is hashed), the window
+# counts down and then continues anyway. The buttons skip the wait or cancel the
+# logout.
 #
 # Only logouts that go through ksmserver are held (the Plasma menu, the logout
 # screen, the power button). "systemctl poweroff" in a terminal is not.
@@ -137,7 +138,7 @@ class FolderRow:
   scanned: bool = False
   scan_error: str = ""
   scan_pct: float | None = None
-  state: str = "pending"  # pending, scanning, sending, done, skipped, offline, stalled, error
+  state: str = "pending"  # pending, scanning, sending, done, skipped, offline, stalled, partial, error
   detail: str = "Waiting"
   progress: float = 0.0
   stable: int = 0
@@ -263,6 +264,8 @@ class Syncer:
                "progress": (scan_pct or 0) * 0.5}
       else:
         upd = self._peer_state(fid, peers, conns, in_grace)
+        if upd["state"] == "done" and status.get("pullErrors"):
+          upd = self._file_errors(fid, status["pullErrors"])
       with self.lock:
         for r in self.snap.rows:
           if r.id != fid:
@@ -277,6 +280,13 @@ class Syncer:
             log.info("%s: %s (%s)", r.label, upd["state"], upd["detail"])
           for k, v in upd.items():
             setattr(r, k, v)
+
+  def _file_errors(self, fid: str, count: int) -> dict:
+    # Files that failed to hash (a running VM's disk) keep their old version in the index, so the devices look
+    # complete while the file on disk is newer.
+    errors = (self.st.call("/rest/folder/errors", folder=fid) or {}).get("errors") or []
+    first = f": {Path(errors[0]['path']).name} ({errors[0]['error']})" if errors else ""
+    return {"state": "partial", "detail": f"{count} file(s) not sent{first}", "progress": 100}
 
   def _peer_state(self, fid: str, peers: list[str], conns: dict, in_grace: bool) -> dict:
     online = [p for p in peers if conns.get(p, {}).get("connected")]
@@ -350,9 +360,9 @@ def kde_colors(palette: QPalette) -> dict[str, QColor]:
 
 
 GLYPHS = {"pending": "·", "scanning": "⟳", "sending": "↑", "done": "✓", "skipped": "–", "offline": "!",
-          "stalled": "!", "error": "✗"}
+          "stalled": "!", "partial": "!", "error": "✗"}
 ROLE = {"pending": "inactive", "scanning": "active", "sending": "active", "done": "positive", "skipped": "inactive",
-        "offline": "neutral", "stalled": "neutral", "error": "negative"}
+        "offline": "neutral", "stalled": "neutral", "partial": "neutral", "error": "negative"}
 
 
 class SyncWindow(QWidget):
@@ -451,13 +461,13 @@ class SyncWindow(QWidget):
       glyph.setText(GLYPHS[r.state])
       glyph.setStyleSheet(f"color: {color}; font-weight: bold;")
       detail.setText(r.detail)
-      detail.setStyleSheet(f"color: {color};" if r.state in ("offline", "stalled", "error") else "")
+      detail.setStyleSheet(f"color: {color};" if r.state in ("offline", "stalled", "partial", "error") else "")
       dim = r.state in ("done", "skipped")
       name.setStyleSheet(f"color: {self.colors['inactive'].name()};" if dim else "")
     total = len(snap.rows) or 1
     self.bar.setValue(int(10 * sum(r.progress for r in snap.rows) / total))
     busy = [r for r in snap.rows if r.state in ("pending", "scanning", "sending")]
-    problems = [r for r in snap.rows if r.state in ("offline", "stalled", "error")]
+    problems = [r for r in snap.rows if r.state in ("offline", "stalled", "partial", "error")]
     if busy:
       self.deadline = None
       self.subtitle.setText(f"Waiting for {len(busy)} of {total} folders. "
