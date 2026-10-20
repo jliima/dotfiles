@@ -483,6 +483,14 @@ def sync_file(name, cfg, dry_run):
       apply[k] = D
       print_warn(f"{name} [{k[0]}] {k[1]}: {show(L)} here, {show(D)} in the dotfiles; the dotfiles win")
 
+  # An apply the app refused (a shortcut whose keys are taken) is not retried until either side changes: the attempt
+  # itself rewrites kglobalshortcutsrc, which kde-sync.path watches, so retrying would trigger kde-sync forever.
+  refused = load_state(f"{name}.refused")
+  skipped = {k for k, v in apply.items() if refused.get(k) == [v, live.get(k)]}
+  for group, key in sorted(skipped):
+    print_info(f"{name} [{group}] {key}: refused before, retried when it changes")
+  apply = {k: v for k, v in apply.items() if k not in skipped}
+
   for (group, key), value in record.items():
     where = "hosts/" + HOST if (group, key) in host else "shared"
     print_info(f"{name} [{group}] {key} = {show(value)}  -> dotfiles ({where})")
@@ -501,9 +509,11 @@ def sync_file(name, cfg, dry_run):
   if record:
     write_fragment(shared_path, shared)
     write_fragment(host_path, host)
-  if apply:
-    for k in handler.apply(apply):
-      new_base[k] = apply[k]
+  done = handler.apply(apply) if apply else set()
+  for k in done:
+    new_base[k] = apply[k]
+  save_state(f"{name}.refused", {k: v for k, v in refused.items() if k in skipped}
+             | {k: [v, live.get(k)] for k, v in apply.items() if k not in done})
   save_state(name, {k: v for k, v in new_base.items() if v is not None})
   return bool(record or apply)
 
