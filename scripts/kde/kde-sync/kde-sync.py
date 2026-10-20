@@ -330,6 +330,9 @@ class ShortcutsHandler:
         continue
       if key.startswith("_k_"):
         continue
+      if group.startswith(self.SERVICES) and not self._desktop_file_exists(self._component(group)):
+        # kglobalaccel keeps the group of a .desktop file that is gone but ignores it: not on this machine.
+        continue
       self.entries.add((group, key))
       fields = split_unescaped(value, ",")
       active = fields[0] or "none"

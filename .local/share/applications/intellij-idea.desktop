@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=IntelliJ IDEA
+Comment=The IDE for pro Java and Kotlin development
+TryExec=/home/hieroja/.local/share/JetBrains/Toolbox/apps/intellij-idea-ultimate/bin/idea
+Exec="/home/hieroja/.local/share/JetBrains/Toolbox/apps/intellij-idea-ultimate/bin/idea" %u
+Icon=/home/hieroja/.local/share/JetBrains/Toolbox/apps/intellij-idea-ultimate/bin/idea.svg
+Categories=Development;IDE;
+Terminal=false
+StartupWMClass=jetbrains-idea
+StartupNotify=true
+X-Dotfiles-Replaces=jetbrains-idea-*.desktop;

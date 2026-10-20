@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 # After a pull: link new files into ~ and let kde-sync apply what changed (katerc, shortcuts, panels).
+# Desktop entries that apps wrote over their links, or that a stowed entry stands in for, are moved out of the way
+# first (scripts/kde/desktop-entries), so stow does not stop on them.
 # Enabled with `git config core.hooksPath .githooks` in this clone.
 repo="$(git rev-parse --show-toplevel)"
-stow --dir="$repo" --target="$HOME" . || echo "post-merge: stow reported conflicts, run it by hand" >&2
+"$repo/scripts/kde/desktop-entries/desktop-entries.py" || echo "post-merge: desktop-entries.py failed" >&2
+stow --no-folding --dir="$repo" --target="$HOME" . || echo "post-merge: stow reported conflicts, run it by hand" >&2
+update-desktop-database -q "$HOME/.local/share/applications" 2>/dev/null || true
+kbuildsycoca6 >/dev/null 2>&1 || true
 systemctl --user start --no-block kde-sync.service 2>/dev/null || true

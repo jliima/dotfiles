@@ -77,17 +77,14 @@ new-window-default-profile=Meta+Shift+F
 [services][github-copilot.desktop]
 _launch=Ctrl+Alt+Space
 
+[services][intellij-idea.desktop]
+_launch=Meta+A
+
 [services][jellyfin-couch-mode-exit.sh.desktop]
 _launch=Home Page
 
 [services][jellyfin-couch-mode-initiate.sh.desktop]
 _launch=Tools
-
-[services][jetbrains-idea-0c0706a7-ff76-4f56-8d07-4577f186a1ea.desktop]
-_launch=Meta+A
-
-[services][jetbrains-idea-ed171af8-af00-44b8-9b0c-54d54c8cef16.desktop]
-_launch=Meta+A
 
 [services][kate-toggle.desktop]
 _launch=Meta+E
