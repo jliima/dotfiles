@@ -20,6 +20,9 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 # that the user does not modify files before they are synced.
 if command -v syncthing >/dev/null 2>&1; then
   syncthing --no-browser &
+  # Holds logout/shutdown/reboot until Syncthing has sent every folder. Started from the
+  # session so it inherits SESSION_MANAGER (it is an XSMP client of ksmserver).
+  "$SCRIPT_DIR/kde/syncthing-logout-guard.py" >/dev/null 2>&1 &
 fi
 
 #if command -v telegram-desktop >/dev/null 2>&1; then
