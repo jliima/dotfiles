@@ -5,10 +5,10 @@
 screen than the pointer; a window on the pointer's screen is just focused.
 
 konsole:
-  If a window on the current virtual desktop (and activity) has a tab that
-  is not running Claude Code, the topmost such window is focused and moved
-  under the mouse. Otherwise (no window, or only Claude Code ones) a new
-  window is launched.
+  If a window on the current virtual desktop (and activity) has a visible
+  tab that is idle (no command running, not an ssh session or Claude Code),
+  the topmost such window is focused and moved under the mouse. Otherwise
+  (no window, or only busy ones) a new window is launched.
 
 kate:
   Reuses an "Untitled" tab before making anything new. Windows on the
@@ -73,7 +73,6 @@ KEEPASSXC_CMD = [
     "--command=keepassxc",
     "org.keepassxc.KeePassXC",
 ]
-CLAUDE_COMMANDS = ("claude",)
 # How long Kate gets to change its window title after a tab switch, and how many tabs are looked at per window.
 KATE_TAB_WAIT_S = 0.5
 KATE_MAX_TABS = 200
@@ -258,36 +257,24 @@ def konsole_window_path(bus: dbus.SessionBus, service: str, caption: str) -> tup
     return None, None
 
 
-def is_claude(pid: int) -> bool:
-    """Returns whether the process is Claude Code, from its command line and name."""
-    try:
-        with open(f"/proc/{pid}/cmdline", "rb") as f:
-            argv = [a.decode(errors="replace") for a in f.read().split(b"\0") if a]
-        with open(f"/proc/{pid}/comm", encoding="utf-8") as f:
-            comm = f.read().strip()
-    except OSError:
-        return False
-    names = [comm] + [os.path.basename(a) for a in argv[:2]]
-    return any(n in CLAUDE_COMMANDS for n in names)
-
-
 def konsole() -> None:
-    """Focuses the topmost Konsole window that is not running Claude Code, else launches a new one."""
+    """Focuses the topmost Konsole window whose visible tab is idle, else launches a new one."""
     bus = dbus.SessionBus()
     windows = kwin_windows.list_windows(r"^org\.konsole$|^org\.kde\.konsole$", here_only=True)
-    # Topmost Konsole window on this desktop whose visible tab is not running Claude Code.
+    # Topmost Konsole window on this desktop whose visible tab is idle: the shell itself is in the foreground, so no
+    # command (Claude Code, ssh, ...) is running in it.
     for w in sorted(windows, key=lambda w: w["stackIndex"], reverse=True):
         service = f"org.kde.konsole-{w['pid']}"
         try:
             path, session = konsole_window_path(bus, service, w["caption"])
             if path is None:
                 continue
-            fg = bus.get_object(service, f"/Sessions/{session}").foregroundProcessId(
-                dbus_interface="org.kde.konsole.Session"
-            )
+            obj = bus.get_object(service, f"/Sessions/{session}")
+            shell = obj.processId(dbus_interface="org.kde.konsole.Session")
+            fg = obj.foregroundProcessId(dbus_interface="org.kde.konsole.Session")
         except dbus.DBusException:
             continue
-        if not is_claude(fg):
+        if fg == shell:
             kwin_windows.activate(w["id"], to_cursor=True)
             return
     launch(["konsole"])
