@@ -12,7 +12,6 @@ CYAN='\033[1;36m'
 NC='\033[0m' # No Color
 BOLD='\033[1m'
 
-
 # Function to print section headers
 print_header() {
   echo -e "${BOLD}${MAGENTA}>>> $1${NC}"
@@ -36,7 +35,7 @@ print_info() {
 # Update APT packages
 echo ""
 print_header "Updating APT packages"
-if command -v apt &> /dev/null; then
+if command -v apt &>/dev/null; then
   print_info "sudo apt update && sudo apt upgrade -y"
   if sudo apt update && sudo apt upgrade -y; then
     print_success "sudo apt update && sudo apt upgrade -y"
@@ -50,7 +49,7 @@ fi
 # Update Flatpak packages
 echo ""
 print_header "Updating Flatpak packages"
-if command -v flatpak &> /dev/null; then
+if command -v flatpak &>/dev/null; then
   print_info "flatpak update -y"
   if flatpak update -y; then
     print_success "flatpak update -y"
@@ -64,11 +63,11 @@ fi
 # Update KDE Plasma plugins/widgets
 echo ""
 print_header "Updating KDE Plasma plugins"
-if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$DESKTOP_SESSION" = "plasma" ] || command -v plasmashell &> /dev/null; then
+if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$DESKTOP_SESSION" = "plasma" ] || command -v plasmashell &>/dev/null; then
   # Try kpackagetool6 first (for Plasma 6), then kpackagetool5 (for Plasma 5)
-  if command -v kpackagetool6 &> /dev/null; then
+  if command -v kpackagetool6 &>/dev/null; then
     KPACKAGE_CMD="kpackagetool6"
-  elif command -v kpackagetool5 &> /dev/null; then
+  elif command -v kpackagetool5 &>/dev/null; then
     KPACKAGE_CMD="kpackagetool5"
   else
     print_info "No KDE package tool found, skipping..."

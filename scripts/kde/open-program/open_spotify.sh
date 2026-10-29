@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # ------------------------------------------------------------------------------
 # Name:        open_spotify.sh
 # Description: Open Spotify, repairing the Spicetify patch and the GPU sandbox crash first when needed.
@@ -35,7 +35,7 @@ LOG_FILE="$CACHE_DIR/spotify.log"
 GPU_FLAG="--disable-gpu-sandbox"
 GPU_MARKER="$CACHE_DIR/gpu-sandbox-broken-$(uname -r)"
 GPU_CRASH_TEXT="GPU process isn't usable"
-STARTUP_WAIT=8   # seconds to watch the first launch for the GPU crash
+STARTUP_WAIT=8 # seconds to watch the first launch for the GPU crash
 
 # ==== Colors ====
 RED='\033[1;31m'
@@ -47,11 +47,11 @@ BOLD='\033[1m'
 NC='\033[0m'
 
 # ==== Output helpers ====
-print_header()  { echo -e "${BOLD}${MAGENTA}>>> $1${NC}"; }
+print_header() { echo -e "${BOLD}${MAGENTA}>>> $1${NC}"; }
 print_success() { echo -e "${GREEN}✓ $1${NC}"; }
-print_error()   { echo -e "${RED}✗ $1${NC}"; }
-print_info()    { echo -e "${BLUE}> $1${NC}"; }
-print_warn()    { echo -e "${YELLOW}! $1${NC}"; }
+print_error() { echo -e "${RED}✗ $1${NC}"; }
+print_info() { echo -e "${BLUE}> $1${NC}"; }
+print_warn() { echo -e "${YELLOW}! $1${NC}"; }
 
 # ==== Functions ====
 usage() {
@@ -81,11 +81,14 @@ backup_version() {
 
 spotify_pristine() { [ -e "$SPOTIFY_APPS/xpui.spa" ]; }
 spotify_writable() { [ -w "$SPOTIFY_DIR" ] && [ -w "$SPOTIFY_APPS" ]; }
-theme_deployed()   { cmp -s "$THEME_CSS" "$SPOTIFY_APPS/xpui/user.css"; }
+theme_deployed() { cmp -s "$THEME_CSS" "$SPOTIFY_APPS/xpui/user.css"; }
 
 # Sets the need_* flags
 plan_repair() {
-  need_reinstall=0; need_backup=0; need_apply=0; need_chmod=0
+  need_reinstall=0
+  need_backup=0
+  need_apply=0
+  need_chmod=0
   if ! spotify_writable; then
     need_chmod=1
   fi
@@ -110,24 +113,27 @@ plan_repair() {
 
 print_plan() {
   print_info "Spotify $(installed_version), Spicetify backup for '$(backup_version)'"
-  [ "$need_chmod" = 1 ]     && print_warn "$SPOTIFY_DIR is not writable: chmod needed"
+  [ "$need_chmod" = 1 ] && print_warn "$SPOTIFY_DIR is not writable: chmod needed"
   [ "$need_reinstall" = 1 ] && print_warn "Patched files without a matching backup: reinstall needed"
-  [ "$need_backup" = 1 ]    && print_warn "Spicetify backup needed"
-  [ "$need_apply" = 1 ]     && print_warn "Theme is not deployed: spicetify apply needed"
+  [ "$need_backup" = 1 ] && print_warn "Spicetify backup needed"
+  [ "$need_apply" = 1 ] && print_warn "Theme is not deployed: spicetify apply needed"
   return 0
 }
 
 # The release upgrade leaves third-party sources as "Enabled: no", and the inline key of the old source file is
 # outdated (Spotify rotated to 5384CE82BA52C83A). The installed package ships the current key.
 spotify_source_ok() {
-  grep -qx "Signed-By: $SPOTIFY_APT_KEY" "$SPOTIFY_APT_SOURCE" 2>/dev/null &&
-    ! grep -qi '^Enabled: *no' "$SPOTIFY_APT_SOURCE"
+  grep -qx "Signed-By: $SPOTIFY_APT_KEY" "$SPOTIFY_APT_SOURCE" 2>/dev/null \
+    && ! grep -qi '^Enabled: *no' "$SPOTIFY_APT_SOURCE"
 }
 
 setup_spotify_source() {
   local key
   key=$(ls -t "$SPOTIFY_DIR"/apt-keys/*.gpg 2>/dev/null | head -1)
-  [ -n "$key" ] || { print_error "No signing key in $SPOTIFY_DIR/apt-keys"; return 1; }
+  [ -n "$key" ] || {
+    print_error "No signing key in $SPOTIFY_DIR/apt-keys"
+    return 1
+  }
   sudo install -D -m 644 "$key" "$SPOTIFY_APT_KEY" || return 1
   sudo cp -n "$SPOTIFY_APT_SOURCE" "$SPOTIFY_APT_SOURCE.old" 2>/dev/null || true
   printf 'Types: deb\nURIs: https://repository.spotify.com\nSuites: stable\nComponents: non-free\nSigned-By: %s\nEnabled: yes\n' \
@@ -154,7 +160,10 @@ repair() {
     if ! spotify_index_present; then
       print_info "Fetching the Spotify package index"
       sudo apt-get update || return 1
-      spotify_index_present || { print_error "apt update did not fetch the Spotify index"; return 1; }
+      spotify_index_present || {
+        print_error "apt update did not fetch the Spotify index"
+        return 1
+      }
     fi
     print_header "Reinstalling Spotify"
     sudo apt-get install --reinstall -y spotify-client || return 1
@@ -167,7 +176,10 @@ repair() {
 
   if [ "$need_reinstall" = 1 ]; then
     # Drop the old patched copy so the pristine xpui.spa is the only source (the reinstall restored it)
-    spotify_pristine || { print_error "Reinstall left no xpui.spa"; return 1; }
+    spotify_pristine || {
+      print_error "Reinstall left no xpui.spa"
+      return 1
+    }
     rm -rf "$SPOTIFY_APPS/xpui"
   fi
 
@@ -220,9 +232,18 @@ check_only=0
 force_repair=0
 while [ $# -gt 0 ]; do
   case "$1" in
-    -h|--help) usage; exit 0 ;;
-    --check)   check_only=1; shift ;;
-    --repair)  force_repair=1; shift ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    --check)
+      check_only=1
+      shift
+      ;;
+    --repair)
+      force_repair=1
+      shift
+      ;;
     *) break ;;
   esac
 done

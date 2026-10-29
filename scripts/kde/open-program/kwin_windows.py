@@ -19,9 +19,10 @@ import tempfile
 import uuid
 
 import dbus
-import dbus.service
 from dbus.mainloop.glib import DBusGMainLoop
+import dbus.service
 from gi.repository import GLib
+
 
 # Must be set before any session bus connection is made, including ones made by importers.
 DBusGMainLoop(set_as_default=True)
@@ -84,79 +85,82 @@ callDBus("%(bus)s", "%(path)s", "%(iface)s", "result", JSON.stringify(ok));
 
 
 class _Receiver(dbus.service.Object):
-  def __init__(self, bus, loop):
-    super().__init__(bus, RECEIVER_PATH)
-    self.loop = loop
-    self.payload = None
+    def __init__(self, bus, loop):
+        super().__init__(bus, RECEIVER_PATH)
+        self.loop = loop
+        self.payload = None
 
-  @dbus.service.method(RECEIVER_IFACE, in_signature="s", out_signature="")
-  def result(self, payload):
-    self.payload = str(payload)
-    self.loop.quit()
+    @dbus.service.method(RECEIVER_IFACE, in_signature="s", out_signature="")
+    def result(self, payload):
+        self.payload = str(payload)
+        self.loop.quit()
 
 
 def _run_script(template, **params):
-  """Runs a KWin script built from template and returns the JSON it reports back."""
-  bus = dbus.SessionBus()
-  loop = GLib.MainLoop()
-  receiver = _Receiver(bus, loop)
-  source = template % dict(params, bus=bus.get_unique_name(), path=RECEIVER_PATH, iface=RECEIVER_IFACE)
+    """Runs a KWin script built from template and returns the JSON it reports back."""
+    bus = dbus.SessionBus()
+    loop = GLib.MainLoop()
+    receiver = _Receiver(bus, loop)
+    source = template % dict(params, bus=bus.get_unique_name(), path=RECEIVER_PATH, iface=RECEIVER_IFACE)
 
-  plugin = f"dotfiles-kwin-windows-{uuid.uuid4().hex}"
-  scripting = dbus.Interface(bus.get_object("org.kde.KWin", "/Scripting"), "org.kde.kwin.Scripting")
-  with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False) as f:
-    f.write(source)
-    script_file = f.name
-  try:
-    script_id = scripting.loadScript(script_file, plugin, signature="ss")
-    script = dbus.Interface(bus.get_object("org.kde.KWin", f"/Scripting/Script{script_id}"), "org.kde.kwin.Script")
-    GLib.timeout_add(TIMEOUT_MS, loop.quit)
-    script.run()
-    loop.run()
-  finally:
-    scripting.unloadScript(plugin)
-    os.unlink(script_file)
-    receiver.remove_from_connection()
+    plugin = f"dotfiles-kwin-windows-{uuid.uuid4().hex}"
+    scripting = dbus.Interface(bus.get_object("org.kde.KWin", "/Scripting"), "org.kde.kwin.Scripting")
+    with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False) as f:
+        f.write(source)
+        script_file = f.name
+    try:
+        script_id = scripting.loadScript(script_file, plugin, signature="ss")
+        script = dbus.Interface(bus.get_object("org.kde.KWin", f"/Scripting/Script{script_id}"), "org.kde.kwin.Script")
+        GLib.timeout_add(TIMEOUT_MS, loop.quit)
+        script.run()
+        loop.run()
+    finally:
+        scripting.unloadScript(plugin)
+        os.unlink(script_file)
+        receiver.remove_from_connection()
 
-  if receiver.payload is None:
-    raise TimeoutError("KWin script did not report back")
-  return json.loads(receiver.payload)
+    if receiver.payload is None:
+        raise TimeoutError("KWin script did not report back")
+    return json.loads(receiver.payload)
 
 
 def list_windows(class_regex=None, here_only=False):
-  """Returns normal windows, optionally filtered by resourceClass regex and current desktop."""
-  windows = _run_script(LIST_JS)
-  if class_regex:
-    pattern = re.compile(class_regex)
-    windows = [w for w in windows if pattern.search(w["resourceClass"]) or pattern.search(w["desktopFile"])]
-  if here_only:
-    windows = [w for w in windows if w["here"]]
-  return windows
+    """Returns normal windows, optionally filtered by resourceClass regex and current desktop."""
+    windows = _run_script(LIST_JS)
+    if class_regex:
+        pattern = re.compile(class_regex)
+        windows = [w for w in windows if pattern.search(w["resourceClass"]) or pattern.search(w["desktopFile"])]
+    if here_only:
+        windows = [w for w in windows if w["here"]]
+    return windows
 
 
 def activate(window_id, move_here=False, to_cursor=False):
-  """Focuses the window, first moving it to the current desktop (move_here) and/or under the mouse (to_cursor, only if it is on another screen)."""
-  return _run_script(ACTIVATE_JS, id=window_id, move="true" if move_here else "false",
-                     cursor="true" if to_cursor else "false")
+    """Focuses the window, first moving it to the current desktop (move_here) and/or under the mouse (to_cursor, only if it is on another screen)."""
+    return _run_script(
+        ACTIVATE_JS, id=window_id, move="true" if move_here else "false", cursor="true" if to_cursor else "false"
+    )
 
 
 def main():
-  parser = argparse.ArgumentParser(description="List and activate KWin windows.")
-  sub = parser.add_subparsers(dest="command", required=True)
-  p_list = sub.add_parser("list", help="print matching windows as JSON")
-  p_list.add_argument("class_regex", nargs="?")
-  p_list.add_argument("--here", action="store_true", help="only windows on the current desktop and activity")
-  p_act = sub.add_parser("activate", help="focus a window by id")
-  p_act.add_argument("window_id")
-  p_act.add_argument("--move-here", action="store_true", help="move it to the current desktop first")
-  p_act.add_argument("--to-cursor", action="store_true", help="move it under the mouse pointer first, if it is on another screen")
-  args = parser.parse_args()
+    parser = argparse.ArgumentParser(description="List and activate KWin windows.")
+    sub = parser.add_subparsers(dest="command", required=True)
+    p_list = sub.add_parser("list", help="print matching windows as JSON")
+    p_list.add_argument("class_regex", nargs="?")
+    p_list.add_argument("--here", action="store_true", help="only windows on the current desktop and activity")
+    p_act = sub.add_parser("activate", help="focus a window by id")
+    p_act.add_argument("window_id")
+    p_act.add_argument("--move-here", action="store_true", help="move it to the current desktop first")
+    p_act.add_argument(
+        "--to-cursor", action="store_true", help="move it under the mouse pointer first, if it is on another screen"
+    )
+    args = parser.parse_args()
 
-  if args.command == "list":
-    print(json.dumps(list_windows(args.class_regex, args.here), indent=2, ensure_ascii=False))
-  else:
-    print(json.dumps(activate(args.window_id, args.move_here, args.to_cursor)))
+    if args.command == "list":
+        print(json.dumps(list_windows(args.class_regex, args.here), indent=2, ensure_ascii=False))
+    else:
+        print(json.dumps(activate(args.window_id, args.move_here, args.to_cursor)))
 
 
 if __name__ == "__main__":
-  main()
+    main()

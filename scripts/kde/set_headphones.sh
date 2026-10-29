@@ -1,3 +1,3 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 pactl set-default-sink "$(pactl list short sinks | awk '{print $2}' | grep 'FiiO')"

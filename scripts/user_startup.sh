@@ -1,9 +1,9 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # This script should continue on errors
 # set -e
 set -u
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
 #if command -v kwallet-query &> /dev/null; then
 #  kwallet-query -l kdewallet > /dev/null
@@ -14,7 +14,6 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 #if [ -f "${SETUP_AGENT}" ]; then
 #  "${SETUP_AGENT}" private-scripts
 #fi
-
 
 # Syncthing and cloud services should be started as early as possible to ensure
 # that the user does not modify files before they are synced.

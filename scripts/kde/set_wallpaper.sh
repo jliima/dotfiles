@@ -1,9 +1,9 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # This script should continue on errors
 # set -e
 set -u
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
 
 "$SCRIPT_DIR/set_wallpaper_for_activity.py" 'Default' "$SCRIPT_DIR/../../wallpapers/wallhaven-3lyzyv_pare.jpg"

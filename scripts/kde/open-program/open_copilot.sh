@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # ------------------------------------------------------------------------------
 # Name:        open_copilot.sh
 # Description: Open GitHub Copilot CLI in Konsole.
@@ -20,7 +20,7 @@ COPILOT_ARGS=()
 RED='\033[1;31m'
 NC='\033[0m'
 
-print_error()   { echo -e "${RED}✗ $1${NC}"; }
+print_error() { echo -e "${RED}✗ $1${NC}"; }
 
 # ==== Functions ====
 usage() {
@@ -39,7 +39,7 @@ EOF
 # ==== Main ====
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    -h|--help)
+    -h | --help)
       usage
       exit 0
       ;;

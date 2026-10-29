@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # ------------------------------------------------------------------------------
 # Name:        change_cursor.sh
 # Description: Set KDE Plasma cursor theme and cursor size from the command line.
@@ -27,11 +27,11 @@ BOLD='\033[1m'
 NC='\033[0m'
 
 # ==== Output helpers ====
-print_header()  { echo -e "${BOLD}${MAGENTA}>>> $1${NC}"; }
+print_header() { echo -e "${BOLD}${MAGENTA}>>> $1${NC}"; }
 print_success() { echo -e "${GREEN}✓ $1${NC}"; }
-print_error()   { echo -e "${RED}✗ $1${NC}"; }
-print_info()    { echo -e "${BLUE}> $1${NC}"; }
-print_warn()    { echo -e "${YELLOW}! $1${NC}"; }
+print_error() { echo -e "${RED}✗ $1${NC}"; }
+print_info() { echo -e "${BLUE}> $1${NC}"; }
+print_warn() { echo -e "${YELLOW}! $1${NC}"; }
 
 # ==== Functions ====
 list_theme_pairs() {
@@ -83,7 +83,7 @@ EOF
 main() {
   while [[ $# -gt 0 ]]; do
     case "$1" in
-      -h|--help)
+      -h | --help)
         usage
         exit 0
         ;;

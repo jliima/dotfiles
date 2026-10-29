@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # ------------------------------------------------------------------------------
 # Name:        set_virtual_desktop.sh
 # Description: Switches the current KWin virtual desktop by name.
@@ -27,11 +27,11 @@ BOLD='\033[1m'
 NC='\033[0m'
 
 # ==== Output helpers ====
-print_header()  { echo -e "${BOLD}${MAGENTA}>>> $1${NC}"; }
+print_header() { echo -e "${BOLD}${MAGENTA}>>> $1${NC}"; }
 print_success() { echo -e "${GREEN}✓ $1${NC}"; }
-print_error()   { echo -e "${RED}✗ $1${NC}"; }
-print_info()    { echo -e "${BLUE}> $1${NC}"; }
-print_warn()    { echo -e "${YELLOW}! $1${NC}"; }
+print_error() { echo -e "${RED}✗ $1${NC}"; }
+print_info() { echo -e "${BLUE}> $1${NC}"; }
+print_warn() { echo -e "${YELLOW}! $1${NC}"; }
 
 # ==== Functions ====
 usage() {
@@ -54,7 +54,10 @@ find_desktop_id() {
 
 # ==== Main ====
 case "${1:-}" in
-  -h|--help) usage; exit 0 ;;
+  -h | --help)
+    usage
+    exit 0
+    ;;
 esac
 
 if [[ -z "$DESKTOP_NAME" ]]; then

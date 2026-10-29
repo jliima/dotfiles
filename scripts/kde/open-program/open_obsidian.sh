@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # ------------------------------------------------------------------------------
 # Name:        open_obsidian.sh
 # Description: Open an Obsidian vault based on argument or current KDE activity.
@@ -28,11 +28,11 @@ BOLD='\033[1m'
 NC='\033[0m'
 
 # ==== Output helpers ====
-print_header()  { echo -e "${BOLD}${MAGENTA}>>> $1${NC}"; }
+print_header() { echo -e "${BOLD}${MAGENTA}>>> $1${NC}"; }
 print_success() { echo -e "${GREEN}✓ $1${NC}"; }
-print_error()   { echo -e "${RED}✗ $1${NC}"; }
-print_info()    { echo -e "${BLUE}> $1${NC}"; }
-print_warn()    { echo -e "${YELLOW}! $1${NC}"; }
+print_error() { echo -e "${RED}✗ $1${NC}"; }
+print_info() { echo -e "${BLUE}> $1${NC}"; }
+print_warn() { echo -e "${YELLOW}! $1${NC}"; }
 
 # ==== Functions ====
 usage() {
@@ -60,20 +60,23 @@ EOF
 
 # ==== Main ====
 case "${1:-}" in
-  -h|--help) usage; exit 0 ;;
+  -h | --help)
+    usage
+    exit 0
+    ;;
 esac
 
 print_header "Opening Obsidian"
 
 if [ -n "${1:-}" ]; then
   case "$1" in
-    work|work-vault)
+    work | work-vault)
       vault_dir="$WORK_VAULT"
       ;;
-    school|school-vault)
+    school | school-vault)
       vault_dir="$SCHOOL_VAULT"
       ;;
-    default|default-vault)
+    default | default-vault)
       vault_dir="$DEFAULT_VAULT"
       ;;
     *)

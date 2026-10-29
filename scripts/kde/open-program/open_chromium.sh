@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # ------------------------------------------------------------------------------
 # Name:        open_chromium.sh
 # Description: Open Chromium with a profile based on argument or current KDE activity.
@@ -72,9 +72,9 @@ EOF
 # Prints the profile folder and display name for a profile key.
 profile_for() {
   case "$1" in
-    work)   echo "Default|Work" ;;
+    work) echo "Default|Work" ;;
     school) echo "Profile 2|School" ;;
-    *)      echo "Profile 1|Personal" ;;
+    *) echo "Profile 1|Personal" ;;
   esac
 }
 
@@ -127,19 +127,25 @@ extensions_for() {
 
 # ==== Main ====
 case "${1:-}" in
-  -h|--help) usage; exit 0 ;;
+  -h | --help)
+    usage
+    exit 0
+    ;;
 esac
 
 key=""
 case "${1:-}" in
-  work|school|default) key="$1"; shift ;;
+  work | school | default)
+    key="$1"
+    shift
+    ;;
 esac
 
 if [ -z "$key" ]; then
   activity=$("$HOME/scripts/kde/get_current_activity_name.sh" | tr '[:upper:]' '[:lower:]')
   case "$activity" in
-    work|school) key="$activity" ;;
-    *)           key="default" ;;
+    work | school) key="$activity" ;;
+    *) key="default" ;;
   esac
   print_info "Activity detected: $activity"
 fi

@@ -31,39 +31,66 @@
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import dataclass
+from dataclasses import field
 import fnmatch
-import json
 import os
+from pathlib import Path
 import re
 import shutil
 import subprocess
 import sys
 import tempfile
 import tomllib
-from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass, field
-from pathlib import Path
 
 from PIL import Image
+
 
 # ==== Configuration ====
 
 SCRIPT_DIR = Path(__file__).parent.resolve()
 DOTFILES = SCRIPT_DIR.parents[2]
 DEFAULT_ICONS_DIR = DOTFILES / "Icons"
-ICON_ROOTS = [Path.home() / ".local/share/icons", Path.home() / ".icons", Path("/usr/local/share/icons"),
-              Path("/usr/share/icons"), Path.home() / ".local/share/flatpak/exports/share/icons",
-              Path("/var/lib/flatpak/exports/share/icons")]
+ICON_ROOTS = [
+    Path.home() / ".local/share/icons",
+    Path.home() / ".icons",
+    Path("/usr/local/share/icons"),
+    Path("/usr/share/icons"),
+    Path.home() / ".local/share/flatpak/exports/share/icons",
+    Path("/var/lib/flatpak/exports/share/icons"),
+]
 PIXMAP_DIR = Path("/usr/share/pixmaps")
 SETS = ("monochrome", "colorful")
 # Where an icon is written when several contexts of the source theme have it.
 CONTEXTS = {
-    "status": "Status", "actions": "Actions", "devices": "Devices", "apps": "Applications", "places": "Places",
-    "mimetypes": "MimeTypes", "categories": "Categories", "applets": "Applets", "emblems": "Emblems",
-    "preferences": "Applications", "animations": "Animations", "emotes": "Emotes",
+    "status": "Status",
+    "actions": "Actions",
+    "devices": "Devices",
+    "apps": "Applications",
+    "places": "Places",
+    "mimetypes": "MimeTypes",
+    "categories": "Categories",
+    "applets": "Applets",
+    "emblems": "Emblems",
+    "preferences": "Applications",
+    "animations": "Animations",
+    "emotes": "Emotes",
 }
-CONTEXT_ORDER = ["status", "actions", "devices", "apps", "preferences", "applets", "places", "mimetypes",
-                 "categories", "emblems", "animations", "emotes"]
+CONTEXT_ORDER = [
+    "status",
+    "actions",
+    "devices",
+    "apps",
+    "preferences",
+    "applets",
+    "places",
+    "mimetypes",
+    "categories",
+    "emblems",
+    "animations",
+    "emotes",
+]
 GLYPH_MAX_SIZE = 24
 INKSCAPE_PROCESSES = 4
 INKSCAPE_CHUNK = 150
@@ -162,7 +189,8 @@ class IconIndex:
                 if ext not in (".svg", ".png"):
                     continue
                 self.by_name.setdefault(stem, []).append(
-                    Entry(rank, theme, context or "apps", size, ext[1:], Path(dirpath) / filename))
+                    Entry(rank, theme, context or "apps", size, ext[1:], Path(dirpath) / filename)
+                )
 
     def names(self) -> list[str]:
         return sorted(self.by_name)
@@ -175,8 +203,14 @@ class IconIndex:
                 return context
         return "apps"
 
-    def pick(self, name: str, size: int, extra: list[Path] | None = None, glyph: bool = False,
-             themes: list[str] | None = None) -> tuple[Path, str] | None:
+    def pick(
+        self,
+        name: str,
+        size: int,
+        extra: list[Path] | None = None,
+        glyph: bool = False,
+        themes: list[str] | None = None,
+    ) -> tuple[Path, str] | None:
         """The best source file to build `name` at `size`: (path, 'svg'|'png'). The first source theme that has the
         icon wins (`themes` are tried before the rest); inside it an SVG (exact size, scalable, nearest size) before a
         PNG (exact, larger, smaller). A glyph only comes from small sizes or symbolic folders: larger ones are full
@@ -184,11 +218,13 @@ class IconIndex:
         entries = list(self.by_name.get(name, []))
         if themes:
             order = {theme: rank for rank, theme in enumerate(themes + [t for t in self.themes if t not in themes])}
-            entries = [Entry(order[e.theme], e.theme, e.context, e.size, e.ext, e.path)
-                       for e in entries if e.theme in order]
+            entries = [
+                Entry(order[e.theme], e.theme, e.context, e.size, e.ext, e.path) for e in entries if e.theme in order
+            ]
         if glyph:
-            entries = [e for e in entries
-                       if 0 < e.size <= GLYPH_MAX_SIZE or (e.size == 0 and "symbolic" in e.path.parts)]
+            entries = [
+                e for e in entries if 0 < e.size <= GLYPH_MAX_SIZE or (e.size == 0 and "symbolic" in e.path.parts)
+            ]
         for path in extra or []:
             entries.insert(0, Entry(-1, "", "apps", 0, path.suffix.lstrip("."), path))
         if not entries:
@@ -287,7 +323,7 @@ def is_neutral(hex_color: str) -> bool:
     digits = hex_color.lstrip("#")
     if len(digits) == 3:
         digits = "".join(c * 2 for c in digits)
-    channels = [int(digits[i:i + 2], 16) for i in (0, 2, 4)]
+    channels = [int(digits[i : i + 2], 16) for i in (0, 2, 4)]
     return max(channels) - min(channels) <= 24
 
 
@@ -301,8 +337,12 @@ def recolor_glyph(svg_text: str, css: str, text_color: str) -> str:
     if STYLE_RE.search(svg_text):
         return STYLE_RE.sub(lambda m: f"{m.group(1)}{css}{m.group(3)}", svg_text, count=1)
     # No style element: set the class colors and the default (currentColor) on a new one
-    return re.sub(r"(<svg\b[^>]*>)", lambda m: f"{m.group(1)}<style>svg {{ color: {text_color}; }} {css}</style>",
-                  svg_text, count=1)
+    return re.sub(
+        r"(<svg\b[^>]*>)",
+        lambda m: f"{m.group(1)}<style>svg {{ color: {text_color}; }} {css}</style>",
+        svg_text,
+        count=1,
+    )
 
 
 def inkscape_render(jobs: list[tuple[Path, Path, int]]) -> None:
@@ -317,12 +357,13 @@ def inkscape_render(jobs: list[tuple[Path, Path, int]]) -> None:
         script = "".join(
             f"file-open:{svg}; export-type:png; export-width:{size}; export-height:{size}; "
             f"export-background-opacity:0; export-filename:{png}; export-do; file-close\n"
-            for svg, png, size in chunk)
+            for svg, png, size in chunk
+        )
         subprocess.run(["inkscape", "--shell"], input=script, text=True, capture_output=True)
 
     pending = jobs
     for processes in (INKSCAPE_PROCESSES, 2, 1, 1):
-        chunks = [pending[i:i + INKSCAPE_CHUNK] for i in range(0, len(pending), INKSCAPE_CHUNK)]
+        chunks = [pending[i : i + INKSCAPE_CHUNK] for i in range(0, len(pending), INKSCAPE_CHUNK)]
         with ThreadPoolExecutor(processes) as pool:
             list(pool.map(run, chunks))
         pending = [job for job in pending if not job[1].exists()]
@@ -365,8 +406,9 @@ class Item:
     any_size: bool = False  # a glyph may come from any folder, not only small sizes and symbolic ones
 
     def pick(self, index: IconIndex, size: int) -> tuple[Path, str] | None:
-        return index.pick(self.source_name or self.name, size, self.sources, self.glyph and not self.any_size,
-                          self.themes)
+        return index.pick(
+            self.source_name or self.name, size, self.sources, self.glyph and not self.any_size, self.themes
+        )
 
 
 def load_manifest(path: Path) -> dict:
@@ -382,8 +424,11 @@ def plan_items(manifest: dict, index: IconIndex, only: list[str], icons_dir: Pat
     for group in manifest.get("group", []):
         sizes = group.get("sizes", [16, 22, 24, 32])
         for pattern in group.get("names", []):
-            matched = fnmatch.filter(index.names(), pattern) if any(c in pattern for c in "*?[") else (
-                [pattern] if pattern in index.by_name else [])
+            matched = (
+                fnmatch.filter(index.names(), pattern)
+                if any(c in pattern for c in "*?[")
+                else ([pattern] if pattern in index.by_name else [])
+            )
             for name in matched:
                 if name in items:
                     continue
@@ -391,16 +436,31 @@ def plan_items(manifest: dict, index: IconIndex, only: list[str], icons_dir: Pat
                 for glob, other in group.get("hue-by-name", {}).items():
                     if fnmatch.fnmatchcase(name, glob):
                         hue = other
-                items[name] = Item(name, group.get("context") or index.context_of(name), sizes,
-                                   group.get("glyph", False), hue, group.get("id", "group"),
-                                   any_size=group.get("any-size", False))
+                items[name] = Item(
+                    name,
+                    group.get("context") or index.context_of(name),
+                    sizes,
+                    group.get("glyph", False),
+                    hue,
+                    group.get("id", "group"),
+                    any_size=group.get("any-size", False),
+                )
     for app in manifest.get("app", []):
         name = app["name"]
         sources = [Path(os.path.expanduser(s)) for s in app.get("files", [])]
         sources = [s if s.is_absolute() else icons_dir / s for s in sources]
-        items[name] = Item(name, app.get("context", "apps"), app.get("sizes", [16, 22, 24, 32, 48, 64, 128, 256]),
-                           app.get("glyph", False), app.get("hue", "blue"), "apps", sources,
-                           app.get("aliases", []), app.get("source", name), app.get("themes", []))
+        items[name] = Item(
+            name,
+            app.get("context", "apps"),
+            app.get("sizes", [16, 22, 24, 32, 48, 64, 128, 256]),
+            app.get("glyph", False),
+            app.get("hue", "blue"),
+            "apps",
+            sources,
+            app.get("aliases", []),
+            app.get("source", name),
+            app.get("themes", []),
+        )
     chosen = list(items.values())
     if only:
         chosen = [i for i in chosen if any(fnmatch.fnmatchcase(i.name, p) for p in only)]
@@ -419,17 +479,33 @@ def gowall_map(indir: Path, outdir: Path, palette: list[str], workdir: Path, bac
     colors = "".join(f'      - "{color}"\n' for color in palette)
     (home / ".config/gowall/config.yml").write_text(
         f"ColorCorrectionBackend: {backend}\nEnableImagePreviewing: false\n"
-        f"themes:\n  - name: palette\n    colors:\n{colors}")
+        f"themes:\n  - name: palette\n    colors:\n{colors}"
+    )
     outdir.mkdir(parents=True, exist_ok=True)
     env = dict(os.environ, HOME=str(home))
-    result = subprocess.run(["gowall", "convert", "--dir", str(indir), "-t", "palette", "--output", str(outdir),
-                             "--yes"], env=env, capture_output=True, text=True)
+    result = subprocess.run(
+        ["gowall", "convert", "--dir", str(indir), "-t", "palette", "--output", str(outdir), "--yes"],
+        env=env,
+        capture_output=True,
+        text=True,
+    )
     if result.returncode != 0:
         die(f"gowall failed on {indir}: {result.stdout[-300:]} {result.stderr[-600:]}")
 
 
-def build_set(set_name: str, theme: str, variant: str, items: list[Item], index: IconIndex, manifest: dict,
-              tokens: dict[str, str], out_root: Path, workdir: Path, backend: str, clean: bool) -> Path:
+def build_set(
+    set_name: str,
+    theme: str,
+    variant: str,
+    items: list[Item],
+    index: IconIndex,
+    manifest: dict,
+    tokens: dict[str, str],
+    out_root: Path,
+    workdir: Path,
+    backend: str,
+    clean: bool,
+) -> Path:
     light = variant == "light"
     theme_dir_name = f"{theme_title(theme)}-{set_name.capitalize()}" + ("-Light" if light else "")
     theme_dir = out_root / set_name / theme_dir_name
@@ -497,13 +573,16 @@ def build_set(set_name: str, theme: str, variant: str, items: list[Item], index:
         directories.add((item.context, size))
     write_index(theme_dir, theme, set_name, light, sorted(directories, key=lambda d: (d[0], d[1])), manifest)
     count = sum(1 for _ in theme_dir.rglob("*.png"))
-    print_ok(f"{theme_dir.relative_to(out_root.parent) if out_root.parent in theme_dir.parents else theme_dir}: "
-             f"{count} files, {len(palette)} palette colors")
+    print_ok(
+        f"{theme_dir.relative_to(out_root.parent) if out_root.parent in theme_dir.parents else theme_dir}: "
+        f"{count} files, {len(palette)} palette colors"
+    )
     return theme_dir
 
 
-def write_index(theme_dir: Path, theme: str, set_name: str, light: bool, directories: list[tuple[str, int]],
-                manifest: dict) -> None:
+def write_index(
+    theme_dir: Path, theme: str, set_name: str, light: bool, directories: list[tuple[str, int]], manifest: dict
+) -> None:
     title = f"{theme_title(theme)} {set_name.capitalize()}" + (" Light" if light else "")
     lines = [
         "[Icon Theme]",
@@ -542,8 +621,19 @@ def cmd_build(args: argparse.Namespace) -> None:
             tokens = themer_tokens(args.theme, variant)
             for set_name in sets:
                 print_header(f"{args.theme} {variant} {set_name}")
-                build_set(set_name, args.theme, variant, items, index, manifest, tokens, icons_dir, workdir,
-                          args.backend, clean=not only)
+                build_set(
+                    set_name,
+                    args.theme,
+                    variant,
+                    items,
+                    index,
+                    manifest,
+                    tokens,
+                    icons_dir,
+                    workdir,
+                    args.backend,
+                    clean=not only,
+                )
     finally:
         if not args.keep_work:
             shutil.rmtree(workdir, ignore_errors=True)
@@ -572,7 +662,7 @@ def cmd_list(args: argparse.Namespace) -> None:
 def cmd_preview(args: argparse.Namespace) -> None:
     """A contact sheet: each named icon at each size of a built theme, on the theme's ground."""
     theme_dir = Path(args.themedir).expanduser().resolve()
-    ground = tuple(int(args.ground.lstrip("#")[i:i + 2], 16) for i in (0, 2, 4))
+    ground = tuple(int(args.ground.lstrip("#")[i : i + 2], 16) for i in (0, 2, 4))
     rows = []
     for name in args.names:
         found = sorted(theme_dir.glob(f"*/*/{name}.png"), key=lambda p: int(p.parent.name))
@@ -608,8 +698,12 @@ def main() -> None:
     build.add_argument("-v", "--variant", choices=["dark", "light", "both"], default="dark")
     build.add_argument("--sets", default=",".join(SETS), help="monochrome, colorful or both (default)")
     build.add_argument("--only", default="", help="comma separated name globs; only these icons are rebuilt")
-    build.add_argument("--backend", choices=["nn", "clut"], default="nn",
-                       help="nn maps to the nearest palette color, clut blends smoothly between them")
+    build.add_argument(
+        "--backend",
+        choices=["nn", "clut"],
+        default="nn",
+        help="nn maps to the nearest palette color, clut blends smoothly between them",
+    )
     build.add_argument("--work", default="", help="work folder (default: a temporary one)")
     build.add_argument("--keep-work", action="store_true")
     build.set_defaults(func=cmd_build)

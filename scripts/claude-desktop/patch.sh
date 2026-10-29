@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # Installs, reverts, or reports on the claude-desktop app.asar theme patch.
 #
 # The patch (see asar-patch.mjs) makes the app insertCSS() an external,
@@ -146,7 +146,7 @@ cmd_install() {
     fi
     local tmp_version
     tmp_version="$(mktemp)"
-    echo "$current_version" > "$tmp_version"
+    echo "$current_version" >"$tmp_version"
     as_root cp "$ASAR" "$BACKUP"
     # mktemp files are 0600; check reads the version as a normal user, so install it world-readable.
     as_root install -m 644 "$tmp_version" "$VERSION_FILE"

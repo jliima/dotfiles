@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # ------------------------------------------------------------------------------
 # Name:        open_jellyfin_sofa_mode.sh
 # Description: Launch Jellyfin Media Player in sofa/TV mode.
@@ -31,11 +31,11 @@ BOLD='\033[1m'
 NC='\033[0m'
 
 # ==== Output helpers ====
-print_header()  { echo -e "${BOLD}${MAGENTA}>>> $1${NC}"; }
+print_header() { echo -e "${BOLD}${MAGENTA}>>> $1${NC}"; }
 print_success() { echo -e "${GREEN}✓ $1${NC}"; }
-print_error()   { echo -e "${RED}✗ $1${NC}"; }
-print_info()    { echo -e "${BLUE}> $1${NC}"; }
-print_warn()    { echo -e "${YELLOW}! $1${NC}"; }
+print_error() { echo -e "${RED}✗ $1${NC}"; }
+print_info() { echo -e "${BLUE}> $1${NC}"; }
+print_warn() { echo -e "${YELLOW}! $1${NC}"; }
 
 # ==== Functions ====
 usage() {
@@ -58,7 +58,10 @@ log() {
 
 # ==== Main ====
 case "${1:-}" in
-  -h|--help) usage; exit 0 ;;
+  -h | --help)
+    usage
+    exit 0
+    ;;
 esac
 
 mkdir -p "$(dirname "$LOG_FILE")"
@@ -140,4 +143,3 @@ fi
 
 log "Done."
 print_success "Done"
-
