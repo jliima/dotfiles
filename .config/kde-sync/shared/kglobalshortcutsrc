@@ -53,9 +53,6 @@ previous activity=Meta+Shift+A
 Incognito=Meta+Shift+C
 _launch=Meta+C
 
-[services][chromium_chromium.desktop]
-Incognito=Meta+Shift+C
-
 [services][com.github.iwalton3.jellyfin-media-player.desktop]
 ExitSofaMode=Home Page
 JereFlixSofaMode=Launch Mail

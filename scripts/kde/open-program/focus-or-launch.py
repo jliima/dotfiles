@@ -28,9 +28,15 @@
 #     and moved under the mouse. If one is already focused, it gets a new tab
 #     showing the home folder. No window: a new one is launched.
 #
-#   firefox:
-#     The topmost window on the current desktop is focused and a new tab is
-#     opened in it, else a new window is launched.
+#   firefox [URL]:
+#     The topmost window on the current desktop is focused (not moved) and a
+#     new tab is opened in it, showing URL if given. With no window here, a new
+#     window is opened on this desktop, even if Firefox runs on another one.
+#     firefox.desktop sends clicked links here.
+#
+#   chromium [URL...]:
+#     The same as firefox, through open-chromium.sh (profile by activity).
+#     chromium.desktop sends clicked links and files here.
 #
 #   keepassxc:
 #     The KeePassXC window is moved from whatever desktop it is on to the
@@ -56,6 +62,7 @@ import kwin_windows  # noqa: E402
 # ==== Configuration ====
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 OPEN_FIREFOX = os.path.join(SCRIPT_DIR, "open-firefox.sh")
+OPEN_CHROMIUM = os.path.join(SCRIPT_DIR, "open-chromium.sh")
 FIREFOX_BIN = "/usr/bin/firefox"
 KEEPASSXC_CMD = ["/usr/bin/flatpak", "run", "--branch=stable", "--arch=x86_64", "--command=keepassxc",
                  "org.keepassxc.KeePassXC"]
@@ -274,13 +281,23 @@ def firefox_profile_args(pid):
   return []
 
 
-def firefox():
+def firefox(url=None):
   def new_tab(w):
     # Firefox opens remote --new-tab requests in its most recently focused window, so let focus settle first.
     time.sleep(0.2)
-    launch([FIREFOX_BIN, *firefox_profile_args(w["pid"]), "--new-tab", "about:newtab"])
+    launch([FIREFOX_BIN, *firefox_profile_args(w["pid"]), "--new-tab", url or "about:newtab"])
 
-  focus_here_or_launch(r"^firefox$", new_tab, [OPEN_FIREFOX])
+  focus_here_or_launch(r"^firefox$", new_tab, [OPEN_FIREFOX, "--new-window", url] if url else [OPEN_FIREFOX])
+
+
+def chromium(*urls):
+  def new_tab(_):
+    # Chromium opens remote URLs in the profile's most recently focused window, so let focus settle first.
+    # shortcut: every window is one process, so the profile comes from the activity, not from the window found here.
+    time.sleep(0.2)
+    launch([OPEN_CHROMIUM, *(urls or ["chrome://newtab"])])
+
+  focus_here_or_launch(r"^chromium$", new_tab, [OPEN_CHROMIUM, "--new-window", *urls])
 
 
 def keepassxc():
@@ -292,13 +309,16 @@ def keepassxc():
   launch(KEEPASSXC_CMD)
 
 
-APPS = {"kate": kate, "dolphin": dolphin, "konsole": konsole, "firefox": firefox, "keepassxc": keepassxc}
+APPS = {"kate": kate, "dolphin": dolphin, "konsole": konsole, "firefox": firefox, "chromium": chromium,
+        "keepassxc": keepassxc}
 
 
 def main():
   parser = argparse.ArgumentParser(description=__doc__ or "Focus or launch an app on the current desktop.")
   parser.add_argument("app", choices=sorted(APPS))
-  APPS[parser.parse_args().app]()
+  parser.add_argument("urls", nargs="*", help="firefox (one) and chromium only: the links to open")
+  args = parser.parse_args()
+  APPS[args.app](*args.urls)
 
 
 if __name__ == "__main__":
