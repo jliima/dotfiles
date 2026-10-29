@@ -2,7 +2,7 @@
 
 # ------------------------------------------------------------------------------
 #
-# Name:        syncthing-logout-guard.py
+# Name:        syncthing_logout_guard.py
 #
 # Description: Hold a Plasma logout, shutdown or reboot until Syncthing has sent
 #              every folder to the other devices.
@@ -28,9 +28,9 @@
 # screen, the power button). "systemctl poweroff" in a terminal is not.
 #
 # Usage:
-#   syncthing-logout-guard.py                 run as the session guard (autostart)
-#   syncthing-logout-guard.py --now           sync every folder now, in the same window
-#   syncthing-logout-guard.py --test-cancel   guard that cancels the logout after syncing
+#   syncthing_logout_guard.py                 run as the session guard (autostart)
+#   syncthing_logout_guard.py --now           sync every folder now, in the same window
+#   syncthing_logout_guard.py --test-cancel   guard that cancels the logout after syncing
 #
 # Log: ~/.cache/syncthing-logout-guard/guard.log
 #

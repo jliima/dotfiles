@@ -4,7 +4,7 @@ Version=1.0
 Name=Chromium Web Browser
 GenericName=Web Browser
 Comment=Access the Internet, with the profile of the current activity
-Exec=/home/hieroja/scripts/kde/open-program/focus-or-launch.py chromium %U
+Exec=/home/hieroja/scripts/kde/open-program/focus_or_launch.py chromium %U
 Actions=Work;School;Default;Incognito;
 Categories=Network;WebBrowser;
 Icon=chromium
@@ -17,16 +17,16 @@ X-MultipleArgs=false
 
 [Desktop Action Work]
 Name=Work profile
-Exec=/home/hieroja/scripts/kde/open-program/open-chromium.sh work
+Exec=/home/hieroja/scripts/kde/open-program/open_chromium.sh work
 
 [Desktop Action School]
 Name=School profile
-Exec=/home/hieroja/scripts/kde/open-program/open-chromium.sh school
+Exec=/home/hieroja/scripts/kde/open-program/open_chromium.sh school
 
 [Desktop Action Default]
 Name=Personal profile
-Exec=/home/hieroja/scripts/kde/open-program/open-chromium.sh default
+Exec=/home/hieroja/scripts/kde/open-program/open_chromium.sh default
 
 [Desktop Action Incognito]
 Name=New incognito window
-Exec=/home/hieroja/scripts/kde/open-program/open-chromium.sh --incognito
+Exec=/home/hieroja/scripts/kde/open-program/open_chromium.sh --incognito

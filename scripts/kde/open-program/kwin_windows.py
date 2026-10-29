@@ -5,7 +5,7 @@
 #
 # Details:
 #   Loads a throwaway KWin script over D-Bus that reports back to this process
-#   through callDBus(). Used by focus-or-launch.py, but also runnable directly:
+#   through callDBus(). Used by focus_or_launch.py, but also runnable directly:
 #
 #     kwin_windows.py list [CLASS_REGEX] [--here]
 #     kwin_windows.py activate WINDOW_ID [--move-here] [--to-cursor]

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # ------------------------------------------------------------------------------
-# Name:        set-monitor-layout.py
+# Name:        set_monitor_layout.py
 # Description: Set the dual-monitor layout via kscreen-doctor.
 #
 # Details:

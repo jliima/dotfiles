@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ------------------------------------------------------------------------------
-# Name:        change-cursor.sh
+# Name:        change_cursor.sh
 # Description: Set KDE Plasma cursor theme and cursor size from the command line.
 #
 # Details:

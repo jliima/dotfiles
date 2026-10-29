@@ -2,7 +2,7 @@
 
 # ------------------------------------------------------------------------------
 #
-# Name:        icon-sets.py
+# Name:        icon_sets.py
 #
 # Description: Build Plasma icon themes in the colors of a Themer theme with gowall.
 #
@@ -19,10 +19,10 @@
 # colors are left), and the alpha channel of the original is put back. The
 # result inherits the original icon themes, so it only replaces what is listed.
 #
-#   icon-sets.py build -t pare -v dark          one theme variant, both sets
-#   icon-sets.py build -t pare --sets colorful --only 'audio-*,firefox'
-#   icon-sets.py list                           what the manifest resolves to
-#   icon-sets.py preview THEMEDIR NAME...       a contact sheet of built icons
+#   icon_sets.py build -t pare -v dark          one theme variant, both sets
+#   icon_sets.py build -t pare --sets colorful --only 'audio-*,firefox'
+#   icon_sets.py list                           what the manifest resolves to
+#   icon_sets.py preview THEMEDIR NAME...       a contact sheet of built icons
 #
 # Dependencies: gowall, inkscape, themer (external); Pillow (python3-pil)
 #

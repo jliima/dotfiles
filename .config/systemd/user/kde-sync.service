@@ -11,7 +11,7 @@ StartLimitIntervalSec=0
 [Service]
 Type=oneshot
 ExecStartPre=/bin/sleep 2
-ExecStart=%h/scripts/kde/kde-sync/kde-sync.py --quiet sync
+ExecStart=%h/scripts/kde/kde-sync/kde_sync.py --quiet sync
 
 [Install]
 WantedBy=graphical-session.target

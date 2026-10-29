@@ -2,7 +2,7 @@
 Type=Application
 Name=Obsidian
 Comment=Knowledge base
-Exec=/home/hieroja/scripts/kde/open-program/open-obsidian.sh %U
+Exec=/home/hieroja/scripts/kde/open-program/open_obsidian.sh %U
 Icon=obsidian
 Actions=open-default-vault;open-work-vault;open-school-vault
 Categories=Office;

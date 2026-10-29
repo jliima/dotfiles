@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # ------------------------------------------------------------------------------
-# Name:        focus-or-launch.py
+# Name:        focus_or_launch.py
 # Description: Focus an app's window on the current virtual desktop, or launch
 #              a new window if there is none (what the Meta+T/E/D keys do).
 #
@@ -35,7 +35,7 @@
 #     firefox.desktop sends clicked links here.
 #
 #   chromium [URL...]:
-#     The same as firefox, through open-chromium.sh (profile by activity).
+#     The same as firefox, through open_chromium.sh (profile by activity).
 #     chromium.desktop sends clicked links and files here.
 #
 #   keepassxc:
@@ -61,8 +61,8 @@ import kwin_windows  # noqa: E402
 
 # ==== Configuration ====
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
-OPEN_FIREFOX = os.path.join(SCRIPT_DIR, "open-firefox.sh")
-OPEN_CHROMIUM = os.path.join(SCRIPT_DIR, "open-chromium.sh")
+OPEN_FIREFOX = os.path.join(SCRIPT_DIR, "open_firefox.sh")
+OPEN_CHROMIUM = os.path.join(SCRIPT_DIR, "open_chromium.sh")
 FIREFOX_BIN = "/usr/bin/firefox"
 KEEPASSXC_CMD = ["/usr/bin/flatpak", "run", "--branch=stable", "--arch=x86_64", "--command=keepassxc",
                  "org.keepassxc.KeePassXC"]

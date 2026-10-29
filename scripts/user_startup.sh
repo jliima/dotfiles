@@ -22,7 +22,7 @@ if command -v syncthing >/dev/null 2>&1; then
   syncthing --no-browser &
   # Holds logout/shutdown/reboot until Syncthing has sent every folder. Started from the
   # session so it inherits SESSION_MANAGER (it is an XSMP client of ksmserver).
-  "$SCRIPT_DIR/kde/syncthing-logout-guard.py" >/dev/null 2>&1 &
+  "$SCRIPT_DIR/kde/syncthing_logout_guard.py" >/dev/null 2>&1 &
 fi
 
 #if command -v telegram-desktop >/dev/null 2>&1; then
@@ -30,7 +30,7 @@ fi
 #  telegram-desktop -startintray &
 #fi
 
-"$SCRIPT_DIR/kde/set-wallpaper.sh" >/dev/null 2>&1
+"$SCRIPT_DIR/kde/set_wallpaper.sh" >/dev/null 2>&1
 
 # CIFS credentials for the Teleste fstab mounts, read from KeePassXC into /run/user
-"$SCRIPT_DIR/mount/teleste-credentials.sh" &
+"$SCRIPT_DIR/mount/teleste_credentials.sh" &

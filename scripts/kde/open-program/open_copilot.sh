@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ------------------------------------------------------------------------------
-# Name:        open-copilot.sh
+# Name:        open_copilot.sh
 # Description: Open GitHub Copilot CLI in Konsole.
 #
 # Details:

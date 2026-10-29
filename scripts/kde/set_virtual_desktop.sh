@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ------------------------------------------------------------------------------
-# Name:        set-virtual-desktop.sh
+# Name:        set_virtual_desktop.sh
 # Description: Switches the current KWin virtual desktop by name.
 #
 # Details:

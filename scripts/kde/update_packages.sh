@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# ~/scripts/update-packages.sh
+# ~/scripts/update_packages.sh
 
 # Terminal colors (Intense variants)
 RED='\033[1;31m'

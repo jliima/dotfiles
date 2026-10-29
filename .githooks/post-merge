@@ -4,7 +4,7 @@
 # first (scripts/kde/desktop-entries), so stow does not stop on them.
 # Enabled with `git config core.hooksPath .githooks` in this clone.
 repo="$(git rev-parse --show-toplevel)"
-"$repo/scripts/kde/desktop-entries/desktop-entries.py" || echo "post-merge: desktop-entries.py failed" >&2
+"$repo/scripts/kde/desktop-entries/desktop_entries.py" || echo "post-merge: desktop_entries.py failed" >&2
 stow --no-folding --dir="$repo" --target="$HOME" . || echo "post-merge: stow reported conflicts, run it by hand" >&2
 update-desktop-database -q "$HOME/.local/share/applications" 2>/dev/null || true
 kbuildsycoca6 >/dev/null 2>&1 || true

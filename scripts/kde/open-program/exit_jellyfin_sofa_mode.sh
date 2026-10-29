@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ------------------------------------------------------------------------------
-# Name:        exit-jellyfin-sofa-mode.sh
+# Name:        exit_jellyfin_sofa_mode.sh
 # Description: Exit sofa/TV mode and restore the normal desktop layout.
 #
 # Details:

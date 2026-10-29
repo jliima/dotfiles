@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # ------------------------------------------------------------------------------
-# Name:        open-chromium.sh
+# Name:        open_chromium.sh
 # Description: Open Chromium with a profile based on argument or current KDE activity.
 #
 # Details:
-#   Like open-firefox.sh: if a profile name is given as an argument, Chromium
+#   Like open_firefox.sh: if a profile name is given as an argument, Chromium
 #   opens with that profile. Otherwise the script detects the current KDE Plasma
 #   activity and selects the matching profile (Work, School, or default).
 #   Additional arguments are passed through to Chromium. Meta+C runs this.
@@ -136,7 +136,7 @@ case "${1:-}" in
 esac
 
 if [ -z "$key" ]; then
-  activity=$("$HOME/scripts/kde/get-current-activity-name.sh" | tr '[:upper:]' '[:lower:]')
+  activity=$("$HOME/scripts/kde/get_current_activity_name.sh" | tr '[:upper:]' '[:lower:]')
   case "$activity" in
     work|school) key="$activity" ;;
     *)           key="default" ;;

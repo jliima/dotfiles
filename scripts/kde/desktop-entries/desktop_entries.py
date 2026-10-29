@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # ------------------------------------------------------------------------------
-# Name:        desktop-entries.py
+# Name:        desktop_entries.py
 # Description: Make room in ~/.local/share/applications for the stowed desktop
 #              entries before stow runs, so a pull never stops on them.
 #
@@ -25,7 +25,7 @@
 #   hooks in .githooks run this before stow; run it by hand after an app
 #   brought its entry back.
 #
-#   desktop-entries.py [-n]    (-n: only show what would be moved)
+#   desktop_entries.py [-n]    (-n: only show what would be moved)
 # ------------------------------------------------------------------------------
 
 import argparse

@@ -102,7 +102,7 @@ right-portrait=Meta+Ctrl+Shift+Right
 _launch=Meta+R
 open-default-vault=Meta+Shift+R
 
-[services][open-obsidian.sh.desktop]
+[services][open_obsidian.sh.desktop]
 _launch=Meta+R
 
 [services][org.kde.dolphin.desktop]

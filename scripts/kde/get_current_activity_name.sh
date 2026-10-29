@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ------------------------------------------------------------------------------
-# Name:        get-current-activity-name.sh
+# Name:        get_current_activity_name.sh
 # Description: Print the name of the current KDE Plasma activity (e.g. "Work",
 #              "School", "Default").
 #

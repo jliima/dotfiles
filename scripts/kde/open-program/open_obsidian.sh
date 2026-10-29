@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ------------------------------------------------------------------------------
-# Name:        open-obsidian.sh
+# Name:        open_obsidian.sh
 # Description: Open an Obsidian vault based on argument or current KDE activity.
 #
 # Details:
@@ -83,7 +83,7 @@ if [ -n "${1:-}" ]; then
       ;;
   esac
 else
-  CURRENT_ACTIVITY_RAW=$("$HOME/scripts/kde/get-current-activity-name.sh")
+  CURRENT_ACTIVITY_RAW=$("$HOME/scripts/kde/get_current_activity_name.sh")
   CURRENT_ACTIVITY=$(echo "$CURRENT_ACTIVITY_RAW" | tr '[:upper:]' '[:lower:]')
 
   if [ "$CURRENT_ACTIVITY" = "work" ]; then

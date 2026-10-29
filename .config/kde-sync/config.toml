@@ -1,4 +1,4 @@
-# kde-sync (scripts/kde/kde-sync/kde-sync.py): which KDE settings sync between machines. The apps' own files stay in
+# kde-sync (scripts/kde/kde-sync/kde_sync.py): which KDE settings sync between machines. The apps' own files stay in
 # ~/.config; synced keys live in shared/<file>, keys one machine keeps for itself in hosts/<hostname>/<file>
 # (`kde-sync local FILE GROUP KEY` moves one there). `ignore` lists [group, key] globs that never sync: window sizes,
 # session state, and what Themer sets.

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ------------------------------------------------------------------------------
-# Name:        set-activity.sh
+# Name:        set_activity.sh
 # Description: Switches the current KDE Plasma activity by name.
 #
 # Details:

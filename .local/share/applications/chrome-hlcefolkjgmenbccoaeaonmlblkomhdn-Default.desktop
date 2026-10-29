@@ -3,6 +3,6 @@ Version=1.0
 Terminal=false
 Type=Application
 Name=ChatGPT
-Exec=/home/hieroja/scripts/kde/open-program/open-chromium.sh work --app-id=hlcefolkjgmenbccoaeaonmlblkomhdn
+Exec=/home/hieroja/scripts/kde/open-program/open_chromium.sh work --app-id=hlcefolkjgmenbccoaeaonmlblkomhdn
 Icon=chrome-hlcefolkjgmenbccoaeaonmlblkomhdn-Default
 StartupWMClass=crx_hlcefolkjgmenbccoaeaonmlblkomhdn

@@ -1,4 +1,4 @@
-# What scripts/kde/icon-sets/icon-sets.py builds: two icon themes per Themer theme and variant, recolored with gowall.
+# What scripts/kde/icon-sets/icon_sets.py builds: two icon themes per Themer theme and variant, recolored with gowall.
 #
 #   monochrome/<Theme>-Monochrome[-Light]/   two tones: the grounds (bg, surface, line) and the accent (blue in Pare)
 #   colorful/<Theme>-Colorful[-Light]/       every color of the theme

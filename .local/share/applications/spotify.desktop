@@ -1,7 +1,7 @@
 [Desktop Entry]
 Categories=Audio;Music;Player;AudioVideo;
 Comment=
-Exec=/home/hieroja/scripts/kde/open-program/open-spotify.sh %U
+Exec=/home/hieroja/scripts/kde/open-program/open_spotify.sh %U
 GenericName=Music Player
 Icon=spotify-client
 MimeType=

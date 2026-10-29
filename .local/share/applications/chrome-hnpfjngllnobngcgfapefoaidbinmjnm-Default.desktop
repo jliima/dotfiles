@@ -4,6 +4,6 @@ Version=1.0
 Terminal=false
 Type=Application
 Name=WhatsApp Web
-Exec=/home/hieroja/scripts/kde/open-program/open-chromium.sh work --app-id=hnpfjngllnobngcgfapefoaidbinmjnm
+Exec=/home/hieroja/scripts/kde/open-program/open_chromium.sh work --app-id=hnpfjngllnobngcgfapefoaidbinmjnm
 Icon=chrome-hnpfjngllnobngcgfapefoaidbinmjnm-Default
 StartupWMClass=crx_hnpfjngllnobngcgfapefoaidbinmjnm

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # ------------------------------------------------------------------------------
-# Name:        kde-sync.py
+# Name:        kde_sync.py
 # Description: Keep KDE settings in sync between machines through the dotfiles,
 #              key by key, without putting the apps' own files in git.
 #

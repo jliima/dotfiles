@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ------------------------------------------------------------------------------
-# Name:        open-jellyfin-sofa-mode.sh
+# Name:        open_jellyfin_sofa_mode.sh
 # Description: Launch Jellyfin Media Player in sofa/TV mode.
 #
 # Details:

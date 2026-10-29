@@ -4,6 +4,6 @@ Terminal=false
 Type=Application
 Name=Microsoft Teams (PWA)
 MimeType=x-scheme-handler/web+msteams;x-scheme-handler/chromium;
-Exec=/home/hieroja/scripts/kde/open-program/open-chromium.sh work --app-id=ompifgpmddkgmclendfeacglnodjjndh %U
+Exec=/home/hieroja/scripts/kde/open-program/open_chromium.sh work --app-id=ompifgpmddkgmclendfeacglnodjjndh %U
 Icon=chrome-ompifgpmddkgmclendfeacglnodjjndh-Default
 StartupWMClass=crx_ompifgpmddkgmclendfeacglnodjjndh

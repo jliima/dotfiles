@@ -69,7 +69,7 @@ ZSH_AUTOSUGGEST_STRATEGY="match_prev_cmd" #"completion"
 # Activity-based history
 ################################################################################
 
-CURRENT_ACTIVITY=$("$HOME/scripts/kde/get-current-activity-name.sh" 2>/dev/null)
+CURRENT_ACTIVITY=$("$HOME/scripts/kde/get_current_activity_name.sh" 2>/dev/null)
 
 
 ZSH_STATE_DIR="$HOME/.local/state/zsh"
@@ -277,10 +277,10 @@ if [[ "$CURRENT_ACTIVITY" == "Work" && -f "$ZDOTDIR/.zsh_aliases_work" ]]; then
   source "$ZDOTDIR/.zsh_aliases_work"
 fi
 
-alias upp="$HOME/scripts/kde/update-packages.sh"
+alias upp="$HOME/scripts/kde/update_packages.sh"
 alias kate="kate -n"
-alias tg="python3 $HOME/scripts/telegram-video-converter.py"
-alias edit-video="$HOME/scripts/video/edit-video.py"
+alias tg="python3 $HOME/scripts/telegram_video_converter.py"
+alias edit-video="$HOME/scripts/video/edit_video.py"
 
 alias ls="eza --icons -F -H --group-directories-first -w 80"
 alias la="eza --icons -F -H --group-directories-first -w 80 -a"

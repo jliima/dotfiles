@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ------------------------------------------------------------------------------
-# Name:        open-spotify.sh
+# Name:        open_spotify.sh
 # Description: Open Spotify, repairing the Spicetify patch and the GPU sandbox crash first when needed.
 #
 # Details:
