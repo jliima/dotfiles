@@ -1,27 +1,26 @@
 #!/usr/bin/env python3
-# ------------------------------------------------------------------------------
-# Name:        set_monitor_layout.py
-# Description: Set the dual-monitor layout via kscreen-doctor.
-#
-# Details:
-#   Configures the position and rotation of the primary and secondary monitors
-#   using kscreen-doctor. The secondary monitor can be placed to the left or
-#   right of the primary, in landscape or portrait orientation. The TV output
-#   is always disabled.
-#
-#   Available layouts:
-#     left-landscape  (default) - secondary left, both landscape
-#     left-portrait             - secondary left in portrait, primary landscape
-#     right-landscape           - secondary right, both landscape
-#     right-portrait            - secondary right in portrait, primary landscape
-# ------------------------------------------------------------------------------
+"""Sets the dual-monitor layout via kscreen-doctor.
+
+Configures the position and rotation of the primary and secondary monitors using kscreen-doctor. The secondary
+monitor can be placed to the left or right of the primary, in landscape or portrait orientation. The TV output is
+always disabled.
+
+Available layouts:
+    left-landscape  (default) - secondary left, both landscape
+    left-portrait             - secondary left in portrait, primary landscape
+    right-landscape           - secondary right, both landscape
+    right-portrait            - secondary right in portrait, primary landscape
+"""
 
 import argparse
+import pathlib
 import subprocess
 import sys
 
+# The helpers package sits next to the script folders, which are not on the import path.
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+from helpers import log  # pylint: disable=wrong-import-position
 
-# ==== Configuration ====
 PRIMARY = "DP-1"
 SECONDARY = "DP-2"
 TV = "HDMI-A-1"
@@ -57,49 +56,8 @@ LAYOUTS = {
 DEFAULT_LAYOUT = "left-landscape"
 
 
-# ==== Colors ====
-class Colors:
-    """ANSI color codes for terminal output."""
-
-    RESET = "\033[0m"
-    BOLD = "\033[1m"
-    RED = "\033[91m"
-    GREEN = "\033[92m"
-    YELLOW = "\033[93m"
-    BLUE = "\033[94m"
-    MAGENTA = "\033[95m"
-    CYAN = "\033[96m"
-
-
-# ==== Output helpers ====
-def print_header(message: str) -> None:
-    """Print a section header."""
-    print(f"{Colors.BOLD}{Colors.MAGENTA}>>> {message}{Colors.RESET}")
-
-
-def print_success(message: str) -> None:
-    """Print a success message."""
-    print(f"{Colors.GREEN}✓ {message}{Colors.RESET}")
-
-
-def print_error(message: str) -> None:
-    """Print an error message."""
-    print(f"{Colors.RED}✗ {message}{Colors.RESET}", file=sys.stderr)
-
-
-def print_info(message: str) -> None:
-    """Print an informational message."""
-    print(f"{Colors.BLUE}> {message}{Colors.RESET}")
-
-
-def print_warn(message: str) -> None:
-    """Print a warning message."""
-    print(f"{Colors.YELLOW}! {message}{Colors.RESET}", file=sys.stderr)
-
-
-# ==== Functions ====
 def create_parser() -> argparse.ArgumentParser:
-    """Create the argument parser."""
+    """Creates the argument parser."""
     layout_names = ", ".join(LAYOUTS.keys())
     parser = argparse.ArgumentParser(
         description="Set the dual-monitor layout via kscreen-doctor.",
@@ -123,20 +81,24 @@ def create_parser() -> argparse.ArgumentParser:
 
 
 def list_layouts() -> None:
-    """Print all available layouts."""
-    print_header("Available layouts")
+    """Prints all available layouts."""
+    log.header("Available layouts")
     for name, cfg in LAYOUTS.items():
         default_tag = " (default)" if name == DEFAULT_LAYOUT else ""
-        print_info(f"{name}{default_tag}")
-        print(f"    Primary:   {PRIMARY} at {cfg['primary_position']}  rotation={cfg['primary_rotation']}")
-        print(f"    Secondary: {SECONDARY} at {cfg['secondary_position']}  rotation={cfg['secondary_rotation']}")
+        log.info(f"{name}{default_tag}")
+        with log.indent():
+            log.plain(f"Primary:   {PRIMARY} at {cfg['primary_position']}  rotation={cfg['primary_rotation']}")
+            log.plain(f"Secondary: {SECONDARY} at {cfg['secondary_position']}  rotation={cfg['secondary_rotation']}")
 
 
 def apply_layout(name: str) -> int:
-    """Apply the specified monitor layout.
+    """Applies the specified monitor layout.
+
+    Args:
+        name: A key of LAYOUTS.
 
     Returns:
-      0 on success, 1 on failure.
+        0 on success, 1 on failure.
     """
     cfg = LAYOUTS[name]
 
@@ -152,20 +114,20 @@ def apply_layout(name: str) -> int:
         f"output.{SECONDARY}.rotation.{cfg['secondary_rotation']}",
     ]
 
-    print_info(f"Primary:   {PRIMARY} at {cfg['primary_position']}  rotation={cfg['primary_rotation']}")
-    print_info(f"Secondary: {SECONDARY} at {cfg['secondary_position']}  rotation={cfg['secondary_rotation']}")
-    print_info(f"TV:        {TV} disabled")
+    log.info(f"Primary:   {PRIMARY} at {cfg['primary_position']}  rotation={cfg['primary_rotation']}")
+    log.info(f"Secondary: {SECONDARY} at {cfg['secondary_position']}  rotation={cfg['secondary_rotation']}")
+    log.info(f"TV:        {TV} disabled")
 
     result = subprocess.run(cmd, check=False)
     if result.returncode != 0:
-        print_error(f"kscreen-doctor exited with code {result.returncode}")
+        log.error(f"kscreen-doctor exited with code {result.returncode}")
         return 1
 
     return 0
 
 
 def main() -> int:
-    """Main entry point."""
+    """Parses the arguments and applies or lists layouts."""
     parser = create_parser()
     args = parser.parse_args()
 
@@ -173,7 +135,7 @@ def main() -> int:
         list_layouts()
         return 0
 
-    print_header(f"Applying layout: {args.layout}")
+    log.header(f"Applying layout: {args.layout}")
     return apply_layout(args.layout)
 
 

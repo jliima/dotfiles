@@ -30,8 +30,8 @@ set -euo pipefail
 
 # ==== Configuration ====
 CHROMIUM_BIN="/usr/bin/chromium"
-USER_DATA="$HOME/.config/chromium"
-THEME_DIR="$USER_DATA/themer-theme"
+USER_DATA="${HOME}/.config/chromium"
+THEME_DIR="${USER_DATA}/themer-theme"
 
 # ==== Colors ====
 BLUE='\033[1;34m'
@@ -82,7 +82,7 @@ profile_for() {
 ensure_profile() {
   local dir="$1" name="$2"
   pgrep -x chromium >/dev/null && return 0
-  python3 - "$USER_DATA" "$dir" "$name" <<'PY'
+  python3 - "${USER_DATA}" "${dir}" "${name}" <<'PY'
 import json, os, sys
 base, folder, name = sys.argv[1:]
 os.makedirs(os.path.join(base, folder), exist_ok=True)
@@ -109,18 +109,18 @@ PY
 # Prints the comma separated --load-extension value for a profile key.
 extensions_for() {
   local key="$1" themer clone parent ext list=()
-  themer=$(readlink -f "$(command -v themer || echo "$HOME/.local/bin/themer")" 2>/dev/null || true)
-  if [ -n "$themer" ] && [ -e "$themer" ]; then
-    clone=$(dirname "$themer")
-    parent=$(dirname "$clone")
-    for ext in "$parent/darkreader-themer/build/release/chrome-mv3" "$parent/stylus-themer/dist-chrome-mv3"; do
-      [ -f "$ext/manifest.json" ] && list+=("$ext")
+  themer=$(readlink -f "$(command -v themer || echo "${HOME}/.local/bin/themer")" 2>/dev/null || true)
+  if [ -n "${themer}" ] && [ -e "${themer}" ]; then
+    clone=$(dirname "${themer}")
+    parent=$(dirname "${clone}")
+    for ext in "${parent}/darkreader-themer/build/release/chrome-mv3" "${parent}/stylus-themer/dist-chrome-mv3"; do
+      [ -f "${ext}/manifest.json" ] && list+=("${ext}")
     done
-    if [ "$key" = "work" ] && [ -f "$parent/atlassian-newtab/manifest.json" ]; then
-      list+=("$parent/atlassian-newtab")
+    if [ "${key}" = "work" ] && [ -f "${parent}/atlassian-newtab/manifest.json" ]; then
+      list+=("${parent}/atlassian-newtab")
     fi
   fi
-  [ -f "$THEME_DIR/manifest.json" ] && list+=("$THEME_DIR")
+  [ -f "${THEME_DIR}/manifest.json" ] && list+=("${THEME_DIR}")
   local IFS=,
   echo "${list[*]}"
 }
@@ -141,21 +141,21 @@ case "${1:-}" in
     ;;
 esac
 
-if [ -z "$key" ]; then
-  activity=$("$HOME/scripts/kde/get_current_activity_name.sh" | tr '[:upper:]' '[:lower:]')
-  case "$activity" in
-    work | school) key="$activity" ;;
+if [ -z "${key}" ]; then
+  activity=$("${HOME}/scripts/kde/get_current_activity_name.sh" | tr '[:upper:]' '[:lower:]')
+  case "${activity}" in
+    work | school) key="${activity}" ;;
     *) key="default" ;;
   esac
-  print_info "Activity detected: $activity"
+  print_info "Activity detected: ${activity}"
 fi
 
-IFS='|' read -r dir name <<<"$(profile_for "$key")"
-print_info "Opening Chromium with the $name profile"
-ensure_profile "$dir" "$name"
+IFS='|' read -r dir name <<<"$(profile_for "${key}")"
+print_info "Opening Chromium with the ${name} profile"
+ensure_profile "${dir}" "${name}"
 
-args=(--profile-directory="$dir" --disable-features=WaylandWpColorManagerV1)
-extensions=$(extensions_for "$key")
-[ -n "$extensions" ] && args+=(--load-extension="$extensions")
+args=(--profile-directory="${dir}" --disable-features=WaylandWpColorManagerV1)
+extensions=$(extensions_for "${key}")
+[ -n "${extensions}" ] && args+=(--load-extension="${extensions}")
 
-exec "$CHROMIUM_BIN" "${args[@]}" "$@"
+exec "${CHROMIUM_BIN}" "${args[@]}" "$@"

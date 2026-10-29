@@ -24,27 +24,27 @@
 set -euo pipefail
 
 RESOURCES_DIR="/usr/lib/claude-desktop/resources"
-ASAR="$RESOURCES_DIR/app.asar"
-BACKUP="$RESOURCES_DIR/app.asar.themer-orig"
-VERSION_FILE="$BACKUP.version"
+ASAR="${RESOURCES_DIR}/app.asar"
+BACKUP="${RESOURCES_DIR}/app.asar.themer-orig"
+VERSION_FILE="${BACKUP}.version"
 # Present in app.asar only once it is patched (the theme file the patch reads).
 MARKER="claude-desktop-theme"
 SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
-PATCHER="$SCRIPT_DIR/asar-patch.mjs"
+PATCHER="${SCRIPT_DIR}/asar-patch.mjs"
 
 installed_version() {
   dpkg-query -W -f='${Version}' claude-desktop 2>/dev/null || echo "unknown"
 }
 
 backup_version() {
-  [[ -f "$VERSION_FILE" ]] && cat "$VERSION_FILE" || echo ""
+  [[ -f "${VERSION_FILE}" ]] && cat "${VERSION_FILE}" || echo ""
 }
 
 # Runs a command as root: directly when already root, with sudo on a terminal or when sudo needs no password, with
 # sudo -A when SUDO_ASKPASS names a program that prints the password, else through pkexec (a graphical password
 # prompt), so Themer can ask when it runs from a keyboard shortcut.
 as_root() {
-  if [[ $EUID -eq 0 ]]; then
+  if [[ ${EUID} -eq 0 ]]; then
     "$@"
   elif [[ -t 0 ]] || sudo -n true 2>/dev/null; then
     sudo "$@"
@@ -60,21 +60,21 @@ as_root() {
 
 # node for building the patch; nvm is often loaded lazily by the shell profile, so source it when node is missing.
 find_node() {
-  if ! command -v node >/dev/null && [[ -s "${NVM_DIR:-$HOME/.nvm}/nvm.sh" ]]; then
+  if ! command -v node >/dev/null && [[ -s "${NVM_DIR:-${HOME}/.nvm}/nvm.sh" ]]; then
     # shellcheck disable=SC1091
-    . "${NVM_DIR:-$HOME/.nvm}/nvm.sh"
+    . "${NVM_DIR:-${HOME}/.nvm}/nvm.sh"
   fi
   command -v node >/dev/null
 }
 
 # Patched for the installed version: the backup was taken from this version and app.asar differs from it.
 is_patched() {
-  [[ -f "$BACKUP" && "$(backup_version)" == "$(installed_version)" ]] && ! cmp -s "$ASAR" "$BACKUP"
+  [[ -f "${BACKUP}" && "$(backup_version)" == "$(installed_version)" ]] && ! cmp -s "${ASAR}" "${BACKUP}"
 }
 
 require_asar() {
-  if [[ ! -f "$ASAR" ]]; then
-    echo "Error: $ASAR not found. Is claude-desktop installed?" >&2
+  if [[ ! -f "${ASAR}" ]]; then
+    echo "Error: ${ASAR} not found. Is claude-desktop installed?" >&2
     exit 1
   fi
 }
@@ -82,9 +82,9 @@ require_asar() {
 cmd_status() {
   require_asar
   echo "installed claude-desktop version: $(installed_version)"
-  if [[ -f "$BACKUP" ]]; then
-    echo "pristine backup:                  $BACKUP (from version $(backup_version))"
-    if cmp -s "$ASAR" "$BACKUP"; then
+  if [[ -f "${BACKUP}" ]]; then
+    echo "pristine backup:                  ${BACKUP} (from version $(backup_version))"
+    if cmp -s "${ASAR}" "${BACKUP}"; then
       echo "current app.asar:                 pristine (patch not applied)"
     else
       echo "current app.asar:                 differs from backup (patched, or manually changed)"
@@ -106,12 +106,12 @@ cmd_check() {
 
 cmd_revert() {
   require_asar
-  if [[ ! -f "$BACKUP" ]]; then
-    echo "Error: no backup at $BACKUP, nothing to revert." >&2
+  if [[ ! -f "${BACKUP}" ]]; then
+    echo "Error: no backup at ${BACKUP}, nothing to revert." >&2
     exit 1
   fi
   echo "Restoring pristine app.asar from backup..."
-  as_root cp "$BACKUP" "$ASAR"
+  as_root cp "${BACKUP}" "${ASAR}"
   echo "Done. Restart claude-desktop to pick it up."
 }
 
@@ -121,7 +121,7 @@ cmd_install() {
     echo "Error: node is required to build the patch." >&2
     exit 1
   fi
-  if [[ $EUID -eq 0 ]]; then
+  if [[ ${EUID} -eq 0 ]]; then
     echo "Error: run this as your own user; it asks for root only where it must." >&2
     exit 1
   fi
@@ -130,41 +130,41 @@ cmd_install() {
   current_version="$(installed_version)"
   backed_up_version="$(backup_version)"
 
-  if [[ ! -f "$BACKUP" || "$backed_up_version" != "$current_version" ]]; then
-    if grep -qa "$MARKER" "$ASAR"; then
-      echo "Error: app.asar is already patched but there is no pristine backup for version $current_version." >&2
-      echo "If an earlier patch left a backup (ls $RESOURCES_DIR/app.asar.*-orig), rename it and its .version file" >&2
+  if [[ ! -f "${BACKUP}" || "${backed_up_version}" != "${current_version}" ]]; then
+    if grep -qa "${MARKER}" "${ASAR}"; then
+      echo "Error: app.asar is already patched but there is no pristine backup for version ${current_version}." >&2
+      echo "If an earlier patch left a backup (ls ${RESOURCES_DIR}/app.asar.*-orig), rename it and its .version file" >&2
       echo "to app.asar.themer-orig and app.asar.themer-orig.version with sudo mv; otherwise run:" >&2
       echo "sudo apt reinstall claude-desktop" >&2
       exit 1
     fi
-    if [[ -f "$BACKUP" ]]; then
-      echo "claude-desktop was updated ($backed_up_version -> $current_version)."
+    if [[ -f "${BACKUP}" ]]; then
+      echo "claude-desktop was updated (${backed_up_version} -> ${current_version})."
       echo "The installed app.asar is a fresh, unpatched copy from that update; re-baselining the backup from it."
     else
       echo "No backup yet; backing up the installed app.asar as the pristine copy."
     fi
     local tmp_version
     tmp_version="$(mktemp)"
-    echo "$current_version" >"$tmp_version"
-    as_root cp "$ASAR" "$BACKUP"
+    echo "${current_version}" >"${tmp_version}"
+    as_root cp "${ASAR}" "${BACKUP}"
     # mktemp files are 0600; check reads the version as a normal user, so install it world-readable.
-    as_root install -m 644 "$tmp_version" "$VERSION_FILE"
-    rm -f "$tmp_version"
+    as_root install -m 644 "${tmp_version}" "${VERSION_FILE}"
+    rm -f "${tmp_version}"
   else
-    echo "Backup already matches installed version $current_version; patching from it."
+    echo "Backup already matches installed version ${current_version}; patching from it."
   fi
 
   local tmp_out
   tmp_out="$(mktemp --suffix=.asar)"
   # Expand now: tmp_out is local and gone by the time the EXIT trap runs.
-  trap "rm -f '$tmp_out'" EXIT
+  trap "rm -f '${tmp_out}'" EXIT
 
   echo "Building patched asar from the pristine backup..."
-  node "$PATCHER" "$BACKUP" "$tmp_out"
+  node "${PATCHER}" "${BACKUP}" "${tmp_out}"
 
   echo "Installing patched asar..."
-  as_root cp "$tmp_out" "$ASAR"
+  as_root cp "${tmp_out}" "${ASAR}"
   echo ""
   echo "Installed. Restart claude-desktop to pick it up."
   echo "If anything looks broken, run: $0 revert"

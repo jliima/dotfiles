@@ -11,7 +11,7 @@
 set -euo pipefail
 
 # ==== Configuration ====
-COPILOT_BIN="$HOME/bin/copilot"
+COPILOT_BIN="${HOME}/bin/copilot"
 KONSOLE_COLUMNS=120
 KONSOLE_ROWS=60
 COPILOT_ARGS=()
@@ -55,10 +55,10 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-if [ ! -x "$COPILOT_BIN" ]; then
-  print_error "Copilot binary not found: $COPILOT_BIN"
+if [ ! -x "${COPILOT_BIN}" ]; then
+  print_error "Copilot binary not found: ${COPILOT_BIN}"
   exit 1
 fi
 
-konsole -p TerminalColumns="$KONSOLE_COLUMNS" -p TerminalRows="$KONSOLE_ROWS" \
-  -e "$COPILOT_BIN" "${COPILOT_ARGS[@]}" &
+konsole -p TerminalColumns="${KONSOLE_COLUMNS}" -p TerminalRows="${KONSOLE_ROWS}" \
+  -e "${COPILOT_BIN}" "${COPILOT_ARGS[@]}" &

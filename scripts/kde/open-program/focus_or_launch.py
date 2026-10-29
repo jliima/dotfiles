@@ -1,67 +1,66 @@
 #!/usr/bin/env python3
-# ------------------------------------------------------------------------------
-# Name:        focus_or_launch.py
-# Description: Focus an app's window on the current virtual desktop, or launch
-#              a new window if there is none (what the Meta+T/E/D keys do).
-#
-# Details:
-#   "Moved under the mouse" below means: only when the window is on another
-#   screen than the pointer; a window on the pointer's screen is just focused.
-#
-#   konsole:
-#     If a window on the current virtual desktop (and activity) has a tab that
-#     is not running Claude Code, the topmost such window is focused and moved
-#     under the mouse. Otherwise (no window, or only Claude Code ones) a new
-#     window is launched.
-#
-#   kate:
-#     Reuses an "Untitled" tab before making anything new. Windows on the
-#     current desktop are searched, the topmost first, and within a window
-#     every tab (Kate cannot list documents over D-Bus, so the tabs are stepped
-#     through and the window title read). The window that has one is focused,
-#     moved under the mouse and switched to that tab. If no window has an
-#     Untitled tab, the topmost gets a new one; with no window, a new one is
-#     launched.
-#
-#   dolphin:
-#     A window on the current desktop that is not focused is brought forward
-#     and moved under the mouse. If one is already focused, it gets a new tab
-#     showing the home folder. No window: a new one is launched.
-#
-#   firefox [URL]:
-#     The topmost window on the current desktop is focused (not moved) and a
-#     new tab is opened in it, showing URL if given. With no window here, a new
-#     window is opened on this desktop, even if Firefox runs on another one.
-#     firefox.desktop sends clicked links here.
-#
-#   chromium [URL...]:
-#     The same as firefox, through open_chromium.sh (profile by activity).
-#     chromium.desktop sends clicked links and files here.
-#
-#   keepassxc:
-#     The KeePassXC window is moved from whatever desktop it is on to the
-#     current one and focused. If it is hidden to the tray, it is shown.
-#
-#   Window lookup, activation and moving go through kwin_windows.py (KWin
-#   scripting over D-Bus). New tabs are opened through each app's own D-Bus
-#   interface. The Shift variants of the keys launch the apps themselves and do
-#   not come through here.
-# ------------------------------------------------------------------------------
+"""Focuses an app's window on the current virtual desktop, or launches a new one (the Meta+T/E/D keys).
+
+"Moved under the mouse" below means: only when the window is on another
+screen than the pointer; a window on the pointer's screen is just focused.
+
+konsole:
+  If a window on the current virtual desktop (and activity) has a tab that
+  is not running Claude Code, the topmost such window is focused and moved
+  under the mouse. Otherwise (no window, or only Claude Code ones) a new
+  window is launched.
+
+kate:
+  Reuses an "Untitled" tab before making anything new. Windows on the
+  current desktop are searched, the topmost first, and within a window
+  every tab (Kate cannot list documents over D-Bus, so the tabs are stepped
+  through and the window title read). The window that has one is focused,
+  moved under the mouse and switched to that tab. If no window has an
+  Untitled tab, the topmost gets a new one; with no window, a new one is
+  launched.
+
+dolphin:
+  A window on the current desktop that is not focused is brought forward
+  and moved under the mouse. If one is already focused, it gets a new tab
+  showing the home folder. No window: a new one is launched.
+
+firefox [URL]:
+  The topmost window on the current desktop is focused (not moved) and a
+  new tab is opened in it, showing URL if given. With no window here, a new
+  window is opened on this desktop, even if Firefox runs on another one.
+  firefox.desktop sends clicked links here.
+
+chromium [URL...]:
+  The same as firefox, through open_chromium.sh (profile by activity).
+  chromium.desktop sends clicked links and files here.
+
+keepassxc:
+  The KeePassXC window is moved from whatever desktop it is on to the
+  current one and focused. If it is hidden to the tray, it is shown.
+
+Window lookup, activation and moving go through kwin_windows.py (KWin
+scripting over D-Bus). New tabs are opened through each app's own D-Bus
+interface. The Shift variants of the keys launch the apps themselves and do
+not come through here.
+"""
 
 import argparse
 import os
 import subprocess
 import sys
 import time
+from collections.abc import Callable
+from collections.abc import Sequence
+from typing import Any
+from typing import TypeAlias
 
 import dbus
 
-
 sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
-import kwin_windows  # noqa: E402
+import kwin_windows  # pylint: disable=wrong-import-position
 
+Window: TypeAlias = dict[str, Any]
 
-# ==== Configuration ====
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 OPEN_FIREFOX = os.path.join(SCRIPT_DIR, "open_firefox.sh")
 OPEN_CHROMIUM = os.path.join(SCRIPT_DIR, "open_chromium.sh")
@@ -83,28 +82,31 @@ FOCUS_WAIT_S = 1.0
 FOCUS_POLL_S = 0.05
 
 
-# ==== Helpers ====
-def launch(cmd):
-    subprocess.Popen(
+def launch(cmd: Sequence[str]) -> None:
+    """Starts a detached process and does not wait for it."""
+    subprocess.Popen(  # pylint: disable=consider-using-with  # Detached on purpose, nobody waits for it.
         cmd, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True
     )
 
 
-def topmost(windows):
+def topmost(windows: Sequence[Window]) -> Window | None:
+    """Returns the window with the highest stack index, or None when there are none."""
     return max(windows, key=lambda w: w["stackIndex"]) if windows else None
 
 
-def qt_prop(bus, service, path, name):
+def qt_prop(bus: dbus.SessionBus, service: str, path: str, name: str) -> Any:
+    """Reads a Qt widget property over D-Bus."""
     obj = bus.get_object(service, path)
     return obj.Get("org.qtproject.Qt.QWidget", name, dbus_interface="org.freedesktop.DBus.Properties")
 
 
-def child_nodes(bus, service, path):
+def child_nodes(bus: dbus.SessionBus, service: str, path: str) -> list[str]:
+    """Returns the names of the D-Bus object's child nodes."""
     xml = bus.get_object(service, path).Introspect(dbus_interface="org.freedesktop.DBus.Introspectable")
     return [part.split('"')[0] for part in xml.split('<node name="')[1:]]
 
 
-def trigger_in_active_window(service, root, prefix, action):
+def trigger_in_active_window(service: str, root: str, prefix: str, action: str) -> None:
     """Triggers a KXMLGUI action in the process's main window (/root/prefixN) that currently has focus.
 
     KWin activation is asynchronous, so poll until the app reports one of its windows as active.
@@ -126,7 +128,12 @@ def trigger_in_active_window(service, root, prefix, action):
     bus.get_object(service, f"{target}/actions/{action}").trigger(dbus_interface="org.qtproject.Qt.QAction")
 
 
-def focus_here_or_launch(class_regex, new_tab, launch_cmd, pick=topmost):
+def focus_here_or_launch(
+    class_regex: str,
+    new_tab: Callable[[Window], None],
+    launch_cmd: Sequence[str],
+    pick: Callable[[Sequence[Window]], Window | None] = topmost,
+) -> None:
     """Shared flow: focus a window on this desktop and open a tab in it, else launch a new window."""
     window = pick(kwin_windows.list_windows(class_regex, here_only=True))
     if window is None:
@@ -136,26 +143,28 @@ def focus_here_or_launch(class_regex, new_tab, launch_cmd, pick=topmost):
     new_tab(window)
 
 
-# ==== Apps ====
-def kate_title(bus, service, path):
+def kate_title(bus: dbus.SessionBus, service: str, path: str) -> str:
     """The title of the tab Kate shows in a main window, "Untitled [*]" for a new document."""
     return str(qt_prop(bus, service, path, "windowTitle"))
 
 
-def kate_is_untitled(title):
+def kate_is_untitled(title: str) -> bool:
+    """Returns whether the title is that of a new, unsaved document."""
     return title.replace("[*]", "").strip() == "Untitled"
 
 
-def kate_main_window(bus, service):
+def kate_main_window(bus: dbus.SessionBus, service: str) -> str | None:
+    """Returns the D-Bus path of Kate's first main window, or None."""
     paths = [f"/kate/{n}" for n in sorted(child_nodes(bus, service, "/kate")) if n.startswith("MainWindow_")]
     return paths[0] if paths else None
 
 
-def kate_trigger(bus, service, path, action):
+def kate_trigger(bus: dbus.SessionBus, service: str, path: str, action: str) -> None:
+    """Triggers a Kate action in the window at path."""
     bus.get_object(service, f"{path}/actions/{action}").trigger(dbus_interface="org.qtproject.Qt.QAction")
 
 
-def kate_focus_untitled_tab(bus, service, path):
+def kate_focus_untitled_tab(bus: dbus.SessionBus, service: str, path: str) -> bool:
     """Switches the window to its Untitled tab if it has one; returns whether it does.
 
     Kate cannot list its documents over D-Bus, so the tabs are stepped through (next tab wraps around) and the window
@@ -181,7 +190,7 @@ def kate_focus_untitled_tab(bus, service, path):
     return False
 
 
-def kate():
+def kate() -> None:
     """Reuses an existing Untitled tab (any window on this desktop) before making a new tab or window."""
     bus = dbus.SessionBus()
     windows = sorted(
@@ -221,7 +230,8 @@ def kate():
     trigger_in_active_window(service, "/kate", "MainWindow_", "file_new")
 
 
-def dolphin():
+def dolphin() -> None:
+    """Brings a Dolphin window forward, or gives the focused one a new tab showing the home folder."""
     windows = kwin_windows.list_windows(r"^org\.kde\.dolphin$", here_only=True)
     if not windows:
         launch(["dolphin", "--new-window"])
@@ -237,7 +247,7 @@ def dolphin():
     trigger_in_active_window(service, "/dolphin", "Dolphin_", "go_home")
 
 
-def konsole_window_path(bus, service, caption):
+def konsole_window_path(bus: dbus.SessionBus, service: str, caption: str) -> tuple[str | None, Any]:
     """Maps a KWin window caption to the Konsole /Windows/N object whose current tab has that title."""
     for n in child_nodes(bus, service, "/Windows"):
         window = bus.get_object(service, f"/Windows/{n}")
@@ -248,11 +258,12 @@ def konsole_window_path(bus, service, caption):
     return None, None
 
 
-def is_claude(pid):
+def is_claude(pid: int) -> bool:
+    """Returns whether the process is Claude Code, from its command line and name."""
     try:
         with open(f"/proc/{pid}/cmdline", "rb") as f:
             argv = [a.decode(errors="replace") for a in f.read().split(b"\0") if a]
-        with open(f"/proc/{pid}/comm") as f:
+        with open(f"/proc/{pid}/comm", encoding="utf-8") as f:
             comm = f.read().strip()
     except OSError:
         return False
@@ -260,7 +271,8 @@ def is_claude(pid):
     return any(n in CLAUDE_COMMANDS for n in names)
 
 
-def konsole():
+def konsole() -> None:
+    """Focuses the topmost Konsole window that is not running Claude Code, else launches a new one."""
     bus = dbus.SessionBus()
     windows = kwin_windows.list_windows(r"^org\.konsole$|^org\.kde\.konsole$", here_only=True)
     # Topmost Konsole window on this desktop whose visible tab is not running Claude Code.
@@ -281,7 +293,7 @@ def konsole():
     launch(["konsole"])
 
 
-def firefox_profile_args(pid):
+def firefox_profile_args(pid: int) -> list[str]:
     """Returns the profile arguments the running Firefox was started with, so remoting hits that instance."""
     try:
         with open(f"/proc/{pid}/cmdline", "rb") as f:
@@ -294,8 +306,10 @@ def firefox_profile_args(pid):
     return []
 
 
-def firefox(url=None):
-    def new_tab(w):
+def firefox(url: str | None = None) -> None:
+    """Opens a new tab (showing url when given) in the Firefox window on this desktop, else a new window."""
+
+    def new_tab(w: Window) -> None:
         # Firefox opens remote --new-tab requests in its most recently focused window, so let focus settle first.
         time.sleep(0.2)
         launch([FIREFOX_BIN, *firefox_profile_args(w["pid"]), "--new-tab", url or "about:newtab"])
@@ -303,8 +317,11 @@ def firefox(url=None):
     focus_here_or_launch(r"^firefox$", new_tab, [OPEN_FIREFOX, "--new-window", url] if url else [OPEN_FIREFOX])
 
 
-def chromium(*urls):
-    def new_tab(_):
+def chromium(*urls: str) -> None:
+    """Opens new tabs (the urls when given) in the Chromium window on this desktop, else a new window."""
+
+    def new_tab(window: Window) -> None:
+        del window  # Unused.
         # Chromium opens remote URLs in the profile's most recently focused window, so let focus settle first.
         # shortcut: every window is one process, so the profile comes from the activity, not from the window found here.
         time.sleep(0.2)
@@ -313,7 +330,8 @@ def chromium(*urls):
     focus_here_or_launch(r"^chromium$", new_tab, [OPEN_CHROMIUM, "--new-window", *urls])
 
 
-def keepassxc():
+def keepassxc() -> None:
+    """Moves the KeePassXC window to this desktop and focuses it, or launches it when it is hidden."""
     window = topmost(kwin_windows.list_windows(r"(?i)keepassxc"))
     if window is not None:
         kwin_windows.activate(window["id"], move_here=True)
@@ -332,8 +350,11 @@ APPS = {
 }
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__ or "Focus or launch an app on the current desktop.")
+def main() -> None:
+    """Runs the app action named on the command line."""
+    parser = argparse.ArgumentParser(
+        description=(__doc__ or "Focus or launch an app on the current desktop.").split("\n\n", 1)[0]
+    )
     parser.add_argument("app", choices=sorted(APPS))
     parser.add_argument("urls", nargs="*", help="firefox (one) and chromium only: the links to open")
     args = parser.parse_args()

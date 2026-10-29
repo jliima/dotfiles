@@ -57,8 +57,8 @@ resolve_theme_id() {
   local theme_id
 
   while IFS=$'\t' read -r theme_name theme_id; do
-    if [[ "$requested" == "$theme_name" || "$requested" == "$theme_id" ]]; then
-      echo "$theme_id"
+    if [[ "${requested}" == "${theme_name}" || "${requested}" == "${theme_id}" ]]; then
+      echo "${theme_id}"
       return 0
     fi
   done < <(list_theme_pairs)
@@ -112,27 +112,27 @@ main() {
   local requested_size="$2"
   local theme_id
 
-  if ! [[ "$requested_size" =~ ^[0-9]+$ ]] || [[ "$requested_size" -le 0 ]]; then
-    print_error "Size must be a positive integer (received: $requested_size)"
+  if ! [[ "${requested_size}" =~ ^[0-9]+$ ]] || [[ "${requested_size}" -le 0 ]]; then
+    print_error "Size must be a positive integer (received: ${requested_size})"
     exit 1
   fi
 
-  if ! theme_id="$(resolve_theme_id "$requested_theme")"; then
-    print_error "Cursor theme not found: $requested_theme"
+  if ! theme_id="$(resolve_theme_id "${requested_theme}")"; then
+    print_error "Cursor theme not found: ${requested_theme}"
     print_info "Run '$(basename "$0") --help' to see available themes."
     exit 1
   fi
 
   print_header "Applying cursor settings"
-  print_info "Theme: $requested_theme ($theme_id)"
-  print_info "Size: $requested_size"
+  print_info "Theme: ${requested_theme} (${theme_id})"
+  print_info "Size: ${requested_size}"
 
-  plasma-apply-cursortheme "$theme_id"
-  kwriteconfig6 --file "$CURSOR_CONFIG_FILE" --group "$CURSOR_CONFIG_GROUP" --key "$CURSOR_SIZE_KEY" "$requested_size"
+  plasma-apply-cursortheme "${theme_id}"
+  kwriteconfig6 --file "${CURSOR_CONFIG_FILE}" --group "${CURSOR_CONFIG_GROUP}" --key "${CURSOR_SIZE_KEY}" "${requested_size}"
   dbus-send --session --type=signal /KGlobalSettings org.kde.KGlobalSettings.notifyChange int32:5 int32:0
   dbus-send --session --type=signal /KWin org.kde.KWin.reloadConfig
 
-  print_success "Cursor updated to '$requested_theme' with size $requested_size."
+  print_success "Cursor updated to '${requested_theme}' with size ${requested_size}."
 }
 
 # ==== Main ====

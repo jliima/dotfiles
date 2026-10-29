@@ -55,18 +55,18 @@ case "${1:-}" in
     ;;
 esac
 
-if [[ -z "$ACTIVITY_NAME" ]]; then
+if [[ -z "${ACTIVITY_NAME}" ]]; then
   print_error "Missing required argument: activity-name"
   usage
   exit 1
 fi
 
-ACTIVITY_ID="$(find_activity_id "$ACTIVITY_NAME")"
+ACTIVITY_ID="$(find_activity_id "${ACTIVITY_NAME}")"
 
-if [[ -z "$ACTIVITY_ID" ]]; then
-  print_error "Activity not found: $ACTIVITY_NAME"
+if [[ -z "${ACTIVITY_ID}" ]]; then
+  print_error "Activity not found: ${ACTIVITY_NAME}"
   exit 1
 fi
 
-timeout 5 plasma-activities-cli6 --set-current-activity "$ACTIVITY_ID"
-print_success "Switched to activity: $ACTIVITY_NAME"
+timeout 5 plasma-activities-cli6 --set-current-activity "${ACTIVITY_ID}"
+print_success "Switched to activity: ${ACTIVITY_NAME}"

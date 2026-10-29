@@ -11,7 +11,7 @@
 set -euo pipefail
 
 # ==== Configuration ====
-NIGHT_LIGHT_PID_FILE="$HOME/.local/state/night-light-inhibit.pid"
+NIGHT_LIGHT_PID_FILE="${HOME}/.local/state/night-light-inhibit.pid"
 TV_NAME="HDMI-A-1"
 MONITOR1_NAME="DP-1"
 MONITOR2_NAME="DP-2"
@@ -59,15 +59,15 @@ print_info "Stopping Jellyfin Media Player"
 killall jellyfinmediaplayer >/dev/null 2>&1 || true
 
 print_info "Resuming Night Light"
-if [ -f "$NIGHT_LIGHT_PID_FILE" ]; then
-  pid=$(cat "$NIGHT_LIGHT_PID_FILE")
-  if kill -0 "$pid" 2>/dev/null; then
-    kill "$pid"
-    print_success "Night Light resumed (killed PID $pid)"
+if [ -f "${NIGHT_LIGHT_PID_FILE}" ]; then
+  pid=$(cat "${NIGHT_LIGHT_PID_FILE}")
+  if kill -0 "${pid}" 2>/dev/null; then
+    kill "${pid}"
+    print_success "Night Light resumed (killed PID ${pid})"
   else
-    print_warn "Night Light holder (PID $pid) was not running"
+    print_warn "Night Light holder (PID ${pid}) was not running"
   fi
-  rm -f "$NIGHT_LIGHT_PID_FILE"
+  rm -f "${NIGHT_LIGHT_PID_FILE}"
 else
   print_warn "No Night Light inhibit PID found; nothing to resume"
 fi
@@ -77,11 +77,11 @@ pactl set-default-sink "$(pactl list short sinks | awk '{print $2}' | grep 'FiiO
 
 print_info "Restoring desktop display layout"
 kscreen-doctor \
-  "output.$MONITOR1_NAME.enable" \
-  "output.$MONITOR1_NAME.primary" \
-  "output.$MONITOR2_NAME.enable" \
-  "output.$TV_NAME.disable" \
-  "output.$MONITOR2_NAME.position.0,0" \
-  "output.$MONITOR1_NAME.position.2560,0"
+  "output.${MONITOR1_NAME}.enable" \
+  "output.${MONITOR1_NAME}.primary" \
+  "output.${MONITOR2_NAME}.enable" \
+  "output.${TV_NAME}.disable" \
+  "output.${MONITOR2_NAME}.position.0,0" \
+  "output.${MONITOR1_NAME}.position.2560,0"
 
 print_success "Desktop layout restored"

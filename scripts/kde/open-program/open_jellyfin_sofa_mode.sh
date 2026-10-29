@@ -12,10 +12,10 @@
 set -euo pipefail
 
 # ==== Configuration ====
-LOG_FILE="$HOME/.local/state/open-jellyfin-sofa-mode.log"
-NIGHT_LIGHT_PID_FILE="$HOME/.local/state/night-light-inhibit.pid"
-JEREFLIX_LAUNCHER="$HOME/.local/bin/jmp-jereflix"
-MIKAFLIX_LAUNCHER="$HOME/.local/bin/jmp-mikaflix"
+LOG_FILE="${HOME}/.local/state/open-jellyfin-sofa-mode.log"
+NIGHT_LIGHT_PID_FILE="${HOME}/.local/state/night-light-inhibit.pid"
+JEREFLIX_LAUNCHER="${HOME}/.local/bin/jmp-jereflix"
+MIKAFLIX_LAUNCHER="${HOME}/.local/bin/jmp-mikaflix"
 TV_NAME="HDMI-A-1"
 MONITOR1_NAME="DP-1"
 MONITOR2_NAME="DP-2"
@@ -53,7 +53,7 @@ log() {
   local msg="$1"
   local ts
   ts="$(date '+%Y-%m-%d %H:%M:%S')"
-  printf '[%s] %s\n' "$ts" "$msg" | tee -a "$LOG_FILE"
+  printf '[%s] %s\n' "${ts}" "${msg}" | tee -a "${LOG_FILE}"
 }
 
 # ==== Main ====
@@ -64,7 +64,7 @@ case "${1:-}" in
     ;;
 esac
 
-mkdir -p "$(dirname "$LOG_FILE")"
+mkdir -p "$(dirname "${LOG_FILE}")"
 
 if [ "${1:-}" = "" ]; then
   print_error "Missing argument. Usage: $0 {jereflix|mikaflix}"
@@ -73,10 +73,10 @@ fi
 
 case "$1" in
   jereflix)
-    launcher="$JEREFLIX_LAUNCHER"
+    launcher="${JEREFLIX_LAUNCHER}"
     ;;
   mikaflix)
-    launcher="$MIKAFLIX_LAUNCHER"
+    launcher="${MIKAFLIX_LAUNCHER}"
     ;;
   *)
     print_error "Invalid argument '$1'. Use 'jereflix' or 'mikaflix'."
@@ -89,19 +89,19 @@ print_header "Sofa mode"
 log "Setting display layout for sofa mode."
 print_info "Switching display to TV"
 kscreen-doctor \
-  "output.$TV_NAME.enable" \
-  "output.$TV_NAME.primary" \
-  "output.$MONITOR1_NAME.disable" \
-  "output.$MONITOR2_NAME.disable"
+  "output.${TV_NAME}.enable" \
+  "output.${TV_NAME}.primary" \
+  "output.${MONITOR1_NAME}.disable" \
+  "output.${MONITOR2_NAME}.disable"
 
 log "Selecting Scarlett audio sink."
 print_info "Setting Scarlett audio sink"
 scarlett_sink="$(pactl list short sinks | awk '{print $2}' | grep 'Scarlett' | head -n 1)"
-if [ -z "$scarlett_sink" ]; then
+if [ -z "${scarlett_sink}" ]; then
   print_error "Scarlett sink not found."
   exit 1
 fi
-pactl set-default-sink "$scarlett_sink"
+pactl set-default-sink "${scarlett_sink}"
 
 log "Stopping Telegram."
 print_info "Stopping Telegram"
@@ -109,8 +109,8 @@ killall Telegram >/dev/null 2>&1 || true
 
 log "Suspending Night Light."
 print_info "Suspending Night Light"
-if [ -f "$NIGHT_LIGHT_PID_FILE" ] && kill -0 "$(cat "$NIGHT_LIGHT_PID_FILE")" 2>/dev/null; then
-  print_warn "Night Light is already suspended (PID $(cat "$NIGHT_LIGHT_PID_FILE"))"
+if [ -f "${NIGHT_LIGHT_PID_FILE}" ] && kill -0 "$(cat "${NIGHT_LIGHT_PID_FILE}")" 2>/dev/null; then
+  print_warn "Night Light is already suspended (PID $(cat "${NIGHT_LIGHT_PID_FILE}"))"
   log "Night Light already suspended."
 else
   python3 -c "
@@ -118,14 +118,14 @@ import dbus, os, signal
 bus = dbus.SessionBus()
 nl = dbus.Interface(bus.get_object('org.kde.KWin', '/org/kde/KWin/NightLight'), 'org.kde.KWin.NightLight')
 cookie = nl.inhibit()
-with open('$NIGHT_LIGHT_PID_FILE', 'w') as f:
+with open('${NIGHT_LIGHT_PID_FILE}', 'w') as f:
     f.write(str(os.getpid()))
 signal.pause()
 " &
   sleep 1
-  if [ -f "$NIGHT_LIGHT_PID_FILE" ] && kill -0 "$(cat "$NIGHT_LIGHT_PID_FILE")" 2>/dev/null; then
-    print_success "Night Light suspended (PID $(cat "$NIGHT_LIGHT_PID_FILE"))"
-    log "Night Light suspended (PID $(cat "$NIGHT_LIGHT_PID_FILE"))."
+  if [ -f "${NIGHT_LIGHT_PID_FILE}" ] && kill -0 "$(cat "${NIGHT_LIGHT_PID_FILE}")" 2>/dev/null; then
+    print_success "Night Light suspended (PID $(cat "${NIGHT_LIGHT_PID_FILE}"))"
+    log "Night Light suspended (PID $(cat "${NIGHT_LIGHT_PID_FILE}"))."
   else
     print_warn "Could not suspend Night Light"
     log "Warning: could not suspend Night Light."
@@ -138,7 +138,7 @@ if pgrep -f jellyfinmediaplayer >/dev/null; then
 else
   log "Launching $1 in sofa mode."
   print_info "Launching $1 in sofa mode"
-  "$launcher" --tv --fullscreen &
+  "${launcher}" --tv --fullscreen &
 fi
 
 log "Done."

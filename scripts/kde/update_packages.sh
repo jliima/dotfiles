@@ -63,7 +63,7 @@ fi
 # Update KDE Plasma plugins/widgets
 echo ""
 print_header "Updating KDE Plasma plugins"
-if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$DESKTOP_SESSION" = "plasma" ] || command -v plasmashell &>/dev/null; then
+if [ "${XDG_CURRENT_DESKTOP}" = "KDE" ] || [ "${DESKTOP_SESSION}" = "plasma" ] || command -v plasmashell &>/dev/null; then
   # Try kpackagetool6 first (for Plasma 6), then kpackagetool5 (for Plasma 5)
   if command -v kpackagetool6 &>/dev/null; then
     KPACKAGE_CMD="kpackagetool6"
@@ -74,24 +74,24 @@ if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$DESKTOP_SESSION" = "plasma" ] || co
     KPACKAGE_CMD=""
   fi
 
-  if [ -n "$KPACKAGE_CMD" ]; then
-    print_info "$KPACKAGE_CMD --type Plasma/Applet --upgrade-all"
-    if $KPACKAGE_CMD --type Plasma/Applet --upgrade-all 2>/dev/null; then
-      print_success "$KPACKAGE_CMD --type Plasma/Applet --upgrade-all"
+  if [ -n "${KPACKAGE_CMD}" ]; then
+    print_info "${KPACKAGE_CMD} --type Plasma/Applet --upgrade-all"
+    if ${KPACKAGE_CMD} --type Plasma/Applet --upgrade-all 2>/dev/null; then
+      print_success "${KPACKAGE_CMD} --type Plasma/Applet --upgrade-all"
     else
       echo "No Plasma widget updates available"
     fi
 
-    print_info "$KPACKAGE_CMD --type Plasma/Theme --upgrade-all"
-    if $KPACKAGE_CMD --type Plasma/Theme --upgrade-all 2>/dev/null; then
-      print_success "$KPACKAGE_CMD --type Plasma/Theme --upgrade-all"
+    print_info "${KPACKAGE_CMD} --type Plasma/Theme --upgrade-all"
+    if ${KPACKAGE_CMD} --type Plasma/Theme --upgrade-all 2>/dev/null; then
+      print_success "${KPACKAGE_CMD} --type Plasma/Theme --upgrade-all"
     else
       echo "No Plasma theme updates available"
     fi
 
-    print_info "$KPACKAGE_CMD --type Plasma/LookAndFeel --upgrade-all"
-    if $KPACKAGE_CMD --type Plasma/LookAndFeel --upgrade-all 2>/dev/null; then
-      print_success "$KPACKAGE_CMD --type Plasma/LookAndFeel --upgrade-all"
+    print_info "${KPACKAGE_CMD} --type Plasma/LookAndFeel --upgrade-all"
+    if ${KPACKAGE_CMD} --type Plasma/LookAndFeel --upgrade-all 2>/dev/null; then
+      print_success "${KPACKAGE_CMD} --type Plasma/LookAndFeel --upgrade-all"
     else
       echo "No look and feel updates available"
     fi

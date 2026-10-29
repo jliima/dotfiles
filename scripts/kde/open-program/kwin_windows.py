@@ -1,15 +1,12 @@
 #!/usr/bin/env python3
-# ------------------------------------------------------------------------------
-# Name:        kwin_windows.py
-# Description: List and activate KWin windows from Python (Wayland-compatible).
-#
-# Details:
-#   Loads a throwaway KWin script over D-Bus that reports back to this process
-#   through callDBus(). Used by focus_or_launch.py, but also runnable directly:
-#
-#     kwin_windows.py list [CLASS_REGEX] [--here]
-#     kwin_windows.py activate WINDOW_ID [--move-here] [--to-cursor]
-# ------------------------------------------------------------------------------
+"""Lists and activates KWin windows from Python (Wayland-compatible).
+
+Loads a throwaway KWin script over D-Bus that reports back to this process
+through callDBus(). Used by focus_or_launch.py, but also runnable directly:
+
+  kwin_windows.py list [CLASS_REGEX] [--here]
+  kwin_windows.py activate WINDOW_ID [--move-here] [--to-cursor]
+"""
 
 import argparse
 import json
@@ -17,20 +14,22 @@ import os
 import re
 import tempfile
 import uuid
+from typing import Any
+from typing import TypeAlias
 
 import dbus
-from dbus.mainloop.glib import DBusGMainLoop
 import dbus.service
+from dbus.mainloop.glib import DBusGMainLoop
 from gi.repository import GLib
-
 
 # Must be set before any session bus connection is made, including ones made by importers.
 DBusGMainLoop(set_as_default=True)
 
-# ==== Configuration ====
 TIMEOUT_MS = 2000
 RECEIVER_PATH = "/KwinWindowsReceiver"
 RECEIVER_IFACE = "local.dotfiles.KwinWindows"
+
+Window: TypeAlias = dict[str, Any]
 
 # Serialises every normal window plus whether it is on the current desktop and activity.
 LIST_JS = """
@@ -46,7 +45,9 @@ for (const w of workspace.windowList()) {
     id: w.internalId.toString(), pid: w.pid, caption: w.caption, resourceClass: w.resourceClass,
     desktopFile: w.desktopFileName, minimized: w.minimized, active: w === workspace.activeWindow,
     here: onDesk && onAct, stackIndex: stack.indexOf(w),
-    geometry: {x: w.frameGeometry.x, y: w.frameGeometry.y, width: w.frameGeometry.width, height: w.frameGeometry.height},
+    geometry: {
+      x: w.frameGeometry.x, y: w.frameGeometry.y, width: w.frameGeometry.width, height: w.frameGeometry.height,
+    },
   });
 }
 callDBus("%(bus)s", "%(path)s", "%(iface)s", "result", JSON.stringify(out));
@@ -85,18 +86,21 @@ callDBus("%(bus)s", "%(path)s", "%(iface)s", "result", JSON.stringify(ok));
 
 
 class _Receiver(dbus.service.Object):
-    def __init__(self, bus, loop):
+    """Receives the result that the KWin script sends back over D-Bus."""
+
+    def __init__(self, bus: dbus.SessionBus, loop: GLib.MainLoop) -> None:
         super().__init__(bus, RECEIVER_PATH)
         self.loop = loop
         self.payload = None
 
     @dbus.service.method(RECEIVER_IFACE, in_signature="s", out_signature="")
-    def result(self, payload):
+    def result(self, payload: str) -> None:
+        """Stores the payload and stops the main loop."""
         self.payload = str(payload)
         self.loop.quit()
 
 
-def _run_script(template, **params):
+def _run_script(template: str, **params: str) -> Any:
     """Runs a KWin script built from template and returns the JSON it reports back."""
     bus = dbus.SessionBus()
     loop = GLib.MainLoop()
@@ -124,7 +128,7 @@ def _run_script(template, **params):
     return json.loads(receiver.payload)
 
 
-def list_windows(class_regex=None, here_only=False):
+def list_windows(class_regex: str | None = None, here_only: bool = False) -> list[Window]:
     """Returns normal windows, optionally filtered by resourceClass regex and current desktop."""
     windows = _run_script(LIST_JS)
     if class_regex:
@@ -135,14 +139,24 @@ def list_windows(class_regex=None, here_only=False):
     return windows
 
 
-def activate(window_id, move_here=False, to_cursor=False):
-    """Focuses the window, first moving it to the current desktop (move_here) and/or under the mouse (to_cursor, only if it is on another screen)."""
+def activate(window_id: str, move_here: bool = False, to_cursor: bool = False) -> bool:
+    """Focuses the window.
+
+    Args:
+        window_id: The KWin internalId of the window.
+        move_here: Move the window to the current desktop first.
+        to_cursor: Move the window under the mouse first, only if it is on another screen.
+
+    Returns:
+        Whether a window with that id was found.
+    """
     return _run_script(
         ACTIVATE_JS, id=window_id, move="true" if move_here else "false", cursor="true" if to_cursor else "false"
     )
 
 
-def main():
+def main() -> None:
+    """Lists or activates windows according to the command line."""
     parser = argparse.ArgumentParser(description="List and activate KWin windows.")
     sub = parser.add_subparsers(dest="command", required=True)
     p_list = sub.add_parser("list", help="print matching windows as JSON")

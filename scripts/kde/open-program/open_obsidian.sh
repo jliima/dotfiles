@@ -12,10 +12,10 @@ set -euo pipefail
 
 # ==== Configuration ====
 OBSIDIAN_BIN="/opt/Obsidian/obsidian"
-OBSIDIAN_DIR="$HOME/Obsidian"
-WORK_VAULT="$OBSIDIAN_DIR/work-vault"
-SCHOOL_VAULT="$OBSIDIAN_DIR/school-vault"
-DEFAULT_VAULT="$OBSIDIAN_DIR/default-vault"
+OBSIDIAN_DIR="${HOME}/Obsidian"
+WORK_VAULT="${OBSIDIAN_DIR}/work-vault"
+SCHOOL_VAULT="${OBSIDIAN_DIR}/school-vault"
+DEFAULT_VAULT="${OBSIDIAN_DIR}/default-vault"
 
 # ==== Colors ====
 RED='\033[1;31m'
@@ -71,13 +71,13 @@ print_header "Opening Obsidian"
 if [ -n "${1:-}" ]; then
   case "$1" in
     work | work-vault)
-      vault_dir="$WORK_VAULT"
+      vault_dir="${WORK_VAULT}"
       ;;
     school | school-vault)
-      vault_dir="$SCHOOL_VAULT"
+      vault_dir="${SCHOOL_VAULT}"
       ;;
     default | default-vault)
-      vault_dir="$DEFAULT_VAULT"
+      vault_dir="${DEFAULT_VAULT}"
       ;;
     *)
       print_error "Unknown vault '$1'"
@@ -86,23 +86,23 @@ if [ -n "${1:-}" ]; then
       ;;
   esac
 else
-  CURRENT_ACTIVITY_RAW=$("$HOME/scripts/kde/get_current_activity_name.sh")
-  CURRENT_ACTIVITY=$(echo "$CURRENT_ACTIVITY_RAW" | tr '[:upper:]' '[:lower:]')
+  CURRENT_ACTIVITY_RAW=$("${HOME}/scripts/kde/get_current_activity_name.sh")
+  CURRENT_ACTIVITY=$(echo "${CURRENT_ACTIVITY_RAW}" | tr '[:upper:]' '[:lower:]')
 
-  if [ "$CURRENT_ACTIVITY" = "work" ]; then
-    vault_dir="$WORK_VAULT"
-  elif [ "$CURRENT_ACTIVITY" = "school" ]; then
-    vault_dir="$SCHOOL_VAULT"
+  if [ "${CURRENT_ACTIVITY}" = "work" ]; then
+    vault_dir="${WORK_VAULT}"
+  elif [ "${CURRENT_ACTIVITY}" = "school" ]; then
+    vault_dir="${SCHOOL_VAULT}"
   else
-    vault_dir="$DEFAULT_VAULT"
+    vault_dir="${DEFAULT_VAULT}"
   fi
 fi
 
-print_info "Vault dir: $vault_dir"
+print_info "Vault dir: ${vault_dir}"
 
-vault_name=$(basename "$vault_dir")
+vault_name=$(basename "${vault_dir}")
 # URL-encode spaces (POSIX-safe)
-vault_name_encoded=$(printf '%s' "$vault_name" | sed 's/ /%20/g')
+vault_name_encoded=$(printf '%s' "${vault_name}" | sed 's/ /%20/g')
 
-"$OBSIDIAN_BIN" --disable-features=WaylandWpColorManagerV1 "obsidian://open?vault=${vault_name_encoded}" >/dev/null 2>&1 &
+"${OBSIDIAN_BIN}" --disable-features=WaylandWpColorManagerV1 "obsidian://open?vault=${vault_name_encoded}" >/dev/null 2>&1 &
 print_success "Obsidian launched"

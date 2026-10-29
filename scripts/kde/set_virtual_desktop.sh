@@ -48,8 +48,8 @@ EOF
 
 find_desktop_id() {
   local name="$1"
-  qdbus6 --literal "$KWIN_SERVICE" "$KWIN_DESKTOP_PATH" "${KWIN_DESKTOP_IFACE}.desktops" \
-    | grep -oP '\(uss\) \d+, "\K[0-9a-f-]+(?=", "'"$name"'"\])'
+  qdbus6 --literal "${KWIN_SERVICE}" "${KWIN_DESKTOP_PATH}" "${KWIN_DESKTOP_IFACE}.desktops" \
+    | grep -oP '\(uss\) \d+, "\K[0-9a-f-]+(?=", "'"${name}"'"\])'
 }
 
 # ==== Main ====
@@ -60,18 +60,18 @@ case "${1:-}" in
     ;;
 esac
 
-if [[ -z "$DESKTOP_NAME" ]]; then
+if [[ -z "${DESKTOP_NAME}" ]]; then
   print_error "Missing required argument: desktop-name"
   usage
   exit 1
 fi
 
-DESKTOP_ID="$(find_desktop_id "$DESKTOP_NAME")"
+DESKTOP_ID="$(find_desktop_id "${DESKTOP_NAME}")"
 
-if [[ -z "$DESKTOP_ID" ]]; then
-  print_error "Virtual desktop not found: $DESKTOP_NAME"
+if [[ -z "${DESKTOP_ID}" ]]; then
+  print_error "Virtual desktop not found: ${DESKTOP_NAME}"
   exit 1
 fi
 
-qdbus6 "$KWIN_SERVICE" "$KWIN_DESKTOP_PATH" "${KWIN_DESKTOP_IFACE}.current" "$DESKTOP_ID"
-print_success "Switched to virtual desktop: $DESKTOP_NAME"
+qdbus6 "${KWIN_SERVICE}" "${KWIN_DESKTOP_PATH}" "${KWIN_DESKTOP_IFACE}.current" "${DESKTOP_ID}"
+print_success "Switched to virtual desktop: ${DESKTOP_NAME}"

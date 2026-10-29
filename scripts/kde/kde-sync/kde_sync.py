@@ -1,61 +1,61 @@
 #!/usr/bin/env python3
-# ------------------------------------------------------------------------------
-# Name:        kde_sync.py
-# Description: Keep KDE settings in sync between machines through the dotfiles,
-#              key by key, without putting the apps' own files in git.
-#
-# Details:
-#   Apps own their files in ~/.config: Kate rewrites katerc, kglobalaccel
-#   reorders kglobalshortcutsrc and adds machine-only entries, Plasma keeps the
-#   panels in an appletsrc full of desktop icon positions. So those files stay
-#   out of the dotfiles. ~/.config/kde-sync (stowed) holds what is synced:
-#
-#     config.toml               which files, and keys that never sync
-#     shared/<file>             synced keys, sorted, for every machine
-#     hosts/<hostname>/<file>   keys that differ on that machine
-#     plasma/panels.json        the panels and their widgets
-#
-#   `kde-sync sync` compares every key three ways: the live file, the dotfiles
-#   (host fragment over shared), and the value both had at the last sync (kept
-#   in ~/.local/state/kde-sync). A change in the app is written to the dotfiles
-#   (to the host fragment if the key is there, else to shared); a change in the
-#   dotfiles, e.g. from a git pull, is written to the app. If both changed, the
-#   dotfiles win and the local value is printed. Shortcuts are set through
-#   kglobalaccel so they work at once; panels are rebuilt through plasmashell.
-#
-#   kde-sync.path runs it when one of the files changes, the git hooks in
-#   .githooks after a pull or rebase.
-#
-#   kde-sync sync [NAME...] [-n]    sync (-n: only show what would change)
-#   kde-sync status                 same as sync -n
-#   kde-sync local FILE GROUP KEY   keep a key per machine (to hosts/<host>/)
-#   kde-sync share FILE GROUP KEY   sync a key again (back to shared/)
-#   kde-sync panels save|apply      write or load plasma/panels.json by hand
-#
-#   GROUP is the group header without its outer brackets, e.g. "General" or
-#   "Printing][Layout" for [Printing][Layout].
-#
-# Dependencies: python3-dbus and python3-pyqt6 (shortcuts), qdbus6 (panels).
-# ------------------------------------------------------------------------------
+"""Keeps KDE settings in sync between machines through the dotfiles, key by key.
+
+The apps' own files stay out of git. Apps own their files in ~/.config: Kate rewrites katerc, kglobalaccel reorders
+kglobalshortcutsrc and adds machine-only entries, Plasma keeps the panels in an appletsrc full of desktop icon
+positions. So those files stay out of the dotfiles. ~/.config/kde-sync (stowed) holds what is synced:
+
+    config.toml               which files, and keys that never sync
+    shared/<file>             synced keys, sorted, for every machine
+    hosts/<hostname>/<file>   keys that differ on that machine
+    plasma/panels.json        the panels and their widgets
+
+`kde-sync sync` compares every key three ways: the live file, the dotfiles (host fragment over shared), and the value
+both had at the last sync (kept in ~/.local/state/kde-sync). A change in the app is written to the dotfiles (to the
+host fragment if the key is there, else to shared); a change in the dotfiles, e.g. from a git pull, is written to the
+app. If both changed, the dotfiles win and the local value is printed. Shortcuts are set through kglobalaccel so they
+work at once; panels are rebuilt through plasmashell.
+
+kde-sync.path runs it when one of the files changes, the git hooks in .githooks after a pull or rebase.
+
+Usage:
+    kde-sync sync [NAME...] [-n]    sync (-n: only show what would change)
+    kde-sync status                 same as sync -n
+    kde-sync local FILE GROUP KEY   keep a key per machine (to hosts/<host>/)
+    kde-sync share FILE GROUP KEY   sync a key again (back to shared/)
+    kde-sync panels save|apply      write or load plasma/panels.json by hand
+
+GROUP is the group header without its outer brackets, e.g. "General" or "Printing][Layout" for [Printing][Layout].
+
+Dependencies: python3-dbus and python3-pyqt6 (shortcuts), qdbus6 (panels).
+"""
 
 import argparse
 import fcntl
 import fnmatch
 import json
 import os
-from pathlib import Path
+import pathlib
 import re
 import socket
 import subprocess
 import sys
 import tomllib
+from collections.abc import Sequence
+from typing import Any
+from typing import TypeAlias
 
+# The helpers package sits next to the script folders, which are not on the import path.
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2]))
+from helpers import log  # pylint: disable=wrong-import-position
 
-# ==== Configuration ====
-HOME = Path.home()
+Key: TypeAlias = tuple[str, str]  # (group, key) in a KConfig file.
+Values: TypeAlias = dict[Key, str | None]
+
+HOME = pathlib.Path.home()
 CONFIG = HOME / ".config/kde-sync/config.toml"
 LIVE_DIR = HOME / ".config"
-STATE_DIR = Path(os.environ.get("XDG_STATE_HOME", HOME / ".local/state")) / "kde-sync"
+STATE_DIR = pathlib.Path(os.environ.get("XDG_STATE_HOME", HOME / ".local/state")) / "kde-sync"
 HOST = socket.gethostname()
 PANELS = "panels"
 PANELS_FILE = "plasma/panels.json"
@@ -63,7 +63,7 @@ PANELS_FILE = "plasma/panels.json"
 PANEL_NOISE_GROUPS = ("/ConfigDialog",)
 PANEL_NOISE_KEYS = ("popupHeight", "popupWidth")
 # Panel settings Themer renders per machine (the clock size, from the screen profile); run after rebuilding panels.
-THEMER_PANELS_JS = Path(os.environ.get("XDG_CACHE_HOME", HOME / ".cache")) / "themer/plasma/panels.js"
+THEMER_PANELS_JS = pathlib.Path(os.environ.get("XDG_CACHE_HOME", HOME / ".cache")) / "themer/plasma/panels.js"
 # Seconds after plasmashell starts before its panels are read: it is still loading them before that.
 PLASMASHELL_SETTLE_S = 30
 # How a panel is shown, which the dump leaves out: properties of the scripting API's Panel object.
@@ -73,86 +73,45 @@ PANEL_OPACITY = {"adaptive": 0, "opaque": 1, "translucent": 2}
 # The systray's own settings, which plasmashell's layout dump leaves out.
 SYSTRAY_KEYS = ("extraItems", "hiddenItems", "shownItems")
 APP_DIRS = [HOME / ".local/share/applications"] + [
-    Path(d) / "applications" for d in os.environ.get("XDG_DATA_DIRS", "/usr/local/share:/usr/share").split(":") if d
+    pathlib.Path(d) / "applications"
+    for d in os.environ.get("XDG_DATA_DIRS", "/usr/local/share:/usr/share").split(":")
+    if d
 ]
 APP_DIRS += [
     HOME / ".local/share/flatpak/exports/share/applications",
-    Path("/var/lib/flatpak/exports/share/applications"),
+    pathlib.Path("/var/lib/flatpak/exports/share/applications"),
 ]
 
 
-# ==== Colors ====
-class Colors:
-    """ANSI color codes for terminal output."""
-
-    RESET = "\033[0m"
-    BOLD = "\033[1m"
-    RED = "\033[91m"
-    GREEN = "\033[92m"
-    YELLOW = "\033[93m"
-    BLUE = "\033[94m"
-    MAGENTA = "\033[95m"
-    CYAN = "\033[96m"
-
-
-# ==== Output helpers ====
-QUIET = False
-
-
-def print_header(message):
-    if not QUIET:
-        print(f"{Colors.BOLD}{Colors.MAGENTA}>>> {message}{Colors.RESET}")
-
-
-def print_success(message):
-    print(f"{Colors.GREEN}✓ {message}{Colors.RESET}")
-
-
-def print_error(message):
-    print(f"{Colors.RED}✗ {message}{Colors.RESET}", file=sys.stderr)
-
-
-def print_info(message):
-    if not QUIET:
-        print(f"{Colors.BLUE}> {message}{Colors.RESET}")
-
-
-def print_warn(message):
-    print(f"{Colors.YELLOW}! {message}{Colors.RESET}", file=sys.stderr)
-
-
-def die(message):
-    print_error(message)
-    sys.exit(1)
-
-
-# ==== Dotfiles side ====
-def repo_dir():
+def repo_dir() -> pathlib.Path:
     """The kde-sync folder in the dotfiles: where ~/.config/kde-sync/config.toml links to, wherever it was cloned."""
     if not CONFIG.exists():
-        die(f"{CONFIG} not found; stow the dotfiles first")
+        log.die(f"{CONFIG} not found; stow the dotfiles first")
     return CONFIG.resolve().parent
 
 
-def load_config():
+def load_config() -> dict[str, Any]:
+    """Returns the parsed config.toml."""
     with open(CONFIG, "rb") as f:
         return tomllib.load(f)
 
 
-def fragment_path(name, host=None):
+def fragment_path(name: str, host: str | None = None) -> pathlib.Path:
+    """Returns the fragment file of a synced file, in the host's folder when host is given, else in shared."""
     return repo_dir() / ("hosts/" + host if host else "shared") / name
 
 
-# ==== KConfig files ====
-def split_header(line):
+def split_header(line: str) -> str | None:
     """The group of a header line ("[A][B]" -> "A][B"), or None if the line is not one."""
     s = line.strip()
     return s[1:-1] if s.startswith("[") and s.endswith("]") else None
 
 
-def parse_kconfig(text):
-    """{(group, key): raw value} of a KConfig file, values as written (escapes kept). Keys before any group are in
-    group ""."""
+def parse_kconfig(text: str) -> Values:
+    """Parses a KConfig file into {(group, key): raw value}, values as written (escapes kept).
+
+    Keys before any group are in group "".
+    """
     values, group = {}, ""
     for line in text.splitlines():
         s = line.strip()
@@ -167,7 +126,7 @@ def parse_kconfig(text):
     return values
 
 
-def format_fragment(values):
+def format_fragment(values: Values) -> str:
     """A fragment file: groups and keys sorted, so the same keys always give the same text."""
     out, last = [], None
     for group, key in sorted(values):
@@ -180,11 +139,13 @@ def format_fragment(values):
     return "\n".join(out) + "\n" if out else ""
 
 
-def read_fragment(path):
+def read_fragment(path: pathlib.Path) -> Values:
+    """Returns the keys in a fragment file, empty when it does not exist."""
     return parse_kconfig(path.read_text()) if path.exists() else {}
 
 
-def write_fragment(path, values):
+def write_fragment(path: pathlib.Path, values: Values) -> None:
+    """Writes the keys to a fragment file, removing the file when there are none."""
     text = format_fragment(values)
     if not text:
         if path.exists():
@@ -195,7 +156,8 @@ def write_fragment(path, values):
         path.write_text(text)
 
 
-def atomic_write(path, text):
+def atomic_write(path: pathlib.Path, text: str) -> None:
+    """Replaces the file with text in one step, keeping its permissions."""
     tmp = path.with_name(f".{path.name}.kde-sync")
     tmp.write_text(text)
     if path.exists():
@@ -204,14 +166,17 @@ def atomic_write(path, text):
 
 
 class KConfigFile:
-    """A KConfig file edited in place: a changed key is rewritten on its own line, a new one is added at the end of its
-    group, so everything else in the file stays as the app wrote it."""
+    """A KConfig file edited in place.
 
-    def __init__(self, path):
+    A changed key is rewritten on its own line, a new one is added at the end of its group, so everything else in the
+    file stays as the app wrote it.
+    """
+
+    def __init__(self, path: pathlib.Path) -> None:
         self.path = path
         self.lines = path.read_text().splitlines() if path.exists() else []
 
-    def _group_range(self, group):
+    def _group_range(self, group: str) -> tuple[int, int] | None:
         start = next((i for i, ln in enumerate(self.lines) if split_header(ln) == group), None)
         if start is None and group == "":
             start = -1
@@ -222,7 +187,7 @@ class KConfigFile:
         )
         return start, end
 
-    def _key_line(self, group, key):
+    def _key_line(self, group: str, key: str) -> tuple[tuple[int, int] | None, int | None]:
         rng = self._group_range(group)
         if rng is None:
             return rng, None
@@ -232,7 +197,8 @@ class KConfigFile:
                 return rng, i
         return rng, None
 
-    def set(self, group, key, value):
+    def set(self, group: str, key: str, value: str) -> None:
+        """Sets a key, adding it (and its group) if needed."""
         rng, i = self._key_line(group, key)
         if i is not None:
             self.lines[i] = f"{key}={value}"
@@ -246,32 +212,39 @@ class KConfigFile:
                 self.lines.append("")
             self.lines += [f"[{group}]", f"{key}={value}"]
 
-    def delete(self, group, key):
+    def delete(self, group: str, key: str) -> None:
+        """Removes a key if it exists."""
         _, i = self._key_line(group, key)
         if i is not None:
             del self.lines[i]
 
-    def save(self):
+    def save(self) -> None:
+        """Writes the lines back to the file."""
         atomic_write(self.path, "\n".join(self.lines) + "\n")
 
 
-# ==== Handlers: how a kind of file is read and written ====
 class IniHandler:
     """A plain KConfig file (katerc): every key syncs, a missing key is a deleted one."""
 
-    def __init__(self, name):
+    def __init__(self, name: str) -> None:
         self.path = LIVE_DIR / name
 
-    def live(self):
+    def live(self) -> Values:
+        """Returns the keys of the live file."""
         return parse_kconfig(self.path.read_text()) if self.path.exists() else {}
 
-    def present(self, k):
+    def present(self, k: Key) -> bool:
+        """Returns whether the key can sync on this machine (always for plain files)."""
+        del k  # Unused.
         return True
 
-    def can_create(self, k):
+    def can_create(self, k: Key) -> bool:
+        """Returns whether a missing key may be added to the live file (always for plain files)."""
+        del k  # Unused.
         return True
 
-    def apply(self, changes):
+    def apply(self, changes: Values) -> set[Key]:
+        """Writes the changes (a None value deletes the key) into the live file and returns the keys done."""
         f = KConfigFile(self.path)
         for (group, key), value in changes.items():
             if value is None:
@@ -282,7 +255,7 @@ class IniHandler:
         return set(changes)
 
 
-def split_unescaped(value, sep):
+def split_unescaped(value: str, sep: str) -> list[str]:
     """Splits a KConfig value at `sep` where it is not escaped with a backslash."""
     parts, cur, i = [], "", 0
     while i < len(value):
@@ -300,7 +273,8 @@ def split_unescaped(value, sep):
     return parts + [cur]
 
 
-def unescape(value):
+def unescape(value: str) -> str:
+    """Resolves the backslash escapes of a KConfig value."""
     out, i = "", 0
     table = {"t": "\t", "n": "\n", "s": " ", "\\": "\\", ",": ",", ";": ";"}
     while i < len(value):
@@ -314,20 +288,24 @@ def unescape(value):
 
 
 class ShortcutsHandler:
-    """kglobalshortcutsrc: an entry is `action=active,default,friendly name`, or just `_launch=keys` for the launch
-    shortcut of a .desktop file (group [services][name.desktop]). Only the active keys sync, and only when they differ
-    from the default; set back to the default, a shortcut is dropped from the dotfiles and reset on the other machines.
-    Changes are applied through kglobalaccel's D-Bus interface, which also writes the file."""
+    """The kglobalshortcutsrc file, applied through kglobalaccel's D-Bus interface, which also writes the file.
+
+    An entry is `action=active,default,friendly name`, or just `_launch=keys` for the launch shortcut of a .desktop
+    file (group [services][name.desktop]). Only the active keys sync, and only when they differ from the default; set
+    back to the default, a shortcut is dropped from the dotfiles and reset on the other machines.
+    """
 
     SERVICES = "services]["
 
-    def __init__(self, name):
+    def __init__(self, name: str) -> None:
         self.path = LIVE_DIR / name
         self.friendly = {}
         self.entries = set()
         self._bus = None
+        self._ka = None
 
-    def live(self):
+    def live(self) -> Values:
+        """Returns the active shortcut of every key, None where it is the default."""
         values = {}
         raw = parse_kconfig(self.path.read_text()) if self.path.exists() else {}
         for (group, key), value in raw.items():
@@ -351,29 +329,30 @@ class ShortcutsHandler:
             values[(group, key)] = None if active == default else active
         return values
 
-    def present(self, k):
+    def present(self, k: Key) -> bool:
+        """Returns whether kglobalshortcutsrc has the key on this machine."""
         return k in self.entries
 
-    def can_create(self, k):
+    def can_create(self, k: Key) -> bool:
         """Only launch shortcuts of .desktop files can be added; other actions exist once their app registers them."""
         return k[0].startswith(self.SERVICES) and self._desktop_file_exists(self._component(k[0]))
 
-    def _accel(self):
+    def _accel(self) -> Any:
         if self._bus is None:
-            import dbus
+            import dbus  # Imported lazily: only needed when shortcuts change.
 
             self._bus = dbus
             bus = dbus.SessionBus()
             self._ka = dbus.Interface(bus.get_object("org.kde.kglobalaccel", "/kglobalaccel"), "org.kde.KGlobalAccel")
         return self._ka
 
-    def _keys(self, value):
-        """[[4 ints], ...] for a shortcut value as written in kglobalshortcutsrc ("Meta+Q\\tAlt+F4")."""
-        from PyQt6.QtGui import QKeySequence
+    def _keys(self, value: str) -> list[list[int]]:
+        r"""Returns [[4 ints], ...] for a shortcut value as written in kglobalshortcutsrc ("Meta+Q\tAlt+F4")."""
+        from PyQt6.QtGui import QKeySequence  # Imported lazily: only needed when shortcuts change.
 
         out = []
-        for text in unescape(value).split("\t"):
-            text = text.strip()
+        for raw_text in unescape(value).split("\t"):
+            text = raw_text.strip()
             if not text or text == "none":
                 continue
             seq = QKeySequence.fromString(text, QKeySequence.SequenceFormat.PortableText)
@@ -382,15 +361,17 @@ class ShortcutsHandler:
                 out.append((ints + [0, 0, 0, 0])[:4])
         return out
 
-    def _component(self, group):
+    def _component(self, group: str) -> str:
         return group[len(self.SERVICES) :] if group.startswith(self.SERVICES) else group
 
-    def _desktop_file_exists(self, name):
+    def _desktop_file_exists(self, name: str) -> bool:
         return any((d / name).exists() for d in APP_DIRS)
 
-    def _desktop_default(self, name, key):
-        """The shortcut a .desktop file asks for (X-KDE-Shortcuts of the entry, or of the action `key`), written the way
-        kglobalshortcutsrc writes it."""
+    def _desktop_default(self, name: str, key: str) -> str | None:
+        """Returns the shortcut a .desktop file asks for, written the way kglobalshortcutsrc writes it.
+
+        That is X-KDE-Shortcuts of the entry, or of the action `key`.
+        """
         path = next((d / name for d in APP_DIRS if (d / name).exists()), None)
         if path is None:
             return None
@@ -398,20 +379,21 @@ class ShortcutsHandler:
         value = parse_kconfig(path.read_text(errors="replace")).get((group, "X-KDE-Shortcuts"))
         return "\\t".join(split_unescaped(value, ",")) if value else None
 
-    def apply(self, changes):
+    def apply(self, changes: Values) -> set[Key]:
+        """Sets the shortcuts through kglobalaccel and returns the keys that were done."""
         try:
             ka = self._accel()
-        except Exception as e:
-            print_warn(
+        except Exception as e:  # pylint: disable=broad-exception-caught  # Any D-Bus or import failure is not fatal.
+            log.warn(
                 f"shortcuts not applied, kglobalaccel is not reachable ({e.__class__.__name__}); they are next time"
             )
             return set()
         dbus = self._bus
 
-        def as_dbus(keys):
+        def as_dbus(keys: Sequence[Sequence[int]]) -> Any:
             return dbus.Array([dbus.Struct((dbus.Array(k, signature="i"),)) for k in keys], signature="(ai)")
 
-        def current(aid):
+        def current(aid: Sequence[str]) -> list[list[int]]:
             return [[int(x) for x in s[0]] for s in ka.shortcutKeys(aid) if any(int(x) for x in s[0])]
 
         done, todo = set(), dict(changes)
@@ -434,37 +416,39 @@ class ShortcutsHandler:
                     del todo[(group, key)]
         for group, key in todo:
             if (group, key) in self.entries or group.startswith(self.SERVICES):
-                print_warn(f"shortcut [{group}] {key} not set (its keys are taken, or the action is gone)")
+                log.warn(f"shortcut [{group}] {key} not set (its keys are taken, or the action is gone)")
         return done
 
 
 HANDLERS = {"ini": IniHandler, "shortcuts": ShortcutsHandler}
 
 
-# ==== State ====
-def load_state(name):
+def load_state(name: str) -> Values:
+    """Returns the values both sides had at the last sync."""
     f = STATE_DIR / f"{name}.json"
     if not f.exists():
         return {}
     return {tuple(k.split("\x1f", 1)): v for k, v in json.loads(f.read_text()).items()}
 
 
-def save_state(name, values):
+def save_state(name: str, values: Values) -> None:
+    """Stores the values as the state of the last sync."""
     STATE_DIR.mkdir(parents=True, exist_ok=True)
     data = {f"{g}\x1f{k}": v for (g, k), v in sorted(values.items())}
     atomic_write(STATE_DIR / f"{name}.json", json.dumps(data, indent=0, ensure_ascii=False) + "\n")
 
 
-def show(v):
+def show(v: str | None) -> str:
+    """Formats a value for output."""
     return "(unset)" if v is None else v
 
 
-# ==== Sync of one file ====
-def sync_file(name, cfg, dry_run):
+def sync_file(name: str, cfg: dict[str, Any], dry_run: bool) -> bool:
+    """Syncs one file in three ways and returns whether anything changed (or would, with dry_run)."""
     handler = HANDLERS[cfg.get("kind", "ini")](name)
     ignore = [tuple(p) for p in cfg.get("ignore", [])]
 
-    def ignored(k):
+    def ignored(k: Key) -> bool:
         return any(fnmatch.fnmatchcase(k[0], g) and fnmatch.fnmatchcase(k[1], key) for g, key in ignore)
 
     shared_path, host_path = fragment_path(name), fragment_path(name, HOST)
@@ -478,37 +462,40 @@ def sync_file(name, cfg, dry_run):
         if ignored(k):
             new_base.pop(k, None)
             continue
-        L, D = live.get(k), desired.get(k)
-        if not handler.present(k) and L is None:
+        live_value, desired_value = live.get(k), desired.get(k)
+        if not handler.present(k) and live_value is None:
             # Not on this machine (an app that is not installed): nothing to record; set it if the app could take it.
-            if D is not None and handler.can_create(k):
-                apply[k] = D
+            if desired_value is not None and handler.can_create(k):
+                apply[k] = desired_value
             continue
-        if L == D:
-            new_base[k] = L
-        elif k in base and base[k] == D:
-            record[k] = L
-        elif k not in base and D is None:
-            record[k] = L
-        elif (k in base and base[k] == L) or (k not in base and L is None):
-            apply[k] = D
+        if live_value == desired_value:
+            new_base[k] = live_value
+        elif k in base and base[k] == desired_value:
+            record[k] = live_value
+        elif k not in base and desired_value is None:
+            record[k] = live_value
+        elif (k in base and base[k] == live_value) or (k not in base and live_value is None):
+            apply[k] = desired_value
         else:
-            apply[k] = D
-            print_warn(f"{name} [{k[0]}] {k[1]}: {show(L)} here, {show(D)} in the dotfiles; the dotfiles win")
+            apply[k] = desired_value
+            log.warn(
+                f"{name} [{k[0]}] {k[1]}: {show(live_value)} here, {show(desired_value)} in the dotfiles; "
+                "the dotfiles win"
+            )
 
     # An apply the app refused (a shortcut whose keys are taken) is not retried until either side changes: the attempt
     # itself rewrites kglobalshortcutsrc, which kde-sync.path watches, so retrying would trigger kde-sync forever.
     refused = load_state(f"{name}.refused")
     skipped = {k for k, v in apply.items() if refused.get(k) == [v, live.get(k)]}
     for group, key in sorted(skipped):
-        print_info(f"{name} [{group}] {key}: refused before, retried when it changes")
+        log.info(f"{name} [{group}] {key}: refused before, retried when it changes")
     apply = {k: v for k, v in apply.items() if k not in skipped}
 
     for (group, key), value in record.items():
         where = "hosts/" + HOST if (group, key) in host else "shared"
-        print_info(f"{name} [{group}] {key} = {show(value)}  -> dotfiles ({where})")
+        log.info(f"{name} [{group}] {key} = {show(value)}  -> dotfiles ({where})")
     for (group, key), value in apply.items():
-        print_info(f"{name} [{group}] {key} = {show(value)}  -> {handler.path}")
+        log.info(f"{name} [{group}] {key} = {show(value)}  -> {handler.path}")
     if dry_run:
         return bool(record or apply)
 
@@ -534,11 +521,11 @@ def sync_file(name, cfg, dry_run):
     return bool(record or apply)
 
 
-def move_key(name, group, key, to_host):
+def move_key(name: str, group: str, key: str, to_host: bool) -> None:
     """Moves a key between shared/ and hosts/<host>/ (local and share commands)."""
     cfg = load_config().get("files", {}).get(name)
     if cfg is None:
-        die(f"{name} is not in {CONFIG}")
+        log.die(f"{name} is not in {CONFIG}")
     shared_path, host_path = fragment_path(name), fragment_path(name, HOST)
     shared, host = read_fragment(shared_path), read_fragment(host_path)
     k = (group, key)
@@ -547,39 +534,44 @@ def move_key(name, group, key, to_host):
     if value is None:
         live = HANDLERS[cfg.get("kind", "ini")](name).live().get(k)
         if live is None:
-            die(f"[{group}] {key} is in neither {name} fragment nor the live file")
+            log.die(f"[{group}] {key} is in neither {name} fragment nor the live file")
         value = live
     dst[k] = value
     write_fragment(shared_path, shared)
     write_fragment(host_path, host)
-    print_success(f"[{group}] {key} is now {'kept on ' + HOST if to_host else 'shared'}: {value}")
+    log.success(f"[{group}] {key} is now {'kept on ' + HOST if to_host else 'shared'}: {value}")
     if not to_host:
-        print_info("the other machines get this value on their next sync")
+        log.info("the other machines get this value on their next sync")
 
 
-# ==== Plasma panels ====
-def plasma_script(script):
+def plasma_script(script: str) -> str:
+    """Runs a Plasma scripting snippet in plasmashell and returns its output."""
     res = subprocess.run(
         ["qdbus6", "org.kde.plasmashell", "/PlasmaShell", "org.kde.PlasmaShell.evaluateScript", script],
         capture_output=True,
         text=True,
+        check=False,
     )
     if res.returncode != 0:
         raise RuntimeError(res.stderr.strip() or "plasmashell is not reachable")
     return res.stdout
 
 
-def panel_ignore():
+def panel_ignore() -> list[tuple[str, ...]]:
+    """Returns the (group, key) patterns of panel config that is left out of panels.json."""
     return [tuple(x) for x in load_config().get("panels", {}).get("ignore", [])]
 
 
-def dump_panels():
-    """The panels as plasmashell serializes them (dumpCurrentLayoutJS), without desktops and window sizes, plus the
-    systray's shown and hidden items, which the dump leaves out."""
+def dump_panels() -> dict[str, Any]:
+    """Returns the panels as plasmashell serializes them (dumpCurrentLayoutJS).
+
+    Desktops and window sizes are left out; the systray's shown and hidden items, which the dump omits, are added.
+    """
     res = subprocess.run(
         ["qdbus6", "org.kde.plasmashell", "/PlasmaShell", "org.kde.PlasmaShell.dumpCurrentLayoutJS"],
         capture_output=True,
         text=True,
+        check=False,
     )
     if res.returncode != 0:
         raise RuntimeError(res.stderr.strip() or "plasmashell is not reachable")
@@ -625,8 +617,9 @@ def dump_panels():
                 del conf["/"]
             colors = conf.get("/SensorColors")
             if colors:
-                # System monitor widgets store a color per sensor a pattern matched (cpu/cpu0/usage for cpu/cpu.*/usage),
-                # and the sensors differ per machine; the pattern's own color is what syncs (see expand_sensor_colors).
+                # System monitor widgets store a color per sensor a pattern matched (cpu/cpu0/usage for
+                # cpu/cpu.*/usage), and the sensors differ per machine; the pattern's own color is what syncs (see
+                # expand_sensor_colors).
                 patterns = [re.compile(k) for k in colors if any(c in k for c in "*+?[")]
                 for k in [k for k in colors if not any(c in k for c in "*+?[")]:
                     if any(pat.fullmatch(k) for pat in patterns):
@@ -648,7 +641,7 @@ def dump_panels():
     return {"panels": panels, "systray": {k: v for k, v in tray.items() if v}}
 
 
-def expand_sensor_colors(panels):
+def expand_sensor_colors(panels: list[dict[str, Any]]) -> None:
     """Gives every CPU core of this machine the color of a cpu/cpu.*/... pattern, so all its bars share one color."""
     for panel in panels:
         for applet in panel.get("applets", []):
@@ -659,7 +652,7 @@ def expand_sensor_colors(panels):
                         colors.setdefault(key.replace("cpu.*", f"cpu{i}", 1), color)
 
 
-def load_panels(data):
+def load_panels(data: dict[str, Any]) -> None:
     """Replaces every panel with the ones in data (the format of dump_panels)."""
     data = json.loads(json.dumps(data))
     panels = data.get("panels", [])
@@ -701,7 +694,7 @@ def load_panels(data):
             "view": {k: v for k, v in p.get("view", {}).items() if k not in ("opacity", "thickness")},
             "thickness": p.get("view", {}).get("thickness"),
         }
-        for pid, p in zip(created, panels)
+        for pid, p in zip(created, panels, strict=False)
         if pid >= 0
     ]
     current = json.loads(
@@ -720,7 +713,9 @@ def load_panels(data):
         or "[]"
     )
     restart = False
-    for v, now, p in zip(views, current, (p for pid, p in zip(created, panels) if pid >= 0)):
+    for v, now, p in zip(
+        views, current, (p for pid, p in zip(created, panels, strict=False) if pid >= 0), strict=False
+    ):
         wanted = p.get("view", {}).get("opacity", "adaptive")
         subprocess.run(
             [
@@ -745,36 +740,38 @@ def load_panels(data):
         subprocess.run(["systemctl", "--user", "restart", "plasma-plasmashell.service"], check=False)
 
 
-def panels_text(data):
+def panels_text(data: dict[str, Any]) -> str:
+    """Returns the panels.json text for the data."""
     return json.dumps(data, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
 
 
-def plasmashell_age():
+def plasmashell_age() -> float | None:
     """Seconds since plasmashell started, None when it is not running."""
-    res = subprocess.run(["pgrep", "-xo", "plasmashell"], capture_output=True, text=True)
+    res = subprocess.run(["pgrep", "-xo", "plasmashell"], capture_output=True, text=True, check=False)
     if not res.stdout.strip():
         return None
     try:
-        stat = Path(f"/proc/{res.stdout.split()[0]}/stat").read_text()
+        stat = pathlib.Path(f"/proc/{res.stdout.split()[0]}/stat").read_text(encoding="utf-8")
         started = int(stat.rsplit(")", 1)[1].split()[19]) / os.sysconf("SC_CLK_TCK")
-        return float(Path("/proc/uptime").read_text().split()[0]) - started
+        return float(pathlib.Path("/proc/uptime").read_text(encoding="utf-8").split()[0]) - started
     except (OSError, ValueError, IndexError):
         return None
 
 
-def sync_panels(dry_run):
+def sync_panels(dry_run: bool) -> bool:
+    """Syncs the panels with plasma/panels.json and returns whether anything changed (or would, with dry_run)."""
     path = repo_dir() / PANELS_FILE
     state = STATE_DIR / "panels.json"
     age = plasmashell_age()
     if age is None or age < PLASMASHELL_SETTLE_S:
         # While plasmashell starts, it writes its files with only some panels loaded; a dump then would look like panels
         # were removed.
-        print_info("panels skipped: plasmashell is not running or just started")
+        log.info("panels skipped: plasmashell is not running or just started")
         return False
     try:
         live = panels_text(dump_panels())
     except (RuntimeError, ValueError) as e:
-        print_warn(f"panels skipped: {e}")
+        log.warn(f"panels skipped: {e}")
         return False
     repo = path.read_text() if path.exists() else None
     base = state.read_text() if state.exists() else None
@@ -785,9 +782,9 @@ def sync_panels(dry_run):
     else:
         action = "apply"
         if base is not None and live != base:
-            print_warn("panels changed here and in the dotfiles; the dotfiles win")
+            log.warn("panels changed here and in the dotfiles; the dotfiles win")
     if action:
-        print_info(f"panels -> {'dotfiles (' + PANELS_FILE + ')' if action == 'save' else 'plasmashell'}")
+        log.info(f"panels -> {'dotfiles (' + PANELS_FILE + ')' if action == 'save' else 'plasmashell'}")
     if dry_run:
         return bool(action)
     if action == "save":
@@ -800,13 +797,13 @@ def sync_panels(dry_run):
     return bool(action)
 
 
-# ==== Commands ====
-def cmd_sync(args):
+def cmd_sync(args: argparse.Namespace) -> None:
+    """Runs the sync command."""
     cfg = load_config()
     files = cfg.get("files", {})
     names = args.names or list(files) + ([PANELS] if cfg.get("panels", {}).get("enabled") else [])
     STATE_DIR.mkdir(parents=True, exist_ok=True)
-    with open(STATE_DIR / "lock", "w") as lock:
+    with open(STATE_DIR / "lock", "w", encoding="utf-8") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         changed = False
         for name in names:
@@ -815,12 +812,13 @@ def cmd_sync(args):
             elif name in files:
                 changed |= sync_file(name, files[name], args.dry_run)
             else:
-                print_error(f"{name} is not in {CONFIG}")
-    if not changed and not QUIET:
-        print_success("everything in sync")
+                log.error(f"{name} is not in {CONFIG}")
+    if not changed:
+        log.info("everything in sync")
 
 
-def cmd_panels(args):
+def cmd_panels(args: argparse.Namespace) -> None:
+    """Runs the panels save or apply command."""
     STATE_DIR.mkdir(parents=True, exist_ok=True)
     path = repo_dir() / PANELS_FILE
     if args.action == "save":
@@ -828,17 +826,17 @@ def cmd_panels(args):
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(text)
         atomic_write(STATE_DIR / "panels.json", text)
-        print_success(f"saved the panels to {path}")
+        log.success(f"saved the panels to {path}")
     else:
         if not path.exists():
-            die(f"{path} does not exist; run kde-sync panels save on the machine whose panels you want")
+            log.die(f"{path} does not exist; run kde-sync panels save on the machine whose panels you want")
         load_panels(json.loads(path.read_text()))
         atomic_write(STATE_DIR / "panels.json", path.read_text())
-        print_success("loaded the panels from the dotfiles")
+        log.success("loaded the panels from the dotfiles")
 
 
-def main():
-    global QUIET
+def main() -> None:
+    """Parses the command line and runs the chosen command."""
     ap = argparse.ArgumentParser(prog="kde-sync", description="Sync KDE settings through the dotfiles, key by key.")
     ap.add_argument("-q", "--quiet", action="store_true", help="only print warnings and errors")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -858,7 +856,7 @@ def main():
     p.add_argument("action", choices=("save", "apply"))
     p.set_defaults(fn=cmd_panels)
     args = ap.parse_args()
-    QUIET = args.quiet
+    log.set_quiet(args.quiet)
     args.fn(args)
 
 

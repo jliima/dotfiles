@@ -13,6 +13,7 @@ scripts/*
 !scripts/slack
 !scripts/kde
 !scripts/applications
+!scripts/helpers
 
 .mozilla/*
 !.mozilla/user.js

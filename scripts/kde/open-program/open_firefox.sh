@@ -13,7 +13,7 @@ set -euo pipefail
 
 # ==== Configuration ====
 FIREFOX_BIN="/usr/bin/firefox"
-NODE_PATH="$HOME/.nvm/versions/node/v22.20.0/bin"
+NODE_PATH="${HOME}/.nvm/versions/node/v22.20.0/bin"
 
 # ==== Colors ====
 RED='\033[1;31m'
@@ -68,40 +68,40 @@ case "${1:-}" in
 esac
 
 # Needed for custom Dark Reader plugin to work
-export PATH="$NODE_PATH:$PATH"
+export PATH="${NODE_PATH}:${PATH}"
 
 case "${1:-}" in
   work)
     shift
     print_info "Opening Firefox with Work profile"
-    "$FIREFOX_BIN" --P "Work" "$@"
+    "${FIREFOX_BIN}" --P "Work" "$@"
     exit 0
     ;;
   school)
     shift
     print_info "Opening Firefox with School profile"
-    "$FIREFOX_BIN" --P "School" "$@"
+    "${FIREFOX_BIN}" --P "School" "$@"
     exit 0
     ;;
   default)
     shift
     print_info "Opening Firefox with default profile"
-    "$FIREFOX_BIN" "$@"
+    "${FIREFOX_BIN}" "$@"
     exit 0
     ;;
 esac
 
 # No profile argument — use activity-based detection
-CURRENT_ACTIVITY_RAW=$("$HOME/scripts/kde/get_current_activity_name.sh")
-CURRENT_ACTIVITY=$(echo "$CURRENT_ACTIVITY_RAW" | tr '[:upper:]' '[:lower:]')
+CURRENT_ACTIVITY_RAW=$("${HOME}/scripts/kde/get_current_activity_name.sh")
+CURRENT_ACTIVITY=$(echo "${CURRENT_ACTIVITY_RAW}" | tr '[:upper:]' '[:lower:]')
 
-if [ "$CURRENT_ACTIVITY" = "work" ]; then
+if [ "${CURRENT_ACTIVITY}" = "work" ]; then
   print_info "Activity detected: Work"
-  "$FIREFOX_BIN" --P "Work" "$@"
-elif [ "$CURRENT_ACTIVITY" = "school" ]; then
+  "${FIREFOX_BIN}" --P "Work" "$@"
+elif [ "${CURRENT_ACTIVITY}" = "school" ]; then
   print_info "Activity detected: School"
-  "$FIREFOX_BIN" --P "School" "$@"
+  "${FIREFOX_BIN}" --P "School" "$@"
 else
   print_info "Activity detected: Default"
-  "$FIREFOX_BIN" "$@"
+  "${FIREFOX_BIN}" "$@"
 fi

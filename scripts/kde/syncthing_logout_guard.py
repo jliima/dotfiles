@@ -1,53 +1,45 @@
 #!/usr/bin/env python3
+"""Holds a Plasma logout, shutdown or reboot until Syncthing has sent every folder to the other devices.
 
-# ------------------------------------------------------------------------------
-#
-# Name:        syncthing_logout_guard.py
-#
-# Description: Hold a Plasma logout, shutdown or reboot until Syncthing has sent
-#              every folder to the other devices.
-#
-# Details:
-# Runs in the background for the whole session as an X11 session management
-# (XSMP) client of ksmserver. Qt only speaks XSMP on the xcb platform, so the
-# program always runs through XWayland. When the session ends, ksmserver asks
-# every client to save; this program asks for an interaction turn, which makes
-# ksmserver wait, and shows a window while it:
-#
-#   1. starts a scan of every unpaused folder (the folders may scan only hourly)
-#   2. waits until each connected device that shares the folder has everything
-#      (completion 100 %), shown per folder with scan and upload progress
-#
-# When all folders are done the window closes and the logout continues. If the
-# server is offline, a device stops taking data without catching up, or files
-# could not be read (a running VM's disk changes while it is hashed), the window
-# counts down and then continues anyway. The buttons skip the wait or cancel the
-# logout.
-#
-# Only logouts that go through ksmserver are held (the Plasma menu, the logout
-# screen, the power button). "systemctl poweroff" in a terminal is not.
-#
-# Usage:
-#   syncthing_logout_guard.py                 run as the session guard (autostart)
-#   syncthing_logout_guard.py --now           sync every folder now, in the same window
-#   syncthing_logout_guard.py --test-cancel   guard that cancels the logout after syncing
-#
-# Log: ~/.cache/syncthing-logout-guard/guard.log
-#
-# Dependencies: python3-pyqt6, Syncthing with its GUI/REST API enabled
-#
-# ------------------------------------------------------------------------------
+Runs in the background for the whole session as an X11 session management
+(XSMP) client of ksmserver. Qt only speaks XSMP on the xcb platform, so the
+program always runs through XWayland. When the session ends, ksmserver asks
+every client to save; this program asks for an interaction turn, which makes
+ksmserver wait, and shows a window while it:
+
+  1. starts a scan of every unpaused folder (the folders may scan only hourly)
+  2. waits until each connected device that shares the folder has everything
+     (completion 100 %), shown per folder with scan and upload progress
+
+When all folders are done the window closes and the logout continues. If the
+server is offline, a device stops taking data without catching up, or files
+could not be read (a running VM's disk changes while it is hashed), the window
+counts down and then continues anyway. The buttons skip the wait or cancel the
+logout.
+
+Only logouts that go through ksmserver are held (the Plasma menu, the logout
+screen, the power button). "systemctl poweroff" in a terminal is not.
+
+Usage:
+  syncthing_logout_guard.py                 run as the session guard (autostart)
+  syncthing_logout_guard.py --now           sync every folder now, in the same window
+  syncthing_logout_guard.py --test-cancel   guard that cancels the logout after syncing
+
+Log: ~/.cache/syncthing-logout-guard/guard.log
+
+
+Dependencies: python3-pyqt6, Syncthing with its GUI/REST API enabled
+"""
 
 from __future__ import annotations
 
 import argparse
 import configparser
-from dataclasses import dataclass
-from dataclasses import field
+import dataclasses
 import json
 import logging
 import os
-from pathlib import Path
+import pathlib
 import ssl
 import sys
 import threading
@@ -56,35 +48,16 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
-
+from typing import Any
 
 # Qt has XSMP support only on xcb; set before Qt is imported.
 os.environ["QT_QPA_PLATFORM"] = "xcb"
 
-from PyQt6.QtCore import QEventLoop  # noqa: E402
-from PyQt6.QtCore import QLockFile  # noqa: E402
-from PyQt6.QtCore import Qt  # noqa: E402
-from PyQt6.QtCore import QTimer  # noqa: E402
-from PyQt6.QtCore import pyqtSignal  # noqa: E402
-from PyQt6.QtGui import QColor  # noqa: E402
-from PyQt6.QtGui import QFont  # noqa: E402
-from PyQt6.QtGui import QPalette  # noqa: E402
-from PyQt6.QtGui import QSessionManager  # noqa: E402
-from PyQt6.QtWidgets import QApplication  # noqa: E402
-from PyQt6.QtWidgets import QFrame  # noqa: E402
-from PyQt6.QtWidgets import QGridLayout  # noqa: E402
-from PyQt6.QtWidgets import QHBoxLayout  # noqa: E402
-from PyQt6.QtWidgets import QLabel  # noqa: E402
-from PyQt6.QtWidgets import QProgressBar  # noqa: E402
-from PyQt6.QtWidgets import QPushButton  # noqa: E402
-from PyQt6.QtWidgets import QScrollArea  # noqa: E402
-from PyQt6.QtWidgets import QVBoxLayout  # noqa: E402
-from PyQt6.QtWidgets import QWidget  # noqa: E402
+from PyQt6 import QtCore  # pylint: disable=wrong-import-position
+from PyQt6 import QtGui  # pylint: disable=wrong-import-position
+from PyQt6 import QtWidgets  # pylint: disable=wrong-import-position
 
-
-# ==== Configuration ====
-
-SYNCTHING_CONFIG = Path.home() / ".local/state/syncthing/config.xml"
+SYNCTHING_CONFIG = pathlib.Path.home() / ".local/state/syncthing/config.xml"
 # The hub every folder goes through; when it is offline nothing can be sent.
 SERVER_DEVICE_PREFIX = "U5PWWG7"
 POLL_INTERVAL_S = 1.5
@@ -99,7 +72,7 @@ OFFLINE_COUNTDOWN_S = 30
 # blocks it already has, which sends nothing over the network.
 STALL_S = 120
 STALL_MIN_BYTES = 64 * 1024
-LOG_DIR = Path.home() / ".cache/syncthing-logout-guard"
+LOG_DIR = pathlib.Path.home() / ".cache/syncthing-logout-guard"
 HTTP_TIMEOUT_S = 10
 
 log = logging.getLogger("guard")
@@ -110,7 +83,8 @@ log = logging.getLogger("guard")
 class Syncthing:
     """Minimal client for the local Syncthing REST API."""
 
-    def __init__(self, config_path: Path) -> None:
+    def __init__(self, config_path: pathlib.Path) -> None:
+        """Reads the API address and key from Syncthing's config.xml."""
         root = ET.parse(config_path).getroot()
         gui = root.find("gui")
         if gui is None:
@@ -123,7 +97,8 @@ class Syncthing:
         self.ctx.check_hostname = False
         self.ctx.verify_mode = ssl.CERT_NONE
 
-    def call(self, path: str, method: str = "GET", http_timeout: float = HTTP_TIMEOUT_S, **params: str):
+    def call(self, path: str, method: str = "GET", http_timeout: float = HTTP_TIMEOUT_S, **params: str) -> Any:
+        """Calls the Syncthing REST API and returns the decoded JSON, or None for an empty reply."""
         url = f"{self.base}{path}"
         if params:
             url += "?" + urllib.parse.urlencode(params)
@@ -133,10 +108,7 @@ class Syncthing:
         return json.loads(body) if body.strip() else None
 
 
-# ==== Sync state ====
-
-
-@dataclass
+@dataclasses.dataclass
 class FolderRow:
     """What the window shows for one folder."""
 
@@ -152,9 +124,11 @@ class FolderRow:
     stable: int = 0
 
 
-@dataclass
+@dataclasses.dataclass
 class Snapshot:
-    rows: list[FolderRow] = field(default_factory=list)
+    """A copy of the sync state that the window can read without holding the lock."""
+
+    rows: list[FolderRow] = dataclasses.field(default_factory=list)
     fatal: str = ""
     started: bool = False
 
@@ -163,6 +137,7 @@ class Syncer:
     """Scans every folder and tracks until the connected devices have it all, in background threads."""
 
     def __init__(self) -> None:
+        """Creates an idle syncer; call start() to begin."""
         self.lock = threading.Lock()
         self.snap = Snapshot()
         self.stop = threading.Event()
@@ -172,15 +147,19 @@ class Syncer:
         # device -> (bytes sent to it, when that last grew); folder -> (completion, bytes left, when that last changed)
         self.traffic: dict[str, tuple[int, float]] = {}
         self.progress: dict[str, tuple[float, int, float]] = {}
+        self.st: Syncthing | None = None
 
     def start(self) -> None:
+        """Starts the background threads."""
         threading.Thread(target=self._run, daemon=True).start()
 
     def snapshot(self) -> Snapshot:
+        """Returns a copy of the current state."""
         with self.lock:
             return Snapshot([FolderRow(**vars(r)) for r in self.snap.rows], self.snap.fatal, self.snap.started)
 
     def _run(self) -> None:
+        """Looks up the folders, starts their scans and polls until stopped."""
         try:
             self.st = Syncthing(SYNCTHING_CONFIG)
             my_id = self.st.call("/rest/system/status")["myID"]
@@ -212,6 +191,7 @@ class Syncer:
             self.stop.wait(POLL_INTERVAL_S)
 
     def _scan(self, folder: str) -> None:
+        """Scans one folder and waits for the scan to finish."""
         # POST /rest/db/scan returns when the scan is finished; a large VM disk can take minutes.
         err = ""
         try:
@@ -228,6 +208,7 @@ class Syncer:
             log.warning("scan of %s failed: %s", folder, err)
 
     def _scan_progress(self) -> None:
+        """Follows the FolderScanProgress events and updates the scan percentage of each folder."""
         since = 0
         try:
             since = self.st.call("/rest/events", events="FolderScanProgress", since="0", limit="1", timeout="0")
@@ -254,6 +235,7 @@ class Syncer:
                             r.scan_pct = 100.0 * data["current"] / data["total"]
 
     def _poll(self) -> None:
+        """Updates the state of every folder from the REST API."""
         conns = self.st.call("/rest/system/connections")["connections"]
         now = time.monotonic()
         for dev, c in conns.items():
@@ -297,13 +279,15 @@ class Syncer:
                         setattr(r, k, v)
 
     def _file_errors(self, fid: str, count: int) -> dict:
+        """Returns the row update for a folder whose files could not be sent because they could not be read."""
         # Files that failed to hash (a running VM's disk) keep their old version in the index, so the devices look
         # complete while the file on disk is newer.
         errors = (self.st.call("/rest/folder/errors", folder=fid) or {}).get("errors") or []
-        first = f": {Path(errors[0]['path']).name} ({errors[0]['error']})" if errors else ""
+        first = f": {pathlib.Path(errors[0]['path']).name} ({errors[0]['error']})" if errors else ""
         return {"state": "partial", "detail": f"{count} file(s) not sent{first}", "progress": 100}
 
     def _peer_state(self, fid: str, peers: list[str], conns: dict, in_grace: bool) -> dict:
+        """Returns the row update (state, detail, progress) from how far the devices sharing the folder are."""
         online = [p for p in peers if conns.get(p, {}).get("connected")]
         offline = [self.names.get(p, p[:7]) for p in peers if p not in online]
         waiting: list[str] = []
@@ -341,6 +325,7 @@ class Syncer:
 
 
 def human(n: float) -> str:
+    """Formats a byte count, for example 1.5 MB."""
     for unit in ("B", "KB", "MB", "GB"):
         if n < 1024:
             return f"{n:.0f} {unit}" if unit == "B" else f"{n:.1f} {unit}"
@@ -351,18 +336,18 @@ def human(n: float) -> str:
 # ==== Window ====
 
 
-def kde_colors(palette: QPalette) -> dict[str, QColor]:
+def kde_colors(palette: QtGui.QPalette) -> dict[str, QtGui.QColor]:
     """Status colours from the Plasma colour scheme (Themer writes it), the Qt palette as fallback."""
     colors = {
-        "positive": QColor(48, 218, 151),
-        "neutral": QColor(245, 141, 49),
-        "negative": QColor(244, 89, 89),
-        "active": palette.color(QPalette.ColorRole.Highlight),
-        "inactive": palette.color(QPalette.ColorRole.PlaceholderText),
+        "positive": QtGui.QColor(48, 218, 151),
+        "neutral": QtGui.QColor(245, 141, 49),
+        "negative": QtGui.QColor(244, 89, 89),
+        "active": palette.color(QtGui.QPalette.ColorRole.Highlight),
+        "inactive": palette.color(QtGui.QPalette.ColorRole.PlaceholderText),
     }
     cfg = configparser.ConfigParser(interpolation=None, strict=False)
     try:
-        cfg.read(Path.home() / ".config/kdeglobals")
+        cfg.read(pathlib.Path.home() / ".config/kdeglobals")
         sect = cfg["Colors:Window"]
         for name, key in (
             ("positive", "ForegroundPositive"),
@@ -372,7 +357,7 @@ def kde_colors(palette: QPalette) -> dict[str, QColor]:
             ("inactive", "ForegroundInactive"),
         ):
             if key in sect:
-                colors[name] = QColor(*(int(v) for v in sect[key].split(",")[:3]))
+                colors[name] = QtGui.QColor(*(int(v) for v in sect[key].split(",")[:3]))
     except (KeyError, ValueError, configparser.Error):
         pass
     return colors
@@ -402,81 +387,84 @@ ROLE = {
 }
 
 
-class SyncWindow(QWidget):
+class SyncWindow(QtWidgets.QWidget):
     """Progress window; emits finished(proceed) when the session may end (True) or the user cancelled (False)."""
 
-    finished = pyqtSignal(bool)
+    finished = QtCore.pyqtSignal(bool)
 
     def __init__(self, during_logout: bool) -> None:
-        super().__init__(None, Qt.WindowType.Window | Qt.WindowType.WindowStaysOnTopHint)
+        """Builds the window."""
+        super().__init__(None, QtCore.Qt.WindowType.Window | QtCore.Qt.WindowType.WindowStaysOnTopHint)
         self.during_logout = during_logout
         self.syncer = Syncer()
         self.colors = kde_colors(self.palette())
-        self.rows: dict[str, tuple[QLabel, QLabel, QLabel]] = {}
+        self.rows: dict[str, tuple[QtWidgets.QLabel, QtWidgets.QLabel, QtWidgets.QLabel]] = {}
         self.deadline: float | None = None
         self.closing = False
         self.setWindowTitle("Syncthing: syncing before logout" if during_logout else "Syncthing: syncing")
         self.resize(620, 560)
 
-        title = QLabel("Syncing before the session ends" if during_logout else "Syncing every folder")
-        f = QFont(title.font())
+        title = QtWidgets.QLabel("Syncing before the session ends" if during_logout else "Syncing every folder")
+        f = QtGui.QFont(title.font())
         f.setPointSizeF(f.pointSizeF() * 1.5)
         f.setBold(True)
         title.setFont(f)
-        self.subtitle = QLabel("Starting Syncthing scans…")
+        self.subtitle = QtWidgets.QLabel("Starting Syncthing scans…")
         self.subtitle.setWordWrap(True)
-        self.bar = QProgressBar()
-        self.bar.setRange(0, 1000)
-        self.bar.setTextVisible(False)
+        self.progress_bar = QtWidgets.QProgressBar()
+        self.progress_bar.setRange(0, 1000)
+        self.progress_bar.setTextVisible(False)
 
-        self.grid = QGridLayout()
+        self.grid = QtWidgets.QGridLayout()
         self.grid.setColumnStretch(1, 1)
         self.grid.setHorizontalSpacing(12)
-        inner = QWidget()
-        inner_layout = QVBoxLayout(inner)
+        inner = QtWidgets.QWidget()
+        inner_layout = QtWidgets.QVBoxLayout(inner)
         inner_layout.addLayout(self.grid)
         inner_layout.addStretch(1)
-        scroll = QScrollArea()
+        scroll = QtWidgets.QScrollArea()
         scroll.setWidgetResizable(True)
-        scroll.setFrameShape(QFrame.Shape.NoFrame)
+        scroll.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
         scroll.setWidget(inner)
 
-        self.skip_btn = QPushButton("Continue without waiting" if during_logout else "Close")
+        self.skip_btn = QtWidgets.QPushButton("Continue without waiting" if during_logout else "Close")
         self.skip_btn.clicked.connect(lambda: self._finish(True, "skipped by the user"))
-        self.cancel_btn = QPushButton("Cancel logout")
+        self.cancel_btn = QtWidgets.QPushButton("Cancel logout")
         self.cancel_btn.clicked.connect(lambda: self._finish(False, "logout cancelled by the user"))
         self.cancel_btn.setVisible(during_logout)
-        buttons = QHBoxLayout()
+        buttons = QtWidgets.QHBoxLayout()
         buttons.addStretch(1)
         buttons.addWidget(self.cancel_btn)
         buttons.addWidget(self.skip_btn)
 
-        layout = QVBoxLayout(self)
+        layout = QtWidgets.QVBoxLayout(self)
         layout.setContentsMargins(20, 18, 20, 16)
         layout.setSpacing(10)
         layout.addWidget(title)
         layout.addWidget(self.subtitle)
-        layout.addWidget(self.bar)
+        layout.addWidget(self.progress_bar)
         layout.addWidget(scroll, 1)
         layout.addLayout(buttons)
 
-        self.timer = QTimer(self)
+        self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self._refresh)
 
     def start(self) -> None:
+        """Shows the window and starts syncing."""
         self.syncer.start()
         self.timer.start(300)
         self.show()
         self.raise_()
         self.activateWindow()
 
-    def _row(self, r: FolderRow) -> tuple[QLabel, QLabel, QLabel]:
+    def _row(self, r: FolderRow) -> tuple[QtWidgets.QLabel, QtWidgets.QLabel, QtWidgets.QLabel]:
+        """Returns the labels of a folder's row, creating the row when needed."""
         if r.id not in self.rows:
             n = len(self.rows)
-            glyph, name, detail = QLabel(), QLabel(r.label), QLabel()
+            glyph, name, detail = QtWidgets.QLabel(), QtWidgets.QLabel(r.label), QtWidgets.QLabel()
             glyph.setFixedWidth(18)
-            glyph.setAlignment(Qt.AlignmentFlag.AlignCenter)
-            detail.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
+            glyph.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            detail.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight | QtCore.Qt.AlignmentFlag.AlignVCenter)
             self.grid.addWidget(glyph, n, 0)
             self.grid.addWidget(name, n, 1)
             self.grid.addWidget(detail, n, 2)
@@ -484,6 +472,7 @@ class SyncWindow(QWidget):
         return self.rows[r.id]
 
     def _refresh(self) -> None:
+        """Redraws the rows from the latest snapshot and decides when to finish."""
         snap = self.syncer.snapshot()
         if snap.fatal:
             self.subtitle.setText(snap.fatal)
@@ -502,7 +491,7 @@ class SyncWindow(QWidget):
             dim = r.state in ("done", "skipped")
             name.setStyleSheet(f"color: {self.colors['inactive'].name()};" if dim else "")
         total = len(snap.rows) or 1
-        self.bar.setValue(int(10 * sum(r.progress for r in snap.rows) / total))
+        self.progress_bar.setValue(int(10 * sum(r.progress for r in snap.rows) / total))
         busy = [r for r in snap.rows if r.state in ("pending", "scanning", "sending")]
         problems = [r for r in snap.rows if r.state in ("offline", "stalled", "partial", "error")]
         if busy:
@@ -514,17 +503,19 @@ class SyncWindow(QWidget):
             return
         if not problems:
             self.subtitle.setText("Everything is sent.")
-            self.bar.setValue(1000)
+            self.progress_bar.setValue(1000)
             self._finish(True, "all folders synced", delay=DONE_CLOSE_DELAY_MS)
             return
         self._start_countdown()
         self._tick_countdown(f"{len(problems)} folder(s) could not be sent.")
 
     def _start_countdown(self) -> None:
+        """Starts the countdown after which the logout continues anyway."""
         if self.deadline is None:
             self.deadline = time.monotonic() + OFFLINE_COUNTDOWN_S
 
     def _tick_countdown(self, prefix: str = "") -> None:
+        """Counts the countdown down by one second."""
         if self.closing:
             return
         secs = max(0, round(self.deadline - time.monotonic()))
@@ -534,6 +525,7 @@ class SyncWindow(QWidget):
             self._finish(True, f"continued after the countdown ({prefix or self.subtitle.text()})")
 
     def _finish(self, proceed: bool, why: str, delay: int = 0) -> None:
+        """Closes the window and tells the guard whether the logout may proceed."""
         if self.closing:
             return
         self.closing = True
@@ -543,13 +535,15 @@ class SyncWindow(QWidget):
         self.cancel_btn.setEnabled(False)
 
         def done() -> None:
+            """Reports the result once the delay is over."""
             self.timer.stop()
             self.hide()
             self.finished.emit(proceed)
 
-        QTimer.singleShot(delay, done)
+        QtCore.QTimer.singleShot(delay, done)
 
-    def closeEvent(self, event) -> None:  # noqa: N802 (Qt override)
+    def closeEvent(self, event: QtGui.QCloseEvent) -> None:  # noqa: N802  # pylint: disable=invalid-name  # Qt override.
+        """Treats closing the window as cancelling the logout."""
         # Closing the window by its title bar button is "continue without waiting".
         if not self.closing:
             self._finish(True, "window closed by the user")
@@ -559,32 +553,35 @@ class SyncWindow(QWidget):
 # ==== Session management ====
 
 
+def _save_state(sm: QtGui.QSessionManager) -> None:
+    """Tells ksmserver not to restart the guard with the session; autostart starts it already."""
+    log.info("session save requested")
+    sm.setRestartHint(QtGui.QSessionManager.RestartHint.RestartNever)
+
+
 class Guard:
     """XSMP client that holds the session end while a SyncWindow runs."""
 
-    def __init__(self, app: QApplication, test_cancel: bool) -> None:
+    def __init__(self, app: QtWidgets.QApplication, test_cancel: bool) -> None:
+        """Connects to the session manager of the application."""
         self.app = app
         self.test_cancel = test_cancel
         app.commitDataRequest.connect(self.commit_data)
-        app.saveStateRequest.connect(self.save_state)
+        app.saveStateRequest.connect(_save_state)
 
-    @staticmethod
-    def save_state(sm: QSessionManager) -> None:
-        # Autostart starts the guard; ksmserver must not restore a second copy.
-        log.info("session save requested")
-        sm.setRestartHint(QSessionManager.RestartHint.RestartNever)
-
-    def commit_data(self, sm: QSessionManager) -> None:
-        sm.setRestartHint(QSessionManager.RestartHint.RestartNever)
+    def commit_data(self, sm: QtGui.QSessionManager) -> None:
+        """Holds the logout until Syncthing is done, via an interaction turn."""
+        sm.setRestartHint(QtGui.QSessionManager.RestartHint.RestartNever)
         log.info("session end requested")
         if not sm.allowsInteraction():
             log.warning("ksmserver did not allow interaction, not holding the session end")
             return
         window = SyncWindow(during_logout=True)
-        loop = QEventLoop()
+        loop = QtCore.QEventLoop()
         result = {"proceed": True}
 
         def on_finished(proceed: bool) -> None:
+            """Releases the session manager with the window's decision."""
             result["proceed"] = proceed
             loop.quit()
 
@@ -602,6 +599,7 @@ class Guard:
 
 
 def main() -> int:
+    """Runs the guard, or syncs once with --now."""
     parser = argparse.ArgumentParser(description="Hold a Plasma logout until Syncthing has sent every folder.")
     parser.add_argument("--now", action="store_true", help="sync every folder now and show the progress window")
     parser.add_argument("--test-cancel", action="store_true", help="cancel the logout after syncing (for testing)")
@@ -611,7 +609,7 @@ def main() -> int:
     logging.basicConfig(
         filename=LOG_DIR / "guard.log", level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s"
     )
-    app = QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     app.setApplicationName("syncthing-logout-guard")
     app.setDesktopFileName("syncthing-logout-guard")
 
@@ -621,7 +619,9 @@ def main() -> int:
         window.start()
         return app.exec()
 
-    lock = QLockFile(str(Path(os.environ.get("XDG_RUNTIME_DIR", "/tmp")) / "syncthing-logout-guard.lock"))
+    lock = QtCore.QLockFile(
+        str(pathlib.Path(os.environ.get("XDG_RUNTIME_DIR", "/tmp")) / "syncthing-logout-guard.lock")
+    )
     if not lock.tryLock(0):
         print("syncthing-logout-guard is already running", file=sys.stderr)
         return 0

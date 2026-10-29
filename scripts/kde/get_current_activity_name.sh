@@ -25,17 +25,17 @@ IFACE="org.kde.ActivityManager.Activities"
 dbus_string_call() {
   # Runs a busctl call expected to return a single "s ..." reply and prints
   # just the string value. Empty output on any failure/timeout.
-  timeout "$TIMEOUT_SECS" busctl --user call "$SERVICE" "$OBJECT" "$IFACE" "$@" 2>/dev/null \
+  timeout "${TIMEOUT_SECS}" busctl --user call "${SERVICE}" "${OBJECT}" "${IFACE}" "$@" 2>/dev/null \
     | awk -F'"' '{print $2}'
 }
 
 uuid=$(dbus_string_call CurrentActivity || true)
 
-if [ -z "$uuid" ]; then
+if [ -z "${uuid}" ]; then
   echo "Default"
   exit 0
 fi
 
-name=$(dbus_string_call ActivityName s "$uuid" || true)
+name=$(dbus_string_call ActivityName s "${uuid}" || true)
 
 echo "${name:-Default}"
