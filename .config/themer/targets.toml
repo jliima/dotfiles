@@ -183,6 +183,8 @@ output = "~/Obsidian/.config/.obsidian-desktop/snippets/PDF-Export-Darkmode.css"
 # After a Spotify update Spicetify's backup no longer matches and `spicetify apply` only warns; reinstall Spotify and
 # run `spicetify backup apply` then.
 # Spotify is launched as `spotify --disable-gpu-sandbox` (the GPU sandbox fails on kernel 7.0.0-38).
+# The extension spicetify/Extensions/privateSession.js (enabled by the reload) keeps the private session on and
+# renews it before the 6 h limit; switching it off in the Profile menu keeps it off until Spotify restarts.
 [[target]]
 name = "Spicetify colors"
 dotfiles = true
@@ -190,7 +192,7 @@ group = "spicetify"
 template = "spicetify/color.ini"
 output = "~/.config/spicetify/Themes/Themer/color.ini"
 reload = """spicetify -q config current_theme Themer color_scheme '' inject_css 1 replace_colors 1 inject_theme_js 1 \
-  sidebar_config 0 custom_apps marketplace; spicetify apply --no-restart"""
+  sidebar_config 0 custom_apps marketplace extensions privateSession.js; spicetify apply --no-restart"""
 
 [[target]]
 name = "Spicetify styles"
