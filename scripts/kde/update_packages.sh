@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# ~/scripts/update_packages.sh
+# ~/scripts/kde/update_packages.sh
 
 # Terminal colors (Intense variants)
 RED='\033[1;31m'

@@ -279,7 +279,7 @@ fi
 
 alias upp="$HOME/scripts/kde/update_packages.sh"
 alias kate="kate -n"
-alias tg="python3 $HOME/scripts/telegram_video_converter.py"
+alias tg="python3 $HOME/scripts/video/telegram_video_converter.py"
 alias edit-video="$HOME/scripts/video/edit_video.py"
 
 alias ls="eza --icons -F -H --group-directories-first -w 80"
