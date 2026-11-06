@@ -9,8 +9,10 @@
 # bad patch trivially reversible. Only the copies into /usr/lib run as root;
 # the patched file is built as you, so node from nvm works too.
 #
-# Themer runs `ensure` after writing ~/.config/claude-desktop-theme/theme.css. Every apt upgrade of claude-desktop
-# replaces app.asar with an unpatched copy, so `ensure` checks the patch and reinstalls it when missing.
+# Every apt upgrade of claude-desktop replaces app.asar with an unpatched copy, so `ensure` checks the patch and
+# reinstalls it when missing. It runs from an apt hook (see `setup`, once per machine) and from Themer after it wrote
+# ~/.config/claude-desktop-theme/theme.css. The hook runs a root-owned copy of this folder, because apt runs it as root
+# and this one is writable by the user: after changing the patch here, run `setup` again.
 #
 # Usage:
 #   patch.sh install   # (re)patch, safe to run repeatedly
@@ -18,6 +20,7 @@
 #   patch.sh status    # report current state, no changes
 #   patch.sh check     # exit 0 if the installed version is patched, no sudo
 #   patch.sh ensure    # check, and install when missing (asks for the password through polkit when there is no tty)
+#   patch.sh setup     # install the apt hook that runs `ensure` after every upgrade, then run it once
 #
 # Needs: node (also found through nvm), sudo or pkexec. A backup left by an earlier version of this patch
 # (app.asar.*-orig) must be renamed to app.asar.themer-orig, with its .version file, once; install explains it.
@@ -31,6 +34,8 @@ VERSION_FILE="${BACKUP}.version"
 MARKER="claude-desktop-theme"
 SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
 PATCHER="${SCRIPT_DIR}/asar-patch.mjs"
+HOOK="/etc/apt/apt.conf.d/99claude-desktop-theme"
+HOOK_DIR="/usr/local/lib/claude-desktop-theme"
 
 installed_version() {
   dpkg-query -W -f='${Version}' claude-desktop 2>/dev/null || echo "unknown"
@@ -111,7 +116,7 @@ cmd_revert() {
     exit 1
   fi
   echo "Restoring pristine app.asar from backup..."
-  as_root cp "${BACKUP}" "${ASAR}"
+  as_root install -m 644 "${BACKUP}" "${ASAR}"
   echo "Done. Restart claude-desktop to pick it up."
 }
 
@@ -119,10 +124,6 @@ cmd_install() {
   require_asar
   if ! find_node; then
     echo "Error: node is required to build the patch." >&2
-    exit 1
-  fi
-  if [[ ${EUID} -eq 0 ]]; then
-    echo "Error: run this as your own user; it asks for root only where it must." >&2
     exit 1
   fi
 
@@ -147,9 +148,9 @@ cmd_install() {
     local tmp_version
     tmp_version="$(mktemp)"
     echo "${current_version}" >"${tmp_version}"
-    as_root cp "${ASAR}" "${BACKUP}"
+    as_root cp "${ASAR}" "${BACKUP}" || return 1
     # mktemp files are 0600; check reads the version as a normal user, so install it world-readable.
-    as_root install -m 644 "${tmp_version}" "${VERSION_FILE}"
+    as_root install -m 644 "${tmp_version}" "${VERSION_FILE}" || return 1
     rm -f "${tmp_version}"
   else
     echo "Backup already matches installed version ${current_version}; patching from it."
@@ -161,17 +162,26 @@ cmd_install() {
   trap "rm -f '${tmp_out}'" EXIT
 
   echo "Building patched asar from the pristine backup..."
-  node "${PATCHER}" "${BACKUP}" "${tmp_out}"
+  # Explicit returns: `ensure` calls this inside an if, where set -e is off, and an empty file must never be installed.
+  node "${PATCHER}" "${BACKUP}" "${tmp_out}" || return 1
+  [[ -s "${tmp_out}" ]] || return 1
 
   echo "Installing patched asar..."
-  as_root cp "${tmp_out}" "${ASAR}"
+  # install replaces the file instead of rewriting it, so a running app keeps reading its old copy.
+  as_root install -m 644 "${tmp_out}" "${ASAR}" || return 1
   echo ""
   echo "Installed. Restart claude-desktop to pick it up."
   echo "If anything looks broken, run: $0 revert"
 }
 
+# From the apt hook this runs as root, so the message goes through the session bus of THEME_USER.
 notify() {
-  command -v notify-send >/dev/null && notify-send -a themer -i claude-desktop "Claude theme" "$1" || true
+  local run=()
+  if [[ ${EUID} -eq 0 ]]; then
+    [[ -n "${THEME_USER:-}" ]] || return 0
+    run=(runuser -u "${THEME_USER}" -- env "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u "${THEME_USER}")/bus")
+  fi
+  command -v notify-send >/dev/null && "${run[@]}" notify-send -a themer -i claude-desktop "Claude theme" "$1" || true
 }
 
 cmd_ensure() {
@@ -195,14 +205,33 @@ cmd_ensure() {
   notify "Theme patch installed. Restart Claude to apply it."
 }
 
+cmd_setup() {
+  if [[ ! -x /usr/bin/node ]]; then
+    echo "Error: the apt hook runs as root and needs a system node: sudo apt-get install -y nodejs" >&2
+    exit 1
+  fi
+  local tmp_hook run
+  tmp_hook="$(mktemp)"
+  run="THEME_USER=${USER} ${HOOK_DIR}/patch.sh ensure 2>&1 | logger -t claude-desktop-theme"
+  echo "DPkg::Post-Invoke { \"[ ! -x ${HOOK_DIR}/patch.sh ] || ${run} || true\"; };" >"${tmp_hook}"
+  as_root install -D -m 755 "${SCRIPT_DIR}/patch.sh" "${HOOK_DIR}/patch.sh"
+  as_root install -D -m 644 "${PATCHER}" "${HOOK_DIR}/asar-patch.mjs"
+  as_root install -D -m 644 "${SCRIPT_DIR}/lib/asar-lib.mjs" "${HOOK_DIR}/lib/asar-lib.mjs"
+  as_root install -m 644 "${tmp_hook}" "${HOOK}"
+  rm -f "${tmp_hook}"
+  echo "Installed ${HOOK}."
+  cmd_ensure
+}
+
 case "${1:-install}" in
   install) cmd_install ;;
   ensure) cmd_ensure ;;
   revert) cmd_revert ;;
   status) cmd_status ;;
   check) cmd_check ;;
+  setup) cmd_setup ;;
   *)
-    echo "usage: $0 {install|revert|status|check|ensure}" >&2
+    echo "usage: $0 {install|revert|status|check|ensure|setup}" >&2
     exit 2
     ;;
 esac

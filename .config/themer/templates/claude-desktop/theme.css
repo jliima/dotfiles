@@ -11,7 +11,8 @@
  */
 
 :root,
-html.cds-root {
+.cds-root,
+.cds-dark-scope {
   --cds-gray-0: {{ text }} !important;
   --cds-gray-10: {{ text | mix(surface-active, 0.014) }} !important;
   --cds-gray-20: {{ text | mix(surface-active, 0.029) }} !important;
@@ -85,6 +86,49 @@ html.cds-root {
   --cds-blue-900: {{ blue-soft }} !important;
 
   --cds-accent-brand: {{ accent }} !important;
+}
+
+/* The newer CDS palette ("fizzy-lake") sets these to fixed grays and alpha whites instead of the ramp, on every
+ * .cds-root, so they are pointed back at the theme. Sidebars are sunken ground, like the rest of the desktop.
+ * Keep this block the same in theme.css and frame.css. */
+:root,
+.cds-root,
+.cds-dark-scope {
+  --cds-surface-1: var(--cds-gray-810) !important;
+  --cds-surface-2: var(--cds-gray-800) !important;
+  --cds-surface-3: var(--cds-gray-800) !important;
+  --cds-surface-panel: var(--cds-gray-800) !important;
+  --cds-surface-popover: var(--cds-gray-750) !important;
+  --cds-tooltip-bg: var(--cds-gray-750) !important;
+  --cds-on-primary: var(--cds-gray-810) !important;
+  --cds-fill-primary: var(--cds-gray-0) !important;
+  --cds-fill-primary-hover: var(--cds-gray-100) !important;
+  --cds-fizzy-lake-color-sidebar: var(--cds-gray-820) !important;
+  --cds-fizzy-lake-color-card-hover: var(--cds-gray-750) !important;
+
+  --cds-text-primary: {{ text }} !important;
+  --cds-tooltip-fg: {{ text }} !important;
+  --cds-fizzy-lake-color-control-ink: {{ text }} !important;
+  --cds-text-secondary: {{ text-muted }} !important;
+  --cds-text-stays-secondary: {{ text-muted }} !important;
+  --cds-fizzy-lake-color-secondary: {{ text-muted }} !important;
+  --cds-fizzy-lake-color-plain-secondary: {{ text-muted }} !important;
+  --cds-fizzy-lake-color-plain-muted: {{ text-muted }} !important;
+  --cds-text-muted: {{ text-subtle }} !important;
+  --cds-text-button-disabled: {{ text-subtle }} !important;
+  --cds-fizzy-lake-color-tertiary: {{ text-subtle }} !important;
+  --cds-fizzy-lake-color-icon-only-disabled: {{ text-subtle }} !important;
+
+  --cds-border: {{ line }} !important;
+  --cds-border-line: {{ line }} !important;
+  --cds-ring-color: {{ line }} !important;
+  --cds-fill-field-ring: {{ line }} !important;
+  --cds-fizzy-lake-color-seam: {{ line }} !important;
+  --cds-fizzy-lake-color-menu-line: {{ line }} !important;
+  --cds-fizzy-lake-color-message-line: {{ line }} !important;
+  --cds-fizzy-lake-color-composer-ring: {{ line }} !important;
+  --cds-fizzy-lake-color-badge-line: {{ line-strong }} !important;
+  --cds-fizzy-lake-color-banner-line: {{ line-strong }} !important;
 }
 
 /* First-frame shell (before CDS/Tailwind load): match the boot placeholder and title bar to the same background so
