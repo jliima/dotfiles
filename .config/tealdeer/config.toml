@@ -1,0 +1,16 @@
+[directories]
+# Relative to this file; tealdeer does not expand ~
+custom_pages_dir = "../tldr"
+
+# Like the shell prompt: the command green, everything else in the terminal's default color
+[style.description]
+
+[style.example_text]
+
+[style.command_name]
+foreground = "green"
+
+[style.example_code]
+
+[style.example_variable]
+underline = true
