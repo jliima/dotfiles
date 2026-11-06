@@ -25,7 +25,7 @@ TerminalCenter=false
 ShowTerminalSizeHint=false
 
 [Interaction Options]
-OpenLinksByDirectClickEnabled=true
+OpenLinksByDirectClickEnabled=false
 TrimLeadingSpacesInSelectedText=false
 TrimTrailingSpacesInSelectedText=true
 UnderlineFilesEnabled=true
