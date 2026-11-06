@@ -187,6 +187,15 @@ tg-dlp() {
     "$@"
 }
 
+# tealdeer can only drop all blank lines, so this drops just the one between an explanation and its command.
+# The pipe would turn colors off, so a terminal asks for them.
+tldr() {
+  setopt local_options pipe_fail
+  local color=auto
+  [[ -t 1 ]] && color=always
+  command tldr --color "$color" "$@" | awk '/^$/ { held = 1; next } { if (held && !/^      /) print ""; held = 0; print }'
+}
+
 ################################################################################
 # Oh-My-Zsh Initialization
 ################################################################################

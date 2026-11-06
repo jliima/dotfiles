@@ -1,6 +1,6 @@
 [directories]
 # Relative to this file; tealdeer does not expand ~
-custom_pages_dir = "../tldr"
+custom_pages_dir = "pages"
 
 # Like zsh's highlighting. Named colors are the terminal palette, which Themer sets (ansi-2 and ansi-3 in the Konsole
 # scheme), so they follow the theme: the command green, placeholders yellow like quoted strings, the rest default.
