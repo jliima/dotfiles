@@ -16,7 +16,6 @@ Categories=Utility;Development;
 MimeType=x-scheme-handler/claude;application/vnd.anthropic.mcpb;application/vnd.anthropic.skill;
 TryExec=claude-desktop
 Actions=NewChat;NewCode;ContinueLast;NeedsInput;
-X-Claude-Generated=true
 
 [Desktop Action NewChat]
 Name=New Chat

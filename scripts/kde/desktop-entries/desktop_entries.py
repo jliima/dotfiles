@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Makes room in ~/.local/share/applications for the stowed desktop entries before stow runs.
 
-Some apps write their own desktop entry over the stowed link (Claude desktop on update, Chromium when it refreshes a
-PWA), and stow then refuses to link the repo's copy. Others name their entry per install (JetBrains Toolbox puts a
+Some apps write their own desktop entry over the stowed link (Chromium when it refreshes a PWA), and stow then refuses
+to link the repo's copy. Others name their entry per install (JetBrains Toolbox puts a
 UUID in it, Chromium the profile folder), so the shortcuts kde-sync shares would point at a different file on every
 machine.
 
