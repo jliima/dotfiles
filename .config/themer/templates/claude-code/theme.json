@@ -38,10 +38,10 @@
     "merged": "{{ violet }}",
     "warningShimmer": "{{ orange-bright }}",
 
-    "diffAdded": "{{ success-soft }}",
-    "diffRemoved": "{{ danger-soft }}",
-    "diffAddedDimmed": "{{ success-soft }}",
-    "diffRemovedDimmed": "{{ danger-soft }}",
+    "diffAdded": "ansi:black",
+    "diffRemoved": "ansi:black",
+    "diffAddedDimmed": "ansi:black",
+    "diffRemovedDimmed": "ansi:black",
     "diffAddedWord": "{{ green-dim }}",
     "diffRemovedWord": "{{ red-dim }}",
 

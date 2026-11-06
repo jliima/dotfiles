@@ -21,6 +21,8 @@ reload = "rm -f ~/.config/chromium/*/'Cached Theme.pak'"
 
 # Select it once with /theme ("custom:themer", or "theme" in settings.json). Claude Code watches ~/.claude/themes and
 # restyles live. ~/.claude is synced by Syncthing, so the file is written there and not into the dotfiles.
+# An -ansi base keeps code in diffs on the terminal palette (a plain base means fixed Monokai, no key changes it), but
+# squeezes RGB diff colors into 256 colors, where dark tints turn gray. So diff rows use ansi:black (Themer's ansi-0).
 [[target]]
 name = "Claude Code"
 group = "claude"
