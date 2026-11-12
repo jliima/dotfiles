@@ -192,5 +192,7 @@
       "addWords": true,
       "scope": "user"
     }
-  }
+  },
+  "python.useEnvironmentsExtension": true,
+  "gitlens.graph.details.location": "auto"
 }
