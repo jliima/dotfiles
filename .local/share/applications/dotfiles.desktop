@@ -6,5 +6,5 @@ Comment=Launch VS Code in dotfiles repo
 Terminal=false
 Categories=Development;
 StartupNotify=false
-Exec=code $HOME/dotfiles
+Exec=code --disable-features=WaylandWpColorManagerV1 $HOME/dotfiles
 Icon=folder-text-symbolic
