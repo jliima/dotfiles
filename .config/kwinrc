@@ -18,6 +18,9 @@ HorizontalGap=1000
 SlideBackground=false
 VerticalGap=200
 
+[Effect-translucency]
+MoveResize=88
+
 [Input]
 TabletMode=off
 
@@ -37,6 +40,7 @@ contrastEnabled=true
 desktopchangeosdEnabled=true
 dimscreenEnabled=true
 fadedesktopEnabled=true
+moveblurEnabled=true
 slideEnabled=false
 
 [Round-Corners]

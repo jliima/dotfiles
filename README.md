@@ -34,7 +34,9 @@ Works on my machine running [Kubuntu 26.04](https://kubuntu.org/)
 
 The dots only configure these, they are separate repos to clone and install (each has an `install.sh`):
 Plasma widgets `plasma-desktop-dots`, `plasma-claude-usage`, `plasma-copilot-usage`, `plasma-cpu-percent`,
-`plasma-minimized-tasks`, `plasma-separator`, and the KRunner add-ons `IntellijRunner` and `krunner-tab-nav`.
+`plasma-minimized-tasks`, `plasma-separator`, the KRunner add-ons `IntellijRunner` and `krunner-tab-nav`, and the KWin
+effect `kwin-moveblur` (blurs behind a window while it is moved; `.config/kwinrc` enables it and sets the Translucency
+effect's move opacity to 88 %).
 
 ### Theming
 
