@@ -1,37 +1,38 @@
 #!/bin/bash
 # ------------------------------------------------------------------------------
 # Name:        open_spotify.sh
-# Description: Open Spotify, repairing the Spicetify patch and the GPU sandbox crash first when needed.
+# Description: Open the Flatpak Spotify, keeping Spicetify up to date and applied, and working around the GPU
+#              sandbox crash.
 #
 # Details:
-#   Spotify is patched by Spicetify (theme "Themer", see ~/.config/spicetify). A Spotify update replaces the
-#   patched files and leaves Spicetify's backup stale, after which `spicetify apply` only warns. This script checks
-#   that before every launch and only does the (sudo) repair when something is actually off:
+#   Spotify is the Flathub com.spotify.Client (user install) patched by Spicetify (theme "Themer", see
+#   ~/.config/spicetify). Before every launch this script checks the patch and only repairs what is off:
 #
-#     - Spotify package version differs from the Spicetify backup version -> reinstall Spotify (pristine files),
-#       make /usr/share/spotify writable, `spicetify backup apply`. Enables the Spotify apt source if it is disabled.
-#     - Spotify files are pristine (xpui.spa present) -> `spicetify backup apply`.
+#     - Once a day: `spicetify update`. If Spicetify got a new version -> `spicetify restore backup apply`.
+#     - Spotify files are pristine (xpui.spa present, e.g. after a Flatpak update) -> `spicetify backup apply`,
+#       clearing the old backup first when it belongs to another Spotify version.
+#     - Neither Apps/xpui nor Apps/xpui.spa exists (Spotify shows nothing) -> reinstall the Flatpak, then as above.
 #     - Themer's user.css differs from the deployed one -> `spicetify apply`.
-#     - Neither Apps/xpui nor Apps/xpui.spa exists (Spotify shows nothing) -> reinstall.
-#     - /usr/share/spotify not writable by us -> chmod.
+#
+#   Spotify flags (--disable-features=WaylandWpColorManagerV1) live in
+#   ~/.var/app/com.spotify.Client/config/spotify-flags.conf so the Flatpak's own launcher gets them too.
 #
 #   Spotify 1.2.90 dies with "GPU process isn't usable" on some kernels (seen on 7.0.0-38). If the first launch dies
 #   that way, it is relaunched with --disable-gpu-sandbox and the flag is remembered for that kernel version.
-#
-#   Needing sudo from a launcher (no terminal) reopens the script in Konsole so the password can be typed.
 # ------------------------------------------------------------------------------
 set -euo pipefail
 
 # ==== Configuration ====
-SPOTIFY_DIR="/usr/share/spotify"
+FLATPAK_APP="com.spotify.Client"
+SPOTIFY_DIR="${HOME}/.local/share/flatpak/app/${FLATPAK_APP}/x86_64/stable/active/files/extra/share/spotify"
 SPOTIFY_APPS="${SPOTIFY_DIR}/Apps"
-SPOTIFY_APT_SOURCE="/etc/apt/sources.list.d/spotify.sources"
-SPOTIFY_APT_KEY="/etc/apt/keyrings/spotify.gpg"
 SPICETIFY_BIN="${HOME}/.spicetify/spicetify"
 SPICETIFY_CONFIG="${HOME}/.config/spicetify/config-xpui.ini"
 THEME_CSS="${HOME}/.config/spicetify/Themes/Themer/user.css"
 CACHE_DIR="${HOME}/.cache/open-spotify"
 LOG_FILE="${CACHE_DIR}/spotify.log"
+UPDATE_MARKER="${CACHE_DIR}/spicetify-update-checked-$(date +%F)"
+UPDATE_TIMEOUT=30 # seconds; offline or a slow GitHub must not block the launch
 GPU_FLAG="--disable-gpu-sandbox"
 GPU_MARKER="${CACHE_DIR}/gpu-sandbox-broken-$(uname -r)"
 GPU_CRASH_TEXT="GPU process isn't usable"
@@ -58,8 +59,8 @@ usage() {
   cat <<EOF
 Usage: $(basename "$0") [OPTIONS] [SPOTIFY_ARGS...]
 
-  Open Spotify. Before launching, checks the Spicetify patch and repairs it if needed
-  (asks for the sudo password when a reinstall or chmod is required).
+  Open Spotify. Before launching, updates Spicetify (once a day) and checks the Spicetify patch,
+  repairing it if needed.
 
 Options:
   --check       Only print what would be repaired, change nothing
@@ -71,7 +72,7 @@ EOF
 }
 
 installed_version() {
-  dpkg-query -W -f='${Version}' spotify-client 2>/dev/null | sed 's/^[0-9]*://'
+  flatpak info --user "${FLATPAK_APP}" 2>/dev/null | awk '$1 == "Version:" {print $2}'
 }
 
 backup_version() {
@@ -79,29 +80,43 @@ backup_version() {
     "${SPICETIFY_CONFIG}" 2>/dev/null
 }
 
+spicetify_version() { "${SPICETIFY_BIN}" -v 2>/dev/null; }
 spotify_pristine() { [ -e "${SPOTIFY_APPS}/xpui.spa" ]; }
-spotify_writable() { [ -w "${SPOTIFY_DIR}" ] && [ -w "${SPOTIFY_APPS}" ]; }
 theme_deployed() { cmp -s "${THEME_CSS}" "${SPOTIFY_APPS}/xpui/user.css"; }
+
+# Sets spicetify_updated=1 when Spicetify got a new version
+update_spicetify() {
+  spicetify_updated=0
+  [ -e "${UPDATE_MARKER}" ] && return 0
+  local before
+  before=$(spicetify_version)
+  print_info "Checking for a Spicetify update"
+  if timeout "${UPDATE_TIMEOUT}" "${SPICETIFY_BIN}" update >/dev/null 2>&1; then
+    rm -f "${CACHE_DIR}"/spicetify-update-checked-*
+    touch "${UPDATE_MARKER}"
+  else
+    print_warn "Spicetify update check failed, retrying on the next launch"
+  fi
+  if [ "$(spicetify_version)" != "${before}" ]; then
+    print_success "Spicetify updated ${before} -> $(spicetify_version)"
+    spicetify_updated=1
+  fi
+}
 
 # Sets the need_* flags
 plan_repair() {
   need_reinstall=0
   need_backup=0
+  need_reapply=0
   need_apply=0
-  need_chmod=0
-  if ! spotify_writable; then
-    need_chmod=1
-  fi
   if spotify_pristine; then
     need_backup=1
   elif [ ! -d "${SPOTIFY_APPS}/xpui" ]; then
     # Neither a patched nor a pristine copy: Spotify would show nothing
     need_reinstall=1
     need_backup=1
-  elif [ "$(installed_version)" != "$(backup_version)" ]; then
-    # Patched files without a matching backup: only a fresh package gives Spicetify a pristine copy
-    need_reinstall=1
-    need_backup=1
+  elif [ "${spicetify_updated}" = 1 ]; then
+    need_reapply=1
   elif ! theme_deployed; then
     need_apply=1
   fi
@@ -112,80 +127,35 @@ plan_repair() {
 }
 
 print_plan() {
-  print_info "Spotify $(installed_version), Spicetify backup for '$(backup_version)'"
-  [ "${need_chmod}" = 1 ] && print_warn "${SPOTIFY_DIR} is not writable: chmod needed"
-  [ "${need_reinstall}" = 1 ] && print_warn "Patched files without a matching backup: reinstall needed"
+  print_info "Spotify $(installed_version), Spicetify $(spicetify_version) with backup for '$(backup_version)'"
+  [ "${need_reinstall}" = 1 ] && print_warn "Spotify interface files missing: Flatpak reinstall needed"
   [ "${need_backup}" = 1 ] && print_warn "Spicetify backup needed"
+  [ "${need_reapply}" = 1 ] && print_warn "Spicetify was updated: restore, backup and apply needed"
   [ "${need_apply}" = 1 ] && print_warn "Theme is not deployed: spicetify apply needed"
   return 0
 }
 
-# The release upgrade leaves third-party sources as "Enabled: no", and the inline key of the old source file is
-# outdated (Spotify rotated to 5384CE82BA52C83A). The installed package ships the current key.
-spotify_source_ok() {
-  grep -qx "Signed-By: ${SPOTIFY_APT_KEY}" "${SPOTIFY_APT_SOURCE}" 2>/dev/null \
-    && ! grep -qi '^Enabled: *no' "${SPOTIFY_APT_SOURCE}"
-}
-
-setup_spotify_source() {
-  local key
-  key=$(ls -t "${SPOTIFY_DIR}"/apt-keys/*.gpg 2>/dev/null | head -1)
-  [ -n "${key}" ] || {
-    print_error "No signing key in ${SPOTIFY_DIR}/apt-keys"
-    return 1
-  }
-  sudo install -D -m 644 "${key}" "${SPOTIFY_APT_KEY}" || return 1
-  sudo cp -n "${SPOTIFY_APT_SOURCE}" "${SPOTIFY_APT_SOURCE}.old" 2>/dev/null || true
-  printf 'Types: deb\nURIs: https://repository.spotify.com\nSuites: stable\nComponents: non-free\nSigned-By: %s\nEnabled: yes\n' \
-    "${SPOTIFY_APT_KEY}" | sudo tee "${SPOTIFY_APT_SOURCE}" >/dev/null
-}
-
-spotify_index_present() {
-  compgen -G "/var/lib/apt/lists/*repository.spotify.com*Packages*" >/dev/null
-}
-
-# Every step must succeed before the next one: a half-done repair must never delete the patched copy
 repair() {
-  if [ "${need_chmod}" = 1 ] || [ "${need_reinstall}" = 1 ]; then
-    print_info "sudo is needed"
-    sudo -v || return 1
-  fi
-
   if [ "${need_reinstall}" = 1 ]; then
-    if ! spotify_source_ok; then
-      print_info "Setting up the Spotify apt source"
-      setup_spotify_source || return 1
-      sudo rm -f /var/lib/apt/lists/*repository.spotify.com*
-    fi
-    if ! spotify_index_present; then
-      print_info "Fetching the Spotify package index"
-      sudo apt-get update || return 1
-      spotify_index_present || {
-        print_error "apt update did not fetch the Spotify index"
-        return 1
-      }
-    fi
     print_header "Reinstalling Spotify"
-    sudo apt-get install --reinstall -y spotify-client || return 1
-  fi
-
-  if [ "${need_chmod}" = 1 ] || [ "${need_reinstall}" = 1 ]; then
-    sudo chmod a+wr "${SPOTIFY_DIR}" || return 1
-    sudo chmod -R a+wr "${SPOTIFY_APPS}" || return 1
-  fi
-
-  if [ "${need_reinstall}" = 1 ]; then
-    # Drop the old patched copy so the pristine xpui.spa is the only source (the reinstall restored it)
+    flatpak install --user --reinstall -y --noninteractive flathub "${FLATPAK_APP}" || return 1
     spotify_pristine || {
       print_error "Reinstall left no xpui.spa"
       return 1
     }
-    rm -rf "${SPOTIFY_APPS}/xpui"
   fi
 
   if [ "${need_backup}" = 1 ]; then
+    # A backup of another Spotify version blocks `spicetify backup`; the pristine files replace it
+    if [ -n "$(backup_version)" ] && [ "$(backup_version)" != "$(installed_version)" ]; then
+      print_info "Clearing the Spicetify backup of Spotify $(backup_version)"
+      "${SPICETIFY_BIN}" clear </dev/null || return 1
+    fi
     print_header "Spicetify backup and apply"
-    "${SPICETIFY_BIN}" backup apply || return 1
+    "${SPICETIFY_BIN}" backup apply --no-restart || return 1
+  elif [ "${need_reapply}" = 1 ]; then
+    print_header "Spicetify restore, backup and apply"
+    "${SPICETIFY_BIN}" restore backup apply --no-restart || return 1
   elif [ "${need_apply}" = 1 ]; then
     print_header "Spicetify apply"
     "${SPICETIFY_BIN}" apply --no-restart || return 1
@@ -193,39 +163,28 @@ repair() {
 }
 
 launch() {
-  mkdir -p "${CACHE_DIR}"
   if [ -e "${GPU_MARKER}" ]; then
     print_info "Launching Spotify with ${GPU_FLAG}"
-    setsid spotify --disable-features=WaylandWpColorManagerV1 "${GPU_FLAG}" "$@" >"${LOG_FILE}" 2>&1 &
+    setsid flatpak run "${FLATPAK_APP}" "${GPU_FLAG}" "$@" >"${LOG_FILE}" 2>&1 &
     print_success "Spotify launched"
     return
   fi
 
   print_info "Launching Spotify"
-  setsid spotify --disable-features=WaylandWpColorManagerV1 "$@" >"${LOG_FILE}" 2>&1 &
-  local pid=$!
-  local waited=0
-  while [ "${waited}" -lt "${STARTUP_WAIT}" ]; do
-    sleep 1
-    waited=$((waited + 1))
-    if ! kill -0 "${pid}" 2>/dev/null; then
-      if grep -q "${GPU_CRASH_TEXT}" "${LOG_FILE}"; then
-        print_warn "GPU sandbox crash, relaunching with ${GPU_FLAG} (remembered for kernel $(uname -r))"
-        touch "${GPU_MARKER}"
-        setsid spotify --disable-features=WaylandWpColorManagerV1 "${GPU_FLAG}" "$@" >"${LOG_FILE}" 2>&1 &
-        print_success "Spotify launched"
-      else
-        print_error "Spotify exited early, see ${LOG_FILE}"
-        exit 1
-      fi
-      return
-    fi
-  done
+  setsid flatpak run "${FLATPAK_APP}" "$@" >"${LOG_FILE}" 2>&1 &
+  # `flatpak run` can return while Spotify keeps running, so watch the spotify process instead of its pid
+  sleep "${STARTUP_WAIT}"
+  if grep -q "${GPU_CRASH_TEXT}" "${LOG_FILE}"; then
+    print_warn "GPU sandbox crash, relaunching with ${GPU_FLAG} (remembered for kernel $(uname -r))"
+    touch "${GPU_MARKER}"
+    pkill -x spotify || true
+    setsid flatpak run "${FLATPAK_APP}" "${GPU_FLAG}" "$@" >"${LOG_FILE}" 2>&1 &
+  elif ! pgrep -x spotify >/dev/null; then
+    print_error "Spotify exited early, see ${LOG_FILE}"
+    exit 1
+  fi
   print_success "Spotify launched"
 }
-
-# Keep a Konsole opened by the launcher on screen so the error can be read
-pause_if_terminal() { [ -t 0 ] && read -rp "Press Enter to close" || true; }
 
 # ==== Main ====
 check_only=0
@@ -250,36 +209,31 @@ done
 
 # A running Spotify only needs the new request (URI, raise window)
 if [ "${check_only}" = 0 ] && [ "${force_repair}" = 0 ] && pgrep -x spotify >/dev/null; then
-  exec spotify --disable-features=WaylandWpColorManagerV1 "$@"
+  exec flatpak run "${FLATPAK_APP}" "$@"
 fi
 
+mkdir -p "${CACHE_DIR}"
 print_header "Opening Spotify"
+spicetify_updated=0
+[ "${check_only}" = 0 ] && update_spicetify
 plan_repair
 
 if [ "${check_only}" = 1 ]; then
   print_plan
-  if [ "${need_chmod}${need_reinstall}${need_backup}${need_apply}" = 0000 ]; then
+  if [ "${need_reinstall}${need_backup}${need_reapply}${need_apply}" = 0000 ]; then
     print_success "Nothing to repair"
   fi
   exit 0
 fi
 
-if [ "${need_chmod}${need_reinstall}${need_backup}${need_apply}" != 0000 ]; then
+if [ "${need_reinstall}${need_backup}${need_reapply}${need_apply}" != 0000 ]; then
   print_plan
-  # sudo needs a terminal for the password; from a launcher, reopen in Konsole
-  if { [ "${need_chmod}" = 1 ] || [ "${need_reinstall}" = 1 ]; } && [ ! -t 0 ]; then
-    repair_args=()
-    [ "${force_repair}" = 1 ] && repair_args=(--repair)
-    exec konsole --separate -e "$0" "${repair_args[@]}" "$@"
-  fi
   if repair; then
     print_success "Repair done"
   elif [ -d "${SPOTIFY_APPS}/xpui" ] || spotify_pristine; then
     print_error "Repair failed, launching Spotify anyway"
-    pause_if_terminal
   else
     print_error "Repair failed and Spotify has no interface files, not launching"
-    pause_if_terminal
     exit 1
   fi
 fi

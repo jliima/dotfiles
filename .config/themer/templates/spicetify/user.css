@@ -4,7 +4,7 @@
  *   grounds   sidebar bg-sunken, content bg, now playing bar bg-deep with a hairline on top
  *   rows      hover surface-hover, selected accent-soft
  *   cards     surface with a line ring, radius-md; controls radius-sm
- *   play      accent fill with on-accent text, no shadow
+ *   play      circles, text-coloured fill, accent on hover, no shadow
  */
 :root {
   --themer-radius-xs: {{ shape.radius-xs | px }};
@@ -43,6 +43,15 @@ body,
   background-color: var(--spice-sidebar);
   gap: 0;
   padding: 0;
+}
+
+/* The desktop build pads the top and pulls the nav up by the same amount; neither is needed without the gaps */
+.spotify__container--is-desktop .Root__top-container {
+  padding-top: 0;
+}
+
+.Root__globalNav {
+  margin-top: 0 !important;
 }
 
 .Root__globalNav {
@@ -96,13 +105,15 @@ body,
 }
 
 .Root__globalNav .main-globalNav-navLink,
-.Root__globalNav .main-globalNav-searchContainer > button {
+.Root__globalNav .main-globalNav-searchContainer > button,
+.Root__globalNav [aria-label="Marketplace"] {
   background-color: var(--spice-card);
   border: 1px solid var(--themer-line);
 }
 
 .Root__globalNav .main-globalNav-navLink:hover,
-.Root__globalNav .main-globalNav-searchContainer > button:hover {
+.Root__globalNav .main-globalNav-searchContainer > button:hover,
+.Root__globalNav [aria-label="Marketplace"]:hover {
   background-color: var(--spice-highlight);
 }
 
@@ -177,7 +188,7 @@ input[type="text"]:focus {
 }
 
 /* Buttons: round icon buttons (library add/expand, chip chevrons, ...) become small-radius squares, and the
-   transport play/pause is an accent fill like the card play buttons */
+   play buttons are below */
 .main-useDropTarget-base,
 .search-searchCategory-carouselButton,
 .spicetify-sc-chevronBtn,
@@ -189,29 +200,32 @@ button[data-encore-id="buttonTertiary"] {
   border-radius: var(--themer-radius-sm);
 }
 
-.main-playButton-PlayButton,
-.main-playPauseButton-button,
-[data-testid="control-button-playpause"] {
+/* Play buttons (every icon-only primary button) are circles with the light fill; the fill is on the inner span.
+   Home shortcuts hide that span until hover, here it always shows. */
+button[data-encore-id="buttonPrimary"]:has(> [class*="button-icon-only"]) {
+  background-color: transparent;
+  border-radius: 50%;
   box-shadow: none;
 }
 
-.main-nowPlayingBar-center button[data-testid="control-button-playpause"] {
-  background-color: var(--spice-button);
+button[data-encore-id="buttonPrimary"] > [class*="button-icon-only"] {
+  background-color: var(--spice-text);
+  border-radius: 50%;
   color: var(--themer-on-accent);
+  opacity: 1;
 }
 
-.main-playButton-PlayButton > button,
-.main-playButton-PlayButton button,
-[data-testid="control-button-playpause"],
-.main-playPauseButton-button {
-  background-color: var(--spice-button);
-  border-radius: var(--themer-radius-sm);
-  color: var(--themer-on-accent);
+.view-homeShortcutsGrid-shortcut .view-homeShortcutsGrid-PlayButtonContainer .view-homeShortcutsGrid-playButton {
+  box-shadow: none;
+  opacity: 1;
 }
 
-.main-playButton-PlayButton button:hover,
-[data-testid="control-button-playpause"]:hover,
-.main-playPauseButton-button:hover {
+/* The button sits over the name's end, keep the name clear of it */
+.view-homeShortcutsGrid-shortcut .view-homeShortcutsGrid-main .view-homeShortcutsGrid-nameContainer {
+  margin-inline-end: 48px;
+}
+
+button[data-encore-id="buttonPrimary"]:hover > [class*="button-icon-only"] {
   background-color: var(--spice-button-active);
   transform: none;
 }
@@ -221,24 +235,6 @@ button[data-encore-id="buttonTertiary"] {
 .x-filterChip-chip,
 [class*="Chip"] {
   border-radius: var(--themer-radius-sm);
-}
-
-/* Popups and context menus */
-.main-contextMenu-menu,
-.main-contextMenu-tippy,
-.encore-layout-themes .main-contextMenu-menu {
-  background-color: var(--spice-main-elevated);
-  border: 1px solid var(--themer-line-strong);
-  border-radius: var(--themer-radius-md);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-}
-
-.main-contextMenu-menuItemButton {
-  border-radius: var(--themer-radius-sm);
-}
-
-.main-contextMenu-menuItemButton:hover {
-  background-color: var(--spice-highlight);
 }
 
 /* Scrollbars */
@@ -263,4 +259,407 @@ button[data-encore-id="buttonTertiary"] {
 code,
 pre {
   font-family: var(--themer-font-mono);
+}
+
+/* Top bar: 48px with 36px controls. Spotify's grid squeezes the auto nav row, so the row gets a fixed height. */
+.Root__top-container {
+  grid-template-rows: auto 48px 1fr auto;
+}
+
+.Root__globalNav {
+  height: 48px;
+  padding: 6px 8px;
+}
+
+.Root__globalNav button.e-10451-legacy-button:not(#search-dropdown *),
+.Root__globalNav .main-globalNav-navLink {
+  block-size: 36px;
+  inline-size: 36px;
+  min-block-size: 36px;
+  min-inline-size: 36px;
+  padding: 0;
+}
+
+.Root__globalNav .main-globalNav-searchSection,
+.Root__globalNav .main-globalNav-searchContainer,
+.Root__globalNav .main-globalNav-searchInputSection,
+.Root__globalNav .main-globalNav-searchInputWrapper,
+.Root__globalNav .main-globalNav-searchInputSection > form {
+  block-size: 36px;
+}
+
+.Root__globalNav input.x-searchInput-searchInputInput {
+  block-size: 36px;
+  min-block-size: 36px;
+  padding-block: 0;
+}
+
+.Root__globalNav .main-globalNav-searchInputSection > form button.e-10451-legacy-button:not(#search-dropdown *) {
+  block-size: 28px;
+  inline-size: 28px;
+  min-block-size: 28px;
+  min-inline-size: 28px;
+}
+
+.main-topBar-topbarContentRight figure,
+.main-topBar-topbarContentRight figure > div,
+.main-topBar-topbarContentRight figure img {
+  height: 24px !important;
+  width: 24px !important;
+}
+
+.Root__globalNav button.e-10451-legacy-button:not(#search-dropdown *) svg {
+  block-size: 18px;
+  inline-size: 18px;
+}
+
+.Root__globalNav .e-10451-form-input-icon__icon--leading button {
+  margin-inline-start: 8px;
+}
+
+.Root__globalNav input.x-searchInput-searchInputInput {
+  padding-inline-start: 40px;
+}
+
+/* Library header: tighter padding, smaller buttons and chips */
+.main-yourLibraryX-header {
+  padding: 6px 12px 4px;
+}
+
+.main-yourLibraryX-headerContent button {
+  block-size: 28px;
+  min-block-size: 28px;
+  padding-block: 0;
+}
+
+.main-yourLibraryX-filterArea {
+  margin-block: 2px 4px;
+}
+
+.main-yourLibraryX-filterArea,
+.main-yourLibraryX-filterArea .search-searchCategory-carouselButton,
+.main-yourLibraryX-filterArea button {
+  block-size: 26px;
+  min-block-size: 26px;
+}
+
+.main-yourLibraryX-filterArea button {
+  padding-block: 0;
+  padding-inline: 10px;
+}
+
+.main-yourLibraryX-rootListHeader,
+.main-yourLibraryX-libraryFilter {
+  block-size: 28px;
+  padding-block: 0;
+}
+
+.main-yourLibraryX-libraryFilter .x-filterBox-filterInputContainer,
+.main-yourLibraryX-libraryFilter > button {
+  block-size: 28px;
+  min-block-size: 28px;
+}
+
+.main-yourLibraryX-libraryRootlist {
+  gap: 4px;
+}
+
+/* Library rows: theme hover and press colours */
+.main-yourLibraryX-libraryItemContainer {
+  --background-highlight: var(--spice-highlight);
+  --background-tinted-highlight: var(--spice-highlight);
+  --background-tinted-press: var(--themer-accent-soft);
+}
+
+/* Library rows: hovering blurs the cover and puts a plain play icon on it instead of an accent fill */
+.main-yourLibraryX-listItem .x-entityImage-imageContainer img {
+  transition: filter 120ms ease;
+}
+
+.main-yourLibraryX-listItem:hover .x-entityImage-imageContainer img {
+  filter: blur(1.5px) brightness(0.8);
+}
+
+.main-yourLibraryX-listItem .main-playButton-PlayButton button {
+  background-color: transparent;
+  color: var(--spice-text);
+}
+
+.main-yourLibraryX-listItem .main-playButton-PlayButton button:hover {
+  background-color: transparent;
+  transform: scale(1.1);
+}
+
+/* Entity header (playlist, album, ...): smaller cover and title, no forced minimum height */
+.main-entityHeader-container {
+  block-size: auto !important;
+  min-block-size: 0 !important;
+  padding-block-end: 12px !important;
+}
+
+.main-entityHeader-contentWrapper {
+  min-block-size: 0;
+  padding-block-start: 16px;
+}
+
+.main-entityHeader-imageContainer,
+.main-entityHeader-imageContainer .main-entityHeader-image {
+  block-size: 112px !important;
+  inline-size: 112px !important;
+  min-inline-size: 112px !important;
+}
+
+.main-entityHeader-title h1 {
+  font-size: 2.5rem !important;
+  line-height: 1.15;
+}
+
+.main-entityHeader-metaData {
+  margin-block-start: 4px;
+}
+
+/* Action bar under the header: smaller play button and icon buttons */
+.main-actionBar-ActionBar {
+  padding-block: 8px !important;
+}
+
+.main-actionBar-ActionBarRow {
+  block-size: 40px;
+}
+
+.main-actionBar-ActionBarRow > * {
+  margin-inline-end: 12px !important;
+}
+
+.main-actionBar-ActionBarPlayButtonContainer,
+.main-actionBar-ActionBarPlayButtonContainer button {
+  block-size: 40px !important;
+  inline-size: 40px !important;
+  min-block-size: 40px !important;
+  min-inline-size: 40px !important;
+}
+
+.main-actionBar-ActionBarPlayButtonContainer button > span {
+  block-size: 100%;
+  inline-size: 100%;
+  min-block-size: 0;
+}
+
+.main-actionBar-ActionBarPlayButtonContainer button svg {
+  block-size: 18px;
+  inline-size: 18px;
+}
+
+.main-actionBar-ActionBarRow > button.e-10451-legacy-button {
+  block-size: 40px;
+  min-block-size: 40px;
+  padding-block: 8px;
+}
+
+.main-actionBar-ActionBarRow > button.e-10451-legacy-button svg {
+  block-size: 24px;
+  inline-size: 24px;
+}
+
+.main-actionBar-exploreButton,
+.main-actionBar-exploreButtonImageWrapper,
+.main-actionBar-exploreButtonImageWrapper > * {
+  block-size: 32px;
+  inline-size: 24px;
+}
+
+.main-actionBar-exploreButton > div:first-child {
+  display: none;
+}
+
+/* Context menus and the search dropdown look like KDE (Kvantum) menus: surface-raised ground, line border,
+   radius-md, 4px inset, accent-soft hover with radius-sm, 28px rows, no shadow */
+.main-contextMenu-menu,
+.encore-layout-themes .main-contextMenu-menu {
+  background-color: var(--spice-main-elevated);
+  border: 1px solid var(--themer-line);
+  border-radius: var(--themer-radius-md);
+  box-shadow: none;
+  padding: 4px;
+}
+
+.main-contextMenu-menuItemButton {
+  border-radius: var(--themer-radius-sm);
+  min-block-size: 28px;
+  padding-block: 4px;
+}
+
+.main-contextMenu-menu .main-contextMenu-menuItem .main-contextMenu-menuItemButton:hover,
+.main-contextMenu-menu .main-contextMenu-menuItem .main-contextMenu-menuItemButton:focus,
+.main-contextMenu-menu .main-contextMenu-menuItem .main-contextMenu-menuItemButton[aria-expanded="true"] {
+  background-color: var(--themer-accent-soft);
+}
+
+#search-dropdown > div {
+  background-color: var(--spice-main-elevated);
+  border: 1px solid var(--themer-line);
+  border-radius: var(--themer-radius-md);
+  box-shadow: none;
+  padding: 4px;
+}
+
+#search-dropdown [role="row"] {
+  border-radius: var(--themer-radius-sm);
+}
+
+#search-dropdown [role="row"]:hover,
+#search-dropdown [role="row"][aria-selected="true"],
+#search-dropdown [role="row"]:focus-within {
+  background-color: var(--themer-accent-soft) !important;
+}
+
+/* Library rows in "Default list" mode (the row whose min size is control-size-larger): 52px instead of 64px with a
+   40px cover. Only with theme.js's row height patch, the virtual list must use the same height. */
+.themer-compact-library .main-yourLibraryX-listItem [data-encore-id="listRow"][style*="control-size-larger"] {
+  --box-min-block-size: 52px !important;
+  --box-padding: 6px !important;
+  block-size: 52px;
+  min-block-size: 52px;
+  padding-block: 6px;
+}
+
+/* Everything in the cover column is 40px (Spotify leaves the cover and its play button at 48px, which pushed the
+   cover below the title's centre) */
+.themer-compact-library .main-yourLibraryX-listItem [data-encore-id="listRow"][style*="control-size-larger"] :is(
+  .e-10451-legacy-list-row__header-side,
+  .e-10451-legacy-list-row__header-side-flex,
+  .e-10451-legacy-list-row__header-side-flex > div,
+  .e-10451-legacy-list-row__header-side-flex > div > div,
+  .x-entityImage-imageContainer,
+  .x-entityImage-imageContainer img,
+  .main-playButton-PlayButton,
+  .main-playButton-PlayButton button) {
+  block-size: 40px !important;
+  inline-size: 40px !important;
+}
+
+/* The title column is 44px; centre it on the 40px cover instead of hanging it from the top */
+.themer-compact-library .main-yourLibraryX-listItem 
+  [data-encore-id="listRow"][style*="control-size-larger"] .e-10451-legacy-list-row__header {
+  align-items: center;
+  block-size: 40px;
+  display: flex;
+}
+
+/* Action bar: everything sits on the play button's centre line */
+.main-actionBar-ActionBarRow {
+  align-items: center;
+}
+
+.main-actionBar-exploreButton {
+  align-items: center;
+  display: flex;
+  padding: 0;
+}
+
+.main-actionBar-exploreButtonImageWrapper {
+  inset: 0;
+  margin: 0;
+}
+
+/* Playlist and album headers: a flat surface instead of the cover's colour fading out */
+.main-entityHeader-backgroundColor,
+[class*="actionBarBackground"] {
+  background: var(--spice-card) !important;
+}
+
+/* The surface ends under the action row and chips instead of cutting through the track list */
+[class*="actionBarBackground"] {
+  block-size: 112px !important;
+}
+
+/* Now playing bar: Spotify pads its top by 8px under the hairline (and the same 8px outside the window at the
+   bottom), which left the cover 16px from the line and 8px from the edge. */
+.Root__now-playing-bar {
+  padding-block-start: 0;
+}
+
+.main-nowPlayingBar-left,
+.main-nowPlayingWidget-nowPlaying {
+  align-items: center;
+}
+
+/* Playing track: the green equaliser gif is replaced by bars in the accent colour (the gif has no theme hook) */
+.main-trackList-rowMarker > img[src*="equaliser"] {
+  display: none;
+}
+
+.main-trackList-rowMarker:has(> img[src*="equaliser"])::before {
+  animation: themer-equaliser 1.1s ease-in-out infinite;
+  background:
+    linear-gradient(var(--spice-button), var(--spice-button)) 0 100% / 3px 40% no-repeat,
+    linear-gradient(var(--spice-button), var(--spice-button)) 50% 100% / 3px 90% no-repeat,
+    linear-gradient(var(--spice-button), var(--spice-button)) 100% 100% / 3px 60% no-repeat;
+  block-size: 14px;
+  content: "";
+  display: block;
+  inline-size: 14px;
+}
+
+.main-trackList-rowMarker:has(> img[src*="static"])::before {
+  animation-play-state: paused;
+}
+
+.main-trackList-trackListRow:hover .main-trackList-rowMarker::before {
+  display: none;
+}
+
+@keyframes themer-equaliser {
+  0%, 100% {
+    background-size: 3px 40%, 3px 90%, 3px 60%;
+  }
+
+  33% {
+    background-size: 3px 100%, 3px 40%, 3px 80%;
+  }
+
+  66% {
+    background-size: 3px 60%, 3px 70%, 3px 30%;
+  }
+}
+
+/* Compact header (shown when the page is scrolled): the cover, added by theme.js, sits left of the play button */
+.themer-topbar-cover {
+  block-size: 40px;
+  border-radius: var(--themer-radius-sm);
+  flex: none;
+  inline-size: 40px;
+  margin-inline-end: 12px;
+  object-fit: cover;
+}
+
+/* Home: no colour fading in from the top. The chips and shortcut tiles were translucent over that fade, so they get
+   solid surfaces. The sticky chip bar has a plain ground (Spotify darkens it with a 60% black overlay) and a hairline. */
+.main-home-homeHeader {
+  background: none !important;
+}
+
+.main-home-filterChipsSectionActive {
+  background-color: var(--spice-main) !important;
+  border-bottom: 1px solid var(--themer-line);
+}
+
+.main-home-filterChipsSectionActive::after {
+  display: none;
+}
+
+.main-home-filterChipsContainer .e-10451-legacy-chip[aria-checked="false"] .e-10451-legacy-chip__inner {
+  background-color: var(--spice-highlight);
+}
+
+.main-home-filterChipsContainer .e-10451-legacy-chip[aria-checked="false"]:hover .e-10451-legacy-chip__inner {
+  background-color: var(--spice-highlight-elevated);
+}
+
+.view-homeShortcutsGrid-shortcut {
+  background-color: var(--spice-card);
+}
+
+.view-homeShortcutsGrid-shortcut:hover {
+  background-color: var(--spice-highlight);
 }

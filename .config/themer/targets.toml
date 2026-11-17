@@ -182,19 +182,22 @@ output = "~/Obsidian/.config/.obsidian-desktop/snippets/PDF-Export-Darkmode.css"
 # spicetify/config-xpui.ini is Spicetify's own file and not in the dotfiles (it writes its version and Spotify's into
 # it on every run). The reload sets the settings this setup needs there, then re-applies the theme to Spotify without
 # restarting it; restart Spotify to see a change. On a new machine: `themer apply --only spicetify --force`.
-# After a Spotify update Spicetify's backup no longer matches and `spicetify apply` only warns; reinstall Spotify and
-# run `spicetify backup apply` then.
-# Spotify is launched as `spotify --disable-gpu-sandbox` (the GPU sandbox fails on kernel 7.0.0-38).
+# Spotify is the Flathub com.spotify.Client (user install; the deb cannot play local files with FFmpeg 8). Launch it
+# with ~/scripts/kde/open-program/open_spotify.sh: it updates Spicetify daily and redoes the backup after a Flatpak
+# update. The Flatpak needs `flatpak override --user --filesystem=<dir>` for the cache and Music dirs on /mnt.
 # The extension spicetify/Extensions/privateSession.js (enabled by the reload) keeps the private session on and
 # renews it before the 6 h limit; switching it off in the Profile menu keeps it off until Spotify restarts.
+# spicetify/Themes/Themer/theme.js (not a template) patches the Your Library row height to match user.css.
 [[target]]
 name = "Spicetify colors"
 dotfiles = true
 group = "spicetify"
 template = "spicetify/color.ini"
 output = "~/.config/spicetify/Themes/Themer/color.ini"
-reload = """spicetify -q config current_theme Themer color_scheme '' inject_css 1 replace_colors 1 inject_theme_js 1 \
-  sidebar_config 0 custom_apps marketplace extensions privateSession.js; spicetify apply --no-restart"""
+reload = """spicetify -q config \
+  spotify_path "$HOME/.local/share/flatpak/app/com.spotify.Client/x86_64/stable/active/files/extra/share/spotify/" \
+  prefs_path "$HOME/.var/app/com.spotify.Client/config/spotify/prefs" \
+  current_theme Themer color_scheme '' inject_css 1 replace_colors 1 inject_theme_js 1 sidebar_config 0 custom_apps marketplace extensions privateSession.js; spicetify apply --no-restart"""
 
 [[target]]
 name = "Spicetify styles"

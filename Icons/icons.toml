@@ -247,7 +247,7 @@ themes = ["Breeze Chameleon Dark"]
 
 [[app]]
 name = "spotify-client"
-aliases = ["spotify"]
+aliases = ["spotify", "com.spotify.Client"]
 themes = ["hicolor"]
 
 [[app]]
