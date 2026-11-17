@@ -69,14 +69,20 @@ reload = "~/scripts/slack/patch.sh ensure"
 # ---- Plasma panels ---------------------------------------------------------------------------------------------------
 
 # Panel sizes that follow the UI font (the clock), so the screen profile changes them too. plasmashell only takes a new
-# UI font when it starts, so the reload restarts it; that happens when the font size changed (a profile switch).
+# UI font when it starts, so the reload restarts it. Themer runs every reload on a theme or mode switch, but the file
+# only changes with the font size (a profile switch): the copy of the last applied file skips the rest, since KDE's unit
+# allows 3 starts a minute and a few quick switches left Plasma dead (start-limit-hit). reset-failed clears that limit,
+# and a shell that is not running is started even when nothing changed.
 [[target]]
 name = "Plasma panel fonts"
 group = "kde"
 template = "plasma/panels.js"
 output = "~/.cache/themer/plasma/panels.js"
-reload = """qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$(cat ~/.cache/themer/plasma/panels.js)" \
-  >/dev/null && systemctl --user restart plasma-plasmashell.service"""
+reload = """f=~/.cache/themer/plasma/panels.js; a=~/.cache/themer/plasma/panels.applied.js
+systemctl --user is-active -q plasma-plasmashell.service && cmp -s "$f" "$a" && exit 0
+qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$(cat "$f")" >/dev/null && cp "$f" "$a"
+systemctl --user reset-failed plasma-plasmashell.service
+systemctl --user restart plasma-plasmashell.service"""
 
 # ---- Desktop Dots -------------------------------------------------------------------------------------------------
 

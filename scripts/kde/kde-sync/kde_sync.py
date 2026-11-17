@@ -736,7 +736,8 @@ def load_panels(data: dict[str, Any]) -> None:
     if THEMER_PANELS_JS.exists():
         plasma_script(THEMER_PANELS_JS.read_text())
     if restart:
-        # Panels read their opacity only when plasmashell starts.
+        # Panels read their opacity only when plasmashell starts. reset-failed: the unit allows 3 starts a minute.
+        subprocess.run(["systemctl", "--user", "reset-failed", "plasma-plasmashell.service"], check=False)
         subprocess.run(["systemctl", "--user", "restart", "plasma-plasmashell.service"], check=False)
 
 
