@@ -83,3 +83,23 @@
     }
   }).observe(document.documentElement, { childList: true, subtree: true });
 })();
+
+// Live restyle: Themer's reload copies new colors.css and user.css into Spotify's xpui folder (`spicetify apply`).
+// Spotify reads them only at start, so poll them and swap a changed sheet in place, without reloading the page.
+(function themerLiveStyles() {
+  const last = {};
+  const check = async (link) => {
+    // link.href is absolute: the page's own URL changes with the route, so a relative name would point elsewhere.
+    const name = link.href.split('?')[0];
+    try {
+      const text = await (await fetch(name, { cache: 'no-store' })).text();
+      if (last[name] !== undefined && last[name] !== text) {
+        link.href = `${name}?v=${Date.now()}`;
+      }
+      last[name] = text;
+    } catch (err) {
+      // The file is missing for a moment while spicetify rewrites the folder.
+    }
+  };
+  setInterval(() => document.querySelectorAll('link.userCSS').forEach(check), 1000);
+})();
