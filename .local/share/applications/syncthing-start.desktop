@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Start Syncthing
+Exec=syncthing
+# Hides the package's entry: ~/scripts/user_startup.sh starts Syncthing at login
+Hidden=true

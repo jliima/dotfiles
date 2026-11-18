@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Syncthing
+GenericName=File synchronization UI
+Comment=Syncthing's Web UI as a Chromium app (replaces the package's entry of the same name)
+Exec=chromium --app=https://127.0.0.1:8384/
+Icon=syncthing
+Terminal=false
+Keywords=synchronization;interface;
+Categories=Network;FileTransfer;P2P;
