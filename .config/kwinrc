@@ -42,6 +42,7 @@ dimscreenEnabled=true
 fadedesktopEnabled=true
 moveblurEnabled=true
 slideEnabled=false
+wobblywindowsEnabled=false
 
 [Round-Corners]
 ActiveOuterOutlineUseCustom=false
